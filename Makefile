@@ -6,7 +6,7 @@
 #    By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/07/25 14:26:07 by ronanpoder       ###   ########.fr        #
+#    Updated: 2022/07/26 16:53:24 by ronanpoder       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRCDIR				:=	./src
 OBJDIR				:=	./obj
 
 SRCS				:=	main.c \
+						init.c \
 						metachar_interpreter.c \
 
 CC					:=	cc

@@ -1,35 +1,24 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/07/26 16:56:45 by ronanpoder       ###   ########.fr       */
+/*   Created: 2022/07/26 16:43:05 by ronanpoder        #+#    #+#             */
+/*   Updated: 2022/07/26 16:53:04 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	main(int argc, char **argv)
+t_data	*init_data(void)
 {
-	char *test;
 	t_data	*data;
 
-	/* Delete */
-	t_shellvar	*shellvar1;
-	shellvar1 = malloc(sizeof(t_shellvar));
-	shellvar1->key = "VAR";
-	shellvar1->value = "coucou";
-
-	data = init_data();
-	data->shellvars = ft_lstnew(shellvar1);
-	test = "echo $VAR";
-
-	metachar_interpreter(data, test);
-	printf("len arg %d", ft_strlen(test));
-
-	//echo coucou
-	return (0);
+	data = malloc(sizeof(t_data));
+	if (!data)
+		return (NULL);
+	data->shellvars = NULL;
+	return (data);
 }

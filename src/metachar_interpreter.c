@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:02:08 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/07/25 17:41:25 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/07/26 17:04:16 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,11 +72,16 @@ static int	dollar_value_len(char *str, int i)
 		j++;
 	}
 	dollar_key[j] = '\0';
-	printf("dollar_key = %s\n", dollar_key);
 	dollar_value = getenv(dollar_key);
+	printf("dollar_key = %s\n", dollar_key);
 	printf("dollar_value = %s\n", dollar_value);
 	dollar_value_len = ft_strlen(dollar_value);
 	return (dollar_value_len);
+}
+
+char	*find_dollar_value(t_list *shellvars, char *dollar_key)
+{
+	while (s)
 }
 
 static int	dst_len(char *str)
@@ -98,7 +103,6 @@ static int	dst_len(char *str)
 			sgl_quote = !sgl_quote;
 		if (str[i] == '$' && str[i + 1] && is_to_interpret(str, i, sgl_quote, dbl_quote))
 		{
-			printf("ok\n");
 			len += dollar_value_len(str, i + 1);
 			i += dollar_key_len(str, i + 1);
 		}
@@ -110,7 +114,7 @@ static int	dst_len(char *str)
 	return (len);
 }
 
-char *metachar_interpreter(char *src)
+char *metachar_interpreter(t_data *data, char *src)
 {
 	char *dst;
 

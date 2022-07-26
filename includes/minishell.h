@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/07/22 15:42:26 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/07/26 16:57:02 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,24 @@
 # include "stdio.h"
 # include "libft.h"
 
-char *metachar_interpreter(char *src);
+typedef struct s_shellvar {
+	char *key;
+	char *value;
+}	t_shellvar;
+
+typedef struct s_data {
+	t_list	*shellvars;
+}	t_data;
+
+/* Main.c */
+
+/* Init.c */
+t_data	*init_data(void);
+
+/* Interpretor.c */
+char *metachar_interpreter(t_data *data, char *src);
+
+
 
 #endif
 
