@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   metachar_interpreter.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:02:08 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/07/26 17:04:16 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/07/26 19:21:10 by margot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,21 @@ static int	dollar_key_len(char *str, int i)
 	return (len);
 }
 
-static int	dollar_value_len(char *str, int i)
+static char	*find_dollar_value(t_list *shellvars, char *dollar_key)
+{
+	char	*dollar_value;
+	
+	while (shellvars)
+	{
+		if (ft_strcmp(((t_shellvar *)shellvars->content)->key, dollar_key) == 0)
+			return (((t_shellvar *)shellvars->content)->value);	
+		else	
+			shellvars = shellvars->next;
+	}
+	return (NULL);
+}
+
+static int	dollar_value_len(t_data *data, char *str, int i)
 {
 	int		dollar_value_len;
 	char	*dollar_key;
@@ -72,19 +86,16 @@ static int	dollar_value_len(char *str, int i)
 		j++;
 	}
 	dollar_key[j] = '\0';
-	dollar_value = getenv(dollar_key);
+	dollar_value = getenv(dollar_key); /*cherche dans env sinon cherche dans lst >> priorité ? */
+	if (dollar_value == NULL)
+		dollar_value = find_dollar_value(data->shellvars, dollar_key);
 	printf("dollar_key = %s\n", dollar_key);
 	printf("dollar_value = %s\n", dollar_value);
 	dollar_value_len = ft_strlen(dollar_value);
 	return (dollar_value_len);
 }
 
-char	*find_dollar_value(t_list *shellvars, char *dollar_key)
-{
-	while (s)
-}
-
-static int	dst_len(char *str)
+static int	dst_len(t_data *data, char *str)
 {
 	int		i;
 	bool	sgl_quote;
@@ -103,14 +114,14 @@ static int	dst_len(char *str)
 			sgl_quote = !sgl_quote;
 		if (str[i] == '$' && str[i + 1] && is_to_interpret(str, i, sgl_quote, dbl_quote))
 		{
-			len += dollar_value_len(str, i + 1);
+			len += dollar_value_len(data, str, i + 1);
 			i += dollar_key_len(str, i + 1);
 		}
 		else
 			len++;
 		i++;
 	}
-	printf("len = %d", len);
+	printf("total dst_len = %d\n", len);
 	return (len);
 }
 
@@ -118,10 +129,11 @@ char *metachar_interpreter(t_data *data, char *src)
 {
 	char *dst;
 
-	printf("src %s\n", src);
+	printf("src = %s\n", src);
 	if (!has_metachar(src))
 		return (src);
-	dst_len(src);
+	dst_len(data, src);
+	
 	return (dst);
 }
 

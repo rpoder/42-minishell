@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/07/26 16:56:45 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/07/26 19:26:26 by margot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,12 +24,12 @@ int	main(int argc, char **argv)
 	shellvar1->value = "coucou";
 
 	data = init_data();
+	/* si readline declaration de variable (avec =), lstnew puis lstaddback de shellvars */
+	
 	data->shellvars = ft_lstnew(shellvar1);
 	test = "echo $VAR";
-
+	
+	printf("src_len = %d\n", ft_strlen(test));
 	metachar_interpreter(data, test);
-	printf("len arg %d", ft_strlen(test));
-
-	//echo coucou
 	return (0);
 }
