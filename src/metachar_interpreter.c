@@ -6,7 +6,7 @@
 /*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:02:08 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/07/26 19:21:10 by margot           ###   ########.fr       */
+/*   Updated: 2022/07/27 15:08:41 by margot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,8 +86,8 @@ static int	dollar_value_len(t_data *data, char *str, int i)
 		j++;
 	}
 	dollar_key[j] = '\0';
-	dollar_value = getenv(dollar_key); /*cherche dans env sinon cherche dans lst >> priorité ? */
-	if (dollar_value == NULL)
+//	dollar_value = /*cherche dans notre env sinon cherche dans lst */
+//	if (dollar_value == NULL)
 		dollar_value = find_dollar_value(data->shellvars, dollar_key);
 	printf("dollar_key = %s\n", dollar_key);
 	printf("dollar_value = %s\n", dollar_value);
