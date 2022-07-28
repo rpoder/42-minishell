@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/07/27 16:35:54 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/07/28 14:59:56 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,14 @@ typedef struct s_shellvar {
 	char *value;
 }	t_shellvar;
 
+
+// a checker norminettouille "bool	sgl_quote = false";
+
+typedef struct s_quotes {
+	bool	sgl_quote;
+	bool	dbl_quote;
+}	t_quotes;
+
 typedef struct s_data {
 	t_list	*shellvars;
 }	t_data;
@@ -31,7 +39,8 @@ typedef struct s_data {
 /* Main.c */
 
 /* init.c */
-t_data	*init_data(void);
+t_data		*init_data(void);
+t_quotes	init_quotes(void);
 
 /* metachar_interpreter.c */
 char 	*metachar_interpreter(t_data *data, char *src);
@@ -48,6 +57,8 @@ int		dollar_key_len(char *str, int i);
 int		dollar_value_len(t_data *data, char *str, int i);
 int		interpreted_dst_len(t_data *data, char *str);
 
+/* metachar_interpreter_setters.c */
+t_quotes	set_quotes(char c, t_quotes quotes);
 
 
 #endif

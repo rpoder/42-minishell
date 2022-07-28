@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 15:28:56 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/07/27 15:43:05 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/07/28 14:56:15 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,38 +45,35 @@ int	dollar_value_len(t_data *data, char *str, int i)
 //	dollar_value = /*cherche dans notre env sinon cherche dans lst */
 //	if (dollar_value == NULL)
 	dollar_value = find_dollar_value(data->shellvars, dollar_key);
-	printf("dollar_key = %s\n", dollar_key);
-	printf("dollar_value = %s\n", dollar_value);
 	dollar_value_len = ft_strlen(dollar_value);
 	return (dollar_value_len);
 }
 
 int	interpreted_dst_len(t_data *data, char *str)
 {
-	int		i;
-	bool	sgl_quote;
-	bool	dbl_quote;
-	int		len;
+	int			i;
+	t_quotes	quotes;
+	int			len;
+	int			tmp;
 
-	sgl_quote = false;
-	dbl_quote = false;
+	quotes = init_quotes();
 	i = 0;
 	len = 0;
-	while(str[i])
+	while(str[i++])
 	{
-		if (str[i] == '\"')
-			dbl_quote = !dbl_quote;
-		if (str[i] == '\'')
-			sgl_quote = !sgl_quote;
-		if (str[i] == '$' && str[i + 1] && is_to_interpret(str, i, sgl_quote, dbl_quote))
+		quotes = set_quotes(str[i], quotes);
+		if (str[i] == '$' && is_to_interpret(str, i, quotes.sgl_quote, quotes.dbl_quote))
 		{
-			len += dollar_value_len(data, str, i + 1);
-			i += dollar_key_len(str, i + 1);
+			tmp = dollar_value_len(data, str, i + 1);
+			if (tmp > 0)
+				i = i + dollar_key_len(str, i + 1);
+			else
+				len++;
+			len = len + tmp;
 		}
 		else
 			len++;
-		i++;
 	}
-	printf("total dst_len = %d\n", len);
+	printf("INTERPRETED_DST_LEN = %d\n", len);
 	return (len);
 }

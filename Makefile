@@ -6,7 +6,7 @@
 #    By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/07/27 15:38:32 by ronanpoder       ###   ########.fr        #
+#    Updated: 2022/07/28 14:49:50 by ronanpoder       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS				:=	main.c \
 						metachar_interpreter.c \
 						metachar_interpreter_utils.c \
 						metachar_interpreter_len.c \
+						metachar_interpreter_setters.c \
 
 CC					:=	cc
 
