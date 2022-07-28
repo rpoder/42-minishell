@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/07/28 14:59:56 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/07/28 15:14:41 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,6 @@ typedef struct s_shellvar {
 	char *value;
 }	t_shellvar;
 
-
 // a checker norminettouille "bool	sgl_quote = false";
 
 typedef struct s_quotes {
@@ -34,6 +33,7 @@ typedef struct s_quotes {
 
 typedef struct s_data {
 	t_list	*shellvars;
+	char	*prompt_line;
 }	t_data;
 
 /* Main.c */

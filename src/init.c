@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:43:05 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/07/28 14:57:23 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/07/28 15:17:11 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,7 @@ t_data	*init_data(void)
 	if (!data)
 		return (NULL);
 	data->shellvars = NULL;
+	data->prompt_line = NULL;
 	return (data);
 }
 
