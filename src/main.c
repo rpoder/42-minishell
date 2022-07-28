@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/07/28 16:32:58 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/07/28 16:40:43 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int argc, char **argv)
 
 	/* si readline declaration de variable (avec =), lstnew puis lstaddback de shellvars */
 
-	test = "echo \'VAR\'$VAR\'\'";
+	test = "echo $?";
 
 	printf("src_len = %d\n", ft_strlen(test));
 	metachar_interpreter(data, test);
