@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 15:32:13 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/07/28 14:20:36 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/07/28 16:26:41 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ int	has_metachar(char *str)
 
 int	is_to_interpret(char *str, int i, int sgl_quote, int dbl_quote)
 {
-	if (!str[i + 1] || str[i + 1] == '$' || str[i + 1] == ' ')
+	if (!str[i + 1] || is_separator(str[i + 1]))
 		return (0);
 	if (dbl_quote)
 		return (1);
