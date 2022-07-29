@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 15:32:13 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/07/29 15:18:45 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/07/29 16:24:05 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,14 +44,23 @@ int	is_separator(char c)
 	return (0);
 }
 
-char	*find_dollar_value(t_list *local_vars, char *dollar_key)
+char	*find_dollar_value(t_data *data, char *dollar_key)
 {
-	while (local_vars)
+	t_list	*tmp;
+
+	tmp = data->local_vars;
+	while (tmp)
 	{
-		if (ft_strcmp(((t_shellvar *)local_vars->content)->key, dollar_key) == 0)
-			return (((t_shellvar *)local_vars->content)->value);
-		else
-			local_vars = local_vars->next;
+		if (ft_strcmp(((t_shellvar *)tmp->content)->key, dollar_key) == 0)
+			return (((t_shellvar *)tmp->content)->value);
+		tmp = tmp->next;
+	}
+	tmp = data->env;
+	while (tmp)
+	{
+		if (ft_strcmp(((t_shellvar *)tmp->content)->key, dollar_key) == 0)
+			return (((t_shellvar *)tmp->content)->value);
+		tmp = tmp->next;
 	}
 	return (NULL);
 }

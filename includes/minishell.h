@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/07/29 15:24:24 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/07/29 16:19:56 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,11 +42,11 @@ typedef struct s_data {
 /* init.c */
 t_data		*init_data(char **env);
 t_quotes	init_quotes(void);
-void		add_shellvar(t_list *alst, char *key, char *value);
+void		add_shellvar(t_list **alst, char *key, char *value);
 
 /* metachar_interpreter.c */
 char 	*metachar_interpreter(t_data *data, char *src);
-char	*find_dollar_value(t_list *local_vars, char *dollar_key);
+char	*find_dollar_value(t_data *data, char *dollar_key);
 
 /* metachar_interpreter_utils.c */
 int		has_metachar(char *str);

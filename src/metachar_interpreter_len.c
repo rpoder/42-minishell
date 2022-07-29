@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 15:28:56 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/07/29 15:18:45 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/07/29 16:21:34 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	dollar_value_len(t_data *data, char *str, int i)
 	dollar_key[j] = '\0';
 //	dollar_value = /*cherche dans notre env sinon cherche dans lst */
 //	if (dollar_value == NULL)
-	dollar_value = find_dollar_value(data->local_vars, dollar_key);
+	dollar_value = find_dollar_value(data, dollar_key);
 	dollar_value_len = ft_strlen(dollar_value);
 	return (dollar_value_len);
 }

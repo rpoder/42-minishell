@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:43:05 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/07/29 15:51:06 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/07/29 16:08:40 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,15 @@ t_data	*init_data(char **env)
 		return (NULL);
 	set_env(data, env);
 
-	//add_shellvar(data->local_vars, alloc_and_fill("?"), alloc_and_fill("128"));
+	add_shellvar(&data->local_vars, alloc_and_fill("?"), alloc_and_fill("128"));
 	//delete
-	while (data->env)
-	{
-		printf("key: %s | value: %s\n", ((t_shellvar *)data->env->content)->key, ((t_shellvar *)data->env->content)->value);
-		data->env = data->env->next;
-	}
+	// t_list *tmp;
+	// tmp = data->env;
+	// while (tmp)
+	// {
+	// 	printf("key: %s |	value: %s\n", ((t_shellvar *)tmp->content)->key, ((t_shellvar *)tmp->content)->value);
+	// 	tmp = tmp->next;
+	// }
 	data->prompt_line = NULL;
 	return (data);
 }
@@ -43,7 +45,7 @@ t_quotes	init_quotes(void)
 	return (quotes);
 }
 
-void	add_shellvar(t_list *alst, char *key, char *value)
+void	add_shellvar(t_list **alst, char *key, char *value)
 {
 	t_list		*lst;
 	t_shellvar	*content;
@@ -52,6 +54,5 @@ void	add_shellvar(t_list *alst, char *key, char *value)
 	content->key = key;
 	content->value = value;
 	lst = ft_lstnew(content);
-	printf("lst->key %s\n", ((t_shellvar *)lst->content)->key);
-	ft_lstadd_back(&alst, lst);
+	ft_lstadd_back(alst, lst);
 }

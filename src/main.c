@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/07/29 15:18:45 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/07/29 16:26:51 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ int	main(int argc, char **argv, char **env)
 
 	/* si readline declaration de variable (avec =), lstnew puis lstaddback de local_vars */
 
-	test = "echo $?";
+	test = "echo \"$VSCODE_GIT_ASKPASS_EXTRA_ARGS\"";
 
 	printf("src_len = %d\n", ft_strlen(test));
 	metachar_interpreter(data, test);

@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:02:08 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/07/29 15:18:45 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/07/29 16:22:26 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static void	fill_with_dollar_value(t_data *data, char *src, int i, int j)
 
 	k = 0;
 	dollar_key = find_dollar_key(src, i + 1);
-	dollar_value = find_dollar_value(data->local_vars, dollar_key);
+	dollar_value = find_dollar_value(data, dollar_key);
 	free(dollar_key);
 	if(dollar_value)
 	{

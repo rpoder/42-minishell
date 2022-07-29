@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 12:24:39 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/07/29 15:48:50 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/07/29 15:56:29 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	set_env(t_data *data, char **env)
 	{
 		while (env[i])
 		{
-			add_shellvar(data->env, get_env_key(env[i]), get_env_value(env[i]));
+			add_shellvar(&data->env, get_env_key(env[i]), get_env_value(env[i]));
 			i++;
 		}
 	}
