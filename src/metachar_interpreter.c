@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:02:08 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/07/28 16:37:48 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/07/29 15:18:45 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,13 +20,12 @@ static void	fill_with_dollar_value(t_data *data, char *src, int i, int j)
 
 	k = 0;
 	dollar_key = find_dollar_key(src, i + 1);
-	dollar_value = find_dollar_value(data->shellvars, dollar_key);
+	dollar_value = find_dollar_value(data->local_vars, dollar_key);
 	free(dollar_key);
 	if(dollar_value)
 	{
 		while (dollar_value[k])
 		{
-			printf("j = %d\n", j);
 			data->prompt_line[j] = dollar_value[k];
 			j++;
 			k++;
@@ -74,7 +73,6 @@ char *metachar_interpreter(t_data *data, char *src)
 	if (!data->prompt_line)
 		return (NULL);
 	fill_interpreted_arg(data, src, dst_len);
-
 	printf("---------data->prompt_line = |%s|\n", data->prompt_line);
 	printf("len_final data->prompt_line = |%d|\n", ft_strlen(data->prompt_line));
 	return (data->prompt_line);

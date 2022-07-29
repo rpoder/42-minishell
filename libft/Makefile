@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
+#    By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/27 17:12:53 by mpourrey          #+#    #+#              #
-#    Updated: 2022/07/12 19:46:39 by mpourrey         ###   ########.fr        #
+#    Updated: 2022/07/29 13:00:35 by ronanpoder       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -36,6 +36,7 @@ SRC = ft_atoi.c ft_atoli.c \
 	ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstdelone.c ft_lstiter.c \
 	ft_lstlast.c ft_lstmap.c ft_lstnew.c ft_lstlen.c \
 	ft_printf.c printf_handle_write.c printf_utils.c \
+	ft_alloc_and_fill.c \
 
 OBJ = $(addprefix $(OBJ_PATH)/, $(SRC:.c=.o))
 
@@ -47,10 +48,10 @@ $(NAME) : $(OBJ)
 $(OBJ_PATH)/%.o : %.c | $(OBJ_PATH)
 	$(CC) $(CFLAGS) -c $< -o $@
 
-$(OBJ_PATH) : 
+$(OBJ_PATH) :
 	mkdir -p $(OBJ_PATH)
 
-clean : 
+clean :
 	$(DEL) $(OBJ)
 	$(DEL) $(OBJ_PATH)
 

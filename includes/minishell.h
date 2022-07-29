@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/07/28 15:14:41 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/07/29 15:24:24 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,19 +32,21 @@ typedef struct s_quotes {
 }	t_quotes;
 
 typedef struct s_data {
-	t_list	*shellvars;
+	t_list	*env;
+	t_list	*local_vars;
 	char	*prompt_line;
 }	t_data;
 
 /* Main.c */
 
 /* init.c */
-t_data		*init_data(void);
+t_data		*init_data(char **env);
 t_quotes	init_quotes(void);
+void		add_shellvar(t_list *alst, char *key, char *value);
 
 /* metachar_interpreter.c */
 char 	*metachar_interpreter(t_data *data, char *src);
-char	*find_dollar_value(t_list *shellvars, char *dollar_key);
+char	*find_dollar_value(t_list *local_vars, char *dollar_key);
 
 /* metachar_interpreter_utils.c */
 int		has_metachar(char *str);
@@ -60,6 +62,8 @@ int		interpreted_dst_len(t_data *data, char *str);
 /* metachar_interpreter_setters.c */
 t_quotes	set_quotes(char c, t_quotes quotes);
 
+/* get_env */
+void	set_env(t_data *data, char **env);
 
 #endif
 

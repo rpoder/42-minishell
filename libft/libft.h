@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 16:32:48 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/07/12 19:47:08 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/07/29 13:00:10 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ int		ft_toupper(int c);
 char	*get_next_line(int fd);
 char	*ft_strndup_gnl(char *str, int start, int len);
 char	*ft_strjoin_gnl(char *s1, char *s2);
+char	*alloc_and_fill(char *str);
 
 ////////////////*LIST*////////////////////
 typedef struct s_list
