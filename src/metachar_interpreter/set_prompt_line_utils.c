@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   metachar_interpreter_utils.c                       :+:      :+:    :+:   */
+/*   set_prompt_line_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 15:32:13 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/07/29 16:24:05 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/08/01 17:08:16 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	is_separator(char c)
 	return (0);
 }
 
-char	*find_dollar_value(t_data *data, char *dollar_key)
+char	*get_dollar_value(char *dollar_key)
 {
 	t_list	*tmp;
 
@@ -65,15 +65,14 @@ char	*find_dollar_value(t_data *data, char *dollar_key)
 	return (NULL);
 }
 
-char	*find_dollar_key(char *str, int i)
+char	*get_dollar_key(char *str, int i)
 {
 	int j;
 	char *dollar_key;
 
 	j = 0;
 	dollar_key = malloc((dollar_key_len(str, i) + 1) * sizeof(char));
-	if (!dollar_key)
-		return (NULL);
+	// proteger
 	while (str[i + j] && !is_separator(str[i + j]))
 	{
 		dollar_key[j] = str[i + j];

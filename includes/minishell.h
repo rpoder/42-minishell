@@ -6,18 +6,23 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/07/29 16:19:56 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/08/01 18:03:03 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef MINISHELL_H
 # define MINISHELL_H
 
-# include "stdbool.h"
-# include "stdlib.h"
-# include "unistd.h"
-# include "stdio.h"
+# include <stdbool.h>
+# include <stdlib.h>
+# include <unistd.h>
+# include <stdio.h>
+# include <readline/readline.h>
+# include <readline/history.h>
 # include "libft.h"
+
+typedef struct s_data t_data;
+extern t_data *data;
 
 typedef struct s_shellvar {
 	char *key;
@@ -39,31 +44,33 @@ typedef struct s_data {
 
 /* Main.c */
 
+/* utils.c */
+void	add_shellvar(t_list **alst, char *key, char *value);
+t_quotes	set_quotes(char c, t_quotes quotes);
+
 /* init.c */
 t_data		*init_data(char **env);
 t_quotes	init_quotes(void);
-void		add_shellvar(t_list **alst, char *key, char *value);
 
 /* metachar_interpreter.c */
-char 	*metachar_interpreter(t_data *data, char *src);
-char	*find_dollar_value(t_data *data, char *dollar_key);
+char 	*metachar_interpreter(char *src);
 
-/* metachar_interpreter_utils.c */
-int		has_metachar(char *str);
-int		is_to_interpret(char *str, int i, int sgl_quote, int dbl_quote);
-int		is_separator(char c);
-char	*find_dollar_key(char *str, int i);
+/* set_prompt_line_utils.c */
+int	has_metachar(char *str);
+int	is_to_interpret(char *str, int i, int sgl_quote, int dbl_quote);
+int	is_separator(char c);
+char	*get_dollar_value(char *dollar_key);
+char	*get_dollar_key(char *str, int i);
 
-/* metachar_interpreter_len.c */
-int		dollar_key_len(char *str, int i);
-int		dollar_value_len(t_data *data, char *str, int i);
-int		interpreted_dst_len(t_data *data, char *str);
+/* set_prompt_line_utils_2.c */
+int	dollar_key_len(char *str, int i);
+int	dollar_value_len(char *str, int i);
 
-/* metachar_interpreter_setters.c */
-t_quotes	set_quotes(char c, t_quotes quotes);
+/* set_env.c */
+void	set_env(char **env);
 
-/* get_env */
-void	set_env(t_data *data, char **env);
+/* handle_free.c */
+void	global_free(void);
 
 #endif
 

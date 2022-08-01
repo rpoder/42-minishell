@@ -1,30 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   main.c                                             :+:      :+:    :+:   */
+/*   handle_frees.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/01 17:47:46 by ronanpoder       ###   ########.fr       */
+/*   Created: 2022/08/01 17:18:03 by ronanpoder        #+#    #+#             */
+/*   Updated: 2022/08/01 17:40:48 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_data	*data;
-
-int	main(int argc, char **argv, char **env)
+void	del_shellvar(void *content)
 {
-	char *line;
+	t_shellvar *casted_content;
 
-	data = init_data(env);
-	line = readline("mi_nils_shell j'écoute > ");
-	add_history(line);
-	metachar_interpreter(line);
-	//global_free();
-	// printf("env %p\n", (data->env));
-	// printf("env %s\n", ((t_shellvar *)data->env->content)->key);
-	return 0;
+	casted_content = ((t_shellvar *)content);
+	if (casted_content)
+	{
+		if (casted_content->key)
+			free(casted_content->key);
+		if (casted_content->value)
+			free(casted_content->value);
+	}
 }
-//test = "echo \"$VSCODE_GIT_ASKPASS_EXTRA_ARGS\" $PATH";
+
+void	global_free(void)
+{
+	if (data)
+	{
+		if (data->env)
+			ft_lstclear(&data->env, del_shellvar);
+	}
+}

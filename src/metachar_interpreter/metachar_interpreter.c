@@ -6,21 +6,49 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:02:08 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/07/29 16:22:26 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/08/01 17:45:10 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	fill_with_dollar_value(t_data *data, char *src, int i, int j)
+static int	prompt_line_len(char *str)
+{
+	int			i;
+	t_quotes	quotes;
+	int			len;
+	int			tmp;
+
+	quotes = init_quotes();
+	i = 0;
+	len = 0;
+	while(str[i++])
+	{
+		quotes = set_quotes(str[i], quotes);
+		if (str[i] == '$' && is_to_interpret(str, i, quotes.sgl_quote, quotes.dbl_quote))
+		{
+			tmp = dollar_value_len(str, i + 1);
+			if (tmp > 0)
+				i = i + dollar_key_len(str, i + 1);
+			else
+				len++;
+			len = len + tmp;
+		}
+		else
+			len++;
+	}
+	return (len);
+}
+
+static void	fill_with_dollar_value(char *src, int i, int j)
 {
 	char	*dollar_value;
 	char	*dollar_key;
 	int		k;
 
 	k = 0;
-	dollar_key = find_dollar_key(src, i + 1);
-	dollar_value = find_dollar_value(data, dollar_key);
+	dollar_key = get_dollar_key(src, i + 1);
+	dollar_value = get_dollar_value(dollar_key);
 	free(dollar_key);
 	if(dollar_value)
 	{
@@ -33,7 +61,7 @@ static void	fill_with_dollar_value(t_data *data, char *src, int i, int j)
 	}
 }
 
-void	fill_interpreted_arg(t_data *data, char *src, int len)
+static void	fill_prompt_line(char *src, int len)
 {
 	int			i;
 	int			j;
@@ -47,8 +75,8 @@ void	fill_interpreted_arg(t_data *data, char *src, int len)
 		quotes = set_quotes(src[i], quotes);
 		if (src[i] == '$' && is_to_interpret(src, i, quotes.sgl_quote, quotes.dbl_quote))
 		{
-			fill_with_dollar_value(data, src, i, j);
-			j = j + dollar_value_len(data, src, i + 1);
+			fill_with_dollar_value(src, i, j);
+			j = j + dollar_value_len(src, i + 1);
 			i = i + dollar_key_len(src, i + 1);
 		}
 		else
@@ -61,20 +89,22 @@ void	fill_interpreted_arg(t_data *data, char *src, int len)
 	data->prompt_line[j] = '\0';
 }
 
-char *metachar_interpreter(t_data *data, char *src)
+char *metachar_interpreter(char *src)
 {
 	int		dst_len;
 
-	printf("src = %s\n", src);
 	if (!has_metachar(src))
-		return (src);
-	dst_len = interpreted_dst_len(data, src);
+	{
+		data->prompt_line = alloc_and_fill(src);
+		return (0);
+	}
+	dst_len = prompt_line_len(src);
 	data->prompt_line = malloc(sizeof(char) * (dst_len + 1));
-	if (!data->prompt_line)
-		return (NULL);
-	fill_interpreted_arg(data, src, dst_len);
-	printf("---------data->prompt_line = |%s|\n", data->prompt_line);
-	printf("len_final data->prompt_line = |%d|\n", ft_strlen(data->prompt_line));
+	// if (!data->prompt_line)
+	// 	global_free();
+	fill_prompt_line(src, dst_len);
+	printf("prompt_line %s\n", data->prompt_line);
+
 	return (data->prompt_line);
 }
 

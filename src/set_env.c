@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   get_env.c                                          :+:      :+:    :+:   */
+/*   set_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 12:24:39 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/07/29 15:56:29 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/08/01 18:03:20 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_env_key(char *str)
+static char	*get_env_key(char *str)
 {
 	int		len;
 	int		i;
@@ -34,7 +34,7 @@ char	*get_env_key(char *str)
 	return (key);
 }
 
-char	*get_env_value(char *str)
+static char	*get_env_value(char *str)
 {
 	int		len;
 	int		i;
@@ -59,7 +59,7 @@ char	*get_env_value(char *str)
 	return (value);
 }
 
-void	set_env(t_data *data, char **env)
+void	set_env(char **env)
 {
 	int	i;
 
@@ -71,6 +71,7 @@ void	set_env(t_data *data, char **env)
 		while (env[i])
 		{
 			add_shellvar(&data->env, get_env_key(env[i]), get_env_value(env[i]));
+			// printf("env %p\n", &data->env);
 			i++;
 		}
 	}
