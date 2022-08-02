@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/02 11:23:17 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/08/02 11:39:28 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,6 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft.h"
-
 
 typedef struct s_shellvar {
 	char *key;
@@ -67,9 +66,7 @@ int	dollar_key_len(char *str, int i);
 int	dollar_value_len(char *str, int i);
 
 /* set_env.c */
-void	set_env(char **env);
-char	*get_env_key(char *str);
-char	*get_env_value(char *str);
+void	set_env(t_data *data, char **env);
 
 /* handle_free.c */
 void	global_free(void);

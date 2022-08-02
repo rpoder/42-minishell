@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:02:08 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/01 17:45:10 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/08/02 12:13:41 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,20 +22,23 @@ static int	prompt_line_len(char *str)
 	quotes = init_quotes();
 	i = 0;
 	len = 0;
-	while(str[i++])
+	while(str[i])
 	{
 		quotes = set_quotes(str[i], quotes);
 		if (str[i] == '$' && is_to_interpret(str, i, quotes.sgl_quote, quotes.dbl_quote))
 		{
 			tmp = dollar_value_len(str, i + 1);
 			if (tmp > 0)
+			{
 				i = i + dollar_key_len(str, i + 1);
+				len = len + tmp;
+			}
 			else
 				len++;
-			len = len + tmp;
 		}
 		else
 			len++;
+		i++;
 	}
 	return (len);
 }
@@ -61,7 +64,7 @@ static void	fill_with_dollar_value(char *src, int i, int j)
 	}
 }
 
-static void	fill_prompt_line(char *src, int len)
+static void	fill_prompt_line(char *src)
 {
 	int			i;
 	int			j;
@@ -102,7 +105,7 @@ char *metachar_interpreter(char *src)
 	data->prompt_line = malloc(sizeof(char) * (dst_len + 1));
 	// if (!data->prompt_line)
 	// 	global_free();
-	fill_prompt_line(src, dst_len);
+	fill_prompt_line(src);
 	printf("prompt_line %s\n", data->prompt_line);
 
 	return (data->prompt_line);
