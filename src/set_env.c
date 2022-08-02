@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 12:24:39 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/02 12:01:10 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/08/02 15:37:35 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ char	*get_env_key(char *str)
 		i++;
 	}
 	key[i] = '\0';
-	//printf("key : %s\n", key);
 	return (key);
 }
 

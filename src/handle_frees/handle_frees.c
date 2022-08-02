@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:18:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/01 17:40:48 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/08/02 15:39:36 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	del_shellvar(void *content)
 			free(casted_content->key);
 		if (casted_content->value)
 			free(casted_content->value);
+		free(content);
 	}
 }
 
@@ -32,5 +33,10 @@ void	global_free(void)
 	{
 		if (data->env)
 			ft_lstclear(&data->env, del_shellvar);
+		if (data->local_vars)
+			ft_lstclear(&data->local_vars, del_shellvar);
+		if (data->prompt_line)
+			free(data->prompt_line);
+		free(data);
 	}
 }
