@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 14:47:33 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/01 18:02:54 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/08/02 10:59:40 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@ void	add_shellvar(t_list **alst, char *key, char *value)
 	t_shellvar	*content;
 
 	content = malloc(sizeof(t_shellvar));
+	// proteger
 	content->key = key;
 	content->value = value;
 	lst = ft_lstnew(content);

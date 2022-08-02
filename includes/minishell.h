@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/01 18:03:03 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/08/02 11:23:17 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,8 +21,6 @@
 # include <readline/history.h>
 # include "libft.h"
 
-typedef struct s_data t_data;
-extern t_data *data;
 
 typedef struct s_shellvar {
 	char *key;
@@ -41,6 +39,8 @@ typedef struct s_data {
 	t_list	*local_vars;
 	char	*prompt_line;
 }	t_data;
+
+extern t_data *data;
 
 /* Main.c */
 
@@ -68,6 +68,8 @@ int	dollar_value_len(char *str, int i);
 
 /* set_env.c */
 void	set_env(char **env);
+char	*get_env_key(char *str);
+char	*get_env_value(char *str);
 
 /* handle_free.c */
 void	global_free(void);
