@@ -6,7 +6,7 @@
 #    By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/08/02 11:14:30 by ronanpoder       ###   ########.fr        #
+#    Updated: 2022/08/03 15:48:25 by ronanpoder       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,18 +22,20 @@ OBJDIR				:=	./obj
 
 SRCS				:=	main.c \
 						init.c \
-						utils.c \
+						utils/utils.c \
+						utils/ft_split_quote.c \
+						utils/ft_split_quote_utils.c \
 						set_env.c \
-						/metachar_interpreter/metachar_interpreter.c \
-						/metachar_interpreter/set_prompt_line_utils.c \
-						/metachar_interpreter/set_prompt_line_utils_2.c \
-						/handle_frees/handle_frees.c \
+						metachar_interpreter/metachar_interpreter.c \
+						metachar_interpreter/set_prompt_line_utils.c \
+						metachar_interpreter/set_prompt_line_utils_2.c \
+						handle_frees/handle_frees.c \
 
 CC					:=	cc
 
 RM					:=	rm
 
-CCFLAGS				:=	-Wall -Wextra -Werror
+#CCFLAGS				:=	-Wall -Wextra -Werror
 
 NAME				:=	$(PROGNAME)
 

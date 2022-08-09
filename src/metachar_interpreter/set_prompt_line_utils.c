@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 15:32:13 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/02 12:14:07 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/08/02 16:53:29 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,13 +37,6 @@ int	is_to_interpret(char *str, int i, int sgl_quote, int dbl_quote)
 	return (1);
 }
 
-int	is_separator(char c)
-{
-	if (c == ' ' || c == '$' || c == '|' || c == '\"' || c == '\'' || c == '<' || c == '>')
-		return (1);
-	return (0);
-}
-
 char	*get_dollar_value(char *dollar_key)
 {
 	t_list	*tmp;
@@ -72,7 +65,8 @@ char	*get_dollar_key(char *str, int i)
 
 	j = 0;
 	dollar_key = malloc((dollar_key_len(str, i) + 1) * sizeof(char));
-	// proteger
+	if (!dollar_key)
+		global_free();
 	while (str[i + j] && !is_separator(str[i + j]))
 	{
 		dollar_key[j] = str[i + j];

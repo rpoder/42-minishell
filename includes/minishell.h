@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/02 11:39:28 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/08/03 15:49:55 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,20 +44,28 @@ extern t_data *data;
 /* Main.c */
 
 /* utils.c */
-void	add_shellvar(t_list **alst, char *key, char *value);
-t_quotes	set_quotes(char c, t_quotes quotes);
+void		add_shellvar(t_list **alst, char *key, char *value);
+t_quotes	*set_quotes(char c, t_quotes *quotes);
+int			is_separator(char c);
+
+
+/* ft_split_quote */
+char **ft_split_quote(char *str);
+
+
+/* ft_split_quotes */
+char		**ft_split_quotes(char *str);
 
 /* init.c */
 t_data		*init_data(char **env);
-t_quotes	init_quotes(void);
+t_quotes	*init_quotes(void);
 
 /* metachar_interpreter.c */
-char 	*metachar_interpreter(char *src);
+void	metachar_interpreter(char *src);
 
 /* set_prompt_line_utils.c */
-int	has_metachar(char *str);
-int	is_to_interpret(char *str, int i, int sgl_quote, int dbl_quote);
-int	is_separator(char c);
+int		has_metachar(char *str);
+int		is_to_interpret(char *str, int i, int sgl_quote, int dbl_quote);
 char	*get_dollar_value(char *dollar_key);
 char	*get_dollar_key(char *str, int i);
 

@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:43:05 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/02 11:35:48 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/08/03 12:13:06 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,8 @@ t_data	*init_data(char **env)
 	t_data	*data;
 
 	data = malloc(sizeof(t_data));
-	//proteger
+	if (!data)
+		global_free();
 	data->local_vars = NULL;
 	data->env = NULL;
 	set_env(data, env);
@@ -35,11 +36,13 @@ t_data	*init_data(char **env)
 	return (data);
 }
 
-t_quotes	init_quotes(void)
+t_quotes	*init_quotes(void)
 {
-	t_quotes	quotes;
+	t_quotes	*quotes;
 
-	quotes.sgl_quote = false;
-	quotes.dbl_quote = false;
+	quotes = malloc(sizeof(t_quotes));
+	// proteger
+	quotes->sgl_quote = false;
+	quotes->dbl_quote = false;
 	return (quotes);
 }

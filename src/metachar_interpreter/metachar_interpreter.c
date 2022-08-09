@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:02:08 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/02 15:40:43 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/08/03 12:14:04 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 static int	prompt_line_len(char *str)
 {
 	int			i;
-	t_quotes	quotes;
+	t_quotes	*quotes;
 	int			len;
 	int			tmp;
 
@@ -25,7 +25,7 @@ static int	prompt_line_len(char *str)
 	while(str[i])
 	{
 		quotes = set_quotes(str[i], quotes);
-		if (str[i] == '$' && is_to_interpret(str, i, quotes.sgl_quote, quotes.dbl_quote))
+		if (str[i] == '$' && is_to_interpret(str, i, quotes->sgl_quote, quotes->dbl_quote))
 		{
 			tmp = dollar_value_len(str, i + 1);
 			if (tmp > 0)
@@ -68,7 +68,7 @@ static void	fill_prompt_line(char *src)
 {
 	int			i;
 	int			j;
-	t_quotes	quotes;
+	t_quotes	*quotes;
 
 	quotes = init_quotes();
 	i = 0;
@@ -76,7 +76,7 @@ static void	fill_prompt_line(char *src)
 	while (src[i])
 	{
 		quotes = set_quotes(src[i], quotes);
-		if (src[i] == '$' && is_to_interpret(src, i, quotes.sgl_quote, quotes.dbl_quote))
+		if (src[i] == '$' && is_to_interpret(src, i, quotes->sgl_quote, quotes->dbl_quote))
 		{
 			fill_with_dollar_value(src, i, j);
 			j = j + dollar_value_len(src, i + 1);
@@ -92,22 +92,20 @@ static void	fill_prompt_line(char *src)
 	data->prompt_line[j] = '\0';
 }
 
-char *metachar_interpreter(char *src)
+void	metachar_interpreter(char *src)
 {
-	int		dst_len;
+	int	dst_len;
 
 	if (!has_metachar(src))
 	{
 		data->prompt_line = alloc_and_fill(src);
-		return (0);
+		return ;
 	}
 	dst_len = prompt_line_len(src);
 	data->prompt_line = malloc(sizeof(char) * (dst_len + 1));
-	// if (!data->prompt_line)
-	// 	global_free();
+	if (!data->prompt_line)
+		global_free();
 	fill_prompt_line(src);
 	printf("prompt_line %s\n", data->prompt_line);
-
-	return (data->prompt_line);
 }
 

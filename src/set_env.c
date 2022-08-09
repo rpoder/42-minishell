@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 12:24:39 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/02 15:37:35 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/08/02 15:52:09 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,8 @@ char	*get_env_key(char *str)
 	while (str[len] != '=')
 		len++;
 	key = malloc(sizeof(char) * (len + 1));
-	// proteger
+	if (!key)
+		global_free();
 	i = 0;
 	while (i < len)
 	{
@@ -49,7 +50,8 @@ char	*get_env_value(char *str)
 	while (str[j + len])
 		len++;
 	value = malloc(sizeof(char) * (len + 1));
-	// proteger
+	if (!value)
+		global_free();
 	i = 0;
 	while (str[j])
 	{
