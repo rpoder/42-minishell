@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/10 14:01:31 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/10 15:21:59 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,7 @@ typedef struct s_data {
 	t_list	*env;
 	t_list	*local_vars;
 	char	*prompt_line;
+	char	**lexed_line;
 }	t_data;
 
 extern t_data *data;
@@ -71,14 +72,19 @@ int	dollar_value_len(char *str, int i);
 /* set_env.c */
 void	set_env(t_data *data, char **env);
 
-/* handle_free.c */
-void	global_free(void);
+/*lexer.c*/
+void	lexer(char *str);
 
 /* ft_split_quote */
 char **ft_split_quote(char *str);
 
 /* ft_split_quotes_utils */
 int	is_split_separator(char c);
+int	is_split_space(char c);
+
+/* handle_free.c */
+void	global_free(void);
+
 
 #endif
 

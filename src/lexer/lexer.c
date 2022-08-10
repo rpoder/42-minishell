@@ -3,22 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:00:06 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/03 12:14:04 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/08/10 14:49:14 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
 void	lexer(char *str)
-{
-	t_quotes	*quotes;
-	int	i;
-
-	while (str[i])
-	{
-
-	}
+{	
+	data->lexed_line = ft_split_quote(str);
+	//proteger
 }

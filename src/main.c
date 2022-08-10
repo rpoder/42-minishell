@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/10 14:11:29 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/10 17:42:28 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,18 +21,18 @@ int	main(int argc, char **argv, char **env)
 	(void)argv;
 
 	data = init_data(env);
-	// line = readline("mi_nils_shell j'écoute > ");
+	// line = readline("mi_nils_shell j'écoute ? > ");
 	// add_history(line);
-	line = "co\'uc\"ougg\'\"";
-	printf("STR TEST = %s\n", line);
+	line =" coucou'coucou";
+	printf("LINE = %s\n", line);
 	if (syntax_checker(line))
 	{
 		//free
 		printf("Marche pas\n");
 		return (1);
 	}
-	//metachar_interpreter(line);
-	ft_split_quote(data->prompt_line);
+	metachar_interpreter(line);
+	lexer(line);
 	//free(line);
 
 	// Delete
