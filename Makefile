@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+         #
+#    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/08/03 15:48:25 by ronanpoder       ###   ########.fr        #
+#    Updated: 2022/08/10 14:03:06 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRCS				:=	main.c \
 						utils/ft_split_quote.c \
 						utils/ft_split_quote_utils.c \
 						set_env.c \
+						syntax_checker/syntax_checker.c \
 						metachar_interpreter/metachar_interpreter.c \
 						metachar_interpreter/set_prompt_line_utils.c \
 						metachar_interpreter/set_prompt_line_utils_2.c \
