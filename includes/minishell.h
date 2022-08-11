@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/10 15:21:59 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/11 17:49:46 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,10 @@ int	is_split_space(char c);
 /* handle_free.c */
 void	global_free(void);
 
+/* BUILT_INS */
+/* echo.c */
+void	ft_echo(char **args, int fd);
+void	ft_env(t_data *data, int fd);
 
 #endif
 

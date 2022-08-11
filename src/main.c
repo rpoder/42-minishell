@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/10 17:42:28 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/11 17:52:30 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	main(int argc, char **argv, char **env)
 	data = init_data(env);
 	// line = readline("mi_nils_shell j'écoute ? > ");
 	// add_history(line);
-	line =" coucou'coucou";
+	line =" coucoucoucou";
 	printf("LINE = %s\n", line);
 	if (syntax_checker(line))
 	{
@@ -33,6 +33,23 @@ int	main(int argc, char **argv, char **env)
 	}
 	metachar_interpreter(line);
 	lexer(line);
+
+	/* TEST ECHO */
+	// char **args;
+	// args = malloc(sizeof(char *) * 3);
+	// args[0] = alloc_and_fill("echo");
+	// args[1] = alloc_and_fill("-n");
+	// args[2] = alloc_and_fill("toz");
+	// args[3] = alloc_and_fill("toz");
+	// args[4] = alloc_and_fill("toz");
+	// ft_echo(args, 1);
+
+	ft_env(data, 1);
+
+
+
+
+
 	//free(line);
 
 	// Delete

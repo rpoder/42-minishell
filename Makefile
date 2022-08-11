@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
+#    By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/08/10 15:10:04 by mpourrey         ###   ########.fr        #
+#    Updated: 2022/08/11 17:50:17 by ronanpoder       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -32,6 +32,8 @@ SRCS				:=	main.c \
 						lexer/ft_split_quote.c \
 						lexer/ft_split_quote_utils.c \
 						handle_frees/handle_frees.c \
+						built-ins/ft_echo.c \
+						built-ins/ft_env.c \
 
 CC					:=	cc
 
