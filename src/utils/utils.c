@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 14:47:33 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/03 12:13:26 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/08/09 15:33:34 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,9 +35,4 @@ void	add_shellvar(t_list **alst, char *key, char *value)
 	ft_lstadd_back(alst, lst);
 }
 
-int	is_separator(char c)
-{
-	if (c == ' ' || c == '$' || c == '|' || c == '\"' || c == '\'' || c == '<' || c == '>')
-		return (1);
-	return (0);
-}
+

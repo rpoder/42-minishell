@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/03 15:49:55 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/08/11 17:49:46 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,24 +37,19 @@ typedef struct s_data {
 	t_list	*env;
 	t_list	*local_vars;
 	char	*prompt_line;
+	char	**lexed_line;
 }	t_data;
 
 extern t_data *data;
 
 /* Main.c */
 
+/* Syntax_checker */
+int	syntax_checker(char *str);
+
 /* utils.c */
 void		add_shellvar(t_list **alst, char *key, char *value);
 t_quotes	*set_quotes(char c, t_quotes *quotes);
-int			is_separator(char c);
-
-
-/* ft_split_quote */
-char **ft_split_quote(char *str);
-
-
-/* ft_split_quotes */
-char		**ft_split_quotes(char *str);
 
 /* init.c */
 t_data		*init_data(char **env);
@@ -68,6 +63,7 @@ int		has_metachar(char *str);
 int		is_to_interpret(char *str, int i, int sgl_quote, int dbl_quote);
 char	*get_dollar_value(char *dollar_key);
 char	*get_dollar_key(char *str, int i);
+int		is_separator(char c);
 
 /* set_prompt_line_utils_2.c */
 int	dollar_key_len(char *str, int i);
@@ -76,8 +72,23 @@ int	dollar_value_len(char *str, int i);
 /* set_env.c */
 void	set_env(t_data *data, char **env);
 
+/*lexer.c*/
+void	lexer(char *str);
+
+/* ft_split_quote */
+char **ft_split_quote(char *str);
+
+/* ft_split_quotes_utils */
+int	is_split_separator(char c);
+int	is_split_space(char c);
+
 /* handle_free.c */
 void	global_free(void);
+
+/* BUILT_INS */
+/* echo.c */
+void	ft_echo(char **args, int fd);
+void	ft_env(t_data *data, int fd);
 
 #endif
 

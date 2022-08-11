@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_prompt_line_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 15:32:13 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/02 16:53:29 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/08/09 15:33:42 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,4 +74,11 @@ char	*get_dollar_key(char *str, int i)
 	}
 	dollar_key[j] = '\0';
 	return (dollar_key);
+}
+
+int	is_separator(char c)
+{
+	if (c == ' ' || c == '$' || c == '|' || c == '\"' || c == '\'' || c == '<' || c == '>')
+		return (1);
+	return (0);
 }
