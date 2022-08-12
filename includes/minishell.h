@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/11 17:49:46 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/08/12 08:23:01 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,6 +89,7 @@ void	global_free(void);
 /* echo.c */
 void	ft_echo(char **args, int fd);
 void	ft_env(t_data *data, int fd);
+void	ft_export(t_data *data, char *key_to_export);
 
 #endif
 
