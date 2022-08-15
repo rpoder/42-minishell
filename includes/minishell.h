@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/12 08:23:01 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/08/15 17:30:04 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,12 @@ char **ft_split_quote(char *str);
 /* ft_split_quotes_utils */
 int	is_split_separator(char c);
 int	is_split_space(char c);
+int	is_redirection_token(char c);
+int	skip_separator(char *str, int i);
+int	skip_space(char *str, int i);
+int	skip_quotes(char *str, int i);
+int	skip_redirection_token(char *str, int i);
+int	skip_separator(char *str, int i);
 
 /* handle_free.c */
 void	global_free(void);
