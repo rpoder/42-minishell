@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/11 17:52:30 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/08/12 09:10:02 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,8 +44,36 @@ int	main(int argc, char **argv, char **env)
 	// args[4] = alloc_and_fill("toz");
 	// ft_echo(args, 1);
 
+	//ft_env(data, 1);
+
+
+	/* TEST EXPORT */
+	t_shellvar *test;
+	t_list	*maillon;
+	test = malloc(sizeof(t_shellvar));
+	test->key = alloc_and_fill("test");
+	test->value = alloc_and_fill("coucou");
+	maillon = ft_lstnew(test);
+	ft_lstadd_back(&data->local_vars, maillon);
+
+	t_shellvar *test2;
+	t_list	*maillon2;
+	test2 = malloc(sizeof(t_shellvar));
+	test2->key = alloc_and_fill("test2");
+	test2->value = alloc_and_fill("toz");
+	maillon2 = ft_lstnew(test2);
+	ft_lstadd_back(&data->local_vars, maillon2);
+	ft_export(data, "?");
 	ft_env(data, 1);
 
+	printf("\nLOCAL VARS\n");
+	t_list	*tmp;
+	tmp = data->local_vars;
+	while (tmp)
+	{
+		printf("%s = %s\n", ((t_shellvar *)tmp->content)->key, ((t_shellvar *)tmp->content)->value);
+		tmp = tmp->next;
+	}
 
 
 

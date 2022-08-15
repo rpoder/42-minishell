@@ -6,7 +6,7 @@
 #    By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/08/11 17:50:17 by ronanpoder       ###   ########.fr        #
+#    Updated: 2022/08/12 08:22:52 by ronanpoder       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,6 +34,7 @@ SRCS				:=	main.c \
 						handle_frees/handle_frees.c \
 						built-ins/ft_echo.c \
 						built-ins/ft_env.c \
+						built-ins/ft_export.c \
 
 CC					:=	cc
 
