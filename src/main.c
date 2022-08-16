@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/15 18:09:19 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/16 15:03:54 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,11 @@ int	main(int argc, char **argv, char **env)
 	data = init_data(env);
 	// line = readline("mi_nils_shell j'écoute ? > ");
 	// add_history(line);
-	line ="cat>>< |";
+	line ="    >|>\">>>\" <<";
 	printf("LINE = %s\n", line);
 	if (syntax_checker(line) == 1)
 	{
 		//free
-		printf("Marche pas\n");
 		return (1);
 	}
 	metachar_interpreter(line);

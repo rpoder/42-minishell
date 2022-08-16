@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 21:45:16 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/15 17:28:25 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/16 16:34:48 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,45 +14,40 @@
 
 
 
-static int	count_words(char *str)
+static int	count_words(char *str, int count)
 {
 	int	i;
-	int	count;
 
-	i = 0;
-	count = 0;
-	if (is_split_space(str[i]))
-		i = skip_space(str, i);
+	i = skip_space(str, 0);
 	while (str[i])
 	{
-		if (str[i] == '\'' || str[i] == '\"')
+		if (is_split_separator(str[i]))
 		{
-			i = skip_quotes(str, i);
+			i = skip_separator(str, i);
+			count++;
+		}
+		else if (str[i] == '\'' || str[i] == '\"')
+		{
+			i = skip_quotes_token(str, i);
 			if (str[i] == '\0')
 				count++;
 		}
-		if (is_split_separator(str[i]))
-		{
-			count++;
-			i = skip_separator (str, i);
-			
-		}
-		else if (str[i] && str[i] != '\'' && str[i] != '\"')
+		else
 		{
 			i++;
-			if (str[i] == '\0' || is_redirection_token(str[i]))
+			if (str[i] == '\0' || is_redirection_operator(str[i]))
 				count++;
 		}
 	}
 	return (count);
 }
 
-char **ft_split_quote(char *str)
+char	**ft_split_quote(char *str)
 {
 	char	**dst;
 	int		count;
 
-	count = count_words(str);
-	printf("count of words = %d\n", count);
+	count = count_words(str, 0);
+
 	return (dst);
 }

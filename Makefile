@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+         #
+#    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/08/12 08:22:52 by ronanpoder       ###   ########.fr        #
+#    Updated: 2022/08/16 14:55:54 by mpourrey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ OBJDIR				:=	./obj
 
 SRCS				:=	main.c \
 						init.c \
-						utils/utils.c \
+						utils/utils.c utils/utils_2.c\
 						set_env.c \
 						syntax_checker/syntax_checker.c \
 						metachar_interpreter/metachar_interpreter.c \
