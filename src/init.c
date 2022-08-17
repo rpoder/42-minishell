@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:43:05 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/03 12:13:06 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/08/17 12:05:47 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,20 +19,12 @@ t_data	*init_data(char **env)
 	data = malloc(sizeof(t_data));
 	if (!data)
 		global_free();
-	data->local_vars = NULL;
 	data->env = NULL;
 	set_env(data, env);
-	add_shellvar(&data->local_vars, alloc_and_fill("?"), alloc_and_fill("127"));
-	//delete
-	// t_list *tmp;
-	// tmp = data->env;
-	// while (tmp)
-	// {
-	// 	printf("key: %s |	value: %s\n", ((t_shellvar *)tmp->content)->key, ((t_shellvar *)tmp->content)->value);
-	// 	tmp = tmp->next;
-	// }
-
+	data->local_expands = NULL;
+	add_expand(&data->local_expands, alloc_and_fill("?"), alloc_and_fill("127"));
 	data->prompt_line = NULL;
+	data->tokens = NULL;
 	return (data);
 }
 

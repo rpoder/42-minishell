@@ -6,14 +6,28 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:00:06 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/10 14:49:14 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/17 16:08:30 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
+void	test_lexer(char **tokens)
+{
+	int	i;
+	
+	printf("\n");
+	while(tokens[i] != NULL)
+	{
+		printf("token[%d] = '%s'\n", i, tokens[i]);
+		i++;
+	}
+}
+
 void	lexer(char *str)
 {	
-	data->lexed_line = ft_split_quote(str);
+	data->tokens = split_tokens(str);
 	//proteger
+
+	test_lexer(data->tokens);
 }

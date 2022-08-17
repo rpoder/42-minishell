@@ -1,30 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_env.c                                           :+:      :+:    :+:   */
+/*   split_tokens_len.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/11 17:45:13 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/17 12:06:08 by mpourrey         ###   ########.fr       */
+/*   Created: 2022/08/17 15:23:42 by mpourrey          #+#    #+#             */
+/*   Updated: 2022/08/17 18:23:44 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_env(t_data *data, int fd)
+int	redirection_token_len(char *str, int i)
 {
-	t_list	*tmp;
-
-	if (!data->env)
-		return;
-	tmp = data->env;
-	while (tmp)
-	{
-		ft_putstr_fd(((t_expand *)tmp->content)->key, fd);
-		ft_putchar_fd('=', fd);
-		ft_putstr_fd(((t_expand *)tmp->content)->value, fd);
-		ft_putchar_fd('\n', fd);
-		tmp = tmp->next;
-	}
+	int	len;
+	
+	if ((str[i] == '<' && str[i + 1] == '<') || 
+		(str[i] == '>' && str[i + 1] == '>'))
+		len = 2;
+	else
+		len = 1;
+	return (len);		
 }

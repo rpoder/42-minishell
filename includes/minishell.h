@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/16 14:56:07 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/17 18:17:57 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,20 @@
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft.h"
+# include "utils.h"
 
-typedef struct s_shellvar {
+typedef struct s_expand {
 	char *key;
 	char *value;
-}	t_shellvar;
+}	t_expand;
 
 // a checker norminettouille "bool	sgl_quote = false";
 
-typedef struct s_quotes {
-	bool	sgl_quote;
-	bool	dbl_quote;
-}	t_quotes;
-
 typedef struct s_data {
 	t_list	*env;
-	t_list	*local_vars;
+	t_list	*local_expands;
 	char	*prompt_line;
-	char	**lexed_line;
+	char	**tokens;
 }	t_data;
 
 extern t_data *data;
@@ -48,7 +44,7 @@ extern t_data *data;
 int	syntax_checker(char *str);
 
 /* utils.c */
-void		add_shellvar(t_list **alst, char *key, char *value);
+void		add_expand(t_list **alst, char *key, char *value);
 t_quotes	*set_quotes(char c, t_quotes *quotes);
 
 /* utils_2.c */
@@ -76,18 +72,30 @@ int	dollar_value_len(char *str, int i);
 /* set_env.c */
 void	set_env(t_data *data, char **env);
 
+
+
 /*lexer.c*/
 void	lexer(char *str);
 
-/* ft_split_quote */
-char **ft_split_quote(char *str);
+/* split_tokens.c */
+char	**split_tokens(char *str);
 
-/* ft_split_quotes_utils */
-int	is_redirection_token(char c);
-int	skip_separator(char *str, int i);
-int	is_split_separator(char c);
-int	skip_quotes_token(char *str, int i);
+/* split_tokens_utils.c */
 int	skip_space(char *str, int i);
+int	skip_quotes_token(char *str, int i);
+int	is_split_separator(char c);
+int	skip_separator(char *str, int i);
+int	skip_redirection_token(char *str, int i);
+
+/* split_tokens_getters.c */
+char	*get_separator_token(char *str, int i, int token_start);
+char	*get_token(char *str, int i, int token_start);
+
+/* split_tokens_len.c */
+int	redirection_token_len(char *str, int i);
+
+
+
 
 /* handle_free.c */
 void	global_free(void);

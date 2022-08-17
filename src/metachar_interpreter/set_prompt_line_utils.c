@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_prompt_line_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 15:32:13 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/09 15:33:42 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/17 12:06:08 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,18 +41,18 @@ char	*get_dollar_value(char *dollar_key)
 {
 	t_list	*tmp;
 
-	tmp = data->local_vars;
+	tmp = data->local_expands;
 	while (tmp)
 	{
-		if (ft_strcmp(((t_shellvar *)tmp->content)->key, dollar_key) == 0)
-			return (((t_shellvar *)tmp->content)->value);
+		if (ft_strcmp(((t_expand *)tmp->content)->key, dollar_key) == 0)
+			return (((t_expand *)tmp->content)->value);
 		tmp = tmp->next;
 	}
 	tmp = data->env;
 	while (tmp)
 	{
-		if (ft_strcmp(((t_shellvar *)tmp->content)->key, dollar_key) == 0)
-			return (((t_shellvar *)tmp->content)->value);
+		if (ft_strcmp(((t_expand *)tmp->content)->key, dollar_key) == 0)
+			return (((t_expand *)tmp->content)->value);
 		tmp = tmp->next;
 	}
 	return (NULL);

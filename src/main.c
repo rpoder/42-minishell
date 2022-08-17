@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/16 15:03:54 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/17 18:25:09 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@ int	main(int argc, char **argv, char **env)
 	data = init_data(env);
 	// line = readline("mi_nils_shell j'écoute ? > ");
 	// add_history(line);
-	line ="    >|>\">>>\" <<";
-	printf("LINE = %s\n", line);
+	line =">> yo | la'la'j << a|b|c";
+	printf("line = '%s'\n\n", line);
 	if (syntax_checker(line) == 1)
 	{
 		//free
@@ -32,6 +32,7 @@ int	main(int argc, char **argv, char **env)
 	}
 	metachar_interpreter(line);
 	lexer(line);
+	
 
 	/* TEST ECHO */
 	// char **args;
@@ -47,30 +48,30 @@ int	main(int argc, char **argv, char **env)
 
 
 	/* TEST EXPORT */
-/* 	t_shellvar *test;
+/* 	t_expand *test;
 	t_list	*maillon;
-	test = malloc(sizeof(t_shellvar));
+	test = malloc(sizeof(t_expand));
 	test->key = alloc_and_fill("test");
 	test->value = alloc_and_fill("coucou");
 	maillon = ft_lstnew(test);
-	ft_lstadd_back(&data->local_vars, maillon);
+	ft_lstadd_back(&data->local_expands, maillon);
 
-	t_shellvar *test2;
+	t_expand *test2;
 	t_list	*maillon2;
-	test2 = malloc(sizeof(t_shellvar));
+	test2 = malloc(sizeof(t_expand));
 	test2->key = alloc_and_fill("test2");
 	test2->value = alloc_and_fill("toz");
 	maillon2 = ft_lstnew(test2);
-	ft_lstadd_back(&data->local_vars, maillon2);
+	ft_lstadd_back(&data->local_expands, maillon2);
 	ft_export(data, "?");
 	ft_env(data, 1);
 
 	printf("\nLOCAL VARS\n");
 	t_list	*tmp;
-	tmp = data->local_vars;
+	tmp = data->local_expands;
 	while (tmp)
 	{
-		printf("%s = %s\n", ((t_shellvar *)tmp->content)->key, ((t_shellvar *)tmp->content)->value);
+		printf("%s = %s\n", ((t_expand *)tmp->content)->key, ((t_expand *)tmp->content)->value);
 		tmp = tmp->next;
 	} */
 
@@ -90,7 +91,7 @@ int	main(int argc, char **argv, char **env)
 	} */
 	//global_free();
 	// printf("env %p\n", (data->env));
-	// printf("env %s\n", ((t_shellvar *)data->env->content)->key);
+	// printf("env %s\n", ((t_expand *)data->env->content)->key);
 	return 0;
 }
 //test = "echo \"$VSCODE_GIT_ASKPASS_EXTRA_ARGS\" $PATH";
