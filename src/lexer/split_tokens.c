@@ -6,57 +6,52 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 21:45:16 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/17 18:37:23 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/17 22:26:33 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_vars	*init_split_vars()
-{
-	t_vars	*split_vars;
+//trim dst
 
-	split_vars = malloc(sizeof(t_vars)); //proteger
-	split_vars->count = 0;
-	split_vars->token_start = 0;
-	return (split_vars);
-}
-
-void	set_vars_for_next_token(t_vars *split_vars, int i)
-{
-	split_vars->count++;
-	split_vars->token_start = i;
-}
-
-static char	**fill_dst(char **dst, char *str, t_vars *vars)
+static char	**trim_dst(char **dst)
 {
 	int		i;
-	
-	i = skip_space(str, 0);
-	while (str[i])
+
+	i = 0;
+	while(dst[i] != NULL)
 	{
-		if (is_split_separator(str[i]))
+		dst[i] = token_trim(dst[i]);
+	//	printf("token_trim = %s\n", dst[i]);
+		i++;
+	}
+	return (dst);
+}
+
+static char	**fill_dst(char **dst, char *str, t_split_data *data)
+{
+	data->i = skip_space(str, 0);
+	while (str[data->i])
+	{
+		if (is_split_separator(str[data->i]))
 		{
-			dst[vars->count] = get_separator_token(str, i, vars->token_start);
-			i = skip_separator(str, i);
-			set_vars_for_next_token(vars, i);	
+			dst[data->nb_of_tokens] = get_and_skip_token(str, data);
+			set_data_for_next_token(data, data->i);
 		}
-		else if (str[i] == '\'' || str[i] == '\"')
+		else if (str[data->i] == '\'' || str[data->i] == '\"')
 		{
-			i = skip_quotes_token(str, i);
-			if (str[i] == '\0') //check_is_last_token
-				dst[vars->count] = get_token(str, i, vars->token_start);
+			data->i = skip_quotes_token(str, data->i);
+			dst[data->nb_of_tokens] = get_token_if_end_of_str(str, data);
 		}
 		else
 		{
-			i++;
-			if (str[i] == '\0') //check_is_last_token
-				dst[vars->count] = get_token(str, i, vars->token_start); 
-			else if (is_redirection_operator(str[i])) //token_til_redir_op
+			data->i++;
+			if (is_redirection_operator(str[data->i])) //token_til_redir_op
 			{
-				dst[vars->count] = get_token(str, i, vars->token_start);
-				set_vars_for_next_token(vars, i);
+				dst[data->nb_of_tokens] = get_token(str, data->i, data->token_start);
+				set_data_for_next_token(data, data->i);
 			}
+			dst[data->nb_of_tokens] = get_token_if_end_of_str(str, data);
 		}
 	}
 	return(dst);
@@ -92,16 +87,16 @@ static int	count_words(char *str, int count)
 
 char	**split_tokens(char *str)
 {
-	char	**dst;
-	int		count;
-	t_vars	*split_vars;
+	char			**dst;
+	int				count;
+	t_split_data	*split_data;
 
-	split_vars = init_split_vars();
+	split_data = init_split_data();
 	count = count_words(str, 0);
 	dst = malloc (sizeof(char *) * (count + 1));
 	//proteger
 	dst[count] = NULL;
-	dst = fill_dst(dst, str, split_vars);
-
+	dst = fill_dst(dst, str, split_data); //proteger
+	dst = trim_dst(dst); //proteger
 	return (dst);
 }

@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/17 18:17:57 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/17 22:17:45 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,8 +72,6 @@ int	dollar_value_len(char *str, int i);
 /* set_env.c */
 void	set_env(t_data *data, char **env);
 
-
-
 /*lexer.c*/
 void	lexer(char *str);
 
@@ -81,21 +79,23 @@ void	lexer(char *str);
 char	**split_tokens(char *str);
 
 /* split_tokens_utils.c */
+int				token_trim_len(char *str);
+char			*token_trim(char *str);
+t_split_data	*init_split_data();
+void			set_data_for_next_token(t_split_data *split_data, int i);
+int				redirection_token_len(char *str, int i);
+int				is_split_separator(char c);
+
+/*token_skippers */
 int	skip_space(char *str, int i);
 int	skip_quotes_token(char *str, int i);
-int	is_split_separator(char c);
 int	skip_separator(char *str, int i);
 int	skip_redirection_token(char *str, int i);
 
-/* split_tokens_getters.c */
-char	*get_separator_token(char *str, int i, int token_start);
+/* token_getters.c */
+char	*get_token_if_end_of_str(char *str, t_split_data *data);
 char	*get_token(char *str, int i, int token_start);
-
-/* split_tokens_len.c */
-int	redirection_token_len(char *str, int i);
-
-
-
+char	*get_and_skip_token(char *str, t_split_data *data);
 
 /* handle_free.c */
 void	global_free(void);

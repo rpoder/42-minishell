@@ -6,7 +6,7 @@
 #    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/08/17 15:25:34 by mpourrey         ###   ########.fr        #
+#    Updated: 2022/08/17 21:54:47 by mpourrey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -31,8 +31,8 @@ SRCS				:=	main.c \
 						lexer/lexer.c \
 						lexer/split_tokens.c \
 						lexer/split_tokens_utils.c \
-						lexer/split_tokens_getters.c \
-						lexer/split_tokens_len.c \
+						lexer/token_getters.c \
+						lexer/token_skippers.c \
 						handle_frees/handle_frees.c \
 						built-ins/ft_echo.c \
 						built-ins/ft_env.c \

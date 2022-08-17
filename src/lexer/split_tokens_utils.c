@@ -5,35 +5,76 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/24 18:08:52 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/17 15:24:51 by mpourrey         ###   ########.fr       */
+/*   Created: 2022/08/17 21:49:00 by mpourrey          #+#    #+#             */
+/*   Updated: 2022/08/17 22:26:35 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	skip_redirection_token(char *str, int i)
+int	token_trim_len(char *str)
 {
- 	if (str[i] == '>' && str[i + 1] == '>')
-		i = i + 2;
-	else if (str[i] == '<' && str[i + 1] == '<')
-		i = i + 2;
-	else 
+	int	i;
+	int	j;
+
+	i = 0;
+	j = 0;
+	while(is_space(str[i]))
 		i++;
-	return (i);
+	if (str[i] == '\'' || str[i] == '\"')
+		i++;
+	while(str[j] != '\0')
+		j++;
+	j--;
+	while(is_space(str[j]))
+		j--;
+	if (str[j] == '\'' || str[j] == '\"')
+		j--;
+	return (j - i + 1);
 }
 
-int	skip_separator(char *str, int i)
+char	*token_trim(char *str)
 {
-	if (is_redirection_operator(str[i]))
+	char	*dst;
+	int		i;
+	int		j;
+	int		len;
+	
+	len = token_trim_len(str);
+//	printf("len = %d\n", len);
+ 	dst = malloc(sizeof(char) * (len + 1));
+	i = 0;
+	while(is_space(str[i]))
+		i++;
+	if (str[i] == '\'' || str[i] == '\"')
+		i++;
+	len = len + i;
+	j = 0;
+	while (i < len)
 	{
-		i = skip_redirection_token(str, i);
-		if (is_space(str[i]))
-			i = skip_space(str, i);
+		dst[j] = str[i];
+		j++;
+		i++;
 	}
-	else if (is_space(str[i]))
-		i = skip_space(str, i);
-	return (i);
+	free (str); 
+	return (dst);
+}
+
+t_split_data	*init_split_data()
+{
+	t_split_data	*split_data;
+
+	split_data = malloc(sizeof(t_data)); //proteger
+	split_data->i = 0;
+	split_data->nb_of_tokens = 0;
+	split_data->token_start = 0;
+	return (split_data);
+}
+
+void	set_data_for_next_token(t_split_data *split_data, int i)
+{
+	split_data->nb_of_tokens++;	
+	split_data->token_start = i;
 }
 
 int	is_split_separator(char c)
@@ -43,28 +84,14 @@ int	is_split_separator(char c)
 	return (0);
 }
 
-int	skip_quotes_token(char *str, int i)
+int	redirection_token_len(char *str, int i)
 {
-	if (str[i] == '\"')
-	{
-		i++;
-		while (str[i] != '\"')
-			i++;
-		i++;
-	}
-	else if (str[i] == '\'')
-	{
-		i++;
-		while (str[i] != '\'')
-			i++;
-		i++;
-	}
-	return (i);
-}
-
-int	skip_space(char *str, int i)
-{
-	while (str[i] == ' ' || (str[i] > 0 && str[i] <= 31) || str[i] == 127)
-		i++;
-	return (i);
+	int	len;
+	
+	if ((str[i] == '<' && str[i + 1] == '<') || 
+		(str[i] == '>' && str[i + 1] == '>'))
+		len = 2;
+	else
+		len = 1;
+	return (len);		
 }
