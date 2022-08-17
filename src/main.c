@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/12 09:10:02 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/08/16 15:03:54 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,11 @@ int	main(int argc, char **argv, char **env)
 	data = init_data(env);
 	// line = readline("mi_nils_shell j'écoute ? > ");
 	// add_history(line);
-	line =" coucoucoucou";
+	line ="    >|>\">>>\" <<";
 	printf("LINE = %s\n", line);
-	if (syntax_checker(line))
+	if (syntax_checker(line) == 1)
 	{
 		//free
-		printf("Marche pas\n");
 		return (1);
 	}
 	metachar_interpreter(line);
@@ -48,7 +47,7 @@ int	main(int argc, char **argv, char **env)
 
 
 	/* TEST EXPORT */
-	t_shellvar *test;
+/* 	t_shellvar *test;
 	t_list	*maillon;
 	test = malloc(sizeof(t_shellvar));
 	test->key = alloc_and_fill("test");
@@ -73,7 +72,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		printf("%s = %s\n", ((t_shellvar *)tmp->content)->key, ((t_shellvar *)tmp->content)->value);
 		tmp = tmp->next;
-	}
+	} */
 
 
 
