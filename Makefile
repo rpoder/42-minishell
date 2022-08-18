@@ -3,10 +3,17 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
+<<<<<<< HEAD
 #    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
 #    Updated: 2022/08/18 13:41:53 by rpoder           ###   ########.fr        #
+=======
+#    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
+#                                                 +#+#+#+#+#+   +#+            #
+#    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
+#    Updated: 2022/08/18 13:38:52 by mpourrey         ###   ########.fr        #
+>>>>>>> master
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,15 +29,18 @@ OBJDIR				:=	./obj
 
 SRCS				:=	main.c \
 						init.c \
-						utils/utils.c \
+						utils/utils.c utils/utils_2.c\
 						set_env.c \
 						syntax_checker/syntax_checker.c \
-						metachar_interpreter/metachar_interpreter.c \
-						metachar_interpreter/set_prompt_line_utils.c \
-						metachar_interpreter/set_prompt_line_utils_2.c \
+						syntax_checker/handle_mutes.c \
+						expander/expander.c \
+						expander/set_expanded_line_utils.c \
+						expander/set_expanded_line_utils_2.c \
 						lexer/lexer.c \
-						lexer/ft_split_quote.c \
-						lexer/ft_split_quote_utils.c \
+						lexer/split_tokens.c \
+						lexer/split_tokens_utils.c \
+						lexer/token_getters.c \
+						lexer/token_skippers.c \
 						handle_frees/handle_frees.c \
 						built-ins/ft_echo.c \
 						built-ins/ft_env.c \
@@ -54,7 +64,7 @@ $(OUTDIR)/%.o		:	$(SRCDIR)/%.c | $(OUTDIR)
 $(NAME)				:	$(addprefix $(OUTDIR)/,$(SRCS:.c=.o)) $(LIBFT) $(MLX)
 	$(CC) $(CCFLAGS) $(addprefix $(OUTDIR)/,$(SRCS:.c=.o)) $(LIBFT) -lreadline -o $(NAME)
 
-all					:	$(NAME)
+all					:	$(NAME) 
 
 ifdef LIBFT
 $(LIBFT)			:
