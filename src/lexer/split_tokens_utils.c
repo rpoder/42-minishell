@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 21:49:00 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/17 22:26:35 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/18 16:49:35 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,13 +75,6 @@ void	set_data_for_next_token(t_split_data *split_data, int i)
 {
 	split_data->nb_of_tokens++;	
 	split_data->token_start = i;
-}
-
-int	is_split_separator(char c)
-{
-	if (c == ' ' || c == '|' || c == '<' || c == '>' || (c > 0 && c <= 31) || c == 127)
-		return (1);
-	return (0);
 }
 
 int	redirection_token_len(char *str, int i)

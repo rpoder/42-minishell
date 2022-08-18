@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:02:08 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/18 14:22:21 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/18 19:36:08 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ static void	fill_with_expand_value(char *src, int i, int j)
 		while (expand_value[k])
 		{
 			data->expanded_line[j] = expand_value[k];
-//			if ();
 			j++;
 			k++;
 		}
@@ -107,6 +106,5 @@ void	expander(char *src)
 	if (!data->expanded_line)
 		global_free();
 	fill_expanded_line(src);
-	printf("expanded_line %s\n", data->expanded_line);
 }
 

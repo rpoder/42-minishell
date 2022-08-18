@@ -6,7 +6,7 @@
 #    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/08/18 13:38:52 by mpourrey         ###   ########.fr        #
+#    Updated: 2022/08/18 19:27:57 by mpourrey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,7 +25,8 @@ SRCS				:=	main.c \
 						utils/utils.c utils/utils_2.c\
 						set_env.c \
 						syntax_checker/syntax_checker.c \
-						syntax_checker/handle_mutes.c \
+						handle_mutes.c \
+						add_expand.c \
 						expander/expander.c \
 						expander/set_expanded_line_utils.c \
 						expander/set_expanded_line_utils_2.c \

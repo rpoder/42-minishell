@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/18 13:43:57 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/18 19:37:50 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,9 +22,9 @@ int	main(int argc, char **argv, char **env)
 
 //	line = readline("mi_nils_shell j'écoute ? > ");
 //	add_history(line);
-	line ="\'cou\"c\"ou\' \"yo||\'yo\" > $? ";
+	line ="$?";
 	data = init_data(env, line);
-	printf("line = '%s'\n\n", line);
+	printf("line = |%s|\n", line);
 	if (syntax_checker(line) == 1)
 	{
 		//free
@@ -32,6 +32,7 @@ int	main(int argc, char **argv, char **env)
 	}
 	mute_non_interpretable_quotes(data);
 	expander(data->prompt_line);
+	printf("expanded_line = |%s|\n", data->expanded_line);
 	lexer(data->expanded_line);
 	
 
