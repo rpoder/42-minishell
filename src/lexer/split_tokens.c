@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 21:45:16 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/17 22:26:33 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/18 15:50:01 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ static char	**fill_dst(char **dst, char *str, t_split_data *data)
 	data->i = skip_space(str, 0);
 	while (str[data->i])
 	{
-		if (is_split_separator(str[data->i]))
+		if (is_separator(str[data->i]))
 		{
 			dst[data->nb_of_tokens] = get_and_skip_token(str, data);
 			set_data_for_next_token(data, data->i);
@@ -64,7 +64,7 @@ static int	count_words(char *str, int count)
 	i = skip_space(str, 0);
 	while (str[i])
 	{
-		if (is_split_separator(str[i]))
+		if (is_separator(str[i]))
 		{
 			i = skip_separator(str, i);
 			count++;
