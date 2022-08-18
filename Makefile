@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+         #
+#    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/08/12 08:22:52 by ronanpoder       ###   ########.fr        #
+#    Updated: 2022/08/18 13:41:53 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -35,6 +35,7 @@ SRCS				:=	main.c \
 						built-ins/ft_echo.c \
 						built-ins/ft_env.c \
 						built-ins/ft_export.c \
+						built-ins/ft_unset.c \
 
 CC					:=	cc
 
