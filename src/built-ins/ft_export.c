@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 08:16:14 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/12 09:09:20 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/08/17 12:06:08 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,10 +16,10 @@ static t_list	*find_last_before(t_data *data, char *key_to_find)
 {
 	t_list	*tmp;
 
-	tmp = data->local_vars;
+	tmp = data->local_expands;
 	while (tmp->next)
 	{
-		if (ft_strcmp(((t_shellvar *)tmp->next->content)->key, key_to_find) == 0)
+		if (ft_strcmp(((t_expand *)tmp->next->content)->key, key_to_find) == 0)
 			break;
 		tmp = tmp->next;
 	}
@@ -33,10 +33,10 @@ void	ft_export(t_data *data, char *key_to_export)
 	int		i;
 
 	i = 0;
-	tmp = data->local_vars;
+	tmp = data->local_expands;
 	while (tmp)
 	{
-		if (ft_strcmp(((t_shellvar *)tmp->content)->key, key_to_export) == 0)
+		if (ft_strcmp(((t_expand *)tmp->content)->key, key_to_export) == 0)
 			break;
 		i++;
 		tmp = tmp->next;
@@ -44,7 +44,7 @@ void	ft_export(t_data *data, char *key_to_export)
 	if (!tmp)
 		return ;
 	if (i == 0)
-		data->local_vars = tmp->next;
+		data->local_expands = tmp->next;
 	else
 	{
 		last = find_last_before(data, key_to_export);

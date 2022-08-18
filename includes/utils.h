@@ -1,33 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/02 16:00:06 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/18 13:28:40 by mpourrey         ###   ########.fr       */
+/*   Created: 2022/08/17 17:25:35 by mpourrey          #+#    #+#             */
+/*   Updated: 2022/08/17 18:42:27 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "minishell.h"
-/*TEST*/
-void	test_lexer(char **tokens)
+#ifndef UTILS_H
+# define UTILS_H
+
+typedef struct	s_split_data
 {
 	int	i;
+	int	nb_of_tokens;
+	int	token_start;
+}	t_split_data;
 
-	printf("\n");
-	i = 0;
-	while(tokens[i] != NULL)
-	{
-		printf("token[%d] = |%s|\n", i, tokens[i]);
-		i++;
-	}
-}
+typedef struct s_quotes {
+	bool	sgl_quote;
+	bool	dbl_quote;
+}	t_quotes;
 
-void	lexer(char *str)
-{	
-	data->tokens = split_tokens(str);
-	//proteger
-	test_lexer(data->tokens);
-}
+#endif

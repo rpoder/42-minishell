@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_split_quote_utils.c                             :+:      :+:    :+:   */
+/*   token_skippers.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/24 18:08:52 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/16 15:02:19 by mpourrey         ###   ########.fr       */
+/*   Created: 2022/08/17 21:47:40 by mpourrey          #+#    #+#             */
+/*   Updated: 2022/08/17 21:48:44 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,6 @@ int	skip_separator(char *str, int i)
 	else if (is_space(str[i]))
 		i = skip_space(str, i);
 	return (i);
-}
-
-int	is_split_separator(char c)
-{
-	if (c == ' ' || c == '|' || c == '<' || c == '>' || (c > 0 && c <= 31) || c == 127)
-		return (1);
-	return (0);
 }
 
 int	skip_quotes_token(char *str, int i)

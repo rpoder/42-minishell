@@ -1,7 +1,7 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_prompt_line_utils_2.c                          :+:      :+:    :+:   */
+/*   set_expanded_line_utils_2.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
@@ -12,7 +12,7 @@
 
 #include "minishell.h"
 
-int	dollar_key_len(char *str, int i)
+int	expand_key_len(char *str, int i)
 {
 	int	len;
 
@@ -25,15 +25,15 @@ int	dollar_key_len(char *str, int i)
 	return (len);
 }
 
-int	dollar_value_len(char *str, int i)
+int	expand_value_len(char *str, int i)
 {
-	int		dollar_value_len;
-	char	*dollar_key;
-	char	*dollar_value;
+	int		expand_value_len;
+	char	*expand_key;
+	char	*expand_value;
 
-	dollar_key = get_dollar_key(str, i);
-	dollar_value = get_dollar_value(dollar_key);
-	dollar_value_len = ft_strlen(dollar_value);
-	free(dollar_key);
-	return (dollar_value_len);
+	expand_key = get_expand_key(str, i);
+	expand_value = get_expand_value(expand_key);
+	expand_value_len = ft_strlen(expand_value);
+	free(expand_key);
+	return (expand_value_len);
 }

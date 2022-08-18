@@ -1,18 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_prompt_line_utils.c                            :+:      :+:    :+:   */
+/*   set_expanded_line_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/27 15:32:13 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/09 15:33:42 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/17 12:06:08 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	has_metachar(char *str)
+int	has_expand(char *str)
 {
 	int	i;
 
@@ -37,43 +37,43 @@ int	is_to_interpret(char *str, int i, int sgl_quote, int dbl_quote)
 	return (1);
 }
 
-char	*get_dollar_value(char *dollar_key)
+char	*get_expand_value(char *expand_key)
 {
 	t_list	*tmp;
 
-	tmp = data->local_vars;
+	tmp = data->local_expands;
 	while (tmp)
 	{
-		if (ft_strcmp(((t_shellvar *)tmp->content)->key, dollar_key) == 0)
-			return (((t_shellvar *)tmp->content)->value);
+		if (ft_strcmp(((t_expand *)tmp->content)->key, expand_key) == 0)
+			return (((t_expand *)tmp->content)->value);
 		tmp = tmp->next;
 	}
 	tmp = data->env;
 	while (tmp)
 	{
-		if (ft_strcmp(((t_shellvar *)tmp->content)->key, dollar_key) == 0)
-			return (((t_shellvar *)tmp->content)->value);
+		if (ft_strcmp(((t_expand *)tmp->content)->key, expand_key) == 0)
+			return (((t_expand *)tmp->content)->value);
 		tmp = tmp->next;
 	}
 	return (NULL);
 }
 
-char	*get_dollar_key(char *str, int i)
+char	*get_expand_key(char *str, int i)
 {
 	int j;
-	char *dollar_key;
+	char *expand_key;
 
 	j = 0;
-	dollar_key = malloc((dollar_key_len(str, i) + 1) * sizeof(char));
-	if (!dollar_key)
+	expand_key = malloc((expand_key_len(str, i) + 1) * sizeof(char));
+	if (!expand_key)
 		global_free();
 	while (str[i + j] && !is_separator(str[i + j]))
 	{
-		dollar_key[j] = str[i + j];
+		expand_key[j] = str[i + j];
 		j++;
 	}
-	dollar_key[j] = '\0';
-	return (dollar_key);
+	expand_key[j] = '\0';
+	return (expand_key);
 }
 
 int	is_separator(char c)

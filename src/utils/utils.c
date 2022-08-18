@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 14:47:33 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/09 15:33:34 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/17 12:06:08 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,12 +21,12 @@ t_quotes	*set_quotes(char c, t_quotes *quotes)
 	return(quotes);
 }
 
-void	add_shellvar(t_list **alst, char *key, char *value)
+void	add_expand(t_list **alst, char *key, char *value)
 {
 	t_list		*lst;
-	t_shellvar	*content;
+	t_expand	*content;
 
-	content = malloc(sizeof(t_shellvar));
+	content = malloc(sizeof(t_expand));
 	if (!content)
 		global_free();
 	content->key = key;
