@@ -6,12 +6,12 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:00:06 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/17 22:23:10 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/18 13:28:40 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
+/*TEST*/
 void	test_lexer(char **tokens)
 {
 	int	i;

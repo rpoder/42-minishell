@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/17 22:17:45 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/18 14:07:00 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@ typedef struct s_data {
 	t_list	*env;
 	t_list	*local_expands;
 	char	*prompt_line;
+	char	*expanded_line;
 	char	**tokens;
 }	t_data;
 
@@ -41,7 +42,8 @@ extern t_data *data;
 /* Main.c */
 
 /* Syntax_checker */
-int	syntax_checker(char *str);
+int		syntax_checker(char *str);
+void	mute_non_interpretable_quotes(t_data *data);
 
 /* utils.c */
 void		add_expand(t_list **alst, char *key, char *value);
@@ -52,22 +54,22 @@ int	is_redirection_operator(char c);
 int	is_space(char c);
 
 /* init.c */
-t_data		*init_data(char **env);
+t_data		*init_data(char **env, char *prompt_line);
 t_quotes	*init_quotes(void);
 
-/* metachar_interpreter.c */
-void	metachar_interpreter(char *src);
+/* expander.c */
+void	expander(char *src);
 
-/* set_prompt_line_utils.c */
+/* set_expanded_line_utils.c */
 int		has_metachar(char *str);
 int		is_to_interpret(char *str, int i, int sgl_quote, int dbl_quote);
-char	*get_dollar_value(char *dollar_key);
-char	*get_dollar_key(char *str, int i);
+char	*get_expand_value(char *expand_key);
+char	*get_expand_key(char *str, int i);
 int		is_separator(char c);
 
-/* set_prompt_line_utils_2.c */
-int	dollar_key_len(char *str, int i);
-int	dollar_value_len(char *str, int i);
+/* set_expanded_line_utils_2.c */
+int	expand_key_len(char *str, int i);
+int	expand_value_len(char *str, int i);
 
 /* set_env.c */
 void	set_env(t_data *data, char **env);

@@ -6,13 +6,13 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:43:05 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/17 12:05:47 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/18 13:03:39 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_data	*init_data(char **env)
+t_data	*init_data(char **env, char *prompt_line)
 {
 	t_data	*data;
 
@@ -23,7 +23,8 @@ t_data	*init_data(char **env)
 	set_env(data, env);
 	data->local_expands = NULL;
 	add_expand(&data->local_expands, alloc_and_fill("?"), alloc_and_fill("127"));
-	data->prompt_line = NULL;
+	data->prompt_line = alloc_and_fill(prompt_line);
+	data->expanded_line = NULL;
 	data->tokens = NULL;
 	return (data);
 }

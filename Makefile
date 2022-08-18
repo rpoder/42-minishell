@@ -6,7 +6,7 @@
 #    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/08/17 21:54:47 by mpourrey         ###   ########.fr        #
+#    Updated: 2022/08/18 13:38:52 by mpourrey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,9 +25,10 @@ SRCS				:=	main.c \
 						utils/utils.c utils/utils_2.c\
 						set_env.c \
 						syntax_checker/syntax_checker.c \
-						metachar_interpreter/metachar_interpreter.c \
-						metachar_interpreter/set_prompt_line_utils.c \
-						metachar_interpreter/set_prompt_line_utils_2.c \
+						syntax_checker/handle_mutes.c \
+						expander/expander.c \
+						expander/set_expanded_line_utils.c \
+						expander/set_expanded_line_utils_2.c \
 						lexer/lexer.c \
 						lexer/split_tokens.c \
 						lexer/split_tokens_utils.c \
@@ -55,7 +56,7 @@ $(OUTDIR)/%.o		:	$(SRCDIR)/%.c | $(OUTDIR)
 $(NAME)				:	$(addprefix $(OUTDIR)/,$(SRCS:.c=.o)) $(LIBFT) $(MLX)
 	$(CC) $(CCFLAGS) $(addprefix $(OUTDIR)/,$(SRCS:.c=.o)) $(LIBFT) -lreadline -o $(NAME)
 
-all					:	$(NAME)
+all					:	$(NAME) 
 
 ifdef LIBFT
 $(LIBFT)			:

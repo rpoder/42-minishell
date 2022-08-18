@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:18:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/17 12:06:08 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/18 12:59:43 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,8 @@ void	global_free(void)
 			ft_lstclear(&data->env, del_expand);
 		if (data->local_expands)
 			ft_lstclear(&data->local_expands, del_expand);
-		if (data->prompt_line)
-			free(data->prompt_line);
+		if (data->expanded_line)
+			free(data->expanded_line);
 		free(data);
 	}
 }

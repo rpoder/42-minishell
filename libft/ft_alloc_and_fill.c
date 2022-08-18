@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_alloc_and_fill.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 12:57:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/07/29 16:17:01 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/08/18 13:05:07 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ char	*alloc_and_fill(char *str)
 	char	*dst;
 
 	i = 0;
+	if (str == NULL)
+		return (NULL);
 	dst = malloc(sizeof(char) * (ft_strlen(str) + 1));
 	if (!dst)
 		return (NULL);
