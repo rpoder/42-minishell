@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:18:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/18 14:29:32 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/18 16:22:40 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 void	del_expand(void *content)
 {
-	t_shellvar	*casted_content;
+	t_expand	*casted_content;
 
 	casted_content = ((t_expand *)content);
 	if (casted_content)

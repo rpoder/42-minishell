@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 09:31:14 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/18 14:14:05 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/18 16:23:55 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static void	unset_expand(t_list **alst, t_list *last, t_list *tmp)
 		data->env = tmp->next;
 	else
 		last->next = tmp->next;
-	del_shellvar(tmp->content);
+	del_expand(tmp->content);
 }
 
 static int	unset_from(t_list **alst, char *key_to_unset)
@@ -31,7 +31,7 @@ static int	unset_from(t_list **alst, char *key_to_unset)
 	last = NULL;
 	while (tmp)
 	{
-		if (ft_strcmp(((t_shellvar *)tmp->content)->key, key_to_unset) == 0)
+		if (ft_strcmp(((t_expand *)tmp->content)->key, key_to_unset) == 0)
 		{
 			found = true;
 			break;

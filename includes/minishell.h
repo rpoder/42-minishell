@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/18 14:29:42 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/18 16:23:55 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,7 +101,7 @@ char	*get_and_skip_token(char *str, t_split_data *data);
 
 /* handle_free.c */
 void	global_free(void);
-void	del_shellvar(void *content);
+void	del_expand(void *content);
 
 /* BUILT_INS */
 /* echo.c */

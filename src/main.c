@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/18 14:28:58 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/18 16:26:32 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	main(int argc, char **argv, char **env)
 
 
 	/* TEST EXPORT */
-/* 	t_expand *test;
+/*  	t_expand *test;
 	t_list	*maillon;
 	test = malloc(sizeof(t_expand));
 	test->key = alloc_and_fill("test");
@@ -63,7 +63,7 @@ int	main(int argc, char **argv, char **env)
 	test2->key = alloc_and_fill("test2");
 	test2->value = alloc_and_fill("toz");
 	maillon2 = ft_lstnew(test2);
-	ft_lstadd_back(&data->local_vars, maillon2);
+	ft_lstadd_back(&data->local_expands, maillon2);
 	ft_export(data, "test2");
 	ft_env(data, 1);
 	printf("\nLOCAL VARS\n");
@@ -75,32 +75,10 @@ int	main(int argc, char **argv, char **env)
 		tmp = tmp->next;
 	}
 	ft_unset(data, "GJS_DEBUG_TOPICS");
-	ft_env(data, 1);
-	// printf("\nLOCAL VARS\n");
-	// tmp = data->local_vars;
-	// while (tmp)
-	// {
-	// 	printf("%s = %s\n", ((t_shellvar *)tmp->content)->key, ((t_shellvar *)tmp->content)->value);
-	// 	tmp = tmp->next;
-	// }
+	ft_env(data, 1); */
 
 
 
 
-	//free(line);
-
-	// Delete
-/* 	char **test;
-	test = ft_split_quote(data->expanded_line, ' ');
-	int	i = 0;
-	while (test[i])
-	{
-		printf("splitted quotes %s\n", test
-		i++;
-	} */
-	//global_free();
-	// printf("env %p\n", (data->env));
-	// printf("env %s\n", ((t_expand *)data->env->content)->key);
 	return 0;
 }
-//test = "echo \"$VSCODE_GIT_ASKPASS_EXTRA_ARGS\" $PATH";
