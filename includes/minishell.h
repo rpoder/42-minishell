@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/18 14:29:42 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/18 15:53:15 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,6 +50,7 @@ void		add_expand(t_list **alst, char *key, char *value);
 t_quotes	*set_quotes(char c, t_quotes *quotes);
 
 /* utils_2.c */
+int	is_separator(char c);
 int	is_redirection_operator(char c);
 int	is_space(char c);
 
@@ -61,7 +62,7 @@ t_quotes	*init_quotes(void);
 void	expander(char *src);
 
 /* set_expanded_line_utils.c */
-int		has_metachar(char *str);
+int		has_expand(char *str);
 int		is_to_interpret(char *str, int i, int sgl_quote, int dbl_quote);
 char	*get_expand_value(char *expand_key);
 char	*get_expand_key(char *str, int i);
@@ -86,7 +87,7 @@ char			*token_trim(char *str);
 t_split_data	*init_split_data();
 void			set_data_for_next_token(t_split_data *split_data, int i);
 int				redirection_token_len(char *str, int i);
-int				is_split_separator(char c);
+int				is_separator(char c);
 
 /*token_skippers */
 int	skip_space(char *str, int i);

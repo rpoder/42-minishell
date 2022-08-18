@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/28 14:47:33 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/17 12:06:08 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/18 15:48:01 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,6 +31,8 @@ void	add_expand(t_list **alst, char *key, char *value)
 		global_free();
 	content->key = key;
 	content->value = value;
+	//trim
+	//mute_non_interpretable_char
 	lst = ft_lstnew(content);
 	ft_lstadd_back(alst, lst);
 }
