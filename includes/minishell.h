@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/18 14:07:00 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/18 14:29:42 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,12 +101,14 @@ char	*get_and_skip_token(char *str, t_split_data *data);
 
 /* handle_free.c */
 void	global_free(void);
+void	del_shellvar(void *content);
 
 /* BUILT_INS */
 /* echo.c */
 void	ft_echo(char **args, int fd);
 void	ft_env(t_data *data, int fd);
 void	ft_export(t_data *data, char *key_to_export);
+void	ft_unset(t_data *data, char *key_to_unset);
 
 #endif
 

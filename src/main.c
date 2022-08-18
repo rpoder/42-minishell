@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/18 13:43:57 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/18 14:28:58 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@ int	main(int argc, char **argv, char **env)
 	mute_non_interpretable_quotes(data);
 	expander(data->prompt_line);
 	lexer(data->expanded_line);
-	
+
 
 	/* TEST ECHO */
 	// char **args;
@@ -63,10 +63,9 @@ int	main(int argc, char **argv, char **env)
 	test2->key = alloc_and_fill("test2");
 	test2->value = alloc_and_fill("toz");
 	maillon2 = ft_lstnew(test2);
-	ft_lstadd_back(&data->local_expands, maillon2);
-	ft_export(data, "?");
+	ft_lstadd_back(&data->local_vars, maillon2);
+	ft_export(data, "test2");
 	ft_env(data, 1);
-
 	printf("\nLOCAL VARS\n");
 	t_list	*tmp;
 	tmp = data->local_expands;
@@ -74,7 +73,16 @@ int	main(int argc, char **argv, char **env)
 	{
 		printf("%s = %s\n", ((t_expand *)tmp->content)->key, ((t_expand *)tmp->content)->value);
 		tmp = tmp->next;
-	} */
+	}
+	ft_unset(data, "GJS_DEBUG_TOPICS");
+	ft_env(data, 1);
+	// printf("\nLOCAL VARS\n");
+	// tmp = data->local_vars;
+	// while (tmp)
+	// {
+	// 	printf("%s = %s\n", ((t_shellvar *)tmp->content)->key, ((t_shellvar *)tmp->content)->value);
+	// 	tmp = tmp->next;
+	// }
 
 
 
