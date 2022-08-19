@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/19 14:54:27 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/19 15:14:30 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,9 +46,15 @@ t_quotes	*init_quotes(void);
 /* Syntax_checker */
 int		syntax_checker(char *str);
 
-/* handle_mutes.c */
-void	mute_non_interpretable_quotes(t_data *data);
+/* handle_mutes_in_expand.c */
 char	*get_muted_expand_value(char *value);
+
+/* mutes_in_expand_utils.c */
+int	skip_if_space(char *value, int i);
+t_mute_data	*init_mute_data();
+
+/* handle_mutes_in_quotes.c */
+void	mute_in_quotes(t_data *data);
 
 /* handle_expand.c */
 void	add_expand(t_list **alst, char *key, char *value);

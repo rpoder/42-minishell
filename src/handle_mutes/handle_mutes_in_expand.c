@@ -1,39 +1,18 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_mutes.c                                     :+:      :+:    :+:   */
+/*   handle_mutes_in_expand.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 13:14:43 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/19 13:02:55 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/19 15:13:43 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_mute_data	*init_mute_data()
-{
-	t_mute_data	*mute_data;
-
-	mute_data = malloc(sizeof(t_mute_data)); //proteger
-	mute_data->i = 0;
-	mute_data->j = 0;
-	mute_data->quote = '0';
-	return (mute_data);
-}
-
-static int	skip_if_space(char *value, int i) 
-{
-	if (is_space(value[i]))
-	{
-		while(is_space(value[i]))
-			i++;
-	}
-	else
-		i++;
-	return (i);
-}	
+	
 
 static char	get_muted_char_inside_quotes(char *value, int i, char quote)
 {
@@ -57,7 +36,7 @@ static char	get_muted_char_inside_quotes(char *value, int i, char quote)
 	return (c);
 }
 
-void	fill_muted_expand_dst(char *value, char *dst)
+static void	fill_muted_expand_dst(char *value, char *dst)
 {
 	t_mute_data	*data;
 	
@@ -98,42 +77,3 @@ char	*get_muted_expand_value(char *value)
 	return (dst);
 }
 
-static int	mute_and_skip_inside_quotes(t_data *data, int i)
-{
-	if (data->prompt_line[i] == '\'')
-	{
-		i++;
-		while(data->prompt_line[i] != '\'')
-		{
-			if (data->prompt_line[i] == '\"' || is_redirection_operator(data->prompt_line[i]))
-				data->prompt_line[i] = data->prompt_line[i] * -1;
-			i++;	
-		}
-	}
-	else if (data->prompt_line[i] == '\"')
-	{
-			i++;
-			while(data->prompt_line[i] != '\"')
-			{
-				if (data->prompt_line[i] == '\'' || is_redirection_operator(data->prompt_line[i])) //separator
-					data->prompt_line[i] = data->prompt_line[i] * -1;
-				i++;	
-			}
-	}
-	i++;
-	return (i);
-}
-
-void	mute_non_interpretable_quotes(t_data *data)
-{
-	int	i;
-
-	i = 0;
-	while(data->prompt_line[i])
-	{
-		if(data->prompt_line[i] == '\'' || data->prompt_line[i] == '\"')
-			i = mute_and_skip_inside_quotes(data, i);
-		else
-			i++;
-	}			
-}
