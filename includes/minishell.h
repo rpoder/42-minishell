@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/19 14:43:24 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/19 14:54:27 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,6 @@ typedef struct s_expand {
 	char *key;
 	char *value;
 }	t_expand;
-
-// a checker norminettouille "bool	sgl_quote = false";
 
 typedef struct s_data {
 	t_list	*env;
@@ -52,7 +50,7 @@ int		syntax_checker(char *str);
 void	mute_non_interpretable_quotes(t_data *data);
 char	*get_muted_expand_value(char *value);
 
-/* add_expand.c */
+/* handle_expand.c */
 void	add_expand(t_list **alst, char *key, char *value);
 
 /* expander.c */
@@ -112,7 +110,7 @@ void	del_t_expand(void *content);
 /* builtins_err.c */
 int	check_t_expand_key_input(char *key);
 
-/* Other */
+/* OTHER BUILT_INS */
 void	ft_echo(char **args, int fd);
 void	ft_env(t_data *data, int fd);
 void	ft_export(t_data *data, char *key_to_export);

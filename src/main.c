@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/19 14:43:27 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/19 14:52:01 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	main(int argc, char **argv, char **env)
 	expander(data->prompt_line);
 	printf("expanded_line = |%s|\n", data->expanded_line);
 	lexer(data->expanded_line);
-
+}
 
 void	tests_ronan(t_data *data)
 {
