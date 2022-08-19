@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/18 13:43:57 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/19 10:11:45 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,27 +14,36 @@
 
 t_data	*data;
 
+void	tests_ronan(t_data *data);
+
 int	main(int argc, char **argv, char **env)
 {
 	char *line;
 	(void)argc;
 	(void)argv;
 
-//	line = readline("mi_nils_shell j'écoute ? > ");
-//	add_history(line);
+	// line = readline("mi_nils_shell j'écoute ? > ");
+	// add_history(line);
 	line ="\'cou\"c\"ou\' \"yo||\'yo\" > $? ";
 	data = init_data(env, line);
-	printf("line = '%s'\n\n", line);
+	// printf("line = '%s'\n\n", line);
 	if (syntax_checker(line) == 1)
 	{
 		//free
 		return (1);
 	}
-	mute_non_interpretable_quotes(data);
-	expander(data->prompt_line);
-	lexer(data->expanded_line);
-	
+	// mute_non_interpretable_quotes(data);
+	// expander(data->prompt_line);
+	// lexer(data->expanded_line);
 
+
+
+	tests_ronan(data);
+	return 0;
+}
+
+void	tests_ronan(t_data *data)
+{
 	/* TEST ECHO */
 	// char **args;
 	// args = malloc(sizeof(char *) * 3);
@@ -49,7 +58,7 @@ int	main(int argc, char **argv, char **env)
 
 
 	/* TEST EXPORT */
-/* 	t_expand *test;
+	t_expand *test;
 	t_list	*maillon;
 	test = malloc(sizeof(t_expand));
 	test->key = alloc_and_fill("test");
@@ -64,8 +73,9 @@ int	main(int argc, char **argv, char **env)
 	test2->value = alloc_and_fill("toz");
 	maillon2 = ft_lstnew(test2);
 	ft_lstadd_back(&data->local_expands, maillon2);
-	ft_export(data, "?");
-	ft_env(data, 1);
+
+	//ft_export(data, "test2");
+	//ft_env(data, 1);
 
 	printf("\nLOCAL VARS\n");
 	t_list	*tmp;
@@ -74,25 +84,17 @@ int	main(int argc, char **argv, char **env)
 	{
 		printf("%s = %s\n", ((t_expand *)tmp->content)->key, ((t_expand *)tmp->content)->value);
 		tmp = tmp->next;
-	} */
+	}
 
-
-
-
-	//free(line);
-
-	// Delete
-/* 	char **test;
-	test = ft_split_quote(data->expanded_line, ' ');
-	int	i = 0;
-	while (test[i])
+	ft_unset(data, "test2");
+	printf("\n\n\n");
+	//ft_env(data, 1);
+	printf("\nLOCAL VARS\n");
+	tmp = data->local_expands;
+	while (tmp)
 	{
-		printf("splitted quotes %s\n", test
-		i++;
-	} */
-	//global_free();
-	// printf("env %p\n", (data->env));
-	// printf("env %s\n", ((t_expand *)data->env->content)->key);
-	return 0;
+		printf("%s = %s\n", ((t_expand *)tmp->content)->key, ((t_expand *)tmp->content)->value);
+		tmp = tmp->next;
+	}
+
 }
-//test = "echo \"$VSCODE_GIT_ASKPASS_EXTRA_ARGS\" $PATH";
