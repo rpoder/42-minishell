@@ -6,7 +6,7 @@
 #    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/08/19 09:53:21 by rpoder           ###   ########.fr        #
+#    Updated: 2022/08/19 12:25:49 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,6 +39,8 @@ SRCS				:=	main.c \
 						built-ins/ft_env.c \
 						built-ins/ft_export.c \
 						built-ins/ft_unset.c \
+						built-ins/ft_cd.c \
+						built-ins/builtins_err.c \
 
 CC					:=	cc
 

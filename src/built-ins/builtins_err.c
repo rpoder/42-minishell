@@ -1,34 +1,29 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   builtins_err.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/11 16:25:27 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/19 10:35:28 by rpoder           ###   ########.fr       */
+/*   Created: 2022/08/19 11:27:34 by rpoder            #+#    #+#             */
+/*   Updated: 2022/08/19 12:34:13 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_echo(char **args, int fd)
+int	check_t_expand_key_input(char *key)
 {
-	int		i;
-	bool	n_option;
+	int	i;
 
-	i = 1;
-	n_option = false;
-	if (ft_strcmp(args[i], "-n") == 0)
+	i = 0;
+	if (!ft_isalpha(key[0]) && key[0] != '_')
+		return (-1);
+	while (key[i])
 	{
-		n_option = true;
+		if (!ft_isalnum(key[i]) && key[i] != '_')
+			return (-1);
 		i++;
 	}
-	while (args[i])
-	{
-		ft_putstr_fd(args[i], fd);
-		i++;
-	}
-	if (n_option == false)
-		ft_putchar_fd('\n', fd);
+	return (0);
 }

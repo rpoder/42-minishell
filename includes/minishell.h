@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/19 10:24:08 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/19 12:51:19 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,11 +104,15 @@ void	global_free(void);
 void	del_t_expand(void *content);
 
 /* BUILT_INS */
-/* echo.c */
+/* builtins_err.c */
+int	check_t_expand_key_input(char *key);
+
+/* Other */
 void	ft_echo(char **args, int fd);
 void	ft_env(t_data *data, int fd);
 void	ft_export(t_data *data, char *key_to_export);
-void	ft_unset(t_data *data, char *key_to_unset);
+int		ft_unset(t_data *data, char **args);
+void	ft_cd(t_data *data, char **args);
 
 #endif
 

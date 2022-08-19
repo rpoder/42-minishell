@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/19 10:11:45 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/19 13:06:15 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,11 +54,11 @@ void	tests_ronan(t_data *data)
 	// args[4] = alloc_and_fill("toz");
 	// ft_echo(args, 1);
 
+	/* TEST ENV */
 	//ft_env(data, 1);
 
-
 	/* TEST EXPORT */
-	t_expand *test;
+	/* t_expand *test;
 	t_list	*maillon;
 	test = malloc(sizeof(t_expand));
 	test->key = alloc_and_fill("test");
@@ -95,6 +95,19 @@ void	tests_ronan(t_data *data)
 	{
 		printf("%s = %s\n", ((t_expand *)tmp->content)->key, ((t_expand *)tmp->content)->value);
 		tmp = tmp->next;
-	}
+	} */
+
+/* 	char **args;
+	args = malloc(sizeof(char *) * 6);
+	args[0] = alloc_and_fill("PATH");
+	args[1] = alloc_and_fill("unset");
+	args[2] = alloc_and_fill("-oz");
+	args[3] = alloc_and_fill("to*z");
+	args[4] = alloc_and_fill("//toz");
+	args[5] = NULL;
+	ft_unset(data, args); */
+
+
+	/* TEST CD */
 
 }
