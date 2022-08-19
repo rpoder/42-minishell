@@ -1,3 +1,6 @@
+# Caches
+.DS_Store
+
 # Executable
 minishell
 
