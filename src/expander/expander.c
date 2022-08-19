@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:02:08 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/18 19:36:08 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/19 19:00:18 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,7 @@ static void	fill_expanded_line(char *src)
 		quotes = set_quotes(src[i], quotes);
 		if (src[i] == '$' && is_to_interpret(src, i, quotes->sgl_quote, quotes->dbl_quote))
 		{
+			printf("entre\n");
 			fill_with_expand_value(src, i, j);
 			j = j + expand_value_len(src, i + 1);
 			i = i + expand_key_len(src, i + 1);
@@ -88,6 +89,7 @@ static void	fill_expanded_line(char *src)
 			j++;
 		}
 		i++;
+		printf("expanded_line[%d] = %c\n", j, data->expanded_line[j]);
 	}
 	data->expanded_line[j] = '\0';
 }
@@ -103,8 +105,9 @@ void	expander(char *src)
 	}
 	dst_len = expanded_line_len(src);
 	data->expanded_line = malloc(sizeof(char) * (dst_len + 1));
-	if (!data->expanded_line)
-		global_free();
+//	if (!data->expanded_line)
+//		global_free();
+	printf("len = %d\n", dst_len);
 	fill_expanded_line(src);
 }
 

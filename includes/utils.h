@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:25:35 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/19 12:53:52 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/19 16:54:43 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@
 typedef struct	s_mute_data
 {
 	int		i;
-	int		j;
+	int		len;
 	char	quote;
 }	t_mute_data;
 

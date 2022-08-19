@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/19 15:14:30 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/19 17:25:32 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,8 +50,8 @@ int		syntax_checker(char *str);
 char	*get_muted_expand_value(char *value);
 
 /* mutes_in_expand_utils.c */
-int	skip_if_space(char *value, int i);
 t_mute_data	*init_mute_data();
+int			skip_if_space(char *value, int i);
 
 /* handle_mutes_in_quotes.c */
 void	mute_in_quotes(t_data *data);
@@ -83,8 +83,6 @@ void	lexer(char *str);
 char	**split_tokens(char *str);
 
 /* split_tokens_utils.c */
-int				token_trim_len(char *str);
-char			*token_trim(char *str);
 t_split_data	*init_split_data();
 void			set_data_for_next_token(t_split_data *split_data, int i);
 int				redirection_token_len(char *str, int i);
@@ -99,6 +97,9 @@ int	skip_redirection_token(char *str, int i);
 char	*get_token_if_end_of_str(char *str, t_split_data *data);
 char	*get_token(char *str, int i, int token_start);
 char	*get_and_skip_token(char *str, t_split_data *data);
+
+/* token_trim.c */
+char	*token_trim(char *src);
 
 /* utils.c */
 t_quotes	*set_quotes(char c, t_quotes *quotes);

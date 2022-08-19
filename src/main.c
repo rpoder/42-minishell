@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/19 14:52:01 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/19 18:55:32 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,23 +19,23 @@ void	tests_ronan(t_data *data);
 int	main(int argc, char **argv, char **env)
 {
 	char *line;
-	(void)argc;
-	(void)argv;
-
-//	line = readline("mi_nils_shell j'écoute ? > ");
-//	add_history(line);
-	line ="$?";
-	data = init_data(env, line);
-	printf("line = |%s|\n", line);
-	if (syntax_checker(line) == 1)
+	//(void)argc;
+	//(void)argv;
+	while (1)
 	{
-		//free
-		return (1);
+		line = readline("mi_nils_shell j'écoute ? > ");
+		add_history(line);	
+		data = init_data(env, line);
+		if (syntax_checker(line) == 1)
+		{
+			//free
+			return (1);
+		}
+		mute_in_quotes(data);
+		expander(data->prompt_line);
+		printf("expanded_line = %s\n", data->expanded_line);
+		lexer(data->expanded_line);
 	}
-	mute_non_interpretable_quotes(data);
-	expander(data->prompt_line);
-	printf("expanded_line = |%s|\n", data->expanded_line);
-	lexer(data->expanded_line);
 }
 
 void	tests_ronan(t_data *data)
@@ -51,7 +51,6 @@ void	tests_ronan(t_data *data)
 	// ft_echo(args, 1);
 
 	/* TEST ENV */
-	//ft_env(data, 1);
 
 	/* TEST EXPORT */
 	/* t_expand *test;

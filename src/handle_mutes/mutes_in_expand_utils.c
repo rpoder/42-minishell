@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 15:13:09 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/19 15:14:15 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/19 16:55:22 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_mute_data	*init_mute_data()
 
 	mute_data = malloc(sizeof(t_mute_data)); //proteger
 	mute_data->i = 0;
-	mute_data->j = 0;
+	mute_data->len = 0;
 	mute_data->quote = '0';
 	return (mute_data);
 }
