@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/19 12:51:19 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/19 14:43:24 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,33 +41,31 @@ extern t_data *data;
 
 /* Main.c */
 
-/* Syntax_checker */
-int		syntax_checker(char *str);
-void	mute_non_interpretable_quotes(t_data *data);
-
-/* utils.c */
-void		add_expand(t_list **alst, char *key, char *value);
-t_quotes	*set_quotes(char c, t_quotes *quotes);
-
-/* utils_2.c */
-int	is_redirection_operator(char c);
-int	is_space(char c);
-
 /* init.c */
 t_data		*init_data(char **env, char *prompt_line);
 t_quotes	*init_quotes(void);
 
+/* Syntax_checker */
+int		syntax_checker(char *str);
+
+/* handle_mutes.c */
+void	mute_non_interpretable_quotes(t_data *data);
+char	*get_muted_expand_value(char *value);
+
+/* add_expand.c */
+void	add_expand(t_list **alst, char *key, char *value);
+
 /* expander.c */
 void	expander(char *src);
 
-/* set_expanded_line_utils.c */
-int		has_metachar(char *str);
+/* expander_utils.c*/
+int		has_expand(char *str);
 int		is_to_interpret(char *str, int i, int sgl_quote, int dbl_quote);
 char	*get_expand_value(char *expand_key);
 char	*get_expand_key(char *str, int i);
 int		is_separator(char c);
 
-/* set_expanded_line_utils_2.c */
+/* expander_utils_2.c */
 int	expand_key_len(char *str, int i);
 int	expand_value_len(char *str, int i);
 
@@ -86,7 +84,6 @@ char			*token_trim(char *str);
 t_split_data	*init_split_data();
 void			set_data_for_next_token(t_split_data *split_data, int i);
 int				redirection_token_len(char *str, int i);
-int				is_split_separator(char c);
 
 /*token_skippers */
 int	skip_space(char *str, int i);
@@ -98,6 +95,14 @@ int	skip_redirection_token(char *str, int i);
 char	*get_token_if_end_of_str(char *str, t_split_data *data);
 char	*get_token(char *str, int i, int token_start);
 char	*get_and_skip_token(char *str, t_split_data *data);
+
+/* utils.c */
+t_quotes	*set_quotes(char c, t_quotes *quotes);
+
+/* utils_2.c */
+int	is_token_separator(char c);
+int	is_redirection_operator(char c);
+int	is_space(char c);
 
 /* handle_free.c */
 void	global_free(void);

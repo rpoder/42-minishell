@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/19 13:06:15 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/19 14:43:27 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,25 +22,21 @@ int	main(int argc, char **argv, char **env)
 	(void)argc;
 	(void)argv;
 
-	// line = readline("mi_nils_shell j'écoute ? > ");
-	// add_history(line);
-	line ="\'cou\"c\"ou\' \"yo||\'yo\" > $? ";
+//	line = readline("mi_nils_shell j'écoute ? > ");
+//	add_history(line);
+	line ="$?";
 	data = init_data(env, line);
-	// printf("line = '%s'\n\n", line);
+	printf("line = |%s|\n", line);
 	if (syntax_checker(line) == 1)
 	{
 		//free
 		return (1);
 	}
-	// mute_non_interpretable_quotes(data);
-	// expander(data->prompt_line);
-	// lexer(data->expanded_line);
+	mute_non_interpretable_quotes(data);
+	expander(data->prompt_line);
+	printf("expanded_line = |%s|\n", data->expanded_line);
+	lexer(data->expanded_line);
 
-
-
-	tests_ronan(data);
-	return 0;
-}
 
 void	tests_ronan(t_data *data)
 {
