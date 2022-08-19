@@ -3,27 +3,30 @@
 /*                                                        :::      ::::::::   */
 /*   handle_frees.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:18:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/18 12:59:43 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/19 10:24:25 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	del_expand(void *content)
+void	del_t_expand(void *content)
 {
-	t_expand *casted_content;
+	t_list	*casted_arg;
 
-	casted_content = ((t_expand *)content);
-	if (casted_content)
+	casted_arg = (t_list *)content;
+	if (casted_arg)
 	{
-		if (casted_content->key)
-			free(casted_content->key);
-		if (casted_content->value)
-			free(casted_content->value);
-		free(content);
+		if ((t_expand *)casted_arg->content)
+		{
+			if (((t_expand *)casted_arg->content)->key)
+				free(((t_expand *)casted_arg->content)->key);
+			if (((t_expand *)casted_arg->content)->value)
+				free(((t_expand *)casted_arg->content)->value);
+			free(casted_arg);
+		}
 	}
 }
 
@@ -32,9 +35,9 @@ void	global_free(void)
 	if (data)
 	{
 		if (data->env)
-			ft_lstclear(&data->env, del_expand);
+			ft_lstclear(&data->env, del_t_expand);
 		if (data->local_expands)
-			ft_lstclear(&data->local_expands, del_expand);
+			ft_lstclear(&data->local_expands, del_t_expand);
 		if (data->expanded_line)
 			free(data->expanded_line);
 		free(data);
