@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:02:08 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/19 19:21:30 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/19 19:23:04 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,7 @@ static int	expanded_line_len(char *str)
 	while (str[i])
 	{
 		quotes = set_quotes(str[i], quotes);
-		if (str[i] == '$'
-			&& is_to_interpret(str, i, quotes->sgl_quote, quotes->dbl_quote))
+		if (str[i] == '$' && is_to_interpret(str, i, quotes->sgl_quote, quotes->dbl_quote))
 		{
 			tmp = expand_value_len(str, i + 1);
 			if (tmp > 0)
