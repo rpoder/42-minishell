@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/19 14:52:01 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/19 18:59:54 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,15 +27,17 @@ int	main(int argc, char **argv, char **env)
 	line ="$?";
 	data = init_data(env, line);
 	printf("line = |%s|\n", line);
-	if (syntax_checker(line) == 1)
-	{
-		//free
-		return (1);
-	}
-	mute_non_interpretable_quotes(data);
-	expander(data->prompt_line);
-	printf("expanded_line = |%s|\n", data->expanded_line);
-	lexer(data->expanded_line);
+	// if (syntax_checker(line) == 1)
+	// {
+		// free
+		// return (1);
+	// }
+	// mute_non_interpretable_quotes(data);
+	// expander(data->prompt_line);
+	// printf("expanded_line = |%s|\n", data->expanded_line);
+	// lexer(data->expanded_line);
+
+	tests_ronan(data);
 }
 
 void	tests_ronan(t_data *data)
@@ -54,24 +56,9 @@ void	tests_ronan(t_data *data)
 	//ft_env(data, 1);
 
 	/* TEST EXPORT */
-	/* t_expand *test;
-	t_list	*maillon;
-	test = malloc(sizeof(t_expand));
-	test->key = alloc_and_fill("test");
-	test->value = alloc_and_fill("coucou");
-	maillon = ft_lstnew(test);
-	ft_lstadd_back(&data->local_expands, maillon);
+	ft_add_expand(&data->local_expands, alloc_and_fill("test"), alloc_and_fill("coucou"), false);
+	ft_add_expand(&data->local_expands, alloc_and_fill("test2"), alloc_and_fill("salut"), false);
 
-	t_expand *test2;
-	t_list	*maillon2;
-	test2 = malloc(sizeof(t_expand));
-	test2->key = alloc_and_fill("test2");
-	test2->value = alloc_and_fill("toz");
-	maillon2 = ft_lstnew(test2);
-	ft_lstadd_back(&data->local_expands, maillon2);
-
-	//ft_export(data, "test2");
-	//ft_env(data, 1);
 
 	printf("\nLOCAL VARS\n");
 	t_list	*tmp;
@@ -82,26 +69,27 @@ void	tests_ronan(t_data *data)
 		tmp = tmp->next;
 	}
 
-	ft_unset(data, "test2");
-	printf("\n\n\n");
-	//ft_env(data, 1);
+
+	char **args;
+	args = malloc(sizeof(char *) * 7);
+	args[0] = alloc_and_fill("[PATH]");
+	args[1] = alloc_and_fill("unset");
+	args[2] = alloc_and_fill("PATH");
+	args[3] = alloc_and_fill("?");
+	args[4] = alloc_and_fill("USER");
+	args[5] = alloc_and_fill("*test2");
+	args[6] = NULL;
+	ft_unset(data, args);
+
 	printf("\nLOCAL VARS\n");
 	tmp = data->local_expands;
 	while (tmp)
 	{
 		printf("%s = %s\n", ((t_expand *)tmp->content)->key, ((t_expand *)tmp->content)->value);
 		tmp = tmp->next;
-	} */
+	}
+	ft_env(data, 1);
 
-/* 	char **args;
-	args = malloc(sizeof(char *) * 6);
-	args[0] = alloc_and_fill("PATH");
-	args[1] = alloc_and_fill("unset");
-	args[2] = alloc_and_fill("-oz");
-	args[3] = alloc_and_fill("to*z");
-	args[4] = alloc_and_fill("//toz");
-	args[5] = NULL;
-	ft_unset(data, args); */
 
 
 	/* TEST CD */

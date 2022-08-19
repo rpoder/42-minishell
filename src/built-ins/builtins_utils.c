@@ -1,24 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   builtins_err.c                                     :+:      :+:    :+:   */
+/*   builtins_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/19 11:27:34 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/19 12:34:13 by rpoder           ###   ########.fr       */
+/*   Created: 2022/08/19 17:18:48 by rpoder            #+#    #+#             */
+/*   Updated: 2022/08/19 18:55:44 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	check_t_expand_key_input(char *key)
+int	is_valid_expand_key(char *key)
 {
 	int	i;
 
-	i = 0;
-	if (!ft_isalpha(key[0]) && key[0] != '_')
+	if (!ft_isalpha(key[0]) && key[0] != '_' && key[0] != '?'
+		|| (key[0] == '?' && key[1] != '\0'))
 		return (-1);
+	i = 1;
 	while (key[i])
 	{
 		if (!ft_isalnum(key[i]) && key[i] != '_')

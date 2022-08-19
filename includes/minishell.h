@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/19 14:54:27 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/19 18:55:44 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,7 +51,8 @@ void	mute_non_interpretable_quotes(t_data *data);
 char	*get_muted_expand_value(char *value);
 
 /* handle_expand.c */
-void	add_expand(t_list **alst, char *key, char *value);
+void	ft_add_expand(t_list **alst, char *key, char *value, bool manual_add);
+int		ft_set_expand(t_data *data, char *key, char *value_to_modify);
 
 /* expander.c */
 void	expander(char *src);
@@ -107,8 +108,9 @@ void	global_free(void);
 void	del_t_expand(void *content);
 
 /* BUILT_INS */
-/* builtins_err.c */
-int	check_t_expand_key_input(char *key);
+/* builtins_utils.c */
+int	is_valid_expand_key(char *key);
+
 
 /* OTHER BUILT_INS */
 void	ft_echo(char **args, int fd);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 12:24:39 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/17 12:06:08 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/19 17:14:26 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ void	set_env(t_data *data, char **env)
 	{
 		while (env[i])
 		{
-			add_expand(&data->env, get_env_key(env[i]), get_env_value(env[i]));
+			ft_add_expand(&data->env, get_env_key(env[i]), get_env_value(env[i]), false);
 			//printf("env %p\n", &data->env);
 			i++;
 		}
