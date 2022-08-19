@@ -1,34 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_echo.c                                          :+:      :+:    :+:   */
+/*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/11 16:25:27 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/19 10:35:28 by rpoder           ###   ########.fr       */
+/*   Created: 2022/08/19 10:33:22 by rpoder            #+#    #+#             */
+/*   Updated: 2022/08/19 12:23:29 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_echo(char **args, int fd)
+char	*get_path()
 {
-	int		i;
-	bool	n_option;
+	return ("coucou");
+}
 
-	i = 1;
-	n_option = false;
-	if (ft_strcmp(args[i], "-n") == 0)
-	{
-		n_option = true;
-		i++;
-	}
-	while (args[i])
-	{
-		ft_putstr_fd(args[i], fd);
-		i++;
-	}
-	if (n_option == false)
-		ft_putchar_fd('\n', fd);
+void	ft_cd(t_data *data, char **args)
+{
+	char *path;
 }

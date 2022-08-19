@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/18 19:37:19 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/19 14:43:24 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ t_quotes	*init_quotes(void);
 /* Syntax_checker */
 int		syntax_checker(char *str);
 
-/* handle_mutes.c */ 
+/* handle_mutes.c */
 void	mute_non_interpretable_quotes(t_data *data);
 char	*get_muted_expand_value(char *value);
 
@@ -106,12 +106,18 @@ int	is_space(char c);
 
 /* handle_free.c */
 void	global_free(void);
+void	del_t_expand(void *content);
 
 /* BUILT_INS */
-/* echo.c */
+/* builtins_err.c */
+int	check_t_expand_key_input(char *key);
+
+/* Other */
 void	ft_echo(char **args, int fd);
 void	ft_env(t_data *data, int fd);
 void	ft_export(t_data *data, char *key_to_export);
+int		ft_unset(t_data *data, char **args);
+void	ft_cd(t_data *data, char **args);
 
 #endif
 
