@@ -6,11 +6,22 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 13:14:43 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/18 20:37:52 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/19 13:02:55 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_mute_data	*init_mute_data()
+{
+	t_mute_data	*mute_data;
+
+	mute_data = malloc(sizeof(t_mute_data)); //proteger
+	mute_data->i = 0;
+	mute_data->j = 0;
+	mute_data->quote = '0';
+	return (mute_data);
+}
 
 static int	skip_if_space(char *value, int i) 
 {
@@ -46,42 +57,38 @@ static char	get_muted_char_inside_quotes(char *value, int i, char quote)
 	return (c);
 }
 
-void	fill_muted_expand_dst(char *value, char *dst) //A NORMER
+void	fill_muted_expand_dst(char *value, char *dst)
 {
-	int	i;
-	int	j;
-	char	quote;
+	t_mute_data	*data;
 	
-	i = 0;
-	j = 0;
-	while (value[i])
+	data = init_mute_data();
+	while (value[data->i])
 	{
-		if (value[i] == '\'' || value[i] == '\"') //ne pas recopier
+		if (value[data->i] == '\'' || value[data->i] == '\"')
 		{
-			quote = value[i];
-			i++;
-			while(value[i] != quote)
+			data->quote = value[data->i];
+			data->i++;
+			while(value[data->i] != data->quote)
 			{
-				dst[j] = get_muted_char_inside_quotes(value, i, quote);
-				j++;
-				i = skip_if_space(value, i);
+				dst[data->j] = get_muted_char_inside_quotes(value, data->i, data->quote);
+				data->j++;
+				data->i = skip_if_space(value, data->i);
 			}
-			i++; //ne pas recopier	
+			data->i++;	
 		}	
-		else if (value[i])
+		else if (value[data->i])
 		{
-			dst[j] = value[i];
-			j++;
-			i = skip_if_space(value, i);
+			dst[data->j] = value[data->i];
+			data->j++;
+			data->i = skip_if_space(value, data->i);
 		}
 	}
-	dst[j] = '\0';
+	dst[data->j] = '\0';
 }
 
 char	*get_muted_expand_value(char *value)
 {
 	char	*dst;
-
 
 	dst = (malloc(sizeof(char) * 10)); //TEST
 	//get len
