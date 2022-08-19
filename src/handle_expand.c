@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 16:53:13 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/19 18:49:27 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/19 19:32:37 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,13 +34,21 @@ static bool	set_on(t_list **alst, char *key, char *value_to_modify)
 
 int	ft_set_expand(t_data *data, char *key, char *value_to_modify)
 {
-	bool	found;
-
-	found = false;
-	found = set_on(&data->local_expands, key, value_to_modify);
-	if (!found)
-		found = set_on(&data->env, key, value_to_modify);
-	return (found);
+	if (set_on(&data->env, key, value_to_modify) == false)
+	{
+		if (set_on(&data->local_expands, key, value_to_modify) == false)
+		{
+			printf("rate\n");
+			if (key [0] && key[0] == '?' && key[1] == '\0')
+			{
+				ft_add_expand(&data->local_expands, key, value_to_modify, true);
+				return (0);
+			}
+			else
+				return (1);
+		}
+	}
+	return (0);
 }
 
 //proteger !value

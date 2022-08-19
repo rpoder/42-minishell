@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/19 18:59:54 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/19 19:31:56 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,10 +75,11 @@ void	tests_ronan(t_data *data)
 	args[0] = alloc_and_fill("[PATH]");
 	args[1] = alloc_and_fill("unset");
 	args[2] = alloc_and_fill("PATH");
-	args[3] = alloc_and_fill("?");
-	args[4] = alloc_and_fill("USER");
-	args[5] = alloc_and_fill("*test2");
+	args[3] = alloc_and_fill("");
+	args[4] = alloc_and_fill("*USER");
+	args[5] = alloc_and_fill("?");
 	args[6] = NULL;
+
 	ft_unset(data, args);
 
 	printf("\nLOCAL VARS\n");
@@ -88,7 +89,25 @@ void	tests_ronan(t_data *data)
 		printf("%s = %s\n", ((t_expand *)tmp->content)->key, ((t_expand *)tmp->content)->value);
 		tmp = tmp->next;
 	}
-	ft_env(data, 1);
+
+	char **args2;
+	args2 = malloc(sizeof(char *) * 5);
+	args[0] = alloc_and_fill("[PATH]");
+	args[1] = alloc_and_fill("unset");
+	args[2] = alloc_and_fill("**PATH");
+	args[3] = alloc_and_fill("**PATH");
+	args[4] = NULL;
+	ft_unset(data, args2);
+
+	printf("\nLast unset\nLOCAL VARS\n");
+	tmp = data->local_expands;
+	while (tmp)
+	{
+		printf("%s = %s\n", ((t_expand *)tmp->content)->key, ((t_expand *)tmp->content)->value);
+		tmp = tmp->next;
+	}
+
+	// ft_env(data, 1);
 
 
 

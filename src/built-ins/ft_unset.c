@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 09:31:14 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/19 18:56:45 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/19 19:26:02 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ static void	move_expand_ptr(t_list **alst, t_list *last, t_list *tmp)
 		else
 			*alst = tmp->next;
 	}
-	del_t_expand(tmp);
+	//del_t_expand(tmp);
 }
 
 static bool	unset_from(t_list **alst, char *key_to_unset)
@@ -65,7 +65,7 @@ int	ft_unset(t_data *data, char **args)
 			ft_putstr_fd(args[i], 2);
 			ft_putstr_fd("\': not a valid identifier\n", 2);
 			ft_set_expand(data, "?", "1");
-			ret = -1;
+			ret++;
 		}
 		if (unset_from(&data->local_expands, args[i]) == false)
 			unset_from(&data->env, args[i]);
