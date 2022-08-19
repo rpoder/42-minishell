@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:02:08 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/19 19:00:18 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/19 19:21:30 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,10 +22,11 @@ static int	expanded_line_len(char *str)
 	quotes = init_quotes();
 	i = 0;
 	len = 0;
-	while(str[i])
+	while (str[i])
 	{
 		quotes = set_quotes(str[i], quotes);
-		if (str[i] == '$' && is_to_interpret(str, i, quotes->sgl_quote, quotes->dbl_quote))
+		if (str[i] == '$'
+			&& is_to_interpret(str, i, quotes->sgl_quote, quotes->dbl_quote))
 		{
 			tmp = expand_value_len(str, i + 1);
 			if (tmp > 0)
@@ -52,8 +53,8 @@ static void	fill_with_expand_value(char *src, int i, int j)
 	k = 0;
 	expand_key = get_expand_key(src, i + 1);
 	expand_value = get_expand_value(expand_key);
-	free(expand_key);
-	if(expand_value)
+	free (expand_key);
+	if (expand_value)
 	{
 		while (expand_value[k])
 		{
@@ -76,9 +77,9 @@ static void	fill_expanded_line(char *src)
 	while (src[i])
 	{
 		quotes = set_quotes(src[i], quotes);
-		if (src[i] == '$' && is_to_interpret(src, i, quotes->sgl_quote, quotes->dbl_quote))
+		if (src[i] == '$'
+			&& is_to_interpret(src, i, quotes->sgl_quote, quotes->dbl_quote))
 		{
-			printf("entre\n");
 			fill_with_expand_value(src, i, j);
 			j = j + expand_value_len(src, i + 1);
 			i = i + expand_key_len(src, i + 1);
@@ -89,7 +90,6 @@ static void	fill_expanded_line(char *src)
 			j++;
 		}
 		i++;
-		printf("expanded_line[%d] = %c\n", j, data->expanded_line[j]);
 	}
 	data->expanded_line[j] = '\0';
 }
@@ -105,9 +105,7 @@ void	expander(char *src)
 	}
 	dst_len = expanded_line_len(src);
 	data->expanded_line = malloc(sizeof(char) * (dst_len + 1));
-//	if (!data->expanded_line)
-//		global_free();
-	printf("len = %d\n", dst_len);
+	if (!data->expanded_line)
+		global_free();
 	fill_expanded_line(src);
 }
-
