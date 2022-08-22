@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/19 19:31:56 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/22 17:44:44 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,72 +43,74 @@ int	main(int argc, char **argv, char **env)
 void	tests_ronan(t_data *data)
 {
 	/* TEST ECHO */
-	// char **args;
-	// args = malloc(sizeof(char *) * 3);
-	// args[0] = alloc_and_fill("echo");
-	// args[1] = alloc_and_fill("-n");
-	// args[2] = alloc_and_fill("toz");
-	// args[3] = alloc_and_fill("toz");
-	// args[4] = alloc_and_fill("toz");
-	// ft_echo(args, 1);
+	char **args;
+	args = malloc(sizeof(char *) * 3);
+	args[0] = alloc_and_fill(NULL);
+	args[1] = alloc_and_fill("echo");
+	args[2] = alloc_and_fill("-n");
+	args[3] = alloc_and_fill("toz");
+	args[4] = alloc_and_fill("toz");
+	args[5] = alloc_and_fill("toz");
+	ft_echo(args, 1);
 
 	/* TEST ENV */
 	//ft_env(data, 1);
 
 	/* TEST EXPORT */
-	ft_add_expand(&data->local_expands, alloc_and_fill("test"), alloc_and_fill("coucou"), false);
-	ft_add_expand(&data->local_expands, alloc_and_fill("test2"), alloc_and_fill("salut"), false);
+	// ft_add_expand(&data->local_expands, alloc_and_fill("test"), alloc_and_fill("coucou"), false);
+	// ft_add_expand(&data->local_expands, alloc_and_fill("test2"), alloc_and_fill("salut"), false);
 
 
-	printf("\nLOCAL VARS\n");
-	t_list	*tmp;
-	tmp = data->local_expands;
-	while (tmp)
-	{
-		printf("%s = %s\n", ((t_expand *)tmp->content)->key, ((t_expand *)tmp->content)->value);
-		tmp = tmp->next;
-	}
+	// printf("\nLOCAL VARS\n");
+	// t_list	*tmp;
+	// tmp = data->local_expands;
+	// while (tmp)
+	// {
+	// 	printf("%s = %s\n", ((t_expand *)tmp->content)->key, ((t_expand *)tmp->content)->value);
+	// 	tmp = tmp->next;
+	// }
 
+	// char **args;
+	// args = malloc(sizeof(char *) * 7);
+	// args[0] = alloc_and_fill(NULL);
+	// args[1] = alloc_and_fill("export");
+	// args[2] = alloc_and_fill("?");
+	// args[3] = alloc_and_fill("test");
+	// args[4] = alloc_and_fill("test2");
+	// args[5] = NULL;
+	// args[6] = NULL;
 
-	char **args;
-	args = malloc(sizeof(char *) * 7);
-	args[0] = alloc_and_fill("[PATH]");
-	args[1] = alloc_and_fill("unset");
-	args[2] = alloc_and_fill("PATH");
-	args[3] = alloc_and_fill("");
-	args[4] = alloc_and_fill("*USER");
-	args[5] = alloc_and_fill("?");
-	args[6] = NULL;
-
-	ft_unset(data, args);
-
-	printf("\nLOCAL VARS\n");
-	tmp = data->local_expands;
-	while (tmp)
-	{
-		printf("%s = %s\n", ((t_expand *)tmp->content)->key, ((t_expand *)tmp->content)->value);
-		tmp = tmp->next;
-	}
-
-	char **args2;
-	args2 = malloc(sizeof(char *) * 5);
-	args[0] = alloc_and_fill("[PATH]");
-	args[1] = alloc_and_fill("unset");
-	args[2] = alloc_and_fill("**PATH");
-	args[3] = alloc_and_fill("**PATH");
-	args[4] = NULL;
-	ft_unset(data, args2);
-
-	printf("\nLast unset\nLOCAL VARS\n");
-	tmp = data->local_expands;
-	while (tmp)
-	{
-		printf("%s = %s\n", ((t_expand *)tmp->content)->key, ((t_expand *)tmp->content)->value);
-		tmp = tmp->next;
-	}
-
+	// ft_export(data, args);
+	// ft_unset(data, args);
 	// ft_env(data, 1);
 
+	// printf("\nLOCAL VARS\n");
+	// tmp = data->local_expands;
+	// while (tmp)
+	// {
+	// 	printf("%s = %s\n", ((t_expand *)tmp->content)->key, ((t_expand *)tmp->content)->value);
+	// 	tmp = tmp->next;
+	// }
+
+	// char **args2;
+	// args2 = malloc(sizeof(char *) * 6);
+	// args2[0] = alloc_and_fill("[PATH]");
+	// args2[1] = alloc_and_fill("unset");
+	// args2[2] = alloc_and_fill("test2");
+	// args2[3] = alloc_and_fill("LS_COLORS");
+	// args2[4] = alloc_and_fill("PATH");
+	// args2[5] = NULL;
+	// ft_unset(data, args2);
+
+	// printf("\nLast unset\nLOCAL VARS\n");
+	// tmp = data->local_expands;
+	// while (tmp)
+	// {
+	// 	printf("%s = %s\n", ((t_expand *)tmp->content)->key, ((t_expand *)tmp->content)->value);
+	// 	tmp = tmp->next;
+	// }
+
+	// ft_env(data, 1);
 
 
 	/* TEST CD */

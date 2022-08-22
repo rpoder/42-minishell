@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 09:31:14 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/19 19:26:02 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/22 17:31:58 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,16 +14,14 @@
 
 static void	move_expand_ptr(t_list **alst, t_list *last, t_list *tmp)
 {
-	if (!alst)
-		*alst = tmp->next;
-	else
+	if (alst != NULL && tmp != NULL)
 	{
-		if (last)
-			last->next = tmp->next;
-		else
+		if (*alst == NULL || last == NULL)
 			*alst = tmp->next;
+		else
+			last->next = tmp->next;
 	}
-	//del_t_expand(tmp);
+	del_t_expand(tmp);
 }
 
 static bool	unset_from(t_list **alst, char *key_to_unset)
@@ -64,13 +62,13 @@ int	ft_unset(t_data *data, char **args)
 			ft_putstr_fd("unset:\'", 2);
 			ft_putstr_fd(args[i], 2);
 			ft_putstr_fd("\': not a valid identifier\n", 2);
-			ft_set_expand(data, "?", "1");
+			ft_set_expand(data, alloc_and_fill("?"), alloc_and_fill("1"));
 			ret++;
 		}
-		if (unset_from(&data->local_expands, args[i]) == false)
+		else if (unset_from(&data->local_expands, args[i]) == false)
 			unset_from(&data->env, args[i]);
 		i++;
 	}
-	// exit(0); exit de l'enfant
+	/* exit(0); exit de l'enfant */
 	return (ret);
 }

@@ -6,18 +6,20 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 16:25:27 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/19 10:35:28 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/22 17:42:28 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	ft_echo(char **args, int fd)
+int	ft_echo(char **args, int fd)
 {
 	int		i;
 	bool	n_option;
 
-	i = 1;
+	if (ft_strcmp(args[1], "echo") != 0)
+		return (-1);
+	i = 2;
 	n_option = false;
 	if (ft_strcmp(args[i], "-n") == 0)
 	{
@@ -31,4 +33,6 @@ void	ft_echo(char **args, int fd)
 	}
 	if (n_option == false)
 		ft_putchar_fd('\n', fd);
+	//exit
+	return (0);
 }

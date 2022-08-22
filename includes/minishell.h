@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/19 18:55:44 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/22 17:40:13 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,9 +113,9 @@ int	is_valid_expand_key(char *key);
 
 
 /* OTHER BUILT_INS */
-void	ft_echo(char **args, int fd);
+int		ft_echo(char **args, int fd);
 void	ft_env(t_data *data, int fd);
-void	ft_export(t_data *data, char *key_to_export);
+int		ft_export(t_data *data, char **args);
 int		ft_unset(t_data *data, char **args);
 void	ft_cd(t_data *data, char **args);
 
