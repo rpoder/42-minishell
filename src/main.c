@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/22 17:44:44 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/26 20:21:30 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,18 +43,18 @@ int	main(int argc, char **argv, char **env)
 void	tests_ronan(t_data *data)
 {
 	/* TEST ECHO */
-	char **args;
+/* 	char **args;
 	args = malloc(sizeof(char *) * 3);
-	args[0] = alloc_and_fill(NULL);
+	args[0] = alloc_and_fill("[PATH]");
 	args[1] = alloc_and_fill("echo");
 	args[2] = alloc_and_fill("-n");
 	args[3] = alloc_and_fill("toz");
 	args[4] = alloc_and_fill("toz");
-	args[5] = alloc_and_fill("toz");
-	ft_echo(args, 1);
+	args[5] = NULL;
+	ft_echo(args, 1); */
 
 	/* TEST ENV */
-	//ft_env(data, 1);
+	// ft_env(data, 1);
 
 	/* TEST EXPORT */
 	// ft_add_expand(&data->local_expands, alloc_and_fill("test"), alloc_and_fill("coucou"), false);
@@ -110,9 +110,17 @@ void	tests_ronan(t_data *data)
 	// 	tmp = tmp->next;
 	// }
 
-	// ft_env(data, 1);
 
 
 	/* TEST CD */
+	char **args;
+	args = malloc(sizeof(char *) * 4);
+	args[0] = alloc_and_fill(NULL);
+	args[1] = alloc_and_fill("ft_cd");
+	args[2] = alloc_and_fill("/includes");
+	args[5] = NULL;
+	//ft_env(data, 1);
+	ft_cd(data, args);
+	// ft_pwd();
 
 }

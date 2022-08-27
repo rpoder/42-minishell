@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 12:24:39 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/19 19:24:33 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/26 14:37:27 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,8 +22,7 @@ char	*get_env_key(char *str)
 	while (str[len] != '=')
 		len++;
 	key = malloc(sizeof(char) * (len + 1));
-	if (!key)
-		global_free();
+	//proteger
 	i = 0;
 	while (i < len)
 	{
@@ -75,7 +74,7 @@ void	set_env(t_data *data, char **env)
 		while (env[i])
 		{
 			ft_add_expand(&data->env, get_env_key(env[i]), get_env_value(env[i]), false);
-			//printf("env %p\n", &data->env);
+			//printf("env |%s|\n", env[i]);
 			i++;
 		}
 	}

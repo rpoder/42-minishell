@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 09:31:14 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/22 17:31:58 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/26 17:11:35 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ int	ft_unset(t_data *data, char **args)
 	int		ret;
 
 	ret = 0;
-	if (ft_strcmp(args[1], "unset") != 0)
+	if (ft_strcmp(args[1], "ft_unset") != 0)
 		return (-1);
 	i = 2;
 	while (args[i])

@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 16:32:48 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/07/29 13:00:10 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/08/26 17:22:05 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ char	*get_next_line(int fd);
 char	*ft_strndup_gnl(char *str, int start, int len);
 char	*ft_strjoin_gnl(char *s1, char *s2);
 char	*alloc_and_fill(char *str);
+int		ft_tablen(char **tab);
 
 ////////////////*LIST*////////////////////
 typedef struct s_list

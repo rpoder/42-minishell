@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/22 17:40:13 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/26 18:01:05 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,8 @@ typedef struct s_data {
 }	t_data;
 
 extern t_data *data;
+
+# define PATH_MAX 4096
 
 /* Main.c */
 
@@ -111,13 +113,16 @@ void	del_t_expand(void *content);
 /* builtins_utils.c */
 int	is_valid_expand_key(char *key);
 
-
-/* OTHER BUILT_INS */
+/* BUILT_INS */
 int		ft_echo(char **args, int fd);
 void	ft_env(t_data *data, int fd);
 int		ft_export(t_data *data, char **args);
 int		ft_unset(t_data *data, char **args);
 void	ft_cd(t_data *data, char **args);
+void	ft_pwd(void);
+char	*get_path();
+
+
 
 #endif
 

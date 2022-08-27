@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_expand.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 16:53:13 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/22 16:22:35 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/26 18:18:10 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,8 @@ int	ft_set_expand(t_data *data, char *key, char *value_to_modify)
 	return (0);
 }
 
+// char	*the_get_expand_value()
+
 //proteger !value
 void	ft_add_expand(t_list **alst, char *key, char *value, bool manual_add) //recoit str allouees
 {
@@ -57,7 +59,8 @@ void	ft_add_expand(t_list **alst, char *key, char *value, bool manual_add) //rec
 	if (!content)
 		global_free();
 	content->key = key;
-	content->value = get_muted_expand_value(value);
-	free(value);
+	// content->value = get_muted_expand_value(value);
+	// free(value);
+	content->value = value;
 	ft_lstadd_back(alst, lst);
 }
