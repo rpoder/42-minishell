@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 09:31:14 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/19 13:01:32 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/27 16:43:30 by margot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ static void	unset_expand(t_list **alst, t_list *last, t_list *tmp)
 		else
 			*alst = tmp->next;
 	}
-	del_t_expand(tmp);
+	del_one_expand(tmp);
 }
 
 static int	unset_from(t_list **alst, char *key_to_unset)

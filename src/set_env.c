@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 12:24:39 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/17 12:06:08 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/27 19:05:38 by margot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*get_env_key(char *str)
 		len++;
 	key = malloc(sizeof(char) * (len + 1));
 	if (!key)
-		global_free();
+		return (NULL);
 	i = 0;
 	while (i < len)
 	{
@@ -51,7 +51,7 @@ char	*get_env_value(char *str)
 		len++;
 	value = malloc(sizeof(char) * (len + 1));
 	if (!value)
-		global_free();
+		return (NULL);
 	i = 0;
 	while (str[j])
 	{
@@ -65,25 +65,28 @@ char	*get_env_value(char *str)
 
 void	set_env(t_data *data, char **env)
 {
-	int	i;
+	int		i;
+	char	*env_key;
+	char	*env_value;
 
 	i = 0;
 	if (!env)
 		data->env = NULL;
-	else
+ 	else
 	{
 		while (env[i])
 		{
-			add_expand(&data->env, get_env_key(env[i]), get_env_value(env[i]));
-			//printf("env %p\n", &data->env);
+			env_key = get_env_key(env[i]);
+			if (!env_key)
+				global_free(data);	
+			env_value = get_env_value(env[i]);
+			if (!env_key)
+			{
+				free(env_key);
+				global_free(data);
+			}
+			add_expand(data, &data->env, env_key, env_value);
 			i++;
 		}
 	}
-	// t_list *tmp;
-	// tmp = data->env;
-	// while (tmp)
-	// {
-	// 	printf("key = %s |	value = %s\n", ((t_expand *)tmp->content)->key, ((t_expand *)tmp->content)->value);
-	// 	tmp = tmp->next;
-	// }
 }

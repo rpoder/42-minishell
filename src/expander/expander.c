@@ -6,48 +6,48 @@
 /*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:02:08 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/27 14:53:17 by margot           ###   ########.fr       */
+/*   Updated: 2022/08/28 00:10:05 by margot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	expanded_line_len(char *str)
+static int	expanded_line_len(t_data *data, char *str, t_expand_tool *tool)
 {
-	t_expand_data	*data;
 	int				tmp;
 
-	data = init_expand_data;
-	while (str[data->i])
+	while (str[tool->i])
 	{
-		data->quotes = set_quotes(str[data->i], data->quotes);
-		if (str[data->i] == '$' && is_expand_to_interpret(str, data->i, data->quotes->sgl_quote, data->quotes->dbl_quote))
+		tool->quotes = set_quotes(str[tool->i], tool->quotes);
+		if (str[tool->i] == '$' && is_expand_to_interpret(str, tool->i, tool->quotes->sgl_quote, tool->quotes->dbl_quote))
 		{
-			tmp = expand_value_len(str, data->i + 1);
+			tmp = expand_value_len(data, str, tool->i + 1);
 			if (tmp > 0)
 			{
-				data->i = data->i + expand_key_len(str, data->i + 1);
-				data->len = data->len + tmp;
+				tool->i = tool->i + expand_key_len(str, tool->i + 1);
+				tool->len = tool->len + tmp;
 			}
 			else
-				data->len++;
+				tool->len++;
 		}
 		else
-			data->len++;
-		data->i++;
+			tool->len++;
+		tool->i++;
 	}
-	return (data->len);
+	return (tool->len);
 }
 
-static void	fill_with_expand_value(char *src, int i, int j)
+static void	fill_with_expand_value(t_data *data, int i, int j)
 {
 	char	*expand_value;
 	char	*expand_key;
 	int		k;
 
 	k = 0;
-	expand_key = get_expand_key(src, i + 1);
-	expand_value = get_expand_value(expand_key);
+	expand_key = get_expand_key(data->prompt_line, i + 1);
+	if (!expand_key)
+		global_free(data);
+	expand_value = get_expand_value(data, expand_key);
 	free (expand_key);
 	if (expand_value)
 	{
@@ -60,47 +60,52 @@ static void	fill_with_expand_value(char *src, int i, int j)
 	}
 }
 
-static void	fill_expanded_line(char *src)
+static void	fill_expanded_line(t_data *data, t_expand_tool *tool)
 {
-	int			i;
-	int			j;
-	t_quotes	*quotes;
+	int	exp_value_len;
 
-	quotes = init_quotes();
-	i = 0;
-	j = 0;
-	while (src[i])
+	tool = clear_expand_tool(tool);
+ 	while (data->prompt_line[tool->len])
 	{
-		quotes = set_quotes(src[i], quotes);
-		if (src[i] == '$'
-			&& is_expand_to_interpret(src, i, quotes->sgl_quote, quotes->dbl_quote))
-		{
-			fill_with_expand_value(src, i, j);
-			j = j + expand_value_len(src, i + 1);
-			i = i + expand_key_len(src, i + 1);
+		tool->quotes = set_quotes(data->prompt_line[tool->len], tool->quotes);
+		if (data->prompt_line[tool->len] == '$'
+			&& is_expand_to_interpret(data->prompt_line, tool->len, tool->quotes->sgl_quote, tool->quotes->dbl_quote))
+		{	
+			fill_with_expand_value(data, tool->len, tool->i);
+			exp_value_len = expand_value_len(data, data->prompt_line, tool->len + 1);
+			tool->i = tool->i + exp_value_len;
+			if (exp_value_len < 0)
+				global_free(data);
+			tool->len = tool->len + expand_key_len(data->prompt_line, tool->len + 1);
 		}
 		else
 		{
-			data->expanded_line[j] = src[i];
-			j++;
+			data->expanded_line[tool->i] = data->prompt_line[tool->len];
+			tool->i++;
 		}
-		i++;
+		tool->len++;
 	}
-	data->expanded_line[j] = '\0';
+	data->expanded_line[tool->i] = '\0';
 }
 
-void	expander(char *src)
+void	expander(t_data *data)
 {
-	int	dst_len;
+	int				dst_len;
+	t_expand_tool	*expand_tool;
 
-	if (!has_expand(src))
+	if (!has_expand(data->prompt_line))
 	{
-		data->expanded_line = alloc_and_fill(src);
+		data->expanded_line = alloc_and_fill(data->prompt_line);
 		return ;
 	}
-	dst_len = expanded_line_len(src);
+	expand_tool = init_expand_tool();
+	if (!expand_tool)
+		global_free(data);
+	dst_len = expanded_line_len(data, data->prompt_line, expand_tool);
 	data->expanded_line = malloc(sizeof(char) * (dst_len + 1));
 	if (!data->expanded_line)
-		global_free();
-	fill_expanded_line(src);
+		global_free(data);
+	fill_expanded_line(data, expand_tool);
+	free(expand_tool->quotes);
+	free(expand_tool);
 }

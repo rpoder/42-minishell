@@ -3,24 +3,34 @@
 /*                                                        :::      ::::::::   */
 /*   mutes_in_expand_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 15:13:09 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/19 16:55:22 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/28 00:46:43 by margot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_mute_data	*init_mute_data()
+t_mute_tool	*clear_mute_tool(t_mute_tool *tool)
 {
-	t_mute_data	*mute_data;
+	tool->i = 0;
+	tool->len = 0;
+	tool->quote = '0';
+	return (tool);
+}
 
-	mute_data = malloc(sizeof(t_mute_data)); //proteger
-	mute_data->i = 0;
-	mute_data->len = 0;
-	mute_data->quote = '0';
-	return (mute_data);
+t_mute_tool	*init_mute_tool()
+{
+	t_mute_tool	*mute_tool;
+
+	mute_tool = malloc(sizeof(t_mute_tool));
+	if(!mute_tool)
+		return (NULL);
+	mute_tool->i = 0;
+	mute_tool->len = 0;
+	mute_tool->quote = '0';
+	return (mute_tool);
 }
 
 int	skip_if_space(char *value, int i) 

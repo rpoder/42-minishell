@@ -3,41 +3,39 @@
 /*                                                        :::      ::::::::   */
 /*   handle_mutes_in_expand.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 13:14:43 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/19 19:35:13 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/28 00:51:30 by margot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"	
 
-static int	muted_expand_value_len(char *src)
+static int	muted_expand_value_len(char *src, t_mute_tool *tool)
 {
-	t_mute_data	*data;
 	int			len;
 
-	data = init_mute_data();
-	while (src[data->i])
+	len = 0;
+	while (src[tool->i])
 	{
-		if (src[data->i] == '\'' || src[data->i] == '\"')
+		if (src[tool->i] == '\'' || src[tool->i] == '\"')
 		{
-			data->quote = src[data->i];
-			data->i++;
-			while (src[data->i] != data->quote)
+			tool->quote = src[tool->i];
+			tool->i++;
+			while (src[tool->i] != tool->quote)
 			{
 				len++;
-				data->i = skip_if_space(src, data->i);
+				tool->i = skip_if_space(src, tool->i);
 			}
-			data->i++;
+			tool->i++;
 		}	
-		else if (src[data->i])
+		else if (src[tool->i])
 		{
 			len++;
-			data->i = skip_if_space(src, data->i);
+			tool->i = skip_if_space(src, tool->i);
 		}
 	}
-	free(data);
 	return (len);
 }
 
@@ -63,43 +61,52 @@ static char	get_muted_char_inside_quotes(char *src, int i, char quote)
 	return (c);
 }
 
-static void	fill_muted_expand_dst(char *src, char *dst, t_mute_data *data)
+static void	fill_muted_expand_dst(char *src, char *dst, t_mute_tool *tool)
 {
-	while (src[data->i])
+	while (src[tool->i])
 	{
-		if (src[data->i] == '\'' || src[data->i] == '\"')
+		if (src[tool->i] == '\'' || src[tool->i] == '\"')
 		{
-			data->quote = src[data->i];
-			data->i++;
-			while (src[data->i] != data->quote)
+			tool->quote = src[tool->i];
+			tool->i++;
+			while (src[tool->i] != tool->quote)
 			{
-				dst[data->len] = get_muted_char_inside_quotes(src,
-						data->i, data->quote);
-				data->len++;
-				data->i = skip_if_space(src, data->i);
+				dst[tool->len] = get_muted_char_inside_quotes(src,
+						tool->i, tool->quote);
+				tool->len++;
+				tool->i = skip_if_space(src, tool->i);
 			}
-			data->i++;
+			tool->i++;
 		}	
-		else if (src[data->i])
+		else if (src[tool->i])
 		{
-			dst[data->len] = src[data->i];
-			data->len++;
-			data->i = skip_if_space(src, data->i);
+			dst[tool->len] = src[tool->i];
+			tool->len++;
+			tool->i = skip_if_space(src, tool->i);
 		}
 	}
-	dst[data->len] = '\0';
+	dst[tool->len] = '\0';
 }
 
 char	*get_muted_expand_value(char *src)
 {
 	char		*dst;
 	int			len;
-	t_mute_data	*mute_data;
+	t_mute_tool	*mute_tool;
 
-	len = muted_expand_value_len(src);
+	mute_tool = init_mute_tool();
+	if (!mute_tool)
+		return (NULL);
+	len = muted_expand_value_len(src, mute_tool);
 	dst = (malloc(sizeof(char) * len + 1));
-	mute_data = init_mute_data();
-	fill_muted_expand_dst(src, dst, mute_data);
-	free(mute_data);
+	if (!dst)
+	{
+		free(mute_tool);
+		return (NULL);
+	}
+	mute_tool = clear_mute_tool(mute_tool);
+	fill_muted_expand_dst(src, dst, mute_tool);
+	free(mute_tool);
+	printf("dst = %s\n", dst);
 	return (dst);
 }

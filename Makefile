@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
+#    By: margot <margot@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/08/19 17:24:44 by mpourrey         ###   ########.fr        #
+#    Updated: 2022/08/27 23:39:03 by margot           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,26 +22,27 @@ OBJDIR				:=	./obj
 
 SRCS				:=	main.c \
 						init.c \
-						utils/utils.c utils/utils_2.c\
+						utils/utils_2.c\
 						set_env.c \
+						handle_frees/handle_frees.c \
+						add_expand.c \
 						syntax_checker/syntax_checker.c \
-						handle_mutes/handle_mutes_in_expand.c \
+						built-ins/ft_env.c \
 						handle_mutes/handle_mutes_in_quotes.c \
-						handle_mutes/mutes_in_expand_utils.c \
-						handle_expand.c \
 						expander/expander.c \
 						expander/expander_utils.c \
 						expander/expander_utils_2.c \
-						lexer/lexer.c \
+						handle_mutes/handle_mutes_in_expand.c \
+						handle_mutes/mutes_in_expand_utils.c \
+#						lexer/lexer.c \
 						lexer/split_tokens.c \
 						lexer/split_tokens_utils.c \
 						lexer/token_getters.c \
 						lexer/token_skippers.c \
-						lexer/token_trim.c \
-						handle_frees/handle_frees.c \
-						built-ins/ft_echo.c \
-						built-ins/ft_env.c \
-						built-ins/ft_export.c \
+						lexer/token_trim.c \								
+#						built-ins/ft_echo.c \
+									
+#						built-ins/ft_export.c \
 						built-ins/ft_unset.c \
 						built-ins/ft_cd.c \
 						built-ins/builtins_err.c \

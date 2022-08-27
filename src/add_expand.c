@@ -1,30 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   handle_expand.c                                    :+:      :+:    :+:   */
+/*   add_expand.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 16:53:13 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/19 17:29:56 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/28 00:44:26 by margot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//ATTENTION si rien dans value
-
-void	add_expand(t_list **alst, char *key, char *value) //recoit str allouees
+void	add_expand(t_data *data, t_list **alst, char *key, char *value)
 {
 	t_list		*lst;
 	t_expand	*content;
 
-//	printf("add expand\n");
 	content = malloc(sizeof(t_expand));
 	if (!content)
-		global_free();
+		global_free(data);
 	content->key = key;
-	content->value = get_muted_expand_value(value);
+	content->value = value;
+	content->value = get_muted_expand_value(value); //marche pas
 	free(value);
 	lst = ft_lstnew(content);
 	ft_lstadd_back(alst, lst);

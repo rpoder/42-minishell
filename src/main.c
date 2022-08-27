@@ -6,34 +6,34 @@
 /*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/27 14:56:08 by margot           ###   ########.fr       */
+/*   Updated: 2022/08/27 23:42:49 by margot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_data	*data;
-
-void	tests_ronan(t_data *data);
-
 int	main(int argc, char **argv, char **env)
 {
-	char *line;
-	while (1)
-	{
-		line = readline("mi_nils_shell j'écoute ? > ");
-		add_history(line);	
+	char 	*line;
+	t_data	*data;
+	
+//	while (1)
+//	{
+	//	line = readline("mi_nils_shell j'écoute ? > ");
+	//	add_history(line);
+		line = "$?";
 		data = init_data(env, line);
-		if (syntax_checker(line) == 1)
+	 	if (syntax_checker(line) == 1)
 		{
-			//free
+			global_free(data);
 			return (1);
 		}
 		mute_in_quotes(data);
-		expander(data->prompt_line);
+		expander(data);
 		printf("expanded_line = %s\n", data->expanded_line);
-		lexer(data->expanded_line);
-	}
+	/*	lexer(data->expanded_line); */
+	global_free(data);
+//	}
 }
 
 void	tests_ronan(t_data *data)

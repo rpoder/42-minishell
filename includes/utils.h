@@ -6,7 +6,7 @@
 /*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:25:35 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/27 14:52:12 by margot           ###   ########.fr       */
+/*   Updated: 2022/08/28 00:16:33 by margot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,18 +25,18 @@ typedef struct	s_split_data
 	int	token_start;
 }	t_split_data;
 
-typedef struct	s_mute_data
+typedef struct	s_mute_tool
 {
 	int		i;
 	int		len;
 	char	quote;
-}	t_mute_data;
+}	t_mute_tool;
 
-typedef struct s_expand_data
+typedef struct s_expand_tool
 {
 	int			i;
 	int			len;
 	t_quotes	*quotes;
-}	t_expand_data;
+}	t_expand_tool;
 
 #endif

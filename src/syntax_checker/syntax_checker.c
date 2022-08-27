@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_checker.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 13:51:14 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/16 14:57:20 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/27 19:10:16 by margot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ int	syntax_checker(char *str)
 			i = skip_quotes(str, i);
 			if (str[i] == '\0')
 			{
-				printf("syntax error : missing closed quote\n");
+				ft_putstr_fd("syntax error : missing closed quote\n", 2);
 				return (1);
 			}
 		}
@@ -71,7 +71,7 @@ int	syntax_checker(char *str)
 		{
 			if (redirection_token_checker(str, i) != 0)
 			{
-				printf("syntax error near unexpected token `%c'\n", str[i]);
+				printf("syntax error near unexpected token `%c'\n", str[i]); 
 				return (1);
 			}
 		}
