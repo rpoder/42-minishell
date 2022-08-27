@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/19 17:25:32 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/27 14:50:06 by margot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	expander(char *src);
 
 /* expander_utils.c*/
 int		has_expand(char *str);
-int		is_to_interpret(char *str, int i, int sgl_quote, int dbl_quote);
+int		is_expand_to_interpret(char *str, int i, int sgl_quote, int dbl_quote);
 char	*get_expand_value(char *expand_key);
 char	*get_expand_key(char *str, int i);
 int		is_separator(char c);
@@ -72,6 +72,7 @@ int		is_separator(char c);
 /* expander_utils_2.c */
 int	expand_key_len(char *str, int i);
 int	expand_value_len(char *str, int i);
+t_expand_data	*init_expand_data(void);
 
 /* set_env.c */
 void	set_env(t_data *data, char **env);

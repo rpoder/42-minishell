@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 16:56:05 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/19 19:19:41 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/27 14:41:10 by margot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ int	has_expand(char *str)
 	return (0);
 }
 
-int	is_to_interpret(char *str, int i, int sgl_quote, int dbl_quote)
+int	is_expand_to_interpret(char *str, int i, int sgl_quote, int dbl_quote)
 {
 	if (!str[i + 1] || is_separator(str[i + 1]))
 		return (0);

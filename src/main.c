@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/19 18:55:32 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/27 14:56:08 by margot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ void	tests_ronan(t_data *data);
 int	main(int argc, char **argv, char **env)
 {
 	char *line;
-	//(void)argc;
-	//(void)argv;
 	while (1)
 	{
 		line = readline("mi_nils_shell j'écoute ? > ");
