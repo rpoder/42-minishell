@@ -6,23 +6,23 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 21:45:16 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/18 16:49:30 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/19 17:47:56 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-//trim dst
-
 static char	**trim_dst(char **dst)
 {
 	int		i;
+	char	*trimed_token;
 
 	i = 0;
 	while(dst[i] != NULL)
 	{
-		dst[i] = token_trim(dst[i]);
-	//	printf("token_trim = %s\n", dst[i]);
+		trimed_token = token_trim(dst[i]);
+		free(dst[i]);
+		dst[i] = trimed_token;
 		i++;
 	}
 	return (dst);
@@ -87,16 +87,15 @@ static int	count_words(char *str, int count)
 
 char	**split_tokens(char *str)
 {
-	char			**dst;
+	char			**token_tab;
 	int				count;
 	t_split_data	*split_data;
 
 	split_data = init_split_data();
 	count = count_words(str, 0);
-	dst = malloc (sizeof(char *) * (count + 1));
-	//proteger
-	dst[count] = NULL;
-	dst = fill_dst(dst, str, split_data); //proteger
-	dst = trim_dst(dst); //proteger
-	return (dst);
+	token_tab = malloc (sizeof(char *) * (count + 1)); //proteger
+	token_tab[count] = NULL;
+	token_tab = fill_dst(token_tab, str, split_data); //proteger
+	token_tab = trim_dst(token_tab); //proteger
+	return (token_tab);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:02:08 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/18 19:36:08 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/27 14:53:17 by margot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,33 +14,29 @@
 
 static int	expanded_line_len(char *str)
 {
-	int			i;
-	t_quotes	*quotes;
-	int			len;
-	int			tmp;
+	t_expand_data	*data;
+	int				tmp;
 
-	quotes = init_quotes();
-	i = 0;
-	len = 0;
-	while(str[i])
+	data = init_expand_data;
+	while (str[data->i])
 	{
-		quotes = set_quotes(str[i], quotes);
-		if (str[i] == '$' && is_to_interpret(str, i, quotes->sgl_quote, quotes->dbl_quote))
+		data->quotes = set_quotes(str[data->i], data->quotes);
+		if (str[data->i] == '$' && is_expand_to_interpret(str, data->i, data->quotes->sgl_quote, data->quotes->dbl_quote))
 		{
-			tmp = expand_value_len(str, i + 1);
+			tmp = expand_value_len(str, data->i + 1);
 			if (tmp > 0)
 			{
-				i = i + expand_key_len(str, i + 1);
-				len = len + tmp;
+				data->i = data->i + expand_key_len(str, data->i + 1);
+				data->len = data->len + tmp;
 			}
 			else
-				len++;
+				data->len++;
 		}
 		else
-			len++;
-		i++;
+			data->len++;
+		data->i++;
 	}
-	return (len);
+	return (data->len);
 }
 
 static void	fill_with_expand_value(char *src, int i, int j)
@@ -52,8 +48,8 @@ static void	fill_with_expand_value(char *src, int i, int j)
 	k = 0;
 	expand_key = get_expand_key(src, i + 1);
 	expand_value = get_expand_value(expand_key);
-	free(expand_key);
-	if(expand_value)
+	free (expand_key);
+	if (expand_value)
 	{
 		while (expand_value[k])
 		{
@@ -76,7 +72,8 @@ static void	fill_expanded_line(char *src)
 	while (src[i])
 	{
 		quotes = set_quotes(src[i], quotes);
-		if (src[i] == '$' && is_to_interpret(src, i, quotes->sgl_quote, quotes->dbl_quote))
+		if (src[i] == '$'
+			&& is_expand_to_interpret(src, i, quotes->sgl_quote, quotes->dbl_quote))
 		{
 			fill_with_expand_value(src, i, j);
 			j = j + expand_value_len(src, i + 1);
@@ -107,4 +104,3 @@ void	expander(char *src)
 		global_free();
 	fill_expanded_line(src);
 }
-

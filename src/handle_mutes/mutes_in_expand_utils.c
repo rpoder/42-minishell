@@ -1,32 +1,36 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   lexer.c                                            :+:      :+:    :+:   */
+/*   mutes_in_expand_utils.c                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/02 16:00:06 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/19 17:48:23 by mpourrey         ###   ########.fr       */
+/*   Created: 2022/08/19 15:13:09 by mpourrey          #+#    #+#             */
+/*   Updated: 2022/08/19 16:55:22 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-/*TEST*/
-void	test_lexer(char **tokens)
-{
-	int	i;
 
-	printf("\n");
-	i = 0;
-	while(tokens[i] != NULL)
-	{
-		printf("token[%d] = |%s|\n", i, tokens[i]);
-		i++;
-	}
+t_mute_data	*init_mute_data()
+{
+	t_mute_data	*mute_data;
+
+	mute_data = malloc(sizeof(t_mute_data)); //proteger
+	mute_data->i = 0;
+	mute_data->len = 0;
+	mute_data->quote = '0';
+	return (mute_data);
 }
 
-void	lexer(char *str)
-{	
-	data->tokens = split_tokens(str); //proteger
-	test_lexer(data->tokens);
+int	skip_if_space(char *value, int i) 
+{
+	if (is_space(value[i]))
+	{
+		while(is_space(value[i]))
+			i++;
+	}
+	else
+		i++;
+	return (i);
 }

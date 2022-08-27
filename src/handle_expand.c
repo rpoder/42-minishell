@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 16:53:13 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/19 13:06:11 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/19 17:29:56 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	add_expand(t_list **alst, char *key, char *value) //recoit str allouees
 	t_list		*lst;
 	t_expand	*content;
 
-	printf("add expand\n");
+//	printf("add expand\n");
 	content = malloc(sizeof(t_expand));
 	if (!content)
 		global_free();
