@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/26 18:01:05 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/08/27 16:49:30 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,7 +107,7 @@ int	is_space(char c);
 
 /* handle_free.c */
 void	global_free(void);
-void	del_t_expand(void *content);
+void	del_one_expand(void *content);
 
 /* BUILT_INS */
 /* builtins_utils.c */

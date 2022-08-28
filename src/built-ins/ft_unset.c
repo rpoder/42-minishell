@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 09:31:14 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/26 17:11:35 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/08/27 16:42:57 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	move_expand_ptr(t_list **alst, t_list *last, t_list *tmp)
 		else
 			last->next = tmp->next;
 	}
-	del_t_expand(tmp);
+	del_one_expand(tmp);
 }
 
 static bool	unset_from(t_list **alst, char *key_to_unset)

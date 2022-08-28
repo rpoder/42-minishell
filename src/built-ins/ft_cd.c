@@ -6,87 +6,129 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:33:22 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/27 15:47:55 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/08/27 20:08:00 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	dbldot_pathlen(char *str)
+static int	dbldot_pathlen(char *str, int i)
 {
 	int	len;
 
 	len = 0;
-	if (*str == '\0')
+	if (str[i] == '\0')
 		return (-1);
-	while (*str && *str != ':')
+	while (str[i] && str[i] != ':')
 	{
-		str++;
+		i++;
 		len++;
 	}
 	return (len);
 }
 
-static void	concat_path_arg(char **dst, char *arg, int size, int i)
+static char	*get_env_path_part(char *env_path, int *i)
 {
-	int	j;
+	int			j;
+	char		*tmp;
 
+	tmp = malloc(dbldot_pathlen(env_path, *i) + 1);
+	if (!tmp)
+		return (NULL);
 	j = 0;
-	*dst[i] = '/';
-	i++;
-	while (i < size && arg[j])
+	while (env_path[*i] && env_path[*i] != ':')
 	{
-		*dst[i] = arg[j];
+		tmp[j] = env_path[*i];
+		*i = *i + 1;
+		j++;
+	}
+	tmp[j] = '\0';
+	(*i)++;
+	return (tmp);
+}
+
+char	*concatenated_path(char *env_path_part, char *arg)
+{
+	char	*tmp;
+	int		i;
+	int		j;
+
+	tmp = malloc(sizeof(char) * (ft_strlen(env_path_part) + 1 + ft_strlen(arg) + 1));
+	if (!tmp)
+		return (NULL);
+	i = 0;
+	j = 0;
+	while (env_path_part[i])
+	{
+		tmp[j] = env_path_part[i];
 		i++;
 		j++;
 	}
-	*dst[i] = '\0';
+	tmp[j] = '/';
+	j++;
+	i = 0;
+	while (arg[i])
+	{
+		tmp[j] = arg[i];
+		i++;
+		j++;
+	}
+	return (tmp);
 }
 
 int	try_with_env_path(char *arg)
 {
 	char	*env_path;
+	char	*env_path_part;
 	char	*tmp;
-	int		i;
 	int		ret;
-	int		size;
+	int		*i;
 
-	ret = -1;
 	env_path = get_expand_value("PATH");
+	tmp = NULL;
+	env_path_part = NULL;
 	if (!env_path)
-		return (-1);
-	printf("env_path = %s\n", env_path);
-/* 	while (*env_path || ret != 0)
+		return (1);
+	i = malloc(sizeof(int));
+		return(-1);
+	*i = 0;
+	ret = -1;
+	while (ret != 0 && env_path[*i])
 	{
-		i = 0;
-		size = dbldot_pathlen(env_path) + 1 + ft_strlen(arg);
-		tmp = malloc(sizeof(char) * (size + 1));
-		// proteger
-		while (*env_path && *env_path != ':')
+		env_path_part = get_env_path_part(env_path, i);
+		if (!env_path_part)
 		{
-			tmp[i] = *env_path;
-			env_path++;
-			i++;
+			if (tmp)
+				free(tmp);
+			return(-1);
 		}
-		concat_path_arg(&tmp, arg, size, i);
+		tmp = concatenated_path(env_path_part, arg);
+		if (!tmp)
+		{
+			if (env_path_part)
+				free(env_path_part);
+			return(-1);
+		}
 		ret = chdir(tmp);
-		printf("tmp = %s\n", tmp);
 		free(tmp);
-		env_path++;
-	} */
-	return (1);
+		free(env_path_part);
+	}
+	return (ret);
 }
 
 void	ft_cd(t_data *data, char **args)
 {
 	char	*home_expand;
-	int		ret;
 
-	ret = -1;
-	// if (!home_expand && !args[2])
-	// 	return ;
-	// if (home_expand && !args[2])
-	// 	ret = chdir(home_expand);
+	if (!home_expand && !args[2])
+	{
+		ft_putstr_fd("cd: HOME is not set\n", 2);
+		return ;
+	}
+	else if (!home_expand && args[2])
+		return ;
+	if (home_expand && !args[2])
+		ret = chdir(home_expand);
 	try_with_env_path(args[2]);
 /* 	if (args[2][0] == '/')
 	{

@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/26 20:21:30 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/08/27 17:15:49 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ void	tests_ronan(t_data *data)
 	args = malloc(sizeof(char *) * 4);
 	args[0] = alloc_and_fill(NULL);
 	args[1] = alloc_and_fill("ft_cd");
-	args[2] = alloc_and_fill("/includes");
+	args[2] = alloc_and_fill("includes");
 	args[5] = NULL;
 	//ft_env(data, 1);
 	ft_cd(data, args);
