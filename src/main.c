@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/27 17:15:49 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/08/29 23:25:43 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,26 +43,47 @@ int	main(int argc, char **argv, char **env)
 void	tests_ronan(t_data *data)
 {
 	/* TEST ECHO */
-/* 	char **args;
-	args = malloc(sizeof(char *) * 3);
-	args[0] = alloc_and_fill("[PATH]");
-	args[1] = alloc_and_fill("echo");
-	args[2] = alloc_and_fill("-n");
-	args[3] = alloc_and_fill("toz");
-	args[4] = alloc_and_fill("toz");
-	args[5] = NULL;
-	ft_echo(args, 1); */
+ 	// char **args;
+	// args = malloc(sizeof(char *) * 6);
+	// args[0] = alloc_and_fill("[PATH]");
+	// args[1] = alloc_and_fill("echo");
+	// args[2] = alloc_and_fill("-n");
+	// args[3] = alloc_and_fill("coucou");
+	// args[4] = alloc_and_fill("toz");
+	// args[5] = NULL;
+	// ft_echo(args, 1);
+
+	// ft_add_expand(&data->local_expands, alloc_and_fill("TEST"), alloc_and_fill("coucou"), false);
+	// ft_add_expand(&data->local_expands, alloc_and_fill("TEST2"), alloc_and_fill("salut"), false);
+
+	// t_list	*tmp;
+	// tmp = data->local_expands;
+	// while (tmp)
+	// {
+	// 	printf("%s = %s\n", ((t_expand *)tmp->content)->key, ((t_expand *)tmp->content)->value);
+	// 	tmp = tmp->next;
+	// }
+
 
 	/* TEST ENV */
-	// ft_env(data, 1);
+	// char **args;
+	// args = malloc(sizeof(char *) * 6);
+	// args[0] = alloc_and_fill("[PATH]");
+	// args[1] = alloc_and_fill("ft_unset");
+	// args[2] = alloc_and_fill("87*");
+	// args[3] = alloc_and_fill("/5");
+	// args[4] = NULL;
+	// args[5] = NULL;
 
 	/* TEST EXPORT */
-	// ft_add_expand(&data->local_expands, alloc_and_fill("test"), alloc_and_fill("coucou"), false);
-	// ft_add_expand(&data->local_expands, alloc_and_fill("test2"), alloc_and_fill("salut"), false);
 
+	// ft_unset(data, args);
+
+	// args[1] = alloc_and_fill("ft_env");
+	// args[2] = NULL;
+	// //ft_env(data, args);
 
 	// printf("\nLOCAL VARS\n");
-	// t_list	*tmp;
 	// tmp = data->local_expands;
 	// while (tmp)
 	// {
@@ -117,10 +138,16 @@ void	tests_ronan(t_data *data)
 	args = malloc(sizeof(char *) * 4);
 	args[0] = alloc_and_fill(NULL);
 	args[1] = alloc_and_fill("ft_cd");
-	args[2] = alloc_and_fill("includes");
+	args[2] = alloc_and_fill("..");
 	args[5] = NULL;
 	//ft_env(data, 1);
-	ft_cd(data, args);
-	// ft_pwd();
+	 ft_cd(data, args);
+	//ft_pwd(args);
 
+	args = malloc(sizeof(char *) * 3);
+	args[0] = alloc_and_fill(NULL);
+	args[1] = alloc_and_fill("ft_env");
+	args[2] = NULL;
+	ft_env(data, args);
+	printf("Pwd -> %s\n", get_path());
 }

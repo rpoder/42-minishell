@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 08:16:14 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/22 17:44:13 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/29 19:39:25 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ int	ft_export(t_data *data, char **args)
 	int		ret;
 
 	ret = 0;
-	if (ft_strcmp(args[1], "echo") != 0)
+	if (ft_strcmp(args[1], "ft_export") != 0)
 		return (-1);
 	i = 2;
 	while (args[i])
@@ -54,12 +54,16 @@ int	ft_export(t_data *data, char **args)
 			ft_putstr_fd("export:\'", 2);
 			ft_putstr_fd(args[i], 2);
 			ft_putstr_fd("\': not a valid identifier\n", 2);
-			ft_set_expand(data, alloc_and_fill("?"), alloc_and_fill("1"));
 			ret++;
 		}
 		else
 			move_to_env(data, args[i]);
 		i++;
 	}
+	if (ret != 0)
+		ft_set_expand(data, "?", "1");
+	else
+		ft_set_expand(data, "?", "0");
+
 	return (ret);
 }

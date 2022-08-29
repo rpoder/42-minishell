@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/27 16:49:30 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/08/29 23:04:07 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -113,13 +113,26 @@ void	del_one_expand(void *content);
 /* builtins_utils.c */
 int	is_valid_expand_key(char *key);
 
-/* BUILT_INS */
-int		ft_echo(char **args, int fd);
-void	ft_env(t_data *data, int fd);
+/* ft_echo.c */
+int		ft_echo(char **args);
+
+/* ft_env.c */
+void	ft_env(t_data *data, char **args);
+
+/* ft_export.c */
 int		ft_export(t_data *data, char **args);
+
+/* ft_export_utils.c */
+int		try_with_env_path(char *arg);
+
+/* ft_unset.c */
 int		ft_unset(t_data *data, char **args);
+
+/* ft_cd.c */
 void	ft_cd(t_data *data, char **args);
-void	ft_pwd(void);
+
+/* ft_pwd.c */
+void	ft_pwd(char **args);
 char	*get_path();
 
 

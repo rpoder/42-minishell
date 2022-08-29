@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 09:31:14 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/27 16:42:57 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/08/29 19:39:49 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,10 @@ int	ft_unset(t_data *data, char **args)
 			unset_from(&data->env, args[i]);
 		i++;
 	}
+	if (ret != 0)
+		ft_set_expand(data, "?", "1");
+	else
+		ft_set_expand(data, "?", "0");
 	/* exit(0); exit de l'enfant */
 	return (ret);
 }

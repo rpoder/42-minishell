@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_cd.c                                            :+:      :+:    :+:   */
+/*   ft_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/19 10:33:22 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/29 23:25:34 by rpoder           ###   ########.fr       */
+/*   Created: 2022/08/29 12:43:04 by rpoder            #+#    #+#             */
+/*   Updated: 2022/08/29 12:44:17 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -114,48 +114,4 @@ int	try_with_env_path(char *arg)
 		free(env_path_part);
 	}
 	return (ret);
-}
-
-static int	try_cd(t_data *data, char *arg)
-{
-	int		ret;
-	char	*old_path;
-
-	old_path = get_path();
-	printf("arg %s\n", arg);
-	ret = chdir(arg);
-	if (ret == 0)
-	{
-		ft_set_expand(data, "OLDPWD", old_path);
-		ft_set_expand(data, "PWD", get_path());
-	}
-	return (ret);
-}
-
-void	ft_cd(t_data *data, char **args)
-{
-	char	*home_expand;
-	int		ret;
-
-	if (!home_expand && !args[2])
-	{
-		ft_putstr_fd("cd: HOME is not set\n", 2);
-		return ;
-	}
-	else if (!home_expand && args[2])
-		return ;
-	if (home_expand && !args[2])
-		ret = chdir(home_expand);
-	//try_with_env_path(args[2]);
-	// if (args[2][0] == '/')
-	// {
-		if (try_cd(data, args[2]) != 0)
-		{
-			printf("err\n");
-		}
-		// err message
-	// }
-
-	// printf("args[2] = %s\n", args[2]);
-	// printf("ret chedir %d\n",chdir(args[2]));
 }

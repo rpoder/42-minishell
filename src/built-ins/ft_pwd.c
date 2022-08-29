@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 16:10:38 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/26 17:59:39 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/08/29 23:10:01 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,15 +32,23 @@ char	*get_path()
 	return (buf);
 }
 
-void	ft_pwd(void)
+void	ft_pwd(char **args)
 {
 	char	*path;
 
+	if (ft_strcmp(args[1], "ft_pwd") != 0)
+		return ;
 	path = get_path();
 	if (!path)
+	{
 		ft_putstr_fd("pwd: path not found\n", 1);
+		ft_set_expand(data, "?", "1");
+	}
 	else
+	{
 		ft_putstr_fd(path, 1);
+		ft_set_expand(data, "?", "0");
+	}
 	free(path);
 	//exit(0);
 }
