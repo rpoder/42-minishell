@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 17:08:24 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/19 17:47:59 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/29 15:43:25 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,9 @@ char	*token_trim(char *src)
 	i = 0;
 	j = 0;
 	len = token_trim_len(src);
-	dst = malloc(sizeof(char) * (len + 10)); //proteger
+	dst = malloc(sizeof(char) * (len + 10));
+	if (!dst)
+		return (NULL);
 	while(is_space(src[i]))
 		i++;
 	while(src[i] && j < len)

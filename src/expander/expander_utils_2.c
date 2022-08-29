@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_utils_2.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 16:56:17 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/27 23:57:22 by margot           ###   ########.fr       */
+/*   Updated: 2022/08/29 14:24:13 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,17 +26,16 @@ t_expand_tool	*init_expand_tool(void)
 
 	expand_tool = malloc(sizeof(t_expand_tool));
 	if (!expand_tool)
-		return(NULL);
+		return (NULL);
 	expand_tool->i = 0;
 	expand_tool->len = 0;
 	expand_tool->quotes = malloc(sizeof(t_quotes));
 	if (!expand_tool->quotes)
 	{
 		free(expand_tool);
-		return(NULL);
+		return (NULL);
 	}
-	expand_tool->quotes->sgl_quote = false;
-	expand_tool->quotes->dbl_quote = false;
+	clear_expand_tool(expand_tool);
 	return (expand_tool);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   syntax_checker.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 13:51:14 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/27 19:10:16 by margot           ###   ########.fr       */
+/*   Updated: 2022/08/29 15:17:16 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,15 +38,15 @@ static int	redirection_token_checker(char *str, int i)
 	}
 	if (str[i] == '>')
 	{
-		if ((str[i - 1] && str[i - 1] == '>' && str[i - 2] && str[i - 2] == '>') ||
-			(str[i - 1] && str[i - 1] == '<'))
-				return (1);
+		if ((str[i - 1] && str[i - 1] == '>' && str[i - 2] && str[i - 2] == '>')
+			|| (str[i - 1] && str[i - 1] == '<'))
+			return (1);
 	}
 	if (str[i] == '<')
 	{
-		if ((str[i - 1] && str[i - 1] == '<' && str[i - 2] && str[i - 2] == '<') ||
-			(str[i - 1] && str[i - 1] == '>'))
-				return (1);
+		if ((str[i - 1] && str[i - 1] == '<' && str[i - 2] && str[i - 2] == '<')
+			|| (str[i - 1] && str[i - 1] == '>'))
+			return (1);
 	}
 	return (0);
 }
@@ -71,7 +71,7 @@ int	syntax_checker(char *str)
 		{
 			if (redirection_token_checker(str, i) != 0)
 			{
-				printf("syntax error near unexpected token `%c'\n", str[i]); 
+				ft_printf("syntax error near unexpected token `%c'\n", str[i]);
 				return (1);
 			}
 		}

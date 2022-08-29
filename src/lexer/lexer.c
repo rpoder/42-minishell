@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/02 16:00:06 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/19 17:48:23 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/29 18:33:15 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,10 @@ void	test_lexer(char **tokens)
 	}
 }
 
-void	lexer(char *str)
+void	lexer(t_data *data)
 {	
-	data->tokens = split_tokens(str); //proteger
+	data->tokens = split_tokens(data->expanded_line);
+	if (!data->tokens)
+		global_free(data);
 	test_lexer(data->tokens);
 }

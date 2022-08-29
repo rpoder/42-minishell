@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 12:42:01 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/17 21:53:11 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/29 18:44:40 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ char	*get_token_if_end_of_str(char *str, t_split_data *data)
 
 	token = NULL;
 	if (str[data->i] == '\0') 
-			token = get_token(str, data->i, data->token_start);
+			token = get_token(str, data->i, data->token_start); //
 	return (token);
 }
 
@@ -83,9 +83,9 @@ char	*get_and_skip_token(char *str, t_split_data *data)
 	char	*token;
 	
 	if (is_redirection_operator(str[data->i]))
-		token = get_redir_op_token(str, data);
+		token = get_redir_op_token(str, data); //
 	else if (is_space(str[data->i]))
-		token = get_token_til_space(str, data);
+		token = get_token_til_space(str, data); //
 	data->i = skip_separator(str, data->i);
 	return (token);
 }

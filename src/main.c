@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/27 23:42:49 by margot           ###   ########.fr       */
+/*   Updated: 2022/08/29 18:39:27 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ int	main(int argc, char **argv, char **env)
 //	{
 	//	line = readline("mi_nils_shell j'écoute ? > ");
 	//	add_history(line);
-		line = "$?";
+		line = "$?yo yoyo $?";
 		data = init_data(env, line);
 	 	if (syntax_checker(line) == 1)
 		{
@@ -31,8 +31,8 @@ int	main(int argc, char **argv, char **env)
 		mute_in_quotes(data);
 		expander(data);
 		printf("expanded_line = %s\n", data->expanded_line);
-	/*	lexer(data->expanded_line); */
-	global_free(data);
+		lexer(data);
+		global_free(data);
 //	}
 }
 

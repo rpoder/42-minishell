@@ -3,16 +3,17 @@
 /*                                                        :::      ::::::::   */
 /*   handle_frees.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:18:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/27 19:43:42 by margot           ###   ########.fr       */
+/*   Updated: 2022/08/29 18:32:54 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	del_one_expand(void *content) //ft_lstdelone 
+/*ft_lstdelone*/
+void	del_one_expand(void *content)
 {
 	t_list	*casted_arg;
 
@@ -46,14 +47,17 @@ void	global_free(t_data *data)
 {
 	if (data)
 	{
-		if (data->env)
+ 		if (data->env)
 			ft_lstclear(&data->env, &del_expand);
-	 	if (data->local_expands)
-			ft_lstclear(&data->local_expands, &del_expand);
-		if (data->prompt_line)
-			free(data->prompt_line);
-		if (data->expanded_line)
+ 		if (data->local_expands)
+			ft_lstclear(&data->local_expands, &del_expand); 
+ 		 if (data->prompt_line)
+		 	free(data->prompt_line);
+  		if (data->expanded_line)
 			free(data->expanded_line);
+ 		if (data->tokens != NULL)
+			ft_free_ptr(data->tokens);
 		free(data);
+		exit(1);
 	}
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/28 00:19:07 by margot           ###   ########.fr       */
+/*   Updated: 2022/08/29 15:29:40 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	expander(t_data *data);
 
 /* expander_utils.c*/
 int		has_expand(char *str);
-int		is_expand_to_interpret(char *str, int i, int sgl_quote, int dbl_quote);
+int		is_expand_to_interpret(char *str, int i, t_quotes *quotes);
 char	*get_expand_value(t_data *data, char *expand_key);
 char	*get_expand_key(char *str, int i);
 int		is_separator(char c);
@@ -82,7 +82,7 @@ t_expand_tool	*clear_expand_tool(t_expand_tool *tool);
 void	set_env(t_data *data, char **env);
 
 /*lexer.c*/
-void	lexer(char *str);
+void	lexer(t_data *data);
 
 /* split_tokens.c */
 char	**split_tokens(char *str);

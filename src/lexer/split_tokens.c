@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 21:45:16 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/19 17:47:56 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/29 18:55:48 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,14 @@ static char	**trim_dst(char **dst)
 	char	*trimed_token;
 
 	i = 0;
-	while(dst[i] != NULL)
+	while (dst[i])
 	{
 		trimed_token = token_trim(dst[i]);
+		if (!trimed_token)
+		{
+			ft_free_ptr(dst);
+			return (NULL);
+		}
 		free(dst[i]);
 		dst[i] = trimed_token;
 		i++;
@@ -41,17 +46,17 @@ static char	**fill_dst(char **dst, char *str, t_split_data *data)
 		else if (str[data->i] == '\'' || str[data->i] == '\"')
 		{
 			data->i = skip_quotes_token(str, data->i);
-			dst[data->nb_of_tokens] = get_token_if_end_of_str(str, data);
+			dst[data->nb_of_tokens] = get_token_if_end_of_str(str, data); //
 		}
 		else
 		{
 			data->i++;
-			if (is_redirection_operator(str[data->i])) //token_til_redir_op
+			if (is_redirection_operator(str[data->i]))
 			{
-				dst[data->nb_of_tokens] = get_token(str, data->i, data->token_start);
+				dst[data->nb_of_tokens] = get_token(str, data->i, data->token_start); //
 				set_data_for_next_token(data, data->i);
 			}
-			dst[data->nb_of_tokens] = get_token_if_end_of_str(str, data);
+			dst[data->nb_of_tokens] = get_token_if_end_of_str(str, data); //
 		}
 	}
 	return(dst);
@@ -93,9 +98,20 @@ char	**split_tokens(char *str)
 
 	split_data = init_split_data();
 	count = count_words(str, 0);
-	token_tab = malloc (sizeof(char *) * (count + 1)); //proteger
+	token_tab = malloc(sizeof(char *) * (count + 1));
+	if (!token_tab)
+	{
+		free(split_data);
+		return (NULL);
+	}
 	token_tab[count] = NULL;
-	token_tab = fill_dst(token_tab, str, split_data); //proteger
-	token_tab = trim_dst(token_tab); //proteger
+	token_tab = fill_dst(token_tab, str, split_data);
+	if (!token_tab)
+	{
+		free(split_data);
+		return (NULL);
+	}
+	token_tab = trim_dst(token_tab);
+	free(split_data);
 	return (token_tab);
 }

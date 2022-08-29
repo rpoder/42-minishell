@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 12:24:39 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/27 19:05:38 by margot           ###   ########.fr       */
+/*   Updated: 2022/08/29 15:21:11 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,13 +72,13 @@ void	set_env(t_data *data, char **env)
 	i = 0;
 	if (!env)
 		data->env = NULL;
- 	else
+	else
 	{
 		while (env[i])
 		{
 			env_key = get_env_key(env[i]);
 			if (!env_key)
-				global_free(data);	
+				global_free(data);
 			env_value = get_env_value(env[i]);
 			if (!env_key)
 			{

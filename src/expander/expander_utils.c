@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 16:56:05 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/27 23:17:01 by margot           ###   ########.fr       */
+/*   Updated: 2022/08/29 14:16:52 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ int	has_expand(char *str)
 	return (0);
 }
 
-int	is_expand_to_interpret(char *str, int i, int sgl_quote, int dbl_quote)
+int	is_expand_to_interpret(char *str, int i, t_quotes *quotes)
 {
 	if (!str[i + 1] || is_separator(str[i + 1]))
 		return (0);
-	if (dbl_quote)
+	if (quotes->dbl_quote)
 		return (1);
-	else if (sgl_quote)
+	else if (quotes->sgl_quote)
 		return (0);
 	return (1);
 }
@@ -66,7 +66,7 @@ char	*get_expand_key(char *str, int i)
 	j = 0;
 	expand_key = malloc((expand_key_len(str, i) + 1) * sizeof(char));
 	if (!expand_key)
-		return(NULL);
+		return (NULL);
 	while (str[i + j] && !is_separator(str[i + j]))
 	{
 		expand_key[j] = str[i + j];

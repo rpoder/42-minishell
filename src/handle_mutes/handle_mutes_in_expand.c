@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_mutes_in_expand.c                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 13:14:43 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/28 00:51:30 by margot           ###   ########.fr       */
+/*   Updated: 2022/08/29 13:49:47 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -107,6 +107,5 @@ char	*get_muted_expand_value(char *src)
 	mute_tool = clear_mute_tool(mute_tool);
 	fill_muted_expand_dst(src, dst, mute_tool);
 	free(mute_tool);
-	printf("dst = %s\n", dst);
 	return (dst);
 }

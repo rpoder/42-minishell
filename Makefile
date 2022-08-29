@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: margot <margot@student.42.fr>              +#+  +:+       +#+         #
+#    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/08/27 23:39:03 by margot           ###   ########.fr        #
+#    Updated: 2022/08/29 15:28:13 by mpourrey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,15 +34,15 @@ SRCS				:=	main.c \
 						expander/expander_utils_2.c \
 						handle_mutes/handle_mutes_in_expand.c \
 						handle_mutes/mutes_in_expand_utils.c \
-#						lexer/lexer.c \
+						lexer/lexer.c \
 						lexer/split_tokens.c \
 						lexer/split_tokens_utils.c \
 						lexer/token_getters.c \
 						lexer/token_skippers.c \
-						lexer/token_trim.c \								
+						lexer/token_trim.c \
+													
 #						built-ins/ft_echo.c \
-									
-#						built-ins/ft_export.c \
+						built-ins/ft_export.c \
 						built-ins/ft_unset.c \
 						built-ins/ft_cd.c \
 						built-ins/builtins_err.c \

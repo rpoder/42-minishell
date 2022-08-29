@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:02:08 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/28 00:10:05 by margot           ###   ########.fr       */
+/*   Updated: 2022/08/29 14:21:33 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,12 +14,13 @@
 
 static int	expanded_line_len(t_data *data, char *str, t_expand_tool *tool)
 {
-	int				tmp;
+	int	tmp;
 
 	while (str[tool->i])
 	{
 		tool->quotes = set_quotes(str[tool->i], tool->quotes);
-		if (str[tool->i] == '$' && is_expand_to_interpret(str, tool->i, tool->quotes->sgl_quote, tool->quotes->dbl_quote))
+		if (str[tool->i] == '$' && is_expand_to_interpret(str, tool->i,
+				tool->quotes))
 		{
 			tmp = expand_value_len(data, str, tool->i + 1);
 			if (tmp > 0)
@@ -65,18 +66,19 @@ static void	fill_expanded_line(t_data *data, t_expand_tool *tool)
 	int	exp_value_len;
 
 	tool = clear_expand_tool(tool);
- 	while (data->prompt_line[tool->len])
+	while (data->prompt_line[tool->len])
 	{
 		tool->quotes = set_quotes(data->prompt_line[tool->len], tool->quotes);
-		if (data->prompt_line[tool->len] == '$'
-			&& is_expand_to_interpret(data->prompt_line, tool->len, tool->quotes->sgl_quote, tool->quotes->dbl_quote))
+		if (data->prompt_line[tool->len] == '$' && is_expand_to_interpret
+			(data->prompt_line, tool->len, tool->quotes))
 		{	
 			fill_with_expand_value(data, tool->len, tool->i);
-			exp_value_len = expand_value_len(data, data->prompt_line, tool->len + 1);
+			exp_value_len = expand_value_len(data, data->prompt_line,
+					tool->len + 1);
 			tool->i = tool->i + exp_value_len;
 			if (exp_value_len < 0)
 				global_free(data);
-			tool->len = tool->len + expand_key_len(data->prompt_line, tool->len + 1);
+			tool->len += expand_key_len(data->prompt_line, tool->len + 1);
 		}
 		else
 		{
