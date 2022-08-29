@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+         #
+#    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/08/26 16:18:28 by ronanpoder       ###   ########.fr        #
+#    Updated: 2022/08/29 23:26:46 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,14 +81,4 @@ fclean				:	clean
 
 re					:	fclean $(NAME)
 
-norm				:
-	norminette ./libftprintf ./src ./includes
-
-push				:
-	$(MAKE) fclean
-	git add *
-	git status
-	git commit -m "$m"
-	git push origin master
-
-.PHONY				:	all clean fclean re norm test push
+.PHONY				:	all clean fclean re
