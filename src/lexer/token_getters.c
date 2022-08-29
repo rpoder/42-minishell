@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 12:42:01 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/29 18:44:40 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/29 19:07:52 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ static char	*get_token_til_space(char *str, t_split_data *data)
 	j = 0;
 	len = data->i - data->token_start;
 	token = malloc(sizeof(char) * len + 1); //proteger
-	while (data->token_start <= data->i)
+	while (data->token_start < data->i)
 	{
 		token[j] = str[data->token_start];
 		j++;
