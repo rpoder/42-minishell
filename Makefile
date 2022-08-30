@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
+#    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/08/29 15:28:13 by mpourrey         ###   ########.fr        #
+#    Updated: 2022/08/30 17:59:06 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -40,12 +40,12 @@ SRCS				:=	main.c \
 						lexer/token_getters.c \
 						lexer/token_skippers.c \
 						lexer/token_trim.c \
-													
-#						built-ins/ft_echo.c \
+						built-ins/ft_echo.c \
 						built-ins/ft_export.c \
 						built-ins/ft_unset.c \
+						built-ins/ft_pwd.c \
 						built-ins/ft_cd.c \
-						built-ins/builtins_err.c \
+						built-ins/builtins_utils.c \
 
 CC					:=	cc
 
@@ -84,14 +84,4 @@ fclean				:	clean
 
 re					:	fclean $(NAME)
 
-norm				:
-	norminette ./libftprintf ./src ./includes
-
-push				:
-	$(MAKE) fclean
-	git add *
-	git status
-	git commit -m "$m"
-	git push origin master
-
-.PHONY				:	all clean fclean re norm test push
+.PHONY				:	all clean fclean re

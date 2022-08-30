@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 16:32:48 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/29 15:34:06 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/30 17:57:39 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ char	*get_next_line(int fd);
 char	*ft_strndup_gnl(char *str, int start, int len);
 char	*ft_strjoin_gnl(char *s1, char *s2);
 char	*alloc_and_fill(char *str);
+int		ft_tablen(char **tab);
 
 ////////////////*LIST*////////////////////
 typedef struct s_list

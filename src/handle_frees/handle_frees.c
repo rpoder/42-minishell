@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_frees.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:18:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/29 18:32:54 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/30 17:55:48 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,8 @@ void	del_one_expand(void *content)
 				free(((t_expand *)casted_arg->content)->key);
 			if (((t_expand *)casted_arg->content)->value)
 				free(((t_expand *)casted_arg->content)->value);
-			free(casted_arg);
 		}
+		//free(casted_arg);
 	}
 }
 
@@ -50,7 +50,7 @@ void	global_free(t_data *data)
  		if (data->env)
 			ft_lstclear(&data->env, &del_expand);
  		if (data->local_expands)
-			ft_lstclear(&data->local_expands, &del_expand); 
+			ft_lstclear(&data->local_expands, &del_expand);
  		 if (data->prompt_line)
 		 	free(data->prompt_line);
   		if (data->expanded_line)

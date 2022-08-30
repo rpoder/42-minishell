@@ -1,29 +1,23 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_lstadd_back.c                                   :+:      :+:    :+:   */
+/*   ft_tablen.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/22 18:55:38 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/22 16:09:36 by rpoder           ###   ########.fr       */
+/*   Created: 2022/08/26 17:20:19 by ronanpoder        #+#    #+#             */
+/*   Updated: 2022/08/26 17:21:27 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_lstadd_back(t_list **alst, t_list *new)
+int	ft_tablen(char **tab)
 {
-	t_list	*last;
+	int	len;
 
-	if (alst != NULL && new != NULL)
-	{
-		if (*alst == NULL)
-			*alst = new;
-		else
-		{
-			last = ft_lstlast(*alst);
-			last->next = new;
-		}
-	}
+	len = 0;
+	while (tab[len])
+		len++;
+	return (len);
 }
