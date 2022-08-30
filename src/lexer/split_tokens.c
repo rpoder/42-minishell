@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 21:45:16 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/30 20:08:46 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/30 22:11:03 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,6 +32,13 @@ static void	trim_dst(t_data *data, char **dst, t_split_tool *tool)
 	}
 }
 
+char	*get_token_til_redir_operator(t_data *data, char *src, t_split_tool *tool)
+{
+	data->tokens[tool->nb_of_tokens] = get_token(data, src, tool);
+	set_tool_for_next_token(tool, tool->i);
+	return (data->tokens[tool->nb_of_tokens]);
+}
+
 static void	fill_dst(t_data *data, char *src, char **dst, t_split_tool *tool)
 {
 	tool->i = skip_space(src, 0);
@@ -45,16 +52,15 @@ static void	fill_dst(t_data *data, char *src, char **dst, t_split_tool *tool)
 		else if (src[tool->i] == '\'' || src[tool->i] == '\"')
 		{
 			tool->i = skip_quotes_token(src, tool->i);
+			if (is_redirection_operator(src[tool->i]))
+				dst[tool->nb_of_tokens] = get_token_til_redir_operator(data, src, tool);
 			dst[tool->nb_of_tokens] = get_token_if_end_of_src(data, src, tool);
 		}
 		else
 		{
 			tool->i++;
 			if (is_redirection_operator(src[tool->i]))
-			{
-				dst[tool->nb_of_tokens] = get_token(data, src, tool);
-				set_tool_for_next_token(tool, tool->i);
-			}
+				dst[tool->nb_of_tokens] = get_token_til_redir_operator(data, src, tool);
 			dst[tool->nb_of_tokens] = get_token_if_end_of_src(data, src, tool);
 		}
 	}
@@ -75,7 +81,7 @@ static int	count_words(char *src, int count)
 		else if (src[i] == '\'' || src[i] == '\"')
 		{
 			i = skip_quotes_token(src, i);
-			if (src[i] == '\0')
+			if (src[i] == '\0' || is_redirection_operator(src[i]))
 				count++;
 		}
 		else
@@ -105,6 +111,6 @@ void	split_tokens(t_data *data)
 	}
 	data->tokens = ft_set_ptr(data->tokens, count);
 	fill_dst(data, data->expanded_line, data->tokens, split_tool);
-//	trim_dst(data, data->tokens, split_tool);
+	trim_dst(data, data->tokens, split_tool);
 	free(split_tool);
 }
