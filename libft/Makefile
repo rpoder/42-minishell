@@ -6,7 +6,7 @@
 #    By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/27 17:12:53 by mpourrey          #+#    #+#              #
-#    Updated: 2022/07/29 13:00:35 by ronanpoder       ###   ########.fr        #
+#    Updated: 2022/08/26 17:22:24 by ronanpoder       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -37,6 +37,7 @@ SRC = ft_atoi.c ft_atoli.c \
 	ft_lstlast.c ft_lstmap.c ft_lstnew.c ft_lstlen.c \
 	ft_printf.c printf_handle_write.c printf_utils.c \
 	ft_alloc_and_fill.c \
+	ft_tablen.c \
 
 OBJ = $(addprefix $(OBJ_PATH)/, $(SRC:.c=.o))
 

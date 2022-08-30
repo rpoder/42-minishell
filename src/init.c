@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:43:05 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/19 18:46:54 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/30 16:46:42 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ t_data	*init_data(char **env, char *prompt_line)
 	data->env = NULL;
 	set_env(data, env);
 	data->local_expands = NULL;
-	add_expand(&data->local_expands, alloc_and_fill("?"), alloc_and_fill("127"));
+	ft_add_expand(&data->local_expands, alloc_and_fill("?"), alloc_and_fill("0"), true);
 	data->prompt_line = alloc_and_fill(prompt_line);
 	data->expanded_line = NULL;
 	data->tokens = NULL;

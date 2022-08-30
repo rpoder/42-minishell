@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/27 14:50:06 by margot           ###   ########.fr       */
+/*   Updated: 2022/08/30 16:47:37 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ typedef struct s_data {
 
 extern t_data *data;
 
+# define PATH_MAX 4096
+
 /* Main.c */
 
 /* init.c */
@@ -57,7 +59,8 @@ int			skip_if_space(char *value, int i);
 void	mute_in_quotes(t_data *data);
 
 /* handle_expand.c */
-void	add_expand(t_list **alst, char *key, char *value);
+void	ft_add_expand(t_list **alst, char *key, char *value, bool manual_add);
+int		ft_set_expand(t_data *data, char *key, char *value_to_modify);
 
 /* expander.c */
 void	expander(char *src);
@@ -111,19 +114,33 @@ int	is_redirection_operator(char c);
 int	is_space(char c);
 
 /* handle_free.c */
-void	global_free(void);
-void	del_t_expand(void *content);
+void	global_free(t_data *data);
+void	del_one_expand(void *content);
 
 /* BUILT_INS */
-/* builtins_err.c */
-int	check_t_expand_key_input(char *key);
+/* builtins_utils.c */
+int	is_valid_expand_key(char *key);
 
-/* OTHER BUILT_INS */
-void	ft_echo(char **args, int fd);
-void	ft_env(t_data *data, int fd);
-void	ft_export(t_data *data, char *key_to_export);
+/* ft_echo.c */
+int		ft_echo(char **args);
+
+/* ft_env.c */
+void	ft_env(t_data *data, char **args);
+
+/* ft_export.c */
+int		ft_export(t_data *data, char **args);
+
+/* ft_unset.c */
 int		ft_unset(t_data *data, char **args);
+
+/* ft_cd.c */
 void	ft_cd(t_data *data, char **args);
+
+/* ft_pwd.c */
+void	ft_pwd(char **args);
+char	*get_path(void);
+
+
 
 #endif
 
