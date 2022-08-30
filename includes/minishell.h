@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/29 23:04:07 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/30 16:40:36 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,7 +106,7 @@ int	is_redirection_operator(char c);
 int	is_space(char c);
 
 /* handle_free.c */
-void	global_free(void);
+void	global_free(t_data *data);
 void	del_one_expand(void *content);
 
 /* BUILT_INS */
@@ -122,9 +122,6 @@ void	ft_env(t_data *data, char **args);
 /* ft_export.c */
 int		ft_export(t_data *data, char **args);
 
-/* ft_export_utils.c */
-int		try_with_env_path(char *arg);
-
 /* ft_unset.c */
 int		ft_unset(t_data *data, char **args);
 
@@ -133,7 +130,7 @@ void	ft_cd(t_data *data, char **args);
 
 /* ft_pwd.c */
 void	ft_pwd(char **args);
-char	*get_path();
+char	*get_path(void);
 
 
 

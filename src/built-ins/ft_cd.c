@@ -6,124 +6,52 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:33:22 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/29 23:25:34 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/30 15:36:29 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	dbldot_pathlen(char *str, int i)
+static char	*add_point(char *arg)
 {
-	int	len;
-
-	len = 0;
-	if (str[i] == '\0')
-		return (-1);
-	while (str[i] && str[i] != ':')
-	{
-		i++;
-		len++;
-	}
-	return (len);
-}
-
-static char	*get_env_path_part(char *env_path, int *i)
-{
-	int			j;
-	char		*tmp;
-
-	tmp = malloc(dbldot_pathlen(env_path, *i) + 1);
-	if (!tmp)
-		return (NULL);
-	j = 0;
-	while (env_path[*i] && env_path[*i] != ':')
-	{
-		tmp[j] = env_path[*i];
-		*i = *i + 1;
-		j++;
-	}
-	tmp[j] = '\0';
-	(*i)++;
-	return (tmp);
-}
-
-char	*concatenated_path(char *env_path_part, char *arg)
-{
-	char	*tmp;
 	int		i;
-	int		j;
+	char	*dst;
 
-	tmp = malloc(sizeof(char) * (ft_strlen(env_path_part) + 1 + ft_strlen(arg) + 1));
-	if (!tmp)
+	i = 0;
+	dst = malloc(sizeof(char) * (1 + ft_strlen(arg) + 1));
+	if (!dst)
 		return (NULL);
-	i = 0;
-	j = 0;
-	while (env_path_part[i])
+	dst[i] = '.';
+	i++;
+	while (arg[i - 1])
 	{
-		tmp[j] = env_path_part[i];
+		dst[i] = arg[i - 1];
 		i++;
-		j++;
 	}
-	tmp[j] = '/';
-	j++;
-	i = 0;
-	while (arg[i])
-	{
-		tmp[j] = arg[i];
-		i++;
-		j++;
-	}
-	return (tmp);
-}
-
-int	try_with_env_path(char *arg)
-{
-	char	*env_path;
-	char	*env_path_part;
-	char	*tmp;
-	int		ret;
-	int		*i;
-
-	env_path = get_expand_value("PATH");
-	tmp = NULL;
-	env_path_part = NULL;
-	if (!env_path)
-		return (1);
-	i = malloc(sizeof(int));
-		return(-1);
-	*i = 0;
-	ret = -1;
-	while (ret != 0 && env_path[*i])
-	{
-		env_path_part = get_env_path_part(env_path, i);
-		if (!env_path_part)
-		{
-			if (tmp)
-				free(tmp);
-			return(-1);
-		}
-		tmp = concatenated_path(env_path_part, arg);
-		if (!tmp)
-		{
-			if (env_path_part)
-				free(env_path_part);
-			return(-1);
-		}
-		ret = chdir(tmp);
-		free(tmp);
-		free(env_path_part);
-	}
-	return (ret);
+	dst[i] = '\0';
+	return (dst);
 }
 
 static int	try_cd(t_data *data, char *arg)
 {
 	int		ret;
 	char	*old_path;
+	char	*concatened;
 
-	old_path = get_path();
-	printf("arg %s\n", arg);
-	ret = chdir(arg);
+	old_path = get_expand_value("PWD");
+	if (arg[0] != '.')
+	{
+		concatened = add_point(arg);
+		if (!concatened)
+		{
+			global_free(data);
+			return (-1);
+		}
+		ret = chdir(concatened);
+		free(concatened);
+	}
+	else
+		ret = chdir(arg);
 	if (ret == 0)
 	{
 		ft_set_expand(data, "OLDPWD", old_path);
@@ -146,16 +74,13 @@ void	ft_cd(t_data *data, char **args)
 		return ;
 	if (home_expand && !args[2])
 		ret = chdir(home_expand);
-	//try_with_env_path(args[2]);
-	// if (args[2][0] == '/')
-	// {
-		if (try_cd(data, args[2]) != 0)
-		{
-			printf("err\n");
-		}
-		// err message
-	// }
-
-	// printf("args[2] = %s\n", args[2]);
-	// printf("ret chedir %d\n",chdir(args[2]));
+	if (try_cd(data, args[2]) != 0)
+	{
+		ft_putstr_fd("cd:\'", 2);
+		ft_putstr_fd(args[2], 2);
+		ft_putstr_fd("\': no such file or directory\n", 2);
+		ft_set_expand(data, "?", "1");
+	}
+	else
+		ft_set_expand(data, "?", "0");
 }

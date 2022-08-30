@@ -6,19 +6,19 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 16:10:38 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/29 23:10:01 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/30 16:33:46 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_path()
+char	*get_path(void)
 {
-	int	i;
-	char *buf;
+	int		i;
+	char	*buf;
 
 	buf = malloc(sizeof(char) * (i + 1));
-	while(getcwd(buf, i) == 0 || i > PATH_MAX)
+	while (getcwd(buf, i) == 0 || i > PATH_MAX)
 	{
 		free(buf);
 		buf = malloc(sizeof(char) * (i + 1));
@@ -50,5 +50,4 @@ void	ft_pwd(char **args)
 		ft_set_expand(data, "?", "0");
 	}
 	free(path);
-	//exit(0);
 }

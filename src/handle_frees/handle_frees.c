@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_frees.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:18:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/27 16:50:54 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/08/30 15:23:43 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	del_one_expand(void *content)
 	}
 }
 
-void	global_free(void)
+void	global_free(t_data *data)
 {
 	if (data)
 	{

@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/29 23:25:43 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/30 16:12:08 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,16 +138,20 @@ void	tests_ronan(t_data *data)
 	args = malloc(sizeof(char *) * 4);
 	args[0] = alloc_and_fill(NULL);
 	args[1] = alloc_and_fill("ft_cd");
-	args[2] = alloc_and_fill("..");
+	args[2] = alloc_and_fill("../includes");
 	args[5] = NULL;
 	//ft_env(data, 1);
+	ft_set_expand(data, "PWD", "groszizi");
 	 ft_cd(data, args);
 	//ft_pwd(args);
 
-	args = malloc(sizeof(char *) * 3);
-	args[0] = alloc_and_fill(NULL);
-	args[1] = alloc_and_fill("ft_env");
-	args[2] = NULL;
-	ft_env(data, args);
-	printf("Pwd -> %s\n", get_path());
+	// args = malloc(sizeof(char *) * 3);
+	// args[0] = alloc_and_fill(NULL);
+	// args[1] = alloc_and_fill("ft_env");
+	// args[2] = NULL;
+	// ft_env(data, args);
+	printf("PWD = %s\n", get_expand_value("PWD"));
+	printf("OLDPWD = %s\n", get_expand_value("OLDPWD"));
+	printf("? = %s\n", get_expand_value("?"));
+	printf("Actual pwd -> %s\n", get_path());
 }

@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 08:16:14 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/29 19:39:25 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/30 13:04:26 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,5 @@ int	ft_export(t_data *data, char **args)
 		ft_set_expand(data, "?", "1");
 	else
 		ft_set_expand(data, "?", "0");
-
 	return (ret);
 }
