@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+         #
+#    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/27 17:12:53 by mpourrey          #+#    #+#              #
-#    Updated: 2022/07/29 13:00:35 by ronanpoder       ###   ########.fr        #
+#    Updated: 2022/08/30 19:57:02 by mpourrey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRC = ft_atoi.c ft_atoli.c \
 	ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c \
 	ft_ptrdup.c ft_ptrlen.c \
 	ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c \
+	ft_set_ptr.c \
 	ft_sort_tab.c  \
 	ft_split.c \
 	ft_str_isdigit.c ft_str_isprint.c ft_strchr.c ft_strcmp.c ft_strdup.c ft_striteri.c ft_strjoin.c \

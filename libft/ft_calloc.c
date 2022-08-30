@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_calloc.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <marvin@42.fr>                    +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/11/25 23:22:31 by mpourrey          #+#    #+#             */
-/*   Updated: 2021/12/10 15:49:21 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/30 18:56:45 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	*ft_calloc(size_t count, size_t size)
 	size_t	i;
 
 	ptr = (char *) malloc(count * size);
-	if (ptr == 0)
+	if (ptr == NULL)
 		return (NULL);
 	i = 0;
 	while (i < count * size)

@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 17:08:24 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/29 15:43:25 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/30 20:10:04 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ static int	token_trim_len(char *src)
 
 	i = 0;
 	len = 0;
-	while(is_space(src[i]))
+	while (is_space(src[i]))
 		i++;
-	while(src[i])
+	while (src[i])
 	{
 		if (src[i] != '\'' && src[i] != '\"')
 			len++;

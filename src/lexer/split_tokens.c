@@ -6,13 +6,13 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/03/23 21:45:16 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/29 18:55:48 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/30 20:08:46 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	**trim_dst(char **dst)
+static void	trim_dst(t_data *data, char **dst, t_split_tool *tool)
 {
 	int		i;
 	char	*trimed_token;
@@ -23,95 +23,88 @@ static char	**trim_dst(char **dst)
 		trimed_token = token_trim(dst[i]);
 		if (!trimed_token)
 		{
-			ft_free_ptr(dst);
-			return (NULL);
+			free(tool);
+			global_free(data);
 		}
 		free(dst[i]);
 		dst[i] = trimed_token;
 		i++;
 	}
-	return (dst);
 }
 
-static char	**fill_dst(char **dst, char *str, t_split_data *data)
+static void	fill_dst(t_data *data, char *src, char **dst, t_split_tool *tool)
 {
-	data->i = skip_space(str, 0);
-	while (str[data->i])
+	tool->i = skip_space(src, 0);
+	while (src[tool->i])
 	{
-		if (is_token_separator(str[data->i]))
+		if (is_token_separator(src[tool->i]))
 		{
-			dst[data->nb_of_tokens] = get_and_skip_token(str, data);
-			set_data_for_next_token(data, data->i);
+			dst[tool->nb_of_tokens] = get_and_skip_token(data, src, tool);
+			set_tool_for_next_token(tool, tool->i);
 		}
-		else if (str[data->i] == '\'' || str[data->i] == '\"')
+		else if (src[tool->i] == '\'' || src[tool->i] == '\"')
 		{
-			data->i = skip_quotes_token(str, data->i);
-			dst[data->nb_of_tokens] = get_token_if_end_of_str(str, data); //
+			tool->i = skip_quotes_token(src, tool->i);
+			dst[tool->nb_of_tokens] = get_token_if_end_of_src(data, src, tool);
 		}
 		else
 		{
-			data->i++;
-			if (is_redirection_operator(str[data->i]))
+			tool->i++;
+			if (is_redirection_operator(src[tool->i]))
 			{
-				dst[data->nb_of_tokens] = get_token(str, data->i, data->token_start); //
-				set_data_for_next_token(data, data->i);
+				dst[tool->nb_of_tokens] = get_token(data, src, tool);
+				set_tool_for_next_token(tool, tool->i);
 			}
-			dst[data->nb_of_tokens] = get_token_if_end_of_str(str, data); //
+			dst[tool->nb_of_tokens] = get_token_if_end_of_src(data, src, tool);
 		}
 	}
-	return(dst);
 }
 
-static int	count_words(char *str, int count)
+static int	count_words(char *src, int count)
 {
 	int	i;
 
-	i = skip_space(str, 0);
-	while (str[i])
+	i = skip_space(src, 0);
+	while (src[i])
 	{
-		if (is_token_separator(str[i]))
+		if (is_token_separator(src[i]))
 		{
-			i = skip_separator(str, i);
+			i = skip_separator(src, i);
 			count++;
 		}
-		else if (str[i] == '\'' || str[i] == '\"')
+		else if (src[i] == '\'' || src[i] == '\"')
 		{
-			i = skip_quotes_token(str, i);
-			if (str[i] == '\0')
+			i = skip_quotes_token(src, i);
+			if (src[i] == '\0')
 				count++;
 		}
 		else
 		{
 			i++;
-			if (str[i] == '\0' || is_redirection_operator(str[i]))
+			if (src[i] == '\0' || is_redirection_operator(src[i]))
 				count++;
 		}
 	}
 	return (count);
 }
 
-char	**split_tokens(char *str)
+void	split_tokens(t_data *data)
 {
-	char			**token_tab;
 	int				count;
-	t_split_data	*split_data;
+	t_split_tool	*split_tool;
 
-	split_data = init_split_data();
-	count = count_words(str, 0);
-	token_tab = malloc(sizeof(char *) * (count + 1));
-	if (!token_tab)
+	split_tool = init_split_tool();
+	if (!split_tool)
+		global_free(data);
+	count = count_words(data->expanded_line, 0);
+	data->tokens = malloc(sizeof(char *) * (count + 1));
+	if (!data->tokens)
 	{
-		free(split_data);
-		return (NULL);
+		free(split_tool);
+		global_free(data);
 	}
-	token_tab[count] = NULL;
-	token_tab = fill_dst(token_tab, str, split_data);
-	if (!token_tab)
-	{
-		free(split_data);
-		return (NULL);
-	}
-	token_tab = trim_dst(token_tab);
-	free(split_data);
-	return (token_tab);
+	data->tokens = ft_set_ptr(data->tokens, count);
+	fill_dst(data, data->expanded_line, data->tokens, split_tool);
+//	trim_dst(data, data->tokens, split_tool);
+	free(split_tool);
 }

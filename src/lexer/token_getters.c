@@ -6,86 +6,105 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 12:42:01 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/29 19:07:52 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/30 19:53:15 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	*get_token_if_end_of_str(char *str, t_split_data *data)
+char	*get_token(t_data *data, char *src, t_split_tool *tool)
+{
+	char	*token;
+	int		len;
+	int		j;
+
+	j = 0;
+	len = tool->i - tool->token_start;
+	token = malloc(sizeof(char) * (len + 1));
+	if (!token)
+	{
+		free(tool);
+		global_free(data);
+		return (token);
+	}
+	while (src[tool->token_start] != '\0'
+		&& !is_redirection_operator(src[tool->token_start]))
+	{
+		token[j] = src[tool->token_start];
+		j++;
+		tool->token_start++;
+	}
+	token[j] = '\0';
+	return (token);
+}
+
+char	*get_token_if_end_of_src(t_data *data, char *src, t_split_tool *tool)
 {
 	char	*token;
 
 	token = NULL;
-	if (str[data->i] == '\0') 
-			token = get_token(str, data->i, data->token_start); //
+	if (src[tool->i] == '\0')
+		token = get_token(data, src, tool);
 	return (token);
 }
 
-char	*get_token(char *str, int i, int token_start)
+static char	*get_token_til_space(t_data *data, char *src, t_split_tool *tool)
 {
 	char	*token;
 	int		len;
 	int		j;
-	
+
 	j = 0;
-	len = i - token_start;
-	token = malloc(sizeof(char) * (len + 1)); //proteger
-	while(str[token_start] != '\0' && !is_redirection_operator(str[token_start]))
+	len = tool->i - tool->token_start;
+	token = malloc(sizeof(char) * len + 1);
+	if (!token)
 	{
-		token[j] = str[token_start];
+		free(tool);
+		global_free(data);
+		return (token);
+	}
+	while (tool->token_start < tool->i)
+	{
+		token[j] = src[tool->token_start];
 		j++;
-		token_start++;
+		tool->token_start++;
 	}
 	token[j] = '\0';
 	return (token);
 }
 
-static char	*get_token_til_space(char *str, t_split_data *data)
+static char	*get_redir_op_token(t_data *data, char *src, t_split_tool *tool)
 {
 	char	*token;
 	int		len;
 	int		j;
 
 	j = 0;
-	len = data->i - data->token_start;
-	token = malloc(sizeof(char) * len + 1); //proteger
-	while (data->token_start < data->i)
+	len = redirection_token_len(src, tool->i);
+	token = malloc(sizeof(char) * (len + 1));
+	if (!token)
 	{
-		token[j] = str[data->token_start];
-		j++;
-		data->token_start++;
+		free(tool);
+		global_free(data);
+		return (token);
 	}
-	token[j] = '\0';
-	return (token);
-}
-
-static char	*get_redir_op_token(char *str, t_split_data *data)
-{
-	char	*token;
-	int		len;
-	int		j;
-
-	j = 0;
-	len = redirection_token_len(str, data->i);
-	token = malloc(sizeof(char) * (len + 1)); //proteger
 	while (j < len)
 	{
-		token[j] = str[data->i];
+		token[j] = src[tool->i];
 		j++;
 	}
 	token[j] = '\0';
 	return (token);
 }
 
-char	*get_and_skip_token(char *str, t_split_data *data)
+char	*get_and_skip_token(t_data *data, char *src, t_split_tool *tool)
 {
 	char	*token;
-	
-	if (is_redirection_operator(str[data->i]))
-		token = get_redir_op_token(str, data); //
-	else if (is_space(str[data->i]))
-		token = get_token_til_space(str, data); //
-	data->i = skip_separator(str, data->i);
+
+	if (is_redirection_operator(src[tool->i]))
+		token = get_redir_op_token(data, src, tool);
+	else if (is_space(src[tool->i]))
+		token = get_token_til_space(data, src, tool);
+	tool->i = skip_separator(src, tool->i);
 	return (token);
 }

@@ -6,27 +6,29 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 17:09:16 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/29 18:32:40 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/30 17:29:16 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_free_ptr(char **ptr)
+void	ft_free_ptr(char ***ptr)
 {
-	int	i;
+	int		i;
 
 	i = 0;
-	if (ptr)
+	if (*ptr)
 	{
-		while (ptr[i] != NULL)
+		while ((*ptr)[i] != NULL)		
 			i++;
-		while (i > 0)
+		i--;
+		while (i >= 0)
 		{
-			free(ptr[i -1]);
+			free((*ptr)[i]);
+			(*ptr)[i] = NULL;
 			i--;
 		}
-		free(ptr);
-		ptr = NULL;
+		free(*ptr);
+		*ptr = NULL;
 	}
 }

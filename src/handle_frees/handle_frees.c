@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:18:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/29 18:32:54 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/30 16:28:43 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,7 +56,7 @@ void	global_free(t_data *data)
   		if (data->expanded_line)
 			free(data->expanded_line);
  		if (data->tokens != NULL)
-			ft_free_ptr(data->tokens);
+			ft_free_ptr(&data->tokens);
 		free(data);
 		exit(1);
 	}

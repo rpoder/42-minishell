@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/29 15:29:40 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/30 19:37:30 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,11 +85,11 @@ void	set_env(t_data *data, char **env);
 void	lexer(t_data *data);
 
 /* split_tokens.c */
-char	**split_tokens(char *str);
+void	split_tokens(t_data *data);
 
 /* split_tokens_utils.c */
-t_split_data	*init_split_data();
-void			set_data_for_next_token(t_split_data *split_data, int i);
+t_split_tool	*init_split_tool();
+void			set_tool_for_next_token(t_split_tool *split_tool, int i);
 int				redirection_token_len(char *str, int i);
 
 /*token_skippers */
@@ -99,9 +99,9 @@ int	skip_separator(char *str, int i);
 int	skip_redirection_token(char *str, int i);
 
 /* token_getters.c */
-char	*get_token_if_end_of_str(char *str, t_split_data *data);
-char	*get_token(char *str, int i, int token_start);
-char	*get_and_skip_token(char *str, t_split_data *data);
+char	*get_token(t_data *data, char *src, t_split_tool *tool);//int i, int token_start);
+char	*get_token_if_end_of_src(t_data *data, char *src, t_split_tool *tool);
+char	*get_and_skip_token(t_data *data, char *src, t_split_tool *tool);
 
 /* token_trim.c */
 char	*token_trim(char *src);
