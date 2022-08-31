@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 16:32:48 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/30 17:57:39 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/31 13:48:03 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ void	*ft_memmove(void *dst, const void *src, size_t n);
 void	*ft_memset(void *s, int c, size_t n);
 char	**ft_ptrdup(char **ptr);
 int		ft_ptrlen(char **ptr);
-void	ft_putchar_fd(char c, int fd);
+int		ft_putchar_fd(char c, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 int		ft_putstr_fd(char *str, int fd);
@@ -103,5 +103,13 @@ int		ft_reslen_uli(unsigned long int n, int base_len);
 int		ft_itoabase_uli(unsigned long int n, char *base);
 int		ft_itoabase_ui(unsigned int n, char *base);
 int		ft_reslen_ui(unsigned int n, int base_len);
+
+/////////////*PRINTF_FD*//////////////
+int		ft_printf_fd(const char *s, int fd, ...);
+int		ft_putaddress_fd(unsigned long int n, int fd);
+int		ft_putint_fd(int n, int fd);
+int		ft_putunint_fd(unsigned int n, char *base, int fd);
+int		ft_itoabase_uli_fd(unsigned long int n, char *base, int fd);
+int		ft_itoabase_ui_fd(unsigned int n, char *base, int fd);
 
 #endif

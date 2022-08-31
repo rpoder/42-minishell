@@ -1,59 +1,59 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_printf.c                                        :+:      :+:    :+:   */
+/*   ft_printf_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/01/31 15:09:09 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/31 13:22:22 by rpoder           ###   ########.fr       */
+/*   Created: 2022/08/31 13:17:46 by rpoder            #+#    #+#             */
+/*   Updated: 2022/08/31 13:50:43 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static int	ft_parse_arg(char c, va_list ap)
+static int	ft_parse_arg_printf_fd(int fd, char c, va_list ap)
 {
 	int	j;
 
 	j = 0;
 	if (c == 'c')
-		j = (ft_putchar((char)va_arg(ap, int)));
+		j = (ft_putchar_fd((char)va_arg(ap, int), fd));
 	if (c == 'd' || c == 'i')
-		j = (ft_putint(va_arg(ap, int)));
+		j = (ft_putint_fd(va_arg(ap, int), fd));
 	if (c == 'u')
-		j = (ft_putunint(va_arg(ap, unsigned int), "0123456789"));
+		j = (ft_putunint_fd(va_arg(ap, unsigned int), "0123456789", fd));
 	if (c == 'x')
-		j = (ft_putunint(va_arg(ap, unsigned int), "0123456789abcdef"));
+		j = (ft_putunint_fd(va_arg(ap, unsigned int), "0123456789abcdef", fd));
 	if (c == 'X')
-		j = (ft_putunint(va_arg(ap, unsigned int), "0123456789ABCDEF"));
+		j = (ft_putunint_fd(va_arg(ap, unsigned int), "0123456789ABCDEF", fd));
 	if (c == 's')
-		j = (ft_putstr(va_arg(ap, char *)));
+		j = (ft_putstr_fd(va_arg(ap, char *), fd));
 	if (c == 'p')
-		j = (ft_putaddress(va_arg(ap, unsigned long int)));
+		j = (ft_putaddress_fd(va_arg(ap, unsigned long int), fd));
 	if (c == '%')
-		j = (ft_putchar('%'));
+		j = (ft_putchar_fd('%', fd));
 	return (j);
 }
 
-int	ft_printf(const char *s, ...)
+int	ft_printf_fd(const char *s, int fd, ...)
 {
 	va_list	ap;
 	int		i;
 	int		j;
 
-	va_start(ap, s);
+	va_start(ap, fd);
 	i = 0;
 	j = 0;
 	while (s[i])
 	{
 		if (s[i] == '%')
 		{
-			j += (ft_parse_arg(s[i + 1], ap));
+			j += (ft_parse_arg_printf_fd(fd, s[i + 1], ap));
 			i++;
 		}
 		else
-			j += write(1, &s[i], 1);
+			j += write(fd, &s[i], 1);
 		i++;
 	}
 	va_end(ap);

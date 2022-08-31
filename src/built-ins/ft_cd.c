@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:33:22 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/30 15:36:29 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/30 18:45:36 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,9 @@ static int	try_cd(t_data *data, char *arg)
 	char	*old_path;
 	char	*concatened;
 
-	old_path = get_expand_value("PWD");
+	old_path = get_expand_value(data, "PWD");
+	if (!old_path)
+		return (-1);
 	if (arg[0] != '.')
 	{
 		concatened = add_point(arg);
@@ -54,8 +56,8 @@ static int	try_cd(t_data *data, char *arg)
 		ret = chdir(arg);
 	if (ret == 0)
 	{
-		ft_set_expand(data, "OLDPWD", old_path);
-		ft_set_expand(data, "PWD", get_path());
+		set_expand(data, "OLDPWD", old_path);
+		set_expand(data, "PWD", get_path(data));
 	}
 	return (ret);
 }
@@ -79,8 +81,8 @@ void	ft_cd(t_data *data, char **args)
 		ft_putstr_fd("cd:\'", 2);
 		ft_putstr_fd(args[2], 2);
 		ft_putstr_fd("\': no such file or directory\n", 2);
-		ft_set_expand(data, "?", "1");
+		set_expand(data, "?", "1");
 	}
 	else
-		ft_set_expand(data, "?", "0");
+		set_expand(data, "?", "0");
 }

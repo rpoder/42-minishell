@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 17:45:13 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/29 19:44:14 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/30 18:02:50 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ void	ft_env(t_data *data, char **args)
 		ft_putstr_fd("env:\'", 2);
 		ft_putstr_fd(args[2], 2);
 		ft_putstr_fd("\': not such file or directory\n", 2);
-		ft_set_expand(data, "?", "127");
+		set_expand(data, "?", "127");
 		return ;
 	}
 	if (!data->env)
@@ -38,5 +38,5 @@ void	ft_env(t_data *data, char **args)
 		ft_putchar_fd('\n', 1);
 		tmp = tmp->next;
 	}
-	ft_set_expand(data, "?", "0");
+	set_expand(data, "?", "0");
 }

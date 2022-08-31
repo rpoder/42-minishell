@@ -6,11 +6,13 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/30 17:54:45 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/31 13:50:22 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	tests_ronan(t_data *data);
 
 int	main(int argc, char **argv, char **env)
 {
@@ -31,123 +33,45 @@ int	main(int argc, char **argv, char **env)
 		mute_in_quotes(data);
 		expander(data);
 		printf("expanded_line = %s\n", data->expanded_line);
-		lexer(data);
+		//lexer(data);
+		//tests_ronan(data);
+		ft_printf_fd("salut %d", 2, 214);
 		global_free(data);
 //	}
 }
 
 void	tests_ronan(t_data *data)
 {
-	/* TEST ECHO */
- 	// char **args;
-	// args = malloc(sizeof(char *) * 6);
-	// args[0] = alloc_and_fill("[PATH]");
-	// args[1] = alloc_and_fill("echo");
-	// args[2] = alloc_and_fill("-n");
-	// args[3] = alloc_and_fill("coucou");
-	// args[4] = alloc_and_fill("toz");
-	// args[5] = NULL;
-	// ft_echo(args, 1);
+	add_expand(data, &data->local_expands, alloc_and_fill("TEST"), alloc_and_fill("coucou"));
+	add_expand(data, &data->local_expands, alloc_and_fill("TEST2"), alloc_and_fill("salut"));
 
-	// ft_add_expand(&data->local_expands, alloc_and_fill("TEST"), alloc_and_fill("coucou"), false);
-	// ft_add_expand(&data->local_expands, alloc_and_fill("TEST2"), alloc_and_fill("salut"), false);
+	t_list	*tmp;
+	tmp = data->local_expands;
+	while (tmp)
+	{
+		printf("%s = %s\n", ((t_expand *)tmp->content)->key, ((t_expand *)tmp->content)->value);
+		tmp = tmp->next;
+	}
 
-	// t_list	*tmp;
-	// tmp = data->local_expands;
-	// while (tmp)
-	// {
-	// 	printf("%s = %s\n", ((t_expand *)tmp->content)->key, ((t_expand *)tmp->content)->value);
-	// 	tmp = tmp->next;
-	// }
-
-
-	/* TEST ENV */
-	// char **args;
-	// args = malloc(sizeof(char *) * 6);
-	// args[0] = alloc_and_fill("[PATH]");
-	// args[1] = alloc_and_fill("ft_unset");
-	// args[2] = alloc_and_fill("87*");
-	// args[3] = alloc_and_fill("/5");
-	// args[4] = NULL;
-	// args[5] = NULL;
-
-	/* TEST EXPORT */
-
-	// ft_unset(data, args);
-
-	// args[1] = alloc_and_fill("ft_env");
-	// args[2] = NULL;
-	// //ft_env(data, args);
-
-	// printf("\nLOCAL VARS\n");
-	// tmp = data->local_expands;
-	// while (tmp)
-	// {
-	// 	printf("%s = %s\n", ((t_expand *)tmp->content)->key, ((t_expand *)tmp->content)->value);
-	// 	tmp = tmp->next;
-	// }
-
-	// char **args;
-	// args = malloc(sizeof(char *) * 7);
-	// args[0] = alloc_and_fill(NULL);
-	// args[1] = alloc_and_fill("export");
-	// args[2] = alloc_and_fill("?");
-	// args[3] = alloc_and_fill("test");
-	// args[4] = alloc_and_fill("test2");
-	// args[5] = NULL;
-	// args[6] = NULL;
-
-	// ft_export(data, args);
-	// ft_unset(data, args);
-	// ft_env(data, 1);
-
-	// printf("\nLOCAL VARS\n");
-	// tmp = data->local_expands;
-	// while (tmp)
-	// {
-	// 	printf("%s = %s\n", ((t_expand *)tmp->content)->key, ((t_expand *)tmp->content)->value);
-	// 	tmp = tmp->next;
-	// }
-
-	// char **args2;
-	// args2 = malloc(sizeof(char *) * 6);
-	// args2[0] = alloc_and_fill("[PATH]");
-	// args2[1] = alloc_and_fill("unset");
-	// args2[2] = alloc_and_fill("test2");
-	// args2[3] = alloc_and_fill("LS_COLORS");
-	// args2[4] = alloc_and_fill("PATH");
-	// args2[5] = NULL;
-	// ft_unset(data, args2);
-
-	// printf("\nLast unset\nLOCAL VARS\n");
-	// tmp = data->local_expands;
-	// while (tmp)
-	// {
-	// 	printf("%s = %s\n", ((t_expand *)tmp->content)->key, ((t_expand *)tmp->content)->value);
-	// 	tmp = tmp->next;
-	// }
-
-
-
-	/* TEST CD */
 	char **args;
-	args = malloc(sizeof(char *) * 4);
-	args[0] = alloc_and_fill(NULL);
-	args[1] = alloc_and_fill("ft_cd");
-	args[2] = alloc_and_fill("../includes");
+	args = malloc(sizeof(char *) * 6);
+	args[0] = alloc_and_fill("[PATH]");
+	args[1] = alloc_and_fill("ft_export");
+	args[2] = alloc_and_fill("TE*ST");
+	args[3] = alloc_and_fill("TEST2");
+	args[4] = NULL;
 	args[5] = NULL;
-	//ft_env(data, 1);
-	ft_set_expand(data, "PWD", "groszizi");
-	 ft_cd(data, args);
-	//ft_pwd(args);
 
-	// args = malloc(sizeof(char *) * 3);
-	// args[0] = alloc_and_fill(NULL);
-	// args[1] = alloc_and_fill("ft_env");
-	// args[2] = NULL;
-	// ft_env(data, args);
-	printf("PWD = %s\n", get_expand_value("PWD"));
-	printf("OLDPWD = %s\n", get_expand_value("OLDPWD"));
-	printf("? = %s\n", get_expand_value("?"));
-	printf("Actual pwd -> %s\n", get_path());
+	ft_export(data, args);
+
+	args = malloc(sizeof(char *) * 7);
+	args[0] = alloc_and_fill(NULL);
+	args[1] = alloc_and_fill("ft_env");
+	args[2] = NULL;
+	args[3] = alloc_and_fill("test");
+	args[4] = alloc_and_fill("test2");
+	args[5] = NULL;
+	args[6] = NULL;
+
+	ft_env(data, args);
 }

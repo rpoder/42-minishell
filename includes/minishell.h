@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/30 17:58:40 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/30 18:45:12 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,7 @@ int			skip_if_space(char *value, int i);
 void	mute_in_quotes(t_data *data);
 
 /* handle_expand.c */
+int		set_expand(t_data *data, char *key, char *value_to_modify);
 void	add_expand(t_data *data, t_list **alst, char *key, char *value);
 
 /* expander.c */
@@ -122,7 +123,7 @@ void	del_one_expand(void *content);
 int	is_valid_expand_key(char *key);
 
 /* ft_echo.c */
-int		ft_echo(char **args);
+int	ft_echo(t_data *data, char **args);
 
 /* ft_env.c */
 void	ft_env(t_data *data, char **args);
@@ -137,9 +138,8 @@ int		ft_unset(t_data *data, char **args);
 void	ft_cd(t_data *data, char **args);
 
 /* ft_pwd.c */
-void	ft_pwd(char **args);
-char	*get_path(void);
-
+void	ft_pwd(t_data *data, char **args);
+char	*get_path(t_data *data);
 
 
 #endif

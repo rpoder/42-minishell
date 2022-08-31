@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 16:53:13 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/30 17:57:26 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/30 18:15:18 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,13 +32,13 @@ static bool	set_on(t_list **alst, char *key, char *value_to_modify)
 	return (false);
 }
 
-int	ft_set_expand(t_data *data, char *key, char *value_to_modify)
+int	set_expand(t_data *data, char *key, char *value_to_modify)
 {
 	if (set_on(&data->env, key, value_to_modify) == false)
 	{
 		if (set_on(&data->local_expands, key, value_to_modify) == false)
 		{
-			ft_add_expand(&data->local_expands, alloc_and_fill(key), alloc_and_fill(value_to_modify), true);
+			add_expand(data, &data->local_expands, alloc_and_fill(key), alloc_and_fill(value_to_modify));
 			return (1);
 		}
 	}
@@ -47,7 +47,7 @@ int	ft_set_expand(t_data *data, char *key, char *value_to_modify)
 
 
 //proteger !value
-void	ft_add_expand(t_list **alst, char *key, char *value, bool manual_add) //recoit str allouees
+void	add_expand(t_data *data, t_list **alst, char *key, char *value) //recoit str allouees
 {
 	t_list		*lst;
 	t_expand	*content;
