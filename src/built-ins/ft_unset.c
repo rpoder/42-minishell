@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 09:31:14 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/30 18:02:50 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/31 16:35:39 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,9 +59,7 @@ int	ft_unset(t_data *data, char **args)
 	{
 		if (is_valid_expand_key(args[i]) != 0)
 		{
-			ft_putstr_fd("unset:\'", 2);
-			ft_putstr_fd(args[i], 2);
-			ft_putstr_fd("\': not a valid identifier\n", 2);
+			ft_printf_fd("unset:\'%s\': not a valid identifier\n", 2, args[i]);
 			ret++;
 		}
 		else if (unset_from(&data->local_expands, args[i]) == false)

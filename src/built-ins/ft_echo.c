@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 16:25:27 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/30 18:17:36 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/31 16:29:03 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,8 @@ int	ft_echo(t_data *data, char **args)
 		return (-1);
 	i = 2;
 	n_option = false;
-	if (args[i] && ft_strcmp(args[i], "-n") == 0)
+	while (args[i] && args[i][0] && args[i][0] == '-' &&
+		args[i][1] && args[i][1] == 'n')
 	{
 		n_option = true;
 		i++;

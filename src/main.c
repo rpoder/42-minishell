@@ -6,19 +6,13 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/08/31 13:50:22 by rpoder           ###   ########.fr       */
-=======
-/*   Updated: 2022/08/31 13:42:59 by mpourrey         ###   ########.fr       */
->>>>>>> a640ddebe21a9d9ab5b3edf86279058f12407ffc
+/*   Updated: 2022/08/31 16:37:49 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-<<<<<<< HEAD
 void	tests_ronan(t_data *data);
-=======
 void	test_lexer(char **words)
 {
 	int	i;
@@ -31,7 +25,6 @@ void	test_lexer(char **words)
 		i++;
 	}
 }
->>>>>>> a640ddebe21a9d9ab5b3edf86279058f12407ffc
 
 int	main(int argc, char **argv, char **env)
 {
@@ -40,8 +33,8 @@ int	main(int argc, char **argv, char **env)
 
 //	while (1)
 //	{
-	//	line = readline("mi_nils_shell j'écoute ? > ");
-	//	add_history(line);
+		// line = readline("mi_nils_shell j'écoute ? > ");
+		// add_history(line);
 		line = "'$?'";
 		data = init_data(env, line);
 	 	if (syntax_checker(line) == 1)
@@ -52,14 +45,9 @@ int	main(int argc, char **argv, char **env)
 		mute_in_quotes(data);
 		expander(data);
 		printf("expanded_line = %s\n", data->expanded_line);
-<<<<<<< HEAD
-		//lexer(data);
-		//tests_ronan(data);
-		ft_printf_fd("salut %d", 2, 214);
-=======
 		lexer(data);
 		test_lexer(data->words);
->>>>>>> a640ddebe21a9d9ab5b3edf86279058f12407ffc
+		tests_ronan(data);
 		global_free(data);
 //	}
 }
@@ -80,22 +68,22 @@ void	tests_ronan(t_data *data)
 	char **args;
 	args = malloc(sizeof(char *) * 6);
 	args[0] = alloc_and_fill("[PATH]");
-	args[1] = alloc_and_fill("ft_export");
-	args[2] = alloc_and_fill("TE*ST");
-	args[3] = alloc_and_fill("TEST2");
-	args[4] = NULL;
+	args[1] = alloc_and_fill("ft_unset");
+	args[2] = alloc_and_fill("TEST");
+	args[3] = NULL;
+	args[4] = alloc_and_fill("coucou");
 	args[5] = NULL;
 
-	ft_export(data, args);
+	ft_unset(data, args);
 
-	args = malloc(sizeof(char *) * 7);
-	args[0] = alloc_and_fill(NULL);
-	args[1] = alloc_and_fill("ft_env");
-	args[2] = NULL;
-	args[3] = alloc_and_fill("test");
-	args[4] = alloc_and_fill("test2");
-	args[5] = NULL;
-	args[6] = NULL;
+	// args = malloc(sizeof(char *) * 7);
+	// args[0] = alloc_and_fill(NULL);
+	// args[1] = alloc_and_fill("ft_env");
+	// args[2] = NULL;
+	// args[3] = alloc_and_fill("test");
+	// args[4] = alloc_and_fill("test2");
+	// args[5] = NULL;
+	// args[6] = NULL;
 
-	ft_env(data, args);
+	// ft_env(data, args);
 }
