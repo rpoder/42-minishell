@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/30 18:45:12 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/31 13:58:36 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,8 +23,8 @@
 # include "utils.h"
 
 typedef struct s_expand {
-	char *key;
-	char *value;
+	char	*key;
+	char	*value;
 }	t_expand;
 
 typedef struct s_data {
@@ -32,7 +32,7 @@ typedef struct s_data {
 	t_list	*local_expands;
 	char	*prompt_line;
 	char	*expanded_line;
-	char	**tokens;
+	char	**words;
 }	t_data;
 
 extern t_data *data;
@@ -42,81 +42,84 @@ extern t_data *data;
 /* Main.c */
 
 /* init.c */
-t_data		*init_data(char **env, char *prompt_line);
-t_quotes	*init_quotes(void);
-t_quotes	*clear_quotes(t_quotes *quotes);
-t_quotes	*set_quotes(char c, t_quotes *quotes);
+t_data			*init_data(char **env, char *prompt_line);
+t_quotes		*init_quotes(void);
+void			clear_quotes(t_quotes *quotes);
+void			set_quotes(char c, t_quotes *quotes);
 
 /* Syntax_checker */
-int		syntax_checker(char *str);
+int				syntax_checker(char *str);
 
 /* handle_mutes_in_expand.c */
-char	*get_muted_expand_value(char *value);
+char			*get_muted_expand_value(char *value);
 
 /* mutes_in_expand_utils.c */
-t_mute_tool	*init_mute_tool(void);
-t_mute_tool	*clear_mute_tool(t_mute_tool *tool);
-int			skip_if_space(char *value, int i);
+t_mute_tool		*init_mute_tool(void);
+void			set_mute_tool(t_mute_tool *tool, char *src);
+void			clear_mute_tool(t_mute_tool *tool);
+int				skip_if_space(char *value, int i);
 
 /* handle_mutes_in_quotes.c */
-void	mute_in_quotes(t_data *data);
+void			mute_in_quotes(t_data *data);
 
 /* handle_expand.c */
 int		set_expand(t_data *data, char *key, char *value_to_modify);
 void	add_expand(t_data *data, t_list **alst, char *key, char *value);
 
 /* expander.c */
-void	expander(t_data *data);
+void			expander(t_data *data);
 
 /* expander_utils.c*/
-int		has_expand(char *str);
-int		is_expand_to_interpret(char *str, int i, t_quotes *quotes);
-char	*get_expand_value(t_data *data, char *expand_key);
-char	*get_expand_key(char *str, int i);
-int		is_separator(char c);
+int				has_expand(char *str);
+int				is_expand_to_interpret(char *str, int i, t_quotes *quotes);
+char			*get_expand_value(t_data *data, char *expand_key);
+char			*get_expand_key(char *str, int i);
+int				is_separator(char c);
 
 /* expander_utils_2.c */
 int				expand_key_len(char *str, int i);
 int				expand_value_len(t_data *data, char *str, int i);
 t_expand_tool	*init_expand_tool(void);
-t_expand_tool	*clear_expand_tool(t_expand_tool *tool);
+void			clear_expand_tool(t_expand_tool *tool);
 
 /* set_env.c */
-void	set_env(t_data *data, char **env);
+void			set_env(t_data *data, char **env);
 
 /*lexer.c*/
-void	lexer(t_data *data);
+void			lexer(t_data *data);
 
-/* split_tokens.c */
-char	**split_tokens(char *str);
+/* split_words_utils.c */
+t_split_tool	*init_split_tool(void);
+void			set_tool_for_next_word(t_split_tool *split_tool, int i);
+int				redirection_word_len(char *str, int i);
 
-/* split_tokens_utils.c */
-t_split_data	*init_split_data();
-void			set_data_for_next_token(t_split_data *split_data, int i);
-int				redirection_token_len(char *str, int i);
+/*word_skippers */
+int				skip_space(char *str, int i);
+int				skip_quotes_word(char *str, int i);
+int				skip_separator(char *str, int i);
+int				skip_redirection_word(char *str, int i);
 
-/*token_skippers */
-int	skip_space(char *str, int i);
-int	skip_quotes_token(char *str, int i);
-int	skip_separator(char *str, int i);
-int	skip_redirection_token(char *str, int i);
+/* word_getters_1.c */
+char			*get_and_skip_word(t_data *d, char *s, t_split_tool *tool);
+char			*get_word_til_redir_op(t_data *d, char *s, t_split_tool *tool);
+char			*get_word_if_end_of_src(t_data *d, char *s, t_split_tool *tool);
 
-/* token_getters.c */
-char	*get_token_if_end_of_str(char *str, t_split_data *data);
-char	*get_token(char *str, int i, int token_start);
-char	*get_and_skip_token(char *str, t_split_data *data);
+/* word_getters_2.c */
+char			*get_word(t_data *data, char *src, t_split_tool *tool);
+char			*get_redir_op_word(t_data *data, char *src, t_split_tool *tool);
+char			*get_word_til_space(t_data *d, char *src, t_split_tool *tool);
 
-/* token_trim.c */
-char	*token_trim(char *src);
+/* word_trim.c */
+char			*word_trim(char *src);
 
-/* utils_2.c */
-int	is_token_separator(char c);
-int	is_redirection_operator(char c);
-int	is_space(char c);
+/* utils.c */
+int				is_word_separator(char c);
+int				is_redirection_operator(char c);
+int				is_space(char c);
 
 /* handle_free.c */
-void	global_free(t_data *data);
-void	del_one_expand(void *content);
+void			global_free(t_data *data);
+void			del_one_expand(void *content);
 
 /* BUILT_INS */
 /* builtins_utils.c */
@@ -143,6 +146,3 @@ char	*get_path(t_data *data);
 
 
 #endif
-
-
-

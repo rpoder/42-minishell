@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/10 13:51:14 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/29 15:17:16 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/31 11:31:52 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	skip_quotes(char *str, int i)
 	return (i);
 }
 
-static int	redirection_token_checker(char *str, int i)
+static int	redirection_word_checker(char *str, int i)
 {
 	if (str[i] == '|')
 	{
@@ -69,9 +69,9 @@ int	syntax_checker(char *str)
 		}
 		else if (is_redirection_operator(str[i]))
 		{
-			if (redirection_token_checker(str, i) != 0)
+			if (redirection_word_checker(str, i) != 0)
 			{
-				ft_printf("syntax error near unexpected token `%c'\n", str[i]);
+				ft_printf("syntax error near unexpected word `%c'\n", str[i]);
 				return (1);
 			}
 		}

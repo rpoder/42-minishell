@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 13:14:43 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/29 13:49:47 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/31 12:19:36 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ static char	get_muted_char_inside_quotes(char *src, int i, char quote)
 
 	if (quote == '\"')
 	{
-		if (src[i] == '\'' || is_separator(src[i]))
+		if (src[i] == '\'' || src[i] == '=' || is_separator(src[i]))
 			c = src[i] * -1;
 		else
 			c = src[i];
 	}
 	else if (quote == '\'')
 	{
-		if (src[i] == '\"' || is_separator(src[i]))
+		if (src[i] == '\"' || src[i] == '=' || is_separator(src[i]))
 			c = src[i] * -1;
 		else
 			c = src[i];
@@ -73,16 +73,17 @@ static void	fill_muted_expand_dst(char *src, char *dst, t_mute_tool *tool)
 			{
 				dst[tool->len] = get_muted_char_inside_quotes(src,
 						tool->i, tool->quote);
-				tool->len++;
-				tool->i = skip_if_space(src, tool->i);
+				set_mute_tool(tool, src);
 			}
 			tool->i++;
 		}	
 		else if (src[tool->i])
 		{
-			dst[tool->len] = src[tool->i];
-			tool->len++;
-			tool->i = skip_if_space(src, tool->i);
+			if (src[tool->i] == '=')
+				dst[tool->len] = src[tool->i] * -1;
+			else
+				dst[tool->len] = src[tool->i];
+			set_mute_tool(tool, src);
 		}
 	}
 	dst[tool->len] = '\0';
@@ -104,7 +105,7 @@ char	*get_muted_expand_value(char *src)
 		free(mute_tool);
 		return (NULL);
 	}
-	mute_tool = clear_mute_tool(mute_tool);
+	clear_mute_tool(mute_tool); //void
 	fill_muted_expand_dst(src, dst, mute_tool);
 	free(mute_tool);
 	return (dst);

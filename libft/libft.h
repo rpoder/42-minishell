@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 16:32:48 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/31 13:48:03 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/31 13:57:12 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ int		ft_atoi(char *str);
 long	ft_atoli(char *str);
 void	ft_bzero(void *s, size_t n);
 void	*ft_calloc(size_t count, size_t size);
-void	ft_free_ptr(char **ptr);
+void	ft_free_ptr(char ***ptr);
 int		ft_isalnum(int c);
 int		ft_isalpha(int c);
 int		ft_isascii(int c);
@@ -43,6 +43,7 @@ int		ft_putchar_fd(char c, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 int		ft_putstr_fd(char *str, int fd);
+char	**ft_set_ptr(char **ptr, int len);
 long	*ft_sort_tab(long int *tab, int len);
 char	**ft_split(char const *s, char c);
 int		ft_str_isdigit(char *str);

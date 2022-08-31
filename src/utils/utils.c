@@ -6,13 +6,13 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 15:19:17 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/29 15:19:42 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/31 11:31:52 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_token_separator(char c)
+int	is_word_separator(char c)
 {
 	if (c == ' ' || c == '|' || c == '<' || c == '>'
 		|| (c > 0 && c <= 31) || c == 127)
