@@ -6,18 +6,17 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 16:56:17 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/29 14:24:13 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/31 13:43:58 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_expand_tool	*clear_expand_tool(t_expand_tool *expand_tool)
+void	clear_expand_tool(t_expand_tool *expand_tool)
 {
 	expand_tool->i = 0;
 	expand_tool->len = 0;
 	clear_quotes(expand_tool->quotes);
-	return (expand_tool);
 }
 
 t_expand_tool	*init_expand_tool(void)

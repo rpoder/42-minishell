@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:18:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/30 17:55:48 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/08/31 13:57:04 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,16 @@ void	global_free(t_data *data)
 {
 	if (data)
 	{
- 		if (data->env)
+		if (data->env)
 			ft_lstclear(&data->env, &del_expand);
- 		if (data->local_expands)
+		if (data->local_expands)
 			ft_lstclear(&data->local_expands, &del_expand);
- 		 if (data->prompt_line)
-		 	free(data->prompt_line);
-  		if (data->expanded_line)
+		if (data->prompt_line)
+			free(data->prompt_line);
+		if (data->expanded_line)
 			free(data->expanded_line);
- 		if (data->tokens != NULL)
-			ft_free_ptr(data->tokens);
+		if (data->words != NULL)
+			ft_free_ptr(&data->words);
 		free(data);
 		exit(1);
 	}

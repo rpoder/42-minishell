@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:02:08 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/29 14:21:33 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/31 13:44:04 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	expanded_line_len(t_data *data, char *str, t_expand_tool *tool)
 
 	while (str[tool->i])
 	{
-		tool->quotes = set_quotes(str[tool->i], tool->quotes);
+		set_quotes(str[tool->i], tool->quotes);
 		if (str[tool->i] == '$' && is_expand_to_interpret(str, tool->i,
 				tool->quotes))
 		{
@@ -65,10 +65,10 @@ static void	fill_expanded_line(t_data *data, t_expand_tool *tool)
 {
 	int	exp_value_len;
 
-	tool = clear_expand_tool(tool);
+	clear_expand_tool(tool);
 	while (data->prompt_line[tool->len])
 	{
-		tool->quotes = set_quotes(data->prompt_line[tool->len], tool->quotes);
+		set_quotes(data->prompt_line[tool->len], tool->quotes);
 		if (data->prompt_line[tool->len] == '$' && is_expand_to_interpret
 			(data->prompt_line, tool->len, tool->quotes))
 		{	

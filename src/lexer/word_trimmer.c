@@ -1,34 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   token_trim.c                                       :+:      :+:    :+:   */
+/*   word_trim.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 17:08:24 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/29 15:43:25 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/30 21:49:52 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	token_trim_len(char *src)
+static int	word_trim_len(char *src)
 {
 	int	i;
 	int	len;
 
 	i = 0;
 	len = 0;
-	while(is_space(src[i]))
+	while (is_space(src[i]))
 		i++;
-	while(src[i])
+	while (src[i])
 	{
 		if (src[i] != '\'' && src[i] != '\"')
 			len++;
 		i++;
 	}
 	i--;
-	while(is_space(src[i]))
+	while (is_space(src[i]))
 	{
 		i--;
 		len--;
@@ -36,7 +36,7 @@ static int	token_trim_len(char *src)
 	return (len);
 }
 
-char	*token_trim(char *src)
+char	*word_trim(char *src)
 {
 	char	*dst;
 	int		i;
@@ -45,13 +45,13 @@ char	*token_trim(char *src)
 
 	i = 0;
 	j = 0;
-	len = token_trim_len(src);
+	len = word_trim_len(src);
 	dst = malloc(sizeof(char) * (len + 10));
 	if (!dst)
 		return (NULL);
-	while(is_space(src[i]))
+	while (is_space(src[i]))
 		i++;
-	while(src[i] && j < len)
+	while (src[i] && j < len)
 	{
 		if (src[i] != '\'' && src[i] != '\"')
 		{
