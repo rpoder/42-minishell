@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 12:57:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/18 13:05:07 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/31 11:20:48 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ char	*alloc_and_fill(char *str)
 	dst = malloc(sizeof(char) * (ft_strlen(str) + 1));
 	if (!dst)
 		return (NULL);
-	while(str[i])
+	while (str[i])
 	{
 		dst[i] = str[i];
 		i++;

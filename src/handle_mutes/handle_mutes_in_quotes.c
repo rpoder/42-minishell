@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 15:20:35 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/29 15:02:35 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/31 11:59:19 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	mute_and_skip_inside_quotes(t_data *data, int i)
 		i++;
 		while (data->prompt_line[i] != '\'')
 		{
-			if (data->prompt_line[i] == '\"'
+			if (data->prompt_line[i] == '\"' || data->prompt_line[i] == '='
 				|| is_redirection_operator(data->prompt_line[i]))
 				data->prompt_line[i] = data->prompt_line[i] * -1;
 			i++;
@@ -30,7 +30,7 @@ static int	mute_and_skip_inside_quotes(t_data *data, int i)
 		i++;
 		while (data->prompt_line[i] != '\"')
 		{
-			if (data->prompt_line[i] == '\''
+			if (data->prompt_line[i] == '\'' || data->prompt_line[i] == '='
 				|| is_redirection_operator(data->prompt_line[i]))
 				data->prompt_line[i] = data->prompt_line[i] * -1;
 			i++;

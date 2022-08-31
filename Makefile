@@ -6,7 +6,7 @@
 #    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/08/30 15:55:21 by mpourrey         ###   ########.fr        #
+#    Updated: 2022/08/31 11:53:46 by mpourrey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,7 +22,7 @@ OBJDIR				:=	./obj
 
 SRCS				:=	main.c \
 						init.c \
-						utils/utils_2.c\
+						utils/utils.c\
 						set_env.c \
 						handle_frees/handle_frees.c \
 						add_expand.c \
@@ -35,11 +35,11 @@ SRCS				:=	main.c \
 						handle_mutes/handle_mutes_in_expand.c \
 						handle_mutes/mutes_in_expand_utils.c \
 						lexer/lexer.c \
-						lexer/split_tokens.c \
-						lexer/split_tokens_utils.c \
-						lexer/token_getters.c \
-						lexer/token_skippers.c \
-						lexer/token_trim.c \
+						lexer/lexer_utils.c \
+						lexer/word_getters_1.c \
+						lexer/word_getters_2.c \
+						lexer/word_skippers.c \
+						lexer/word_trimmer.c \
 													
 #						built-ins/ft_echo.c \
 						built-ins/ft_export.c \

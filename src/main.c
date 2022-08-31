@@ -6,11 +6,24 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/30 21:47:34 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/31 13:42:59 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	test_lexer(char **words)
+{
+	int	i;
+
+	printf("\n");
+	i = 0;
+	while(words[i] != NULL)
+	{
+		printf("word[%d] = |%s|\n", i, words[i]);
+		i++;
+	}
+}
 
 int	main(int argc, char **argv, char **env)
 {
@@ -21,7 +34,7 @@ int	main(int argc, char **argv, char **env)
 //	{
 	//	line = readline("mi_nils_shell j'écoute ? > ");
 	//	add_history(line);
-		line = "$?>\'y\"o\"\'";
+		line = "'$?'";
 		data = init_data(env, line);
 	 	if (syntax_checker(line) == 1)
 		{
@@ -32,6 +45,7 @@ int	main(int argc, char **argv, char **env)
 		expander(data);
 		printf("expanded_line = %s\n", data->expanded_line);
 		lexer(data);
+		test_lexer(data->words);
 		global_free(data);
 //	}
 }

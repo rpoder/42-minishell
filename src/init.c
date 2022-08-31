@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:43:05 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/29 15:24:24 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/31 13:41:17 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static t_list	*add_return_value_expand(t_data *data)
 	expand_key = alloc_and_fill("?");
 	if (!expand_key)
 		return (NULL);
-	expand_value = alloc_and_fill("127");
+	expand_value = alloc_and_fill("cou'='cou");
 	if (!expand_value)
 	{
 		free(expand_key);
@@ -47,24 +47,22 @@ t_data	*init_data(char **env, char *prompt_line)
 	if (!data->prompt_line)
 		global_free(data);
 	data->expanded_line = NULL;
-	data->tokens = NULL;
+	data->words = NULL;
 	return (data);
 }
 
-t_quotes	*set_quotes(char c, t_quotes *quotes)
+void	set_quotes(char c, t_quotes *quotes)
 {
 	if (c == '\"')
 		quotes->dbl_quote = !quotes->dbl_quote;
 	if (c == '\'')
 		quotes->sgl_quote = !quotes->sgl_quote;
-	return (quotes);
 }
 
-t_quotes	*clear_quotes(t_quotes *quotes)
+void	clear_quotes(t_quotes *quotes)
 {
 	quotes->sgl_quote = false;
 	quotes->dbl_quote = false;
-	return (quotes);
 }
 
 t_quotes	*init_quotes(void)
