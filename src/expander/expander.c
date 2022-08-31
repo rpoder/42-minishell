@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:02:08 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/31 13:44:04 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/31 16:50:25 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,13 +23,10 @@ static int	expanded_line_len(t_data *data, char *str, t_expand_tool *tool)
 				tool->quotes))
 		{
 			tmp = expand_value_len(data, str, tool->i + 1);
-			if (tmp > 0)
-			{
-				tool->i = tool->i + expand_key_len(str, tool->i + 1);
-				tool->len = tool->len + tmp;
-			}
-			else
-				tool->len++;
+			if (tmp <= 0)
+				tmp = expand_key_len(str, tool->i + 1);
+			tool->i = tool->i + expand_key_len(str, tool->i + 1);
+			tool->len = tool->len + tmp;
 		}
 		else
 			tool->len++;
@@ -49,7 +46,6 @@ static void	fill_with_expand_value(t_data *data, int i, int j)
 	if (!expand_key)
 		global_free(data);
 	expand_value = get_expand_value(data, expand_key);
-	free (expand_key);
 	if (expand_value)
 	{
 		while (expand_value[k])
@@ -59,6 +55,16 @@ static void	fill_with_expand_value(t_data *data, int i, int j)
 			k++;
 		}
 	}
+	else
+	{
+		while (expand_key[k])
+		{
+			data->expanded_line[j] = expand_key[k] + 127;
+			j++;
+			k++;
+		}
+	}
+	free (expand_key);
 }
 
 static void	fill_expanded_line(t_data *data, t_expand_tool *tool)
@@ -104,6 +110,7 @@ void	expander(t_data *data)
 	if (!expand_tool)
 		global_free(data);
 	dst_len = expanded_line_len(data, data->prompt_line, expand_tool);
+	printf("dst len = %d\n", dst_len);
 	data->expanded_line = malloc(sizeof(char) * (dst_len + 1));
 	if (!data->expanded_line)
 		global_free(data);

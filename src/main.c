@@ -3,22 +3,15 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-<<<<<<< HEAD
-/*   Updated: 2022/08/31 13:50:22 by rpoder           ###   ########.fr       */
-=======
-/*   Updated: 2022/08/31 13:42:59 by mpourrey         ###   ########.fr       */
->>>>>>> a640ddebe21a9d9ab5b3edf86279058f12407ffc
+/*   Updated: 2022/08/31 16:49:42 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-<<<<<<< HEAD
-void	tests_ronan(t_data *data);
-=======
 void	test_lexer(char **words)
 {
 	int	i;
@@ -31,7 +24,6 @@ void	test_lexer(char **words)
 		i++;
 	}
 }
->>>>>>> a640ddebe21a9d9ab5b3edf86279058f12407ffc
 
 int	main(int argc, char **argv, char **env)
 {
@@ -42,7 +34,7 @@ int	main(int argc, char **argv, char **env)
 //	{
 	//	line = readline("mi_nils_shell j'écoute ? > ");
 	//	add_history(line);
-		line = "'$?'";
+		line = "$0~ bonjour";
 		data = init_data(env, line);
 	 	if (syntax_checker(line) == 1)
 		{
@@ -52,14 +44,8 @@ int	main(int argc, char **argv, char **env)
 		mute_in_quotes(data);
 		expander(data);
 		printf("expanded_line = %s\n", data->expanded_line);
-<<<<<<< HEAD
-		//lexer(data);
-		//tests_ronan(data);
-		ft_printf_fd("salut %d", 2, 214);
-=======
 		lexer(data);
 		test_lexer(data->words);
->>>>>>> a640ddebe21a9d9ab5b3edf86279058f12407ffc
 		global_free(data);
 //	}
 }

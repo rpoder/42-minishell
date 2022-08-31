@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 16:56:05 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/29 14:16:52 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/08/31 16:35:02 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ char	*get_expand_value(t_data *data, char *expand_key)
 			return (((t_expand *)tmp->content)->value);
 		tmp = tmp->next;
 	}
-	return (NULL);
+	return (NULL); ////////////////////
 }
 
 char	*get_expand_key(char *str, int i)
@@ -67,7 +67,7 @@ char	*get_expand_key(char *str, int i)
 	expand_key = malloc((expand_key_len(str, i) + 1) * sizeof(char));
 	if (!expand_key)
 		return (NULL);
-	while (str[i + j] && !is_separator(str[i + j]))
+	while (str[i + j] && !is_separator(str[i + j])) //is_expand_separator, ajouter tout sauf alpha et '_'
 	{
 		expand_key[j] = str[i + j];
 		j++;
