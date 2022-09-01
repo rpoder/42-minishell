@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:02:08 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/01 11:21:21 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/01 17:48:47 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,19 +23,29 @@ static int	expanded_line_len(t_data *data, char *str, t_expand_tool *tool)
 				tool->quotes))
 		{
 			tmp = expand_value_len(data, str, tool->i + 1);
-			if (tmp > 0)
-			{
-				tool->i = tool->i + expand_key_len(str, tool->i + 1);
-				tool->len = tool->len + tmp;
-			}
-			else
-				tool->len++;
+			if (tmp <= 0)
+				tmp = expand_key_len(str, tool->i + 1);
+			tool->i = tool->i + expand_key_len(str, tool->i + 1);
+			tool->len = tool->len + tmp;
 		}
 		else
 			tool->len++;
 		tool->i++;
 	}
 	return (tool->len);
+}
+
+static void	fill_with_muted_key_value(char	**exp_line, int j, char *expand_key)
+{
+	int		k;
+
+	k = 0;
+	while (expand_key[k])
+	{
+		(*exp_line)[j] = expand_key[k] + 127;
+		j++;
+		k++;
+	}
 }
 
 static void	fill_with_expand_value(t_data *data, int i, int j)
@@ -49,7 +59,6 @@ static void	fill_with_expand_value(t_data *data, int i, int j)
 	if (!expand_key)
 		global_free(data, MALLOC_ERR);
 	expand_value = get_expand_value(data, expand_key);
-	free (expand_key);
 	if (expand_value)
 	{
 		while (expand_value[k])
@@ -59,6 +68,9 @@ static void	fill_with_expand_value(t_data *data, int i, int j)
 			k++;
 		}
 	}
+	else
+		fill_with_muted_key_value(&data->expanded_line, j, expand_key);
+	free (expand_key);
 }
 
 static void	fill_expanded_line(t_data *data, t_expand_tool *tool)

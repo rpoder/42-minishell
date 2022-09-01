@@ -6,20 +6,47 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/01 17:44:14 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/01 17:49:37 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	tests_ronan(t_data *data);
+void	test_unmute_lexer(char **words)
+{
+	int	i;
+	int	j;
+	char c;
+
+	i = 0;
+	while (words[i] != NULL)
+	{
+		j = 0;
+		printf("\nunmute_word[%d] = |", i);
+		while (words[i][j] != '\0')
+		{
+			if (words[i][j] < 0)
+				c = words[i][j] * -1;
+			else if (words[i][j] > 127)
+				c = words[i][j] - 127;
+			else
+				c = words[i][j];
+			printf("%c", c);
+			j++;
+		}
+		printf("|");
+		i++;
+	}
+	printf("\n");
+}
+
 void	test_lexer(char **words)
 {
 	int	i;
 
 	printf("\n");
 	i = 0;
-	while(words[i] != NULL)
+	while (words[i] != NULL)
 	{
 		printf("word[%d] = |%s|\n", i, words[i]);
 		i++;
@@ -31,11 +58,10 @@ int	main(int argc, char **argv, char **env)
 	char 	*line;
 	t_data	*data;
 
-//	while (1)
-//	{
-		// line = readline("mi_nils_shell j'écoute ? > ");
-		// add_history(line);
-		line = "'$?'";
+	while (1)
+	{
+		line = readline("mi_nils_shell j'écoute ? > ");
+		add_history(line);
 		data = init_data(env, line);
 	 	if (syntax_checker(line) == 1)
 		{
@@ -44,12 +70,11 @@ int	main(int argc, char **argv, char **env)
 		}
 		mute_in_quotes(data);
 		expander(data);
-		//printf("expanded_line = %s\n", data->expanded_line);
-		//lexer(data);
-		//test_lexer(data->words);
-		tests_ronan(data);
-		global_free(data, NO_ERR);
-//	}
+		lexer(data);
+		test_lexer(data->words);
+		test_unmute_lexer(data->words);
+//		global_free(data);
+	}
 }
 
 void	tests_ronan(t_data *data)

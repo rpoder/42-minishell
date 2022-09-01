@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 16:56:17 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/31 13:43:58 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/01 15:48:55 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,32 +36,4 @@ t_expand_tool	*init_expand_tool(void)
 	}
 	clear_expand_tool(expand_tool);
 	return (expand_tool);
-}
-
-int	expand_key_len(char *str, int i)
-{
-	int	len;
-
-	len = 0;
-	while (str[i] && !is_separator(str[i]))
-	{
-		len++;
-		i++;
-	}
-	return (len);
-}
-
-int	expand_value_len(t_data *data, char *str, int i)
-{
-	int		expand_value_len;
-	char	*expand_key;
-	char	*expand_value;
-
-	expand_key = get_expand_key(str, i);
-	if (!expand_key)
-		return (-1);
-	expand_value = get_expand_value(data, expand_key);
-	expand_value_len = ft_strlen(expand_value);
-	free(expand_key);
-	return (expand_value_len);
 }

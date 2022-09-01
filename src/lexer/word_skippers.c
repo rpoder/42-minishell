@@ -14,12 +14,16 @@
 
 int	skip_redirection_word(char *str, int i)
 {
-	if (str[i] == '>' && str[i + 1] == '>')
-		i = i + 2;
-	else if (str[i] == '<' && str[i + 1] == '<')
-		i = i + 2;
-	else
-		i++;
+	if (str[i] == '<' || str[i] == '>')
+	{
+		while (str[i] && (str[i] == '<' || str[i] == '>'))
+			i++;
+	}
+	else if (str[i] == '|')
+	{
+		while (str[i] && str[i] == '|')
+			i++;
+	}
 	return (i);
 }
 

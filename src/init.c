@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:43:05 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/01 11:21:21 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/01 17:48:40 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static t_list	*add_return_value_expand(t_data *data)
 	expand_key = alloc_and_fill("?");
 	if (!expand_key)
 		return (NULL);
-	expand_value = alloc_and_fill("cou'='cou");
+	expand_value = alloc_and_fill("'127    |'");
 	if (!expand_value)
 	{
 		free(expand_key);
