@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 13:14:43 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/31 12:19:36 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/01 17:16:41 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,14 @@ static char	get_muted_char_inside_quotes(char *src, int i, char quote)
 
 	if (quote == '\"')
 	{
-		if (src[i] == '\'' || src[i] == '=' || is_separator(src[i]))
+		if (src[i] == '\'' || src[i] == '=' || is_expand_separator(src[i]))
 			c = src[i] * -1;
 		else
 			c = src[i];
 	}
 	else if (quote == '\'')
 	{
-		if (src[i] == '\"' || src[i] == '=' || is_separator(src[i]))
+		if (src[i] == '\"' || src[i] == '=' || is_expand_separator(src[i]))
 			c = src[i] * -1;
 		else
 			c = src[i];
@@ -105,7 +105,7 @@ char	*get_muted_expand_value(char *src)
 		free(mute_tool);
 		return (NULL);
 	}
-	clear_mute_tool(mute_tool); //void
+	clear_mute_tool(mute_tool);
 	fill_muted_expand_dst(src, dst, mute_tool);
 	free(mute_tool);
 	return (dst);

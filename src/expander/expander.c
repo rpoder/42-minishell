@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:02:08 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/31 16:50:25 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/01 17:41:18 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,19 @@ static int	expanded_line_len(t_data *data, char *str, t_expand_tool *tool)
 	return (tool->len);
 }
 
+static void	fill_with_muted_key_value(char	**exp_line, int j, char *expand_key)
+{
+	int		k;
+
+	k = 0;
+	while (expand_key[k])
+	{
+		(*exp_line)[j] = expand_key[k] + 127;
+		j++;
+		k++;
+	}
+}
+
 static void	fill_with_expand_value(t_data *data, int i, int j)
 {
 	char	*expand_value;
@@ -56,14 +69,7 @@ static void	fill_with_expand_value(t_data *data, int i, int j)
 		}
 	}
 	else
-	{
-		while (expand_key[k])
-		{
-			data->expanded_line[j] = expand_key[k] + 127;
-			j++;
-			k++;
-		}
-	}
+		fill_with_muted_key_value(&data->expanded_line, j, expand_key);
 	free (expand_key);
 }
 
@@ -110,7 +116,6 @@ void	expander(t_data *data)
 	if (!expand_tool)
 		global_free(data);
 	dst_len = expanded_line_len(data, data->prompt_line, expand_tool);
-	printf("dst len = %d\n", dst_len);
 	data->expanded_line = malloc(sizeof(char) * (dst_len + 1));
 	if (!data->expanded_line)
 		global_free(data);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_expand.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 16:53:13 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/30 18:15:18 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/01 17:17:17 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,6 @@ int	set_expand(t_data *data, char *key, char *value_to_modify)
 	}
 	return (0);
 }
-
 
 //proteger !value
 void	add_expand(t_data *data, t_list **alst, char *key, char *value) //recoit str allouees

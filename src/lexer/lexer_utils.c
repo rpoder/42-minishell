@@ -35,10 +35,23 @@ int	redirection_word_len(char *str, int i)
 {
 	int	len;
 
-	if ((str[i] == '<' && str[i + 1] == '<')
-		|| (str[i] == '>' && str[i + 1] == '>'))
-		len = 2;
-	else
-		len = 1;
+	len = 0;
+	if (str[i] == '<' || str[i] == '>')
+	{
+		while (str[i] && (str[i] == '<' || str[i] == '>'))
+		{
+			len++;
+			i++;
+		}
+	}
+	else if (str[i] == '|')
+	{
+		while (str[i] && str[i] == '|')
+		{
+			len++;
+			i++;
+		}
+	}
+	printf("len = %d\n");
 	return (len);
 }

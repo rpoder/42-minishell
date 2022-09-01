@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/31 13:58:36 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/01 15:47:21 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,16 +69,19 @@ void	add_expand(t_data *data, t_list **alst, char *key, char *value);
 /* expander.c */
 void			expander(t_data *data);
 
+/*expand_getters.c*/
+char			*get_expand_value(t_data *data, char *expand_key);
+char			*get_expand_key(char *str, int i);
+int				expand_key_len(char *str, int i);
+int				expand_value_len(t_data *data, char *str, int i);
+
 /* expander_utils.c*/
 int				has_expand(char *str);
 int				is_expand_to_interpret(char *str, int i, t_quotes *quotes);
-char			*get_expand_value(t_data *data, char *expand_key);
-char			*get_expand_key(char *str, int i);
-int				is_separator(char c);
+int				is_expand_separator(char c);
+int				is_expand_suffix(char c, int j);
 
 /* expander_utils_2.c */
-int				expand_key_len(char *str, int i);
-int				expand_value_len(t_data *data, char *str, int i);
 t_expand_tool	*init_expand_tool(void);
 void			clear_expand_tool(t_expand_tool *tool);
 

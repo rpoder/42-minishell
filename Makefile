@@ -6,7 +6,7 @@
 #    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/08/31 16:09:09 by mpourrey         ###   ########.fr        #
+#    Updated: 2022/09/01 15:44:57 by mpourrey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,6 +30,7 @@ SRCS				:=	main.c \
 						built-ins/ft_env.c \
 						handle_mutes/handle_mutes_in_quotes.c \
 						expander/expander.c \
+						expander/expand_getters.c \
 						expander/expander_utils.c \
 						expander/expander_utils_2.c \
 						handle_mutes/handle_mutes_in_expand.c \
