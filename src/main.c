@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/31 16:37:49 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/01 11:24:01 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,7 +39,7 @@ int	main(int argc, char **argv, char **env)
 		data = init_data(env, line);
 	 	if (syntax_checker(line) == 1)
 		{
-			global_free(data);
+			global_free(data, PARSING_ERR);
 			return (1);
 		}
 		mute_in_quotes(data);
@@ -48,7 +48,7 @@ int	main(int argc, char **argv, char **env)
 		lexer(data);
 		test_lexer(data->words);
 		tests_ronan(data);
-		global_free(data);
+		global_free(data, NO_ERR);
 //	}
 }
 
@@ -68,13 +68,13 @@ void	tests_ronan(t_data *data)
 	char **args;
 	args = malloc(sizeof(char *) * 6);
 	args[0] = alloc_and_fill("[PATH]");
-	args[1] = alloc_and_fill("ft_unset");
-	args[2] = alloc_and_fill("TEST");
+	args[1] = alloc_and_fill("ft_exit");
+	args[2] = alloc_and_fill("8999");
 	args[3] = NULL;
 	args[4] = alloc_and_fill("coucou");
 	args[5] = NULL;
 
-	ft_unset(data, args);
+	ft_exit(data, args);
 
 	// args = malloc(sizeof(char *) * 7);
 	// args[0] = alloc_and_fill(NULL);

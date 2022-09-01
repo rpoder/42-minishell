@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:33:22 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/30 18:45:36 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/01 11:21:21 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ static int	try_cd(t_data *data, char *arg)
 		concatened = add_point(arg);
 		if (!concatened)
 		{
-			global_free(data);
+			global_free(data, MALLOC_ERR);
 			return (-1);
 		}
 		ret = chdir(concatened);

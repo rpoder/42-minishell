@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 16:53:13 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/30 18:15:18 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/01 11:21:21 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void	add_expand(t_data *data, t_list **alst, char *key, char *value) //recoit st
 	{
 		free(key);
 		free(value);
-		global_free(data);
+		global_free(data, MALLOC_ERR);
 	}
 	content->key = key;
 	content->value = value;

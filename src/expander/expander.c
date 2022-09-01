@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:02:08 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/31 13:44:04 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/01 11:21:21 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static void	fill_with_expand_value(t_data *data, int i, int j)
 	k = 0;
 	expand_key = get_expand_key(data->prompt_line, i + 1);
 	if (!expand_key)
-		global_free(data);
+		global_free(data, MALLOC_ERR);
 	expand_value = get_expand_value(data, expand_key);
 	free (expand_key);
 	if (expand_value)
@@ -71,13 +71,13 @@ static void	fill_expanded_line(t_data *data, t_expand_tool *tool)
 		set_quotes(data->prompt_line[tool->len], tool->quotes);
 		if (data->prompt_line[tool->len] == '$' && is_expand_to_interpret
 			(data->prompt_line, tool->len, tool->quotes))
-		{	
+		{
 			fill_with_expand_value(data, tool->len, tool->i);
 			exp_value_len = expand_value_len(data, data->prompt_line,
 					tool->len + 1);
 			tool->i = tool->i + exp_value_len;
 			if (exp_value_len < 0)
-				global_free(data);
+				global_free(data, ERR_NOT_DEFINED);
 			tool->len += expand_key_len(data->prompt_line, tool->len + 1);
 		}
 		else
@@ -102,11 +102,11 @@ void	expander(t_data *data)
 	}
 	expand_tool = init_expand_tool();
 	if (!expand_tool)
-		global_free(data);
+		global_free(data, MALLOC_ERR);
 	dst_len = expanded_line_len(data, data->prompt_line, expand_tool);
 	data->expanded_line = malloc(sizeof(char) * (dst_len + 1));
 	if (!data->expanded_line)
-		global_free(data);
+		global_free(data, MALLOC_ERR);
 	fill_expanded_line(data, expand_tool);
 	free(expand_tool->quotes);
 	free(expand_tool);

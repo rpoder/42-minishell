@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/31 13:58:36 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/01 11:21:45 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <readline/history.h>
 # include "libft.h"
 # include "utils.h"
+
+enum errors { MALLOC_ERR, PARSING_ERR, ERR_NOT_DEFINED, NO_ERR };
 
 typedef struct s_expand {
 	char	*key;
@@ -118,7 +120,7 @@ int				is_redirection_operator(char c);
 int				is_space(char c);
 
 /* handle_free.c */
-void			global_free(t_data *data);
+void			global_free(t_data *data, enum errors err);
 void			del_one_expand(void *content);
 
 /* BUILT_INS */
@@ -144,5 +146,7 @@ void	ft_cd(t_data *data, char **args);
 void	ft_pwd(t_data *data, char **args);
 char	*get_path(t_data *data);
 
+/* ft_exit */
+int	ft_exit(t_data *data, char **args);
 
 #endif

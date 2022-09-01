@@ -24,7 +24,7 @@ static void	trim_dst(t_data *data, char **dst, t_split_tool *tool)
 		if (!trimed_word)
 		{
 			free(tool);
-			global_free(data);
+			global_free(data, MALLOC_ERR);
 		}
 		free(dst[i]);
 		dst[i] = trimed_word;
@@ -94,13 +94,13 @@ void	lexer(t_data *data)
 
 	split_tool = init_split_tool();
 	if (!split_tool)
-		global_free(data);
+		global_free(data, MALLOC_ERR);
 	count = count_words(data->expanded_line, 0);
 	data->words = malloc(sizeof(char *) * (count + 1));
 	if (!data->words)
 	{
 		free(split_tool);
-		global_free(data);
+		global_free(data, MALLOC_ERR);
 	}
 	data->words = ft_set_ptr(data->words, count);
 	fill_dst(data, data->expanded_line, data->words, split_tool);
