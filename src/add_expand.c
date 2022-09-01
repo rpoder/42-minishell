@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   add_expand.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 16:53:13 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/01 17:17:17 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/01 17:49:00 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ void	add_expand(t_data *data, t_list **alst, char *key, char *value) //recoit st
 	{
 		free(key);
 		free(value);
-		global_free(data);
+		global_free(data, MALLOC_ERR);
 	}
 	content->key = key;
 	content->value = value;

@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:18:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/31 13:57:04 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/01 11:24:52 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,8 +43,14 @@ void	del_expand(void *expand)
 	}
 }
 
-void	global_free(t_data *data)
+void	global_free(t_data *data, enum errors err)
 {
+	if (err == MALLOC_ERR)
+		ft_printf_fd("mi_nils_shell: malloc err\n", 2);
+	else if (err == PARSING_ERR)
+		ft_printf_fd("mi_nils_shell: parsing err\n", 2);
+	else if (err == ERR_NOT_DEFINED)
+		ft_printf_fd("mi_nils_shell: err not defined\n", 2);
 	if (data)
 	{
 		if (data->env)

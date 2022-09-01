@@ -1,23 +1,20 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_tablen.c                                        :+:      :+:    :+:   */
+/*   ft_is_int.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/26 17:20:19 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/26 17:21:27 by ronanpoder       ###   ########.fr       */
+/*   Created: 2022/09/01 17:39:14 by rpoder            #+#    #+#             */
+/*   Updated: 2022/09/01 17:40:44 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-int	ft_tablen(char **tab)
+int	ft_is_int(long int num)
 {
-	int	len;
-
-	len = 0;
-	while (tab[len])
-		len++;
-	return (len);
+	if (num > INT_MAX || num < INT_MIN)
+		return (0);
+	return (1);
 }

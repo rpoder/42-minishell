@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
+#    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/09/01 15:44:57 by mpourrey         ###   ########.fr        #
+#    Updated: 2022/09/01 17:49:11 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -46,6 +46,7 @@ SRCS				:=	main.c \
 						built-ins/ft_unset.c \
 						built-ins/ft_pwd.c \
 						built-ins/ft_cd.c \
+						built-ins/ft_exit.c \
 						built-ins/builtins_utils.c \
 
 CC					:=	cc

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:43:05 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/01 17:21:15 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/01 17:48:40 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,16 +36,16 @@ t_data	*init_data(char **env, char *prompt_line)
 
 	data = malloc(sizeof(t_data));
 	if (!data)
-		global_free(data);
+		global_free(data, MALLOC_ERR);
 	data->env = NULL;
 	set_env(data, env);
 	data->local_expands = NULL;
 	data->local_expands = add_return_value_expand(data);
 	if (!data->local_expands)
-		global_free(data);
+		global_free(data, MALLOC_ERR);
 	data->prompt_line = alloc_and_fill(prompt_line);
 	if (!data->prompt_line)
-		global_free(data);
+		global_free(data, MALLOC_ERR);
 	data->expanded_line = NULL;
 	data->words = NULL;
 	return (data);

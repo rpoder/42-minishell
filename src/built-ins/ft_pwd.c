@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 16:10:38 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/30 18:45:29 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/01 11:21:21 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ char	*get_path(t_data *data)
 
 	buf = malloc(sizeof(char) * (i + 1));
 	if (!buf)
-		global_free(data);
+		global_free(data, MALLOC_ERR);
 	while (getcwd(buf, i) == 0 || i > PATH_MAX)
 	{
 		free(buf);

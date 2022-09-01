@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/01 15:47:21 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/01 17:49:04 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,8 @@
 # include <readline/history.h>
 # include "libft.h"
 # include "utils.h"
+
+enum errors { MALLOC_ERR, PARSING_ERR, ERR_NOT_DEFINED, NO_ERR };
 
 typedef struct s_expand {
 	char	*key;
@@ -38,6 +40,9 @@ typedef struct s_data {
 extern t_data *data;
 
 # define PATH_MAX 4096
+
+# define INT_MIN -2147483648
+# define INT_MAX 2147483647
 
 /* Main.c */
 
@@ -121,7 +126,7 @@ int				is_redirection_operator(char c);
 int				is_space(char c);
 
 /* handle_free.c */
-void			global_free(t_data *data);
+void			global_free(t_data *data, enum errors err);
 void			del_one_expand(void *content);
 
 /* BUILT_INS */
@@ -147,5 +152,7 @@ void	ft_cd(t_data *data, char **args);
 void	ft_pwd(t_data *data, char **args);
 char	*get_path(t_data *data);
 
+/* ft_exit */
+int	ft_exit(t_data *data, char **args);
 
 #endif

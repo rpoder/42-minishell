@@ -6,7 +6,7 @@
 #    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/27 17:12:53 by mpourrey          #+#    #+#              #
-#    Updated: 2022/08/31 13:57:24 by rpoder           ###   ########.fr        #
+#    Updated: 2022/09/01 17:39:59 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -39,7 +39,7 @@ SRC = ft_atoi.c ft_atoli.c \
 	ft_printf.c printf_handle_write.c printf_utils.c \
 	ft_printf_fd.c printf_fd_handle_write.c printf_fd_utils.c \
 	ft_alloc_and_fill.c \
-	ft_tablen.c \
+	ft_is_int.c \
 
 OBJ = $(addprefix $(OBJ_PATH)/, $(SRC:.c=.o))
 
