@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_str_isdigit.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/10 18:44:56 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/06/12 19:50:32 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/01 17:37:42 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,16 +18,16 @@ int	ft_str_isdigit(char *str)
 
 	i = 0;
 	if (str == NULL)
-		return (1);
-	while (str[i] != '\0')
+		return (0);
+	if (str[i] && (str[i] == '+' || str[i] == '-' || ft_isdigit(str[i])))
+		i++;
+	else
+		return (0);
+	while (str[i])
 	{
-		if (str[i] < 48 || str[i] > 57)
-		{
-			if ((str[i] != '+' && str[i] != '-') || (i != 0)
-				|| (str[i + 1] < 48 || str[i + 1] > 57))
-				return (1);
-		}
+		if (!ft_isdigit(str[i]))
+			return (0);
 		i++;
 	}
-	return (0);
+	return (1);
 }

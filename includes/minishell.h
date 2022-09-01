@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/01 11:21:45 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/01 17:41:04 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,6 +40,9 @@ typedef struct s_data {
 extern t_data *data;
 
 # define PATH_MAX 4096
+
+# define INT_MIN -2147483648
+# define INT_MAX 2147483647
 
 /* Main.c */
 

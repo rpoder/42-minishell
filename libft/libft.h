@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 16:32:48 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/31 13:57:12 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/01 17:41:16 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,9 @@
 # include <stdio.h>
 
 # define BUFFER_SIZE 50
+
+# define INT_MIN -2147483648
+# define INT_MAX 2147483647
 
 int		ft_atoi(char *str);
 long	ft_atoli(char *str);
@@ -73,7 +76,7 @@ char	*get_next_line(int fd);
 char	*ft_strndup_gnl(char *str, int start, int len);
 char	*ft_strjoin_gnl(char *s1, char *s2);
 char	*alloc_and_fill(char *str);
-int		ft_tablen(char **tab);
+int		ft_is_int(long int num);
 
 ////////////////*LIST*////////////////////
 typedef struct s_list
