@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/01 17:49:04 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/02 16:02:27 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,15 @@ typedef struct s_data {
 	char	*prompt_line;
 	char	*expanded_line;
 	char	**words;
+	t_list	*cmds;
 }	t_data;
+
+typedef struct s_cmd_node {
+	char			*path;
+	char			**exec_tab;
+	int				fd_in;
+	int				fd_out;
+}	t_cmd_node;
 
 extern t_data *data;
 
@@ -154,5 +162,8 @@ char	*get_path(t_data *data);
 
 /* ft_exit */
 int	ft_exit(t_data *data, char **args);
+
+/* parser.c */
+int	parser(t_data *data);
 
 #endif
