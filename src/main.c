@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/03 17:31:32 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/03 23:28:10 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		// line = readline("mi_nils_shell j'écoute ? > ");
 		// add_history(line);
-		line = "< coucou";
+		line = "cat > yo coucou";
 		data = init_data(env, line);
 	 	if (syntax_checker(line) == 1)
 		{

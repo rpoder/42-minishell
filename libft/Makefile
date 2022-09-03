@@ -6,7 +6,7 @@
 #    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/27 17:12:53 by mpourrey          #+#    #+#              #
-#    Updated: 2022/09/01 17:39:59 by rpoder           ###   ########.fr        #
+#    Updated: 2022/09/03 22:24:01 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -20,12 +20,12 @@ OBJ_PATH	= ./obj
 SRC = ft_atoi.c ft_atoli.c \
 	ft_bzero.c ft_calloc.c \
 	ft_free_ptr.c \
-	ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isinset.c ft_isprint.c ft_isprint.c \
+	ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isinset.c ft_isprint.c ft_isint.c \
 	ft_lintlen.c \
 	ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c \
 	ft_ptrdup.c ft_ptrlen.c \
 	ft_putchar_fd.c ft_putendl_fd.c ft_putnbr_fd.c ft_putstr_fd.c \
-	ft_set_ptr.c \
+	ft_clear_tab.c \
 	ft_sort_tab.c  \
 	ft_split.c \
 	ft_str_isdigit.c ft_str_isprint.c ft_strchr.c ft_strcmp.c ft_strdup.c ft_striteri.c ft_strjoin.c \
@@ -39,7 +39,6 @@ SRC = ft_atoi.c ft_atoli.c \
 	ft_printf.c printf_handle_write.c printf_utils.c \
 	ft_printf_fd.c printf_fd_handle_write.c printf_fd_utils.c \
 	ft_alloc_and_fill.c \
-	ft_is_int.c \
 
 OBJ = $(addprefix $(OBJ_PATH)/, $(SRC:.c=.o))
 

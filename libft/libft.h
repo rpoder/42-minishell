@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 16:32:48 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/01 17:41:16 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/03 22:32:21 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,6 @@ int		ft_putchar_fd(char c, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
 int		ft_putstr_fd(char *str, int fd);
-char	**ft_set_ptr(char **ptr, int len);
 long	*ft_sort_tab(long int *tab, int len);
 char	**ft_split(char const *s, char c);
 int		ft_str_isdigit(char *str);
@@ -76,7 +75,9 @@ char	*get_next_line(int fd);
 char	*ft_strndup_gnl(char *str, int start, int len);
 char	*ft_strjoin_gnl(char *s1, char *s2);
 char	*alloc_and_fill(char *str);
-int		ft_is_int(long int num);
+int		ft_isint(long int num);
+void	ft_clear_tab(char ***tab, int size);
+
 
 ////////////////*LIST*////////////////////
 typedef struct s_list

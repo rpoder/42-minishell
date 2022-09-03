@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 16:17:52 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/01 17:43:01 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/03 22:24:01 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	free_and_exit(t_data *data, char *exit_code)
 		li_exit_code = 0;
 	ft_printf_fd("exit\n", 1);
 	global_free(data, NO_ERR);
-	if (ft_is_int(li_exit_code))
+	if (ft_isint(li_exit_code))
 		exit(li_exit_code);
 	else
 		exit (0);
@@ -32,7 +32,7 @@ int	ft_exit(t_data *data, char **args)
 {
 	if (ft_strcmp(args[1], "ft_exit") != 0)
 		return (-1);
-	if (args[2] && (!ft_str_isdigit(args[2]) || !ft_is_int(ft_atoli(args[2]))))
+	if (args[2] && (!ft_str_isdigit(args[2]) || !ft_isint(ft_atoli(args[2]))))
 	{
 		ft_printf_fd("exit:\'%s\': numeric argument required\n", 2, args[2]);
 		free_and_exit(data, NULL);

@@ -1,23 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_set_ptr.c                                       :+:      :+:    :+:   */
+/*   ft_clear_tab.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/30 19:54:58 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/31 11:20:35 by mpourrey         ###   ########.fr       */
+/*   Created: 2022/09/03 22:17:30 by rpoder            #+#    #+#             */
+/*   Updated: 2022/09/03 22:39:15 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	**ft_set_ptr(char **ptr, int len)
+void ft_clear_tab(char ***tab, int size)
 {
-	while (len >= 0)
+	int	i;
+
+	i = 0;
+	while (i < size)
 	{
-		ptr[len] = NULL;
-		len--;
+		(*tab)[i] = NULL;
+		i++;
 	}
-	return (ptr);
 }

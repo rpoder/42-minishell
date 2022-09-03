@@ -102,7 +102,7 @@ void	lexer(t_data *data)
 		free(split_tool);
 		global_free(data, MALLOC_ERR);
 	}
-	data->words = ft_set_ptr(data->words, count);
+	ft_clear_tab(&data->words, count + 1);
 	fill_dst(data, data->expanded_line, data->words, split_tool);
 	trim_dst(data, data->words, split_tool);
 	free(split_tool);
