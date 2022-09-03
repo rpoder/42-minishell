@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+         #
+#    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/09/02 15:42:42 by ronanpoder       ###   ########.fr        #
+#    Updated: 2022/09/03 16:47:11 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -49,6 +49,7 @@ SRCS				:=	main.c \
 						built-ins/ft_exit.c \
 						built-ins/builtins_utils.c \
 						parser/parser.c \
+						parser/parser_utils.c \
 
 CC					:=	cc
 

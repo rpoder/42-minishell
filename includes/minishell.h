@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/02 16:02:27 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/03 17:12:17 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@
 # include <stdlib.h>
 # include <unistd.h>
 # include <stdio.h>
+# include <fcntl.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft.h"
@@ -165,5 +166,10 @@ int	ft_exit(t_data *data, char **args);
 
 /* parser.c */
 int	parser(t_data *data);
+
+/* parser_utils.c */
+void	set_fd_out(t_data *data, t_cmd_node *cmd, char *outfile, int flag);
+void	set_fd_in(t_data *data, t_cmd_node *cmd, char *infile);
+void	set_fd_heredoc(t_data *data, t_cmd_node *cmd, char *lim);
 
 #endif
