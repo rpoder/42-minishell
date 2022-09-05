@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 16:32:48 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/03 22:32:21 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/05 16:17:22 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,9 @@
 # include <unistd.h>
 # include <stdlib.h>
 # include <stdio.h>
+# include <limits.h>
 
 # define BUFFER_SIZE 50
-
-# define INT_MIN -2147483648
-# define INT_MAX 2147483647
 
 int		ft_atoi(char *str);
 long	ft_atoli(char *str);
@@ -34,6 +32,7 @@ int		ft_isascii(int c);
 int		ft_isdigit(int c);
 int		ft_char_isinset(char c, char *set);
 int		ft_isprint(int c);
+char	*ft_itoa(int c);
 int		ft_lintlen(long int nb);
 void	*ft_memchr(const void *s, int c, size_t n);
 int		ft_memcmp(const void *s1, const void *s2, size_t n);

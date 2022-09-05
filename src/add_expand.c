@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 16:53:13 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/01 17:49:00 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/05 14:13:15 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,6 @@ void	add_expand(t_data *data, t_list **alst, char *key, char *value) //recoit st
 	t_expand	*content;
 
 	content = malloc(sizeof(t_expand));
-	lst = ft_lstnew(content);
 	if (!content)
 	{
 		free(key);
@@ -60,7 +59,6 @@ void	add_expand(t_data *data, t_list **alst, char *key, char *value) //recoit st
 		global_free(data, MALLOC_ERR);
 	}
 	content->key = key;
-	content->value = value;
 	content->value = get_muted_expand_value(value);
 	free(value);
 	lst = ft_lstnew(content);

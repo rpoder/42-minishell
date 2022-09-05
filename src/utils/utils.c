@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 15:19:17 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/31 11:31:52 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/04 14:32:06 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+
+int	is_pipe(char c)
+{
+	if (c == '|')
+		return (1);
+	return (0);
+}
 
 int	is_word_separator(char c)
 {

@@ -18,6 +18,7 @@ static void	trim_dst(t_data *data, char **dst, t_split_tool *tool)
 	char	*trimed_word;
 
 	i = 0;
+
 	while (dst[i])
 	{
 		trimed_word = word_trim(dst[i]);

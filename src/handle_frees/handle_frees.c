@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:18:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/01 11:24:52 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/05 16:56:20 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,22 @@ void	del_expand(void *expand)
 	}
 }
 
+void	del_cmd(void *cmd)
+{
+	if ((t_cmd_node *)cmd)
+	{
+		if (((t_cmd_node *)cmd)->path)
+			free(((t_cmd_node *)cmd)->path);
+		if (((t_cmd_node *)cmd)->cmd_tab)
+			ft_free_ptr(&((t_cmd_node *)cmd)->cmd_tab);
+		if (((t_cmd_node *)cmd)->fd_in >= 0)
+			close(((t_cmd_node *)cmd)->fd_in);
+		if (((t_cmd_node *)cmd)->fd_out >= 0)
+			close(((t_cmd_node *)cmd)->fd_out);
+		free((t_cmd_node *)cmd);
+	}
+}
+
 void	global_free(t_data *data, enum errors err)
 {
 	if (err == MALLOC_ERR)
@@ -63,7 +79,11 @@ void	global_free(t_data *data, enum errors err)
 			free(data->expanded_line);
 		if (data->words != NULL)
 			ft_free_ptr(&data->words);
+		if (data->cmds)
+		 	ft_lstclear(&data->cmds, &del_cmd);
 		free(data);
+		printf("ALL FRIED\n");
 		exit(1);
 	}
+	// close si  fd_in >= 0;
 }

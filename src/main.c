@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/03 23:28:10 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/05 17:01:22 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,7 +62,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		// line = readline("mi_nils_shell j'écoute ? > ");
 		// add_history(line);
-		line = "cat > yo coucou";
+		line = "cat > file ls | herdoc >> yo";
 		data = init_data(env, line);
 	 	if (syntax_checker(line) == 1)
 		{
@@ -72,7 +72,7 @@ int	main(int argc, char **argv, char **env)
 		mute_in_quotes(data);
 		expander(data);
 		lexer(data);
-		test_lexer(data->words);
+		//test_lexer(data->words);
 		parser(data);
 		//test_unmute_lexer(data->words);
 		global_free(data, NO_ERR);

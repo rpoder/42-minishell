@@ -52,6 +52,5 @@ int	redirection_word_len(char *str, int i)
 			i++;
 		}
 	}
-	printf("len = %d\n");
 	return (len);
 }

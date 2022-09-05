@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:43:05 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/01 17:48:40 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/05 16:58:33 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static t_list	*add_return_value_expand(t_data *data)
 	expand_key = alloc_and_fill("?");
 	if (!expand_key)
 		return (NULL);
-	expand_value = alloc_and_fill("'127    |'");
+	expand_value = alloc_and_fill("0");
 	if (!expand_value)
 	{
 		free(expand_key);
@@ -40,14 +40,16 @@ t_data	*init_data(char **env, char *prompt_line)
 	data->env = NULL;
 	set_env(data, env);
 	data->local_expands = NULL;
+	data->prompt_line = NULL;
+	data->expanded_line = NULL;
+	data->words = NULL;
+	data->cmds = NULL;
 	data->local_expands = add_return_value_expand(data);
 	if (!data->local_expands)
 		global_free(data, MALLOC_ERR);
 	data->prompt_line = alloc_and_fill(prompt_line);
 	if (!data->prompt_line)
 		global_free(data, MALLOC_ERR);
-	data->expanded_line = NULL;
-	data->words = NULL;
 	return (data);
 }
 

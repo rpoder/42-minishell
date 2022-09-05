@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/03 17:12:17 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/05 16:39:18 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,13 @@
 # include <unistd.h>
 # include <stdio.h>
 # include <fcntl.h>
+# include <limits.h>
 # include <readline/readline.h>
 # include <readline/history.h>
 # include "libft.h"
 # include "utils.h"
 
-enum errors { MALLOC_ERR, PARSING_ERR, ERR_NOT_DEFINED, NO_ERR };
+enum errors { MALLOC_ERR, OPEN_ERR, PARSING_ERR, ERR_NOT_DEFINED, NO_ERR };
 
 typedef struct s_expand {
 	char	*key;
@@ -41,7 +42,7 @@ typedef struct s_data {
 
 typedef struct s_cmd_node {
 	char			*path;
-	char			**exec_tab;
+	char			**cmd_tab;
 	int				fd_in;
 	int				fd_out;
 }	t_cmd_node;
@@ -50,8 +51,8 @@ extern t_data *data;
 
 # define PATH_MAX 4096
 
-# define INT_MIN -2147483648
-# define INT_MAX 2147483647
+# define FD_UNDEFINED -2
+# define FD_PARSING_ERR -3
 
 /* Main.c */
 
@@ -133,10 +134,13 @@ char			*word_trim(char *src);
 int				is_word_separator(char c);
 int				is_redirection_operator(char c);
 int				is_space(char c);
+int				is_pipe(char c);
+
 
 /* handle_free.c */
 void			global_free(t_data *data, enum errors err);
 void			del_one_expand(void *content);
+void			del_cmd(void *cmd);
 
 /* BUILT_INS */
 /* builtins_utils.c */
@@ -162,14 +166,14 @@ void	ft_pwd(t_data *data, char **args);
 char	*get_path(t_data *data);
 
 /* ft_exit */
-int	ft_exit(t_data *data, char **args);
+int		ft_exit(t_data *data, char **args);
 
 /* parser.c */
-int	parser(t_data *data);
+int		parser(t_data *data);
 
 /* parser_utils.c */
-void	set_fd_out(t_data *data, t_cmd_node *cmd, char *outfile, int flag);
-void	set_fd_in(t_data *data, t_cmd_node *cmd, char *infile);
-void	set_fd_heredoc(t_data *data, t_cmd_node *cmd, char *lim);
+int		set_fd_out(t_cmd_node *cmd, char *outfile, int flag);
+int		set_fd_in(t_cmd_node *cmd, char *infile);
+int		set_fd_heredoc(t_cmd_node *cmd, char *lim);
 
 #endif
