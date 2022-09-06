@@ -16,7 +16,7 @@ char	*get_and_skip_word(t_data *data, char *src, t_split_tool *tool)
 {
 	char	*word;
 
-	if (is_redirection_operator(src[tool->i]))
+	if (is_redirection_operator(src[tool->i])) 
 		word = get_redir_op_word(data, src, tool);
 	else if (is_space(src[tool->i]))
 		word = get_word_til_space(data, src, tool);

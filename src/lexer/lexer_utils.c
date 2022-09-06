@@ -43,6 +43,11 @@ int	redirection_word_len(char *str, int i)
 			len++;
 			i++;
 		}
+		while (str[i] && is_pipe(str[i]))
+		{
+			len++;
+			i++;
+		}
 	}
 	else if (str[i] == '|')
 	{

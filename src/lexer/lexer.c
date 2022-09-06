@@ -41,6 +41,7 @@ static void	fill_dst(t_data *data, char *src, char **dst, t_split_tool *tool)
 		if (is_word_separator(src[tool->i]))
 		{
 			dst[tool->nb_of_words] = get_and_skip_word(data, src, tool);
+			printf("");
 			set_tool_for_next_word(tool, tool->i);
 		}
 		else if (src[tool->i] == '\'' || src[tool->i] == '\"')

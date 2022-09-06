@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   word_getters_2.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 11:42:54 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/01 11:21:21 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/06 21:06:19 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,9 +68,11 @@ char	*get_redir_op_word(t_data *data, char *src, t_split_tool *tool)
 	char	*word;
 	int		len;
 	int		j;
+	int		i;
 
+	i = tool->i;
 	j = 0;
-	len = redirection_word_len(src, tool->i);
+	len = redirection_word_len(src, i);
 	word = malloc(sizeof(char) * (len + 1));
 	if (!word)
 	{
@@ -80,8 +82,9 @@ char	*get_redir_op_word(t_data *data, char *src, t_split_tool *tool)
 	}
 	while (j < len)
 	{
-		word[j] = src[tool->i];
+		word[j] = src[i];
 		j++;
+		i++;
 	}
 	word[j] = '\0';
 	return (word);

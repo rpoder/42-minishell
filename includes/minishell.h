@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/05 16:39:18 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/06 20:15:26 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -129,6 +129,17 @@ char			*get_word_til_space(t_data *d, char *src, t_split_tool *tool);
 
 /* word_trim.c */
 char			*word_trim(char *src);
+
+/* PARSER*/
+/* set_cmd_node.c */
+int				set_and_skip_cmd_node(char **words, t_cmd_node *cmd, int *i);
+/* open_files.c */
+int				set_fd_heredoc(t_cmd_node *cmd, char *lim);
+int				set_fd_in(t_cmd_node *cmd, char *infile);
+int				set_fd_out(t_cmd_node *cmd, char *outfile, int flag);
+/* parser_utils.c */
+int				cmd_tab_len(char **words, int i);
+t_cmd_node		*init_cmd_node(void);
 
 /* utils.c */
 int				is_word_separator(char c);
