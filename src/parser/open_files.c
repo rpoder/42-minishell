@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 17:31:00 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/06 18:30:44 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/07 11:58:00 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,10 @@ static char	*get_heredoc_name(int i)
 	nb = ft_itoa(i);
 	if (!nb)
 		return (NULL);
-	heredoc = ft_strjoin("heredoc_", nb);
+	if (access("tmp/", F_OK) == 0)
+		heredoc = ft_strjoin("/tmp/heredoc_", nb);
+	else
+		heredoc = ft_strjoin("heredoc_", nb);
 	if (!heredoc)
 	{
 		free(nb);
@@ -59,7 +62,7 @@ static char	*get_heredoc_name(int i)
 	return (heredoc);
 }
 
-static int	open_heredoc(void)
+static int	open_heredoc(char **heredoc_path)
 {
 	char	*heredoc;
 	int		fd_heredoc;
@@ -73,38 +76,41 @@ static int	open_heredoc(void)
 		if (!heredoc)
 			return (-2);
 		fd_heredoc = open(heredoc, O_RDWR | O_TRUNC | O_CREAT, 0644);
-		free(heredoc);
+		if (fd_heredoc < 0)
+			free(heredoc);
 		i++;
 	}
 	if (fd_heredoc < 0)
 		ft_printf_fd("minilsshell: heredoc: Permission denied\n", 2);
+	else
+		*heredoc_path = heredoc;
 	return (fd_heredoc);
 }
 
 int	set_fd_heredoc(t_cmd_node *cmd, char *lim)
 {
-	char	*limiter;
 	char	*str;
+	char	*heredoc_path;
 
-	cmd->fd_in = open_heredoc();
+	cmd->fd_in = open_heredoc(&heredoc_path);
 	if (cmd->fd_in == -2)
 		return (-1);
-	printf("fd_heredoc = %d\n", cmd->fd_in);
-	/* limiter = ft_strjoin(argv[2], "\n");
-	write(0, "> ", 2);
+	lim = ft_strjoin(lim, "\n");
+	if (!lim)
+		return (-1);
+	write(1, "> ", 2);
 	str = get_next_line(0);
-	while (str != NULL && ft_strcmp(str, limiter) != 0)
+	while (str != NULL && ft_strcmp(str, lim) != 0)
 	{
-		write(fd_heredoc, str, ft_strlen(str));
+		write(cmd->fd_in, str, ft_strlen(str));
 		free(str);
-		write(0, "> ", 2);
+		write(1, "> ", 2);
 		str = get_next_line(0);
 	}
 	if (str != NULL)
 		free(str);
-	free(limiter);
-	close(fd_heredoc);
-	fd_heredoc = open(argv[1], O_RDWR); */
-//	return (fd_heredoc);
+	free(lim);
+	close(cmd->fd_in);
+	cmd->fd_in = open(heredoc_path, O_RDWR);
 	return (0);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 15:40:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/06 20:15:55 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/07 11:15:01 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,10 +35,10 @@ void	test_print_cmd(t_list *cmds)
 	}
 }
 
-static t_cmd_node	*get_and_skip_cmd_node(char **words, int *i)
+static t_cmd_node	*create_and_skip_cmd_node(char **words, int *i)
 {
 	t_cmd_node	*cmd_node;
-	
+
 	cmd_node = init_cmd_node();
 	if (!cmd_node)
 		return (NULL);
@@ -58,11 +58,11 @@ int	parser(t_data *data)
 
 	i = malloc(sizeof(int));
 	if (!i)
-		global_free(data, MALLOC_ERR);	
+		global_free(data, MALLOC_ERR);
 	*i = 0;
 	while (data->words[*i])
 	{
-		cmd_node = get_and_skip_cmd_node(data->words, i);
+		cmd_node = create_and_skip_cmd_node(data->words, i);
 		if (!cmd_node)
 		{
 			free(i);
@@ -77,7 +77,7 @@ int	parser(t_data *data)
 			global_free(data, MALLOC_ERR);
 		}
 		ft_lstadd_back(&data->cmds, lst);
-		
+
 		// verifier if valid pipe
 		if (data->words[*i] && data->words[*i][0] == '|')
 			(*i)++;
