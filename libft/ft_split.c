@@ -6,13 +6,13 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/04 19:50:28 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/29 15:35:36 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/08 20:11:43 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-static char	**ft_free_ptr_split(char **ptr, int k)
+static char	**ft_free_tab_split(char **ptr, int k)
 {
 	while (k >= 0)
 	{
@@ -73,7 +73,7 @@ static char	**ft_fill_str(char **ptr, char const *s, char c)
 			i++;
 		ptr[k] = (char *)malloc((ft_count_char(s, c, i) + 1) * sizeof (char));
 		if (ptr[k] == NULL)
-			return (ft_free_ptr_split(ptr, k));
+			return (ft_free_tab_split(ptr, k));
 		j = 0;
 		while (s[i] && s[i] != c)
 		{

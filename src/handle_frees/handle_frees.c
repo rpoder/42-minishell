@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_frees.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:18:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/05 16:56:20 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/08 20:11:43 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ void	del_cmd(void *cmd)
 		if (((t_cmd_node *)cmd)->path)
 			free(((t_cmd_node *)cmd)->path);
 		if (((t_cmd_node *)cmd)->cmd_tab)
-			ft_free_ptr(&((t_cmd_node *)cmd)->cmd_tab);
+			ft_free_tab(&((t_cmd_node *)cmd)->cmd_tab);
 		if (((t_cmd_node *)cmd)->fd_in >= 0)
 			close(((t_cmd_node *)cmd)->fd_in);
 		if (((t_cmd_node *)cmd)->fd_out >= 0)
@@ -78,7 +78,7 @@ void	global_free(t_data *data, enum errors err)
 		if (data->expanded_line)
 			free(data->expanded_line);
 		if (data->words != NULL)
-			ft_free_ptr(&data->words);
+			ft_free_tab(&data->words);
 		if (data->cmds)
 		 	ft_lstclear(&data->cmds, &del_cmd);
 		free(data);

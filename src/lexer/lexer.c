@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   split_words.c                                     :+:      :+:    :+:   */
+/*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/03/23 21:45:16 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/30 22:11:03 by mpourrey         ###   ########.fr       */
+/*   Created: 2022/09/08 20:38:43 by mpourrey          #+#    #+#             */
+/*   Updated: 2022/09/08 20:39:03 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ static void	trim_dst(t_data *data, char **dst, t_split_tool *tool)
 	char	*trimed_word;
 
 	i = 0;
-
 	while (dst[i])
 	{
 		trimed_word = word_trim(dst[i]);

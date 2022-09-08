@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/06 20:15:26 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/08 20:37:00 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,8 +62,10 @@ t_quotes		*init_quotes(void);
 void			clear_quotes(t_quotes *quotes);
 void			set_quotes(char c, t_quotes *quotes);
 
-/* Syntax_checker */
-int				syntax_checker(char *str);
+/* quote_yntax_checker */
+int				quote_syntax_checker(char *str);
+/* redir_op_syntax_error.c */
+void			redirection_syntax_printer(char **words);
 
 /* handle_mutes_in_expand.c */
 char			*get_muted_expand_value(char *value);
@@ -78,8 +80,8 @@ int				skip_if_space(char *value, int i);
 void			mute_in_quotes(t_data *data);
 
 /* handle_expand.c */
-int		set_expand(t_data *data, char *key, char *value_to_modify);
-void	add_expand(t_data *data, t_list **alst, char *key, char *value);
+int				set_expand(t_data *data, char *key, char *value_to_modify);
+void			add_expand(t_data *data, t_list **alst, char *key, char *value);
 
 /* expander.c */
 void			expander(t_data *data);

@@ -18,9 +18,6 @@ int	skip_redirection_word(char *str, int i)
 	{
 		while (str[i] && (str[i] == '<' || str[i] == '>'))
 			i++;
-		while (str[i] && is_pipe(str[i])) ////
-			i++; ////
-			//ajouter message d'erreur
 	}
 	else if (str[i] == '|')
 	{

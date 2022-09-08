@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   syntax_checker.c                                   :+:      :+:    :+:   */
+/*   quote_syntax_checker.c                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/10 13:51:14 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/01 17:16:08 by mpourrey         ###   ########.fr       */
+/*   Created: 2022/09/08 20:30:12 by mpourrey          #+#    #+#             */
+/*   Updated: 2022/09/08 20:35:36 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static int	skip_quotes(char *str, int i)
 	return (i);
 }
 
-int	syntax_checker(char *str)
+int	quote_syntax_checker(char *str)
 {
 	int	i;
 

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
+#    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/27 17:12:53 by mpourrey          #+#    #+#              #
-#    Updated: 2022/09/05 16:17:41 by rpoder           ###   ########.fr        #
+#    Updated: 2022/09/08 20:11:43 by mpourrey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -19,7 +19,7 @@ OBJ_PATH	= ./obj
 
 SRC = ft_atoi.c ft_atoli.c \
 	ft_bzero.c ft_calloc.c \
-	ft_free_ptr.c \
+	ft_free_tab.c \
 	ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isinset.c ft_isprint.c ft_isint.c \
 	ft_itoa.c \
 	ft_lintlen.c \

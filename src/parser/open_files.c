@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 17:31:00 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/07 11:58:00 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/07 13:42:47 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,7 +83,10 @@ static int	open_heredoc(char **heredoc_path)
 	if (fd_heredoc < 0)
 		ft_printf_fd("minilsshell: heredoc: Permission denied\n", 2);
 	else
+	{
 		*heredoc_path = heredoc;
+		free(heredoc);
+	}
 	return (fd_heredoc);
 }
 

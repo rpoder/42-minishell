@@ -6,13 +6,13 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/06/13 17:09:16 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/31 11:21:07 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/08 20:11:43 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void	ft_free_ptr(char ***ptr)
+void	ft_free_tab(char ***ptr)
 {
 	int		i;
 

@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 17:42:27 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/06 19:06:40 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/08 20:11:43 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ static int	set_fd(char **words, int i, t_cmd_node *cmd)
 	int	ret;
 
 	ret = 0;
-	if (!is_redirection_operator(words[i + 1][0]))
+	if (words[i + 1] && !is_redirection_operator(words[i + 1][0]))
 	{	
 		if (words[i][0] == '<' && !words[i][1] && words[i + 1])
 			ret = set_fd_in(cmd, words[i + 1]);
@@ -30,23 +30,27 @@ static int	set_fd(char **words, int i, t_cmd_node *cmd)
 			!words[i][2] && words[i + 1])
 			ret = set_fd_out(cmd, words[i + 1], O_APPEND);
 		else
-			return (-1);
+			return (-2);
 		if (ret != 0)
 			return (-1);
 	}
 	else
-		return (-1);
+		return (-2);
 	return (0);
 }
 
 static int	check_and_set_redirection(char **words, int i, t_cmd_node *cmd)
 {
+	int	ret;
+
+	ret = 0;
 	while (words[i] && words[i][0] != '|')
 	{
 		if (words[i][0] == '<' || words[i][0] == '>')
 		{
-			if (set_fd(words, i, cmd) != 0)
-				return (-1);
+			ret = set_fd(words, i, cmd);
+			if (ret != 0)
+				return (ret);
 			i += 2;
 		}
 		else
@@ -73,7 +77,7 @@ static int	set_cmd(char **words, int i, t_cmd_node *cmd)
 			cmd->cmd_tab[j] = alloc_and_fill(words[i]);
 			if (!cmd->cmd_tab[j])
 			{
-				ft_free_ptr(&cmd->cmd_tab);
+				ft_free_tab(&cmd->cmd_tab);
 				return (-1);
 			}
 			i++;
@@ -85,10 +89,14 @@ static int	set_cmd(char **words, int i, t_cmd_node *cmd)
 
 int	set_and_skip_cmd_node(char **words, t_cmd_node *cmd, int *i)
 {
-	if (check_and_set_redirection(words, *i, cmd) != 0)
-		return (-1);
-	if (set_cmd(words, *i, cmd) != 0)
-		return (-1);
+	int	ret;
+
+	ret = check_and_set_redirection(words, *i, cmd);
+	if (ret != 0)
+		return (ret);
+	ret = set_cmd(words, *i, cmd);
+	if (ret != 0)
+		return (ret);
 	while (words[*i] && words[*i][0] != '|')
 		(*i)++;
 	return (0);

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/07 11:19:04 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/08 20:37:21 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,9 +62,9 @@ int	main(int argc, char **argv, char **env)
 	{
 		// line = readline("mi_nils_shell j'écoute ? > ");
 		// add_history(line);
-		line = "<< lim echo toz";
+		line = "echo coucou || >> toz";
 		data = init_data(env, line);
-	 	if (syntax_checker(line) == 1) //quote_syntax_checker
+	 	if (quote_syntax_checker(line) == 1) //quote_syntax_checker
 		{
 			global_free(data, PARSING_ERR);
 			return (1);
@@ -72,11 +72,9 @@ int	main(int argc, char **argv, char **env)
 		mute_in_quotes(data);
 		expander(data);
 		lexer(data);
-		test_lexer(data->words);
-		//chevron_syntax_checker
-
-
-		parser(data);
+	//	test_lexer(data->words);
+		redirection_syntax_printer(data->words);
+	//	parser(data);
 		//test_unmute_lexer(data->words);
 		global_free(data, NO_ERR);
 	}

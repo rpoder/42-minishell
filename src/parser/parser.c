@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 15:40:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/07 11:15:01 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/08 20:09:44 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 void	test_print_cmd(t_list *cmds)
 {
 	int	i;
-	int j;
+	int	j;
 
 	i = 0;
 	while (cmds)
@@ -35,17 +35,26 @@ void	test_print_cmd(t_list *cmds)
 	}
 }
 
-static t_cmd_node	*create_and_skip_cmd_node(char **words, int *i)
+static t_cmd_node	*create_and_skip_cmd(t_data *data, char **words, int *i)
 {
 	t_cmd_node	*cmd_node;
+	int			ret;
 
 	cmd_node = init_cmd_node();
 	if (!cmd_node)
 		return (NULL);
-	if (set_and_skip_cmd_node(words, cmd_node, i) != 0)
+	ret = set_and_skip_cmd_node(words, cmd_node, i);
+	if (ret == -1)
 	{
 		free(cmd_node);
-		return (NULL);
+		free(i);
+		global_free(data, MALLOC_ERR);
+	}
+	if (ret == -2)
+	{
+		free(cmd_node);
+		free(i);
+		global_free(data, PARSING_ERR);
 	}
 	return (cmd_node);
 }
@@ -62,12 +71,7 @@ int	parser(t_data *data)
 	*i = 0;
 	while (data->words[*i])
 	{
-		cmd_node = create_and_skip_cmd_node(data->words, i);
-		if (!cmd_node)
-		{
-			free(i);
-			global_free(data, MALLOC_ERR);
-		}
+		cmd_node = create_and_skip_cmd(data, data->words, i);
 		///////////////////////
 		lst = ft_lstnew(cmd_node);
 		if (!lst)
@@ -80,9 +84,16 @@ int	parser(t_data *data)
 
 		// verifier if valid pipe
 		if (data->words[*i] && data->words[*i][0] == '|')
+		{
+			if (data->words[*i][1])
+			{
+				free(i);
+				global_free(data, MALLOC_ERR);
+			}
 			(*i)++;
+		}
 	}
 	free(i);
-	test_print_cmd(data->cmds);
+//	test_print_cmd(data->cmds);
 	return (0);
 }

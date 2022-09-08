@@ -6,7 +6,7 @@
 #    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/09/06 17:52:11 by mpourrey         ###   ########.fr        #
+#    Updated: 2022/09/08 20:36:41 by mpourrey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,7 +26,8 @@ SRCS				:=	main.c \
 						set_env.c \
 						handle_frees/handle_frees.c \
 						add_expand.c \
-						syntax_checker/syntax_checker.c \
+						syntax_checker/quote_syntax_checker.c \
+						syntax_checker/redirection_syntax_checker.c \
 						built-ins/ft_env.c \
 						handle_mutes/handle_mutes_in_quotes.c \
 						expander/expander.c \
