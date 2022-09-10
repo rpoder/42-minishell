@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/08 20:37:00 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/10 20:18:49 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include "libft.h"
 # include "utils.h"
 
-enum errors { MALLOC_ERR, OPEN_ERR, PARSING_ERR, ERR_NOT_DEFINED, NO_ERR };
+enum errors { MALLOC_ERR = -100, OPEN_ERR, PARSING_ERR, ERR_NOT_DEFINED, NO_ERR };
 
 typedef struct s_expand {
 	char	*key;
@@ -53,6 +53,8 @@ extern t_data *data;
 
 # define FD_UNDEFINED -2
 # define FD_PARSING_ERR -3
+
+# define BUFFER_SIZE_GNL 10
 
 /* Main.c */
 
@@ -133,6 +135,8 @@ char			*get_word_til_space(t_data *d, char *src, t_split_tool *tool);
 char			*word_trim(char *src);
 
 /* PARSER*/
+/* parser.c */
+int				parser(t_data *data);
 /* set_cmd_node.c */
 int				set_and_skip_cmd_node(char **words, t_cmd_node *cmd, int *i);
 /* open_files.c */
@@ -142,16 +146,29 @@ int				set_fd_out(t_cmd_node *cmd, char *outfile, int flag);
 /* parser_utils.c */
 int				cmd_tab_len(char **words, int i);
 t_cmd_node		*init_cmd_node(void);
+t_heredoc_tool	*init_heredoc_tool(char *lim);
+int				check_ret(t_heredoc_tool *tool);
+void			free_heredoc_tool(t_heredoc_tool *tool);
+/* heredoc_utils */
+void			free_heredoc_tool(t_heredoc_tool *tool);
+t_heredoc_tool	*init_heredoc_tool(char *lim);
+char			*get_heredoc_name(int i);
 
+/*UTILS*/
 /* utils.c */
 int				is_word_separator(char c);
 int				is_redirection_operator(char c);
 int				is_space(char c);
 int				is_pipe(char c);
-
+/* gnl_minishell.c */
+char			*gnl_minishell(int fd, int *ret);
+/* gnl_minishell_utils.c */
+char			*ft_strjoin_gnl(char *s1, char *s2, int *ret);
+char			*ft_fill_dst(char *s1, char *s2, char *dst);
+char			*ft_strndup_gnl(char *str, int start, int len, int *ret);
 
 /* handle_free.c */
-void			global_free(t_data *data, enum errors err);
+void			global_free(t_data *data, int err);
 void			del_one_expand(void *content);
 void			del_cmd(void *cmd);
 
@@ -180,13 +197,5 @@ char	*get_path(t_data *data);
 
 /* ft_exit */
 int		ft_exit(t_data *data, char **args);
-
-/* parser.c */
-int		parser(t_data *data);
-
-/* parser_utils.c */
-int		set_fd_out(t_cmd_node *cmd, char *outfile, int flag);
-int		set_fd_in(t_cmd_node *cmd, char *infile);
-int		set_fd_heredoc(t_cmd_node *cmd, char *lim);
 
 #endif

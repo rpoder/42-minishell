@@ -6,11 +6,34 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/08 20:37:21 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/10 20:27:43 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	test_parser(t_list *cmds)
+{
+	int	i;
+	int	j;
+
+	i = 0;
+	while (cmds)
+	{
+		j = 0;
+		printf("CMD %d\n", i);
+		printf("path = %s\n", ((t_cmd_node *)cmds->content)->path);
+		while (((t_cmd_node *)cmds->content)->cmd_tab[j])
+		{
+			printf("cmd_tab[%d] = %s\n", j, ((t_cmd_node *)cmds->content)->cmd_tab[j]);
+			j++;
+		}
+		printf("fd_in = %d\n", ((t_cmd_node *)cmds->content)->fd_in);
+		printf("fd_out = %d\n\n\n", ((t_cmd_node *)cmds->content)->fd_out);
+		i++;
+		cmds = cmds->next;
+	}
+}
 
 void	test_unmute_lexer(char **words)
 {
@@ -22,19 +45,23 @@ void	test_unmute_lexer(char **words)
 	while (words[i] != NULL)
 	{
 		j = 0;
-		printf("\nunmute_word[%d] = |", i);
+		printf("unmute word[%d] = ", i);
 		while (words[i][j] != '\0')
 		{
-			if (words[i][j] < 0)
-				c = words[i][j] * -1;
-			else if (words[i][j] > 127)
+		 	if (words[i][j] > 127)
+			{
+				printf("entre\n");
 				c = words[i][j] - 127;
+			}
+			else if (words[i][j] < 0)
+				c = words[i][j] * -1;
+			
 			else
 				c = words[i][j];
 			printf("%c", c);
 			j++;
 		}
-		printf("|");
+		printf("\n");
 		i++;
 	}
 	printf("\n");
@@ -61,8 +88,8 @@ int	main(int argc, char **argv, char **env)
 	while (1)
 	{
 		// line = readline("mi_nils_shell j'écoute ? > ");
-		// add_history(line);
-		line = "echo coucou || >> toz";
+		// add_history(line); //pas strlen < 1
+		line = "cat > outfile | ls > outfile";
 		data = init_data(env, line);
 	 	if (quote_syntax_checker(line) == 1) //quote_syntax_checker
 		{
@@ -74,8 +101,9 @@ int	main(int argc, char **argv, char **env)
 		lexer(data);
 	//	test_lexer(data->words);
 		redirection_syntax_printer(data->words);
-	//	parser(data);
-		//test_unmute_lexer(data->words);
+		parser(data);
+		test_parser(data->cmds);
+	//	test_unmute_lexer(data->words);
 		global_free(data, NO_ERR);
 	}
 }

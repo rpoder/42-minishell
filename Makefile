@@ -6,7 +6,7 @@
 #    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/09/08 20:36:41 by mpourrey         ###   ########.fr        #
+#    Updated: 2022/09/10 20:17:24 by mpourrey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,6 +23,8 @@ OBJDIR				:=	./obj
 SRCS				:=	main.c \
 						init.c \
 						utils/utils.c\
+						utils/gnl_minishell.c \
+						utils/gnl_minishell_utils.c \
 						set_env.c \
 						handle_frees/handle_frees.c \
 						add_expand.c \
@@ -53,6 +55,7 @@ SRCS				:=	main.c \
 						parser/set_cmd_node.c \
 						parser/open_files.c \
 						parser/parser_utils.c \
+						parser/heredoc_utils.c 
 
 CC					:=	cc
 

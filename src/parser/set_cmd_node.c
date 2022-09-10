@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 17:42:27 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/08 20:11:43 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/10 20:15:21 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	set_fd(char **words, int i, t_cmd_node *cmd)
 {
 	int	ret;
 
-	ret = 0;
+	ret = NO_ERR;
 	if (words[i + 1] && !is_redirection_operator(words[i + 1][0]))
 	{	
 		if (words[i][0] == '<' && !words[i][1] && words[i + 1])
@@ -25,25 +25,25 @@ static int	set_fd(char **words, int i, t_cmd_node *cmd)
 			&& !words[i][2] && words[i + 1])
 			ret = set_fd_heredoc(cmd, words[i + 1]);
 		else if (words[i][0] == '>' && !words[i][1] && words[i + 1])
-			ret = set_fd_out(cmd, words[i + 1], O_TRUNC);
+			set_fd_out(cmd, words[i + 1], O_TRUNC);
 		else if (words[i][0] == '>' && words[i][1] == '>' &&
 			!words[i][2] && words[i + 1])
 			ret = set_fd_out(cmd, words[i + 1], O_APPEND);
 		else
-			return (-2);
-		if (ret != 0)
-			return (-1);
+			return (PARSING_ERR);
+		if (ret != NO_ERR)
+			return (ret);
 	}
 	else
-		return (-2);
-	return (0);
+		return (PARSING_ERR);
+	return (NO_ERR);
 }
 
 static int	check_and_set_redirection(char **words, int i, t_cmd_node *cmd)
 {
 	int	ret;
 
-	ret = 0;
+	ret = NO_ERR;
 	while (words[i] && words[i][0] != '|')
 	{
 		if (words[i][0] == '<' || words[i][0] == '>')
@@ -56,7 +56,7 @@ static int	check_and_set_redirection(char **words, int i, t_cmd_node *cmd)
 		else
 			i++;
 	}
-	return (0);
+	return (ret);
 }
 
 static int	set_cmd(char **words, int i, t_cmd_node *cmd)
@@ -92,12 +92,12 @@ int	set_and_skip_cmd_node(char **words, t_cmd_node *cmd, int *i)
 	int	ret;
 
 	ret = check_and_set_redirection(words, *i, cmd);
-	if (ret != 0)
+	if (ret != NO_ERR)
 		return (ret);
 	ret = set_cmd(words, *i, cmd);
 	if (ret != 0)
 		return (ret);
 	while (words[*i] && words[*i][0] != '|')
 		(*i)++;
-	return (0);
+	return (NO_ERR);
 }

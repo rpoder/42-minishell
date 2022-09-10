@@ -6,7 +6,7 @@
 #    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/27 17:12:53 by mpourrey          #+#    #+#              #
-#    Updated: 2022/09/08 20:11:43 by mpourrey         ###   ########.fr        #
+#    Updated: 2022/09/09 17:12:25 by mpourrey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,6 @@ SRC = ft_atoi.c ft_atoli.c \
 	ft_strrchr.c ft_strrncmp.c ft_strsjoin.c ft_strtrim.c ft_substr.c \
 	ft_tab_isdbl.c ft_tab_issorted.c \
     ft_tolower.c ft_toupper.c \
-    get_next_line.c get_next_line_utils.c \
 	ft_lstadd_back.c ft_lstadd_front.c ft_lstclear.c ft_lstdelone.c ft_lstiter.c \
 	ft_lstlast.c ft_lstmap.c ft_lstnew.c ft_lstlen.c \
 	ft_printf.c printf_handle_write.c printf_utils.c \

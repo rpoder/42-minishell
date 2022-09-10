@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 16:32:48 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/08 20:11:43 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/09 19:15:59 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,9 +70,6 @@ int		ft_tab_isdbl(long int *tab, int len);
 int		ft_tab_issorted(long int *tab, int len);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
-char	*get_next_line(int fd);
-char	*ft_strndup_gnl(char *str, int start, int len);
-char	*ft_strjoin_gnl(char *s1, char *s2);
 char	*alloc_and_fill(char *str);
 int		ft_isint(long int num);
 void	ft_clear_tab(char ***tab, int size);

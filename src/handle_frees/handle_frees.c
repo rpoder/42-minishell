@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:18:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/08 20:11:43 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/10 17:26:38 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	del_cmd(void *cmd)
 	}
 }
 
-void	global_free(t_data *data, enum errors err)
+void	global_free(t_data *data, int err)
 {
 	if (err == MALLOC_ERR)
 		ft_printf_fd("mi_nils_shell: malloc err\n", 2);
