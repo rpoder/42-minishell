@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/10 20:18:49 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/11 16:12:21 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include "libft.h"
 # include "utils.h"
 
-enum errors { MALLOC_ERR = -100, OPEN_ERR, PARSING_ERR, ERR_NOT_DEFINED, NO_ERR };
+enum errors { MALLOC_ERR = -100, OPEN_ERR, PARSING_ERR, ERR_NOT_DEFINED, NO_ERR, END };
 
 typedef struct s_expand {
 	char	*key;
@@ -49,7 +49,7 @@ typedef struct s_cmd_node {
 
 extern t_data *data;
 
-# define PATH_MAX 4096
+// # define PATH_MAX 4096
 
 # define FD_UNDEFINED -2
 # define FD_PARSING_ERR -3

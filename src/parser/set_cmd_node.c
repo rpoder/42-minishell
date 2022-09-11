@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_cmd_node.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 17:42:27 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/10 20:15:21 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/11 16:23:06 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ static int	set_fd(char **words, int i, t_cmd_node *cmd)
 
 	ret = NO_ERR;
 	if (words[i + 1] && !is_redirection_operator(words[i + 1][0]))
-	{	
+	{
 		if (words[i][0] == '<' && !words[i][1] && words[i + 1])
 			ret = set_fd_in(cmd, words[i + 1]);
 		else if (words[i][0] == '<' && words[i][1] == '<'
@@ -49,7 +49,7 @@ static int	check_and_set_redirection(char **words, int i, t_cmd_node *cmd)
 		if (words[i][0] == '<' || words[i][0] == '>')
 		{
 			ret = set_fd(words, i, cmd);
-			if (ret != 0)
+			if (ret != NO_ERR)
 				return (ret);
 			i += 2;
 		}
@@ -66,7 +66,7 @@ static int	set_cmd(char **words, int i, t_cmd_node *cmd)
 	j = 0;
 	cmd->cmd_tab = malloc(sizeof(char *) * (cmd_tab_len(words, i) + 1));
 	if (!cmd->cmd_tab)
-		return (-1);
+		return (MALLOC_ERR);
 	ft_clear_tab(&cmd->cmd_tab, cmd_tab_len(words, i) + 1);
 	while (words[i] && !is_pipe(words[i][0]))
 	{
@@ -78,13 +78,13 @@ static int	set_cmd(char **words, int i, t_cmd_node *cmd)
 			if (!cmd->cmd_tab[j])
 			{
 				ft_free_tab(&cmd->cmd_tab);
-				return (-1);
+				return (MALLOC_ERR);
 			}
 			i++;
 			j++;
 		}
 	}
-	return (0);
+	return (NO_ERR);
 }
 
 int	set_and_skip_cmd_node(char **words, t_cmd_node *cmd, int *i)
@@ -94,8 +94,8 @@ int	set_and_skip_cmd_node(char **words, t_cmd_node *cmd, int *i)
 	ret = check_and_set_redirection(words, *i, cmd);
 	if (ret != NO_ERR)
 		return (ret);
-	ret = set_cmd(words, *i, cmd);
-	if (ret != 0)
+	ret = set_cmd(words, *i, cmd); ////mettre ret a jour
+	if (ret != NO_ERR)
 		return (ret);
 	while (words[*i] && words[*i][0] != '|')
 		(*i)++;

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
+#    By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/09/10 20:17:24 by mpourrey         ###   ########.fr        #
+#    Updated: 2022/09/11 17:14:03 by ronanpoder       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -27,7 +27,7 @@ SRCS				:=	main.c \
 						utils/gnl_minishell_utils.c \
 						set_env.c \
 						handle_frees/handle_frees.c \
-						add_expand.c \
+						handle_expand.c \
 						syntax_checker/quote_syntax_checker.c \
 						syntax_checker/redirection_syntax_checker.c \
 						built-ins/ft_env.c \
@@ -55,7 +55,8 @@ SRCS				:=	main.c \
 						parser/set_cmd_node.c \
 						parser/open_files.c \
 						parser/parser_utils.c \
-						parser/heredoc_utils.c 
+						parser/heredoc_utils.c \
+						executer/executer.c \
 
 CC					:=	cc
 

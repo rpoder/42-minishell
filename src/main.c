@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/10 20:27:43 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/11 17:12:45 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ void	test_unmute_lexer(char **words)
 			}
 			else if (words[i][j] < 0)
 				c = words[i][j] * -1;
-			
+
 			else
 				c = words[i][j];
 			printf("%c", c);
@@ -89,7 +89,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		// line = readline("mi_nils_shell j'écoute ? > ");
 		// add_history(line); //pas strlen < 1
-		line = "cat > outfile | ls > outfile";
+		line = "cat infile << infile > outfile";
 		data = init_data(env, line);
 	 	if (quote_syntax_checker(line) == 1) //quote_syntax_checker
 		{
@@ -102,9 +102,9 @@ int	main(int argc, char **argv, char **env)
 	//	test_lexer(data->words);
 		redirection_syntax_printer(data->words);
 		parser(data);
-		test_parser(data->cmds);
+	//	test_parser(data->cmds);
 	//	test_unmute_lexer(data->words);
-		global_free(data, NO_ERR);
+		global_free(data, END);
 	}
 }
 

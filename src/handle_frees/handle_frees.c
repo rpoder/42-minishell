@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_frees.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:18:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/10 17:26:38 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/11 16:16:49 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ void	del_cmd(void *cmd)
 	}
 }
 
-void	global_free(t_data *data, int err)
+void	global_free(t_data *data, enum errors err)
 {
 	if (err == MALLOC_ERR)
 		ft_printf_fd("mi_nils_shell: malloc err\n", 2);
@@ -67,6 +67,8 @@ void	global_free(t_data *data, int err)
 		ft_printf_fd("mi_nils_shell: parsing err\n", 2);
 	else if (err == ERR_NOT_DEFINED)
 		ft_printf_fd("mi_nils_shell: err not defined\n", 2);
+	else if (err == END)
+		ft_printf_fd("mi_nils_shell: Bravo :)\n", 2);
 	if (data)
 	{
 		if (data->env)
@@ -82,7 +84,6 @@ void	global_free(t_data *data, int err)
 		if (data->cmds)
 		 	ft_lstclear(&data->cmds, &del_cmd);
 		free(data);
-		printf("ALL FRIED\n");
 		exit(1);
 	}
 	// close si  fd_in >= 0;
