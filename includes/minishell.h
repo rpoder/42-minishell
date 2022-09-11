@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/11 16:12:21 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/11 17:18:05 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -198,4 +198,6 @@ char	*get_path(t_data *data);
 /* ft_exit */
 int		ft_exit(t_data *data, char **args);
 
+/* executer.c */
+void	executer(t_data *data);
 #endif
