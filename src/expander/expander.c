@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:02:08 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/12 15:01:16 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/12 21:56:25 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,10 @@ static int	expanded_line_len(t_data *data, char *str, t_expand_tool *tool)
 		{
 			tmp = expand_value_len(data, str, tool->i + 1);
 			if (tmp <= 0)
-				tmp = expand_key_len(str, tool->i + 1);
+			{
+				tmp = (expand_key_len(str, tool->i + 1) + 1); ////pour le *
+				
+			}
 			tool->i = tool->i + expand_key_len(str, tool->i + 1);
 			tool->len = tool->len + tmp;
 		}
@@ -35,20 +38,27 @@ static int	expanded_line_len(t_data *data, char *str, t_expand_tool *tool)
 	return (tool->len);
 }
 
-static void	fill_with_muted_key_value(char	**exp_line, int j, char *expand_key)
+static void	fill_with_muted_key(t_data *data, int i, int j) ////////////
 {
 	int		k;
-
+	char 	*expand_key;
+	
+	expand_key = get_expand_key(data->prompt_line, i + 1);
+	if (!expand_key)
+		global_free(data, MALLOC_ERR); //proteger ?
 	k = 0;
+	(data->expanded_line)[j] = '*' * -1;
+	j++;
 	while (expand_key[k])
 	{
-		(*exp_line)[j] = expand_key[k] + 127;
+		(data->expanded_line)[j] = expand_key[k] * -1;
 		j++;
 		k++;
 	}
+	free(expand_key);
 }
 
-static void	fill_with_expand_value(t_data *data, int i, int j)
+static void	fill_with_expand_value(t_data *data, int i, int j) //proteger ?
 {
 	char	*expand_value;
 	char	*expand_key;
@@ -57,41 +67,46 @@ static void	fill_with_expand_value(t_data *data, int i, int j)
 	k = 0;
 	expand_key = get_expand_key(data->prompt_line, i + 1);
 	if (!expand_key)
-		global_free(data, MALLOC_ERR);
+		global_free(data, MALLOC_ERR); 
 	expand_value = get_expand_value(data, expand_key);
-	if (expand_value)
+	while (expand_value[k])
 	{
-		while (expand_value[k])
-		{
-			data->expanded_line[j] = expand_value[k];
-			j++;
-			k++;
-		}
+		data->expanded_line[j] = expand_value[k];
+		j++;
+		k++;
 	}
-	else
-		fill_with_muted_key_value(&data->expanded_line, j, expand_key);
 	free (expand_key);
 }
+
 
 static void	fill_expanded_line(t_data *data, t_expand_tool *tool)
 {
 	int	exp_value_len;
-
+	
 	clear_expand_tool(tool);
 	while (data->prompt_line[tool->len])
 	{
 		set_quotes(data->prompt_line[tool->len], tool->quotes);
 		if (data->prompt_line[tool->len] == '$' && is_expand_to_interpret
-			(data->prompt_line, tool->len, tool->quotes))
+			(data->prompt_line, tool->len, tool->quotes)) 
+		/////////////fill_with_interpreted_expand
 		{
-			fill_with_expand_value(data, tool->len, tool->i);
-			exp_value_len = expand_value_len(data, data->prompt_line,
-					tool->len + 1);
-			tool->i = tool->i + exp_value_len;
+			exp_value_len = expand_value_len(data, data->prompt_line, tool->i + 1);
 			if (exp_value_len < 0)
-				global_free(data, ERR_NOT_DEFINED);
+				global_free(data, MALLOC_ERR);
+			if (exp_value_len > 0)
+			{
+				fill_with_expand_value(data, tool->len, tool->i);
+				tool->i += exp_value_len;
+			}
+			else
+			{
+				fill_with_muted_key(data, tool->len, tool->i);
+				tool->i += (expand_key_len(data->prompt_line, tool->len + 1) + 1);
+			}
 			tool->len += expand_key_len(data->prompt_line, tool->len + 1);
-		}
+		} 
+		//////////////////////////////////////////////////////////////////////////////////////////
 		else
 		{
 			data->expanded_line[tool->i] = data->prompt_line[tool->len];

@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/01 15:44:09 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/01 15:48:39 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/12 21:36:41 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,18 +37,11 @@ int	expand_value_len(t_data *data, char *str, int start)
 	if (!expand_key)
 		return (-1);
 	expand_value = get_expand_value(data, expand_key);
-	if (expand_value <= 0)
-	{
-		expand_key_len = ft_strlen(expand_key);
-		free(expand_key);
-		return (expand_key_len);
-	}
-	else
-	{
-		expand_value_len = ft_strlen(expand_value);
-		free(expand_key);
-		return (expand_value_len);
-	}
+	free(expand_key);
+	if (!expand_value)
+		return (0);
+	expand_value_len = ft_strlen(expand_value);
+	return (expand_value_len);
 }
 
 char	*get_expand_value(t_data *data, char *expand_key)
