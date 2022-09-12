@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/11 17:18:05 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/12 14:51:03 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include "libft.h"
 # include "utils.h"
 
-enum errors { MALLOC_ERR = -100, OPEN_ERR, PARSING_ERR, ERR_NOT_DEFINED, NO_ERR, END };
+enum errors { MALLOC_ERR = -100, OPEN_ERR, PARSING_ERR, ERR_NOT_DEFINED, NO_ERR, END, PIPE_ERR};
 
 typedef struct s_expand {
 	char	*key;
@@ -41,10 +41,10 @@ typedef struct s_data {
 }	t_data;
 
 typedef struct s_cmd_node {
-	char			*path;
-	char			**cmd_tab;
-	int				fd_in;
-	int				fd_out;
+	char	*path;
+	char	**cmd_tab;
+	int		fd_in;
+	int		fd_out;
 }	t_cmd_node;
 
 extern t_data *data;
@@ -56,15 +56,13 @@ extern t_data *data;
 
 # define BUFFER_SIZE_GNL 10
 
-/* Main.c */
-
 /* init.c */
 t_data			*init_data(char **env, char *prompt_line);
 t_quotes		*init_quotes(void);
 void			clear_quotes(t_quotes *quotes);
 void			set_quotes(char c, t_quotes *quotes);
 
-/* quote_yntax_checker */
+/* quote_syntax_checker */
 int				quote_syntax_checker(char *str);
 /* redir_op_syntax_error.c */
 void			redirection_syntax_printer(char **words);
@@ -134,34 +132,45 @@ char			*get_word_til_space(t_data *d, char *src, t_split_tool *tool);
 /* word_trim.c */
 char			*word_trim(char *src);
 
-/* PARSER*/
+/*----------------------------------------------PARSER*/
+
 /* parser.c */
 int				parser(t_data *data);
+
 /* set_cmd_node.c */
 int				set_and_skip_cmd_node(char **words, t_cmd_node *cmd, int *i);
+
 /* open_files.c */
 int				set_fd_heredoc(t_cmd_node *cmd, char *lim);
 int				set_fd_in(t_cmd_node *cmd, char *infile);
 int				set_fd_out(t_cmd_node *cmd, char *outfile, int flag);
+
 /* parser_utils.c */
 int				cmd_tab_len(char **words, int i);
 t_cmd_node		*init_cmd_node(void);
 t_heredoc_tool	*init_heredoc_tool(char *lim);
 int				check_ret(t_heredoc_tool *tool);
 void			free_heredoc_tool(t_heredoc_tool *tool);
+
 /* heredoc_utils */
 void			free_heredoc_tool(t_heredoc_tool *tool);
 t_heredoc_tool	*init_heredoc_tool(char *lim);
 char			*get_heredoc_name(int i);
 
-/*UTILS*/
+/* set_all_cmd_path.c */
+void			set_all_cmd_path(t_data *data);
+
+/*----------------------------------------------UTILS*/
+
 /* utils.c */
 int				is_word_separator(char c);
 int				is_redirection_operator(char c);
 int				is_space(char c);
 int				is_pipe(char c);
+
 /* gnl_minishell.c */
 char			*gnl_minishell(int fd, int *ret);
+
 /* gnl_minishell_utils.c */
 char			*ft_strjoin_gnl(char *s1, char *s2, int *ret);
 char			*ft_fill_dst(char *s1, char *s2, char *dst);
@@ -172,7 +181,8 @@ void			global_free(t_data *data, int err);
 void			del_one_expand(void *content);
 void			del_cmd(void *cmd);
 
-/* BUILT_INS */
+/*----------------------------------------------BUILT_INS */
+
 /* builtins_utils.c */
 int	is_valid_expand_key(char *key);
 
@@ -198,6 +208,14 @@ char	*get_path(t_data *data);
 /* ft_exit */
 int		ft_exit(t_data *data, char **args);
 
+/*----------------------------------------------EXECUTER */
+
 /* executer.c */
 void	executer(t_data *data);
+
+/* executer_utils.c */
+char	**get_env_tab(t_data *data);
+int	is_first_cmd(t_data *data, t_list *cmd);
+int	is_last_cmd(t_list *cmd);
+
 #endif

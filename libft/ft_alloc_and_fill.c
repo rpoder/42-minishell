@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_alloc_and_fill.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 12:57:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/31 11:20:48 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/12 15:01:54 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-char	*alloc_and_fill(char *str)
+char	*ft_alloc_and_fill(char *str)
 {
 	int		i;
 	char	*dst;

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 16:32:48 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/09 19:15:59 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/12 15:01:16 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	*ft_memcpy(void *dst, const void *src, size_t n);
 void	*ft_memmove(void *dst, const void *src, size_t n);
 void	*ft_memset(void *s, int c, size_t n);
 char	**ft_ptrdup(char **ptr);
-int		ft_ptrlen(char **ptr);
+int		ft_tablen(char **ptr);
 int		ft_putchar_fd(char c, int fd);
 void	ft_putendl_fd(char *s, int fd);
 void	ft_putnbr_fd(int n, int fd);
@@ -70,7 +70,7 @@ int		ft_tab_isdbl(long int *tab, int len);
 int		ft_tab_issorted(long int *tab, int len);
 int		ft_tolower(int c);
 int		ft_toupper(int c);
-char	*alloc_and_fill(char *str);
+char	*ft_alloc_and_fill(char *str);
 int		ft_isint(long int num);
 void	ft_clear_tab(char ***tab, int size);
 

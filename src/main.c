@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/11 17:54:00 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/12 15:17:34 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		// line = readline("mi_nils_shell j'écoute ? > ");
 		// add_history(line); //pas strlen < 1
-		line = "cat infile infile > outfile";
+		line = "cat outfile | wc";
 		data = init_data(env, line);
 	 	if (quote_syntax_checker(line) == 1) //quote_syntax_checker
 		{
@@ -105,15 +105,15 @@ int	main(int argc, char **argv, char **env)
 
 	//	test_unmute_lexer(data->words);
 		executer(data);
-		test_parser(data->cmds);
+		//test_parser(data->cmds);
 		global_free(data, END);
 	}
 }
 
 void	tests_ronan(t_data *data)
 {
-	add_expand(data, &data->local_expands, alloc_and_fill("TEST"), alloc_and_fill("coucou"));
-	add_expand(data, &data->local_expands, alloc_and_fill("TEST2"), alloc_and_fill("salut"));
+	add_expand(data, &data->local_expands, ft_alloc_and_fill("TEST"), ft_alloc_and_fill("coucou"));
+	add_expand(data, &data->local_expands, ft_alloc_and_fill("TEST2"), ft_alloc_and_fill("salut"));
 
 	// t_list	*tmp;
 	// tmp = data->local_expands;
@@ -125,21 +125,21 @@ void	tests_ronan(t_data *data)
 
 	char **args;
 	args = malloc(sizeof(char *) * 6);
-	args[0] = alloc_and_fill("[PATH]");
-	args[1] = alloc_and_fill("ft_exit");
-	args[2] = alloc_and_fill("8999999999999999999999999999999999999999999999");
-	args[3] = alloc_and_fill("coucou");
-	args[4] = alloc_and_fill("coucou");
+	args[0] = ft_alloc_and_fill("[PATH]");
+	args[1] = ft_alloc_and_fill("ft_exit");
+	args[2] = ft_alloc_and_fill("8999999999999999999999999999999999999999999999");
+	args[3] = ft_alloc_and_fill("coucou");
+	args[4] = ft_alloc_and_fill("coucou");
 	args[5] = NULL;
 
 	ft_exit(data, args);
 	printf("PAS EXIT\n");
 	// args = malloc(sizeof(char *) * 7);
-	// args[0] = alloc_and_fill(NULL);
-	// args[1] = alloc_and_fill("ft_env");
+	// args[0] = ft_alloc_and_fill(NULL);
+	// args[1] = ft_alloc_and_fill("ft_env");
 	// args[2] = NULL;
-	// args[3] = alloc_and_fill("test");
-	// args[4] = alloc_and_fill("test2");
+	// args[3] = ft_alloc_and_fill("test");
+	// args[4] = ft_alloc_and_fill("test2");
 	// args[5] = NULL;
 	// args[6] = NULL;
 

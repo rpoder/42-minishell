@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:18:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/11 16:16:49 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/12 14:26:05 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,6 +66,8 @@ void	global_free(t_data *data, enum errors err)
 	else if (err == PARSING_ERR)
 		ft_printf_fd("mi_nils_shell: parsing err\n", 2);
 	else if (err == ERR_NOT_DEFINED)
+		ft_printf_fd("mi_nils_shell: err not defined\n", 2);
+	else if (err == PIPE_ERR)
 		ft_printf_fd("mi_nils_shell: err not defined\n", 2);
 	else if (err == END)
 		ft_printf_fd("mi_nils_shell: Bravo :)\n", 2);

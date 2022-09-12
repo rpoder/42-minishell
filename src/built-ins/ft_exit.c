@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 16:17:52 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/03 22:24:01 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/12 14:59:02 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_exit(t_data *data, char **args)
 		ft_printf_fd("exit:\'%s\': numeric argument required\n", 2, args[2]);
 		free_and_exit(data, NULL);
 	}
-	else if (ft_ptrlen(args) > 3)
+	else if (ft_tablen(args) > 3)
 	{
 		ft_printf_fd("exit\n", 1);
 		ft_printf_fd("exit: too many arguments\n", 2);

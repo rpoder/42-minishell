@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   add_expand.c                                       :+:      :+:    :+:   */
+/*   handle_expand.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 16:53:13 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/11 15:53:48 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/12 15:01:16 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static bool	set_on(t_list **alst, char *key, char *value_to_modify)
 	if (tmp)
 	{
 		free(((t_expand *)tmp->content)->value);
-		((t_expand *)tmp->content)->value = alloc_and_fill(value_to_modify);
+		((t_expand *)tmp->content)->value = ft_alloc_and_fill(value_to_modify);
 		return (true);
 	}
 	return (false);
@@ -38,7 +38,7 @@ int	set_expand(t_data *data, char *key, char *value_to_modify)
 	{
 		if (set_on(&data->local_expands, key, value_to_modify) == false)
 		{
-			add_expand(data, &data->local_expands, alloc_and_fill(key), alloc_and_fill(value_to_modify));
+			add_expand(data, &data->local_expands, ft_alloc_and_fill(key), ft_alloc_and_fill(value_to_modify));
 			return (1);
 		}
 	}

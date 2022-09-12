@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:02:08 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/09 16:48:35 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/12 15:01:16 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -109,7 +109,7 @@ void	expander(t_data *data)
 
 	if (!has_expand(data->prompt_line))
 	{
-		data->expanded_line = alloc_and_fill(data->prompt_line);
+		data->expanded_line = ft_alloc_and_fill(data->prompt_line);
 		return ;
 	}
 	expand_tool = init_expand_tool();

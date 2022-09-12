@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 17:42:27 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/11 16:23:06 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/12 15:01:16 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static int	set_cmd(char **words, int i, t_cmd_node *cmd)
 				i += 2;
 		else
 		{
-			cmd->cmd_tab[j] = alloc_and_fill(words[i]);
+			cmd->cmd_tab[j] = ft_alloc_and_fill(words[i]);
 			if (!cmd->cmd_tab[j])
 			{
 				ft_free_tab(&cmd->cmd_tab);

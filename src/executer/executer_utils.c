@@ -1,37 +1,38 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_ptrdup.c                                        :+:      :+:    :+:   */
+/*   executer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/05/15 15:43:09 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/12 14:59:02 by ronanpoder       ###   ########.fr       */
+/*   Created: 2022/09/12 13:18:56 by ronanpoder        #+#    #+#             */
+/*   Updated: 2022/09/12 15:14:07 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include "libft.h"
+#include "minishell.h"
 
-char	**ft_ptrdup(char **ptr)
+char	**get_env_tab(t_data *data)
 {
-	int		ptr_len;
-	char	**dst;
-	int		i;
+	char	**env_tab;
 
-	i = 0;
-	if (ptr == NULL)
-		return (NULL);
-	ptr_len = ft_tablen(ptr);
-	dst = (char **)malloc((ptr_len + 1) * sizeof(char *));
-	if (dst == NULL)
-		return (NULL);
-	while (i < ptr_len)
-	{
-		dst[i] = ft_strdup(ptr[i]);
-		if (dst[i] == NULL)
-			return (NULL);
-		i++;
-	}
-	dst[i] = NULL;
-	return (dst);
+	env_tab = malloc(sizeof(char) * (ft_lstlen(data->env) +1));
+	if (!env_tab)
+		global_free(data, MALLOC_ERR);
+	
+	return (env_tab);
+}
+
+int	is_last_cmd(t_list *cmd)
+{
+	if (cmd->next == NULL)
+		return (1);
+	return (0);
+}
+
+int	is_first_cmd(t_data *data, t_list *cmd)
+{
+	if (data->cmds == cmd)
+		return (1);
+	return (0);
 }

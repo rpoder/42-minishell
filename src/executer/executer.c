@@ -5,64 +5,63 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/11 17:12:44 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/11 17:55:07 by ronanpoder       ###   ########.fr       */
+/*   Created: 2022/09/12 11:17:07 by ronanpoder        #+#    #+#             */
+/*   Updated: 2022/09/12 15:15:47 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**create_path_tab(t_data *data)
+int	*init_pipe(t_data *data)
 {
-	char	*env_path;
-	char	**path_tab;
+	int	*pipe_fd;
 
-	env_path = get_expand_value(data, "PATH");
-	if (!env_path)
-		return (NULL);
-	path_tab = ft_split(env_path, ':');
-	if (!path_tab)
+	pipe_fd = malloc(sizeof(int) * 2);
+	if (!pipe_fd)
 		global_free(data, MALLOC_ERR);
-	return (path_tab);
+	if (pipe(pipe_fd) != 0)
+	{
+		free(pipe_fd);
+		global_free(data, PIPE_ERR);
+	}
+	return(pipe_fd);
 }
 
-int	get_cmd_path(t_cmd_node *cmd, char **path_tab)
+void	execute_cmds(t_data *data, t_list *cmd)
 {
-	int		i;
-	char	*tmp;
+	int		*pipe_fd;
+	char	**execve_tab;
+	int		fd_stdin;
+	pid_t	fork_ret;
+	char	**env_tab;
 
-	i = 0;
-	while (path_tab[i])
+	fd_stdin = dup(0);
+	while(cmd)
 	{
-		tmp = ft_strsjoin(3, path_tab[i], "/", cmd->cmd_tab[0]);
-		if (!tmp)
-			return (MALLOC_ERR);
-		if (access(tmp, F_OK & X_OK))
+		pipe_fd = init_pipe(data);
+		fork_ret = fork();
+		if (fork_ret == 0)
 		{
-			cmd->path = tmp;
-			return (NO_ERR);
+			if (!is_last_cmd(cmd))
+				dup2(1, pipe_fd[1]);
+			// rediriger chevrons
+
+			env_tab = get_env_tab(data);
+			if (!env_tab)
+				global_free(data, MALLOC_ERR);
+			execve(((t_cmd_node *)cmd->content)->path, ((t_cmd_node *)cmd->content)->cmd_tab, env_tab);
 		}
-		free(tmp);
-		i++;
+		if (!is_last_cmd(cmd))
+			dup2(0, pipe_fd[0]);
+		cmd = cmd->next;
 	}
-	return (NO_ERR);
+	// recuperer err de l'enfant
+	// remettre stdin dans fd0
 }
 
 void	executer(t_data *data)
 {
-	char		**path_tab;
-	t_list		*tmp;
 
-	path_tab = create_path_tab(data);
-	tmp = data->cmds;
-	while (tmp)
-	{
-		if (get_cmd_path(((t_cmd_node *)tmp->content), path_tab) == MALLOC_ERR)
-		{
-			ft_free_tab(&path_tab);
-			global_free(data, MALLOC_ERR);
-		}
-		tmp = tmp->next;
-	}
-	free(path_tab);
+	execute_cmds(data, data->cmds);
 }
+

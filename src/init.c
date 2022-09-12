@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:43:05 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/05 16:58:33 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/12 15:01:16 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,10 +17,10 @@ static t_list	*add_return_value_expand(t_data *data)
 	char	*expand_key;
 	char	*expand_value;
 
-	expand_key = alloc_and_fill("?");
+	expand_key = ft_alloc_and_fill("?");
 	if (!expand_key)
 		return (NULL);
-	expand_value = alloc_and_fill("0");
+	expand_value = ft_alloc_and_fill("0");
 	if (!expand_value)
 	{
 		free(expand_key);
@@ -47,7 +47,7 @@ t_data	*init_data(char **env, char *prompt_line)
 	data->local_expands = add_return_value_expand(data);
 	if (!data->local_expands)
 		global_free(data, MALLOC_ERR);
-	data->prompt_line = alloc_and_fill(prompt_line);
+	data->prompt_line = ft_alloc_and_fill(prompt_line);
 	if (!data->prompt_line)
 		global_free(data, MALLOC_ERR);
 	return (data);
