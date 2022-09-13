@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/13 12:17:29 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/13 18:47:27 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,7 +98,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		// line = readline("mi_nils_shell j'écoute ? > ");
 		// add_history(line); //pas strlen < 1
-		line = "cat outfile << lim << toz | wc";
+		line = "cat test | grep t";
 		data = init_data(env, line);
 	 	if (quote_syntax_checker(line) == 1) //quote_syntax_checker
 		{
@@ -114,7 +114,7 @@ int	main(int argc, char **argv, char **env)
 
 	//	test_unmute_lexer(data->words);
 		executer(data);
-		test_parser(data->cmds);
+		//test_parser(data->cmds);
 		global_free(data, END);
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:18:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/13 12:32:04 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/13 15:53:03 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,11 +43,11 @@ void	del_expand(void *expand)
 	}
 }
 
-void	del_cmd_heredoc(void *heredoc)
-{
-	if ((char *)heredoc)
-		free(heredoc);
-}
+// void	del_cmd_heredoc(void *heredoc)
+// {
+// 	if ((char *)heredoc)
+// 		free(heredoc);
+// }
 
 void	del_cmd(void *cmd)
 {
@@ -71,7 +71,7 @@ void	del_cmd(void *cmd)
 				unlink(heredoc->content);
 				heredoc = heredoc->next;
 			}
-			ft_lstclear(&((t_cmd_node *)cmd)->heredocs, &del_cmd_heredoc);
+			ft_lstclear(&((t_cmd_node *)cmd)->heredocs, &free);
 		}
 		free((t_cmd_node *)cmd);
 	}

@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 17:31:00 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/13 11:53:50 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/13 15:49:04 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static int	open_heredoc(char **heredoc_path)
 		heredoc = get_heredoc_name(i);
 		if (!heredoc)
 			return (MALLOC_ERR);
-		fd_heredoc = open(heredoc, O_RDWR | O_TRUNC | O_CREAT, 0644);
+		fd_heredoc = open(heredoc, O_RDWR | O_TRUNC | O_CREAT | O_EXCL, 0644);
 		if (fd_heredoc < 0)
 			free(heredoc);
 		i++;
