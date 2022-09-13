@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/12 14:51:03 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/13 11:47:08 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,7 @@ typedef struct s_cmd_node {
 	char	**cmd_tab;
 	int		fd_in;
 	int		fd_out;
+	t_list	*heredocs;
 }	t_cmd_node;
 
 extern t_data *data;
