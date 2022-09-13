@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/12 15:17:34 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/13 12:17:29 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	test_parser(t_list *cmds)
 {
 	int	i;
 	int	j;
+	t_list	*heredoc;
 
 	i = 0;
 	while (cmds)
@@ -29,7 +30,15 @@ void	test_parser(t_list *cmds)
 			j++;
 		}
 		printf("fd_in = %d\n", ((t_cmd_node *)cmds->content)->fd_in);
-		printf("fd_out = %d\n\n\n", ((t_cmd_node *)cmds->content)->fd_out);
+		printf("fd_out = %d\n", ((t_cmd_node *)cmds->content)->fd_out);
+		heredoc = ((t_cmd_node *)cmds->content)->heredocs;
+		printf("heredocs = ");
+		while (heredoc)
+		{
+			printf("%s ",((char *)heredoc->content));
+			heredoc = heredoc->next;
+		}
+		printf("\n\n");
 		i++;
 		cmds = cmds->next;
 	}
@@ -89,7 +98,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		// line = readline("mi_nils_shell j'écoute ? > ");
 		// add_history(line); //pas strlen < 1
-		line = "cat outfile | wc";
+		line = "cat outfile << lim << toz | wc";
 		data = init_data(env, line);
 	 	if (quote_syntax_checker(line) == 1) //quote_syntax_checker
 		{
@@ -105,7 +114,7 @@ int	main(int argc, char **argv, char **env)
 
 	//	test_unmute_lexer(data->words);
 		executer(data);
-		//test_parser(data->cmds);
+		test_parser(data->cmds);
 		global_free(data, END);
 	}
 }
