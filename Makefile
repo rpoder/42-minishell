@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+         #
+#    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/09/12 13:19:53 by ronanpoder       ###   ########.fr        #
+#    Updated: 2022/09/13 21:15:58 by mpourrey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,8 +34,9 @@ SRCS				:=	main.c \
 						handle_mutes/handle_mutes_in_quotes.c \
 						expander/expander.c \
 						expander/expand_getters.c \
+						expander/expand_lens.c \
 						expander/expander_utils.c \
-						expander/expander_utils_2.c \
+						expander/expander_tool_utils.c \
 						handle_mutes/handle_mutes_in_expand.c \
 						handle_mutes/mutes_in_expand_utils.c \
 						lexer/lexer.c \

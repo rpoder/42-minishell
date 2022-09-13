@@ -1,16 +1,22 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   expander_utils_2.c                                 :+:      :+:    :+:   */
+/*   expander_tool_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 16:56:17 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/01 15:48:55 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/13 22:24:28 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	free_expand_tool(t_expand_tool *expand_tool)
+{
+	free(expand_tool->quotes);
+	free(expand_tool);
+}
 
 void	clear_expand_tool(t_expand_tool *expand_tool)
 {
