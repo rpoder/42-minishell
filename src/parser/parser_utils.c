@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 19:07:59 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/14 16:03:14 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/14 18:42:31 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ t_cmd_node	*init_cmd_node(void)
 	cmd_node->cmd_tab = NULL;
 	cmd_node->fd_in = FD_UNDEFINED;
 	cmd_node->fd_out = FD_UNDEFINED;
+	cmd_node->heredocs = NULL;
 	return (cmd_node);
 }
 

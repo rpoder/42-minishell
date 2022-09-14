@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
+#    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/09/13 21:15:58 by mpourrey         ###   ########.fr        #
+#    Updated: 2022/09/14 18:46:08 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,7 +59,9 @@ SRCS				:=	main.c \
 						parser/heredoc_utils.c \
 						parser/set_all_cmd_path.c \
 						executer/executer.c \
+						executer/handle_redirections.c \
 						executer/executer_utils.c \
+						executer/executer_tool_utils.c \
 
 CC					:=	cc
 

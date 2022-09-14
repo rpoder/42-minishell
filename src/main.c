@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/14 16:11:14 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/14 18:45:38 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	test_parser(t_list *cmds)
 {
 	int	i;
 	int	j;
+	t_list	*heredoc;
 
 	i = 0;
 	while (cmds)
@@ -29,37 +30,18 @@ void	test_parser(t_list *cmds)
 			j++;
 		}
 		printf("fd_in = %d\n", ((t_cmd_node *)cmds->content)->fd_in);
-		printf("fd_out = %d\n\n\n", ((t_cmd_node *)cmds->content)->fd_out);
+		printf("fd_out = %d\n", ((t_cmd_node *)cmds->content)->fd_out);
+		heredoc = ((t_cmd_node *)cmds->content)->heredocs;
+		printf("heredocs = ");
+		while (heredoc)
+		{
+			printf("%s ",((char *)heredoc->content));
+			heredoc = heredoc->next;
+		}
+		printf("\n\n");
 		i++;
 		cmds = cmds->next;
 	}
-}
-
-void	test_unmute_lexer(char **words)
-{
-	int	i;
-	int	j;
-	char c;
-
-	i = 0;
-	while (words[i] != NULL)
-	{
-		j = 0;
-		printf("unmute word[%d] = ", i);
-		while (words[i][j] != '\0')
-		{
-			if (words[i][j] < 0)
-				c = words[i][j] * -1;
-
-			else
-				c = words[i][j];
-			printf("%c", c);
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
-	printf("\n");
 }
 
 void	test_lexer(char **words)
@@ -84,7 +66,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		// line = readline("mi_nils_shell j'écoute ? > ");
 		// add_history(line); //pas strlen < 1
-		line = "'ech\"o' $USER > \"cou\'cou\" | $VAR.. < he'l'o";
+		line = "cat < infile | wc > outfile";
 		data = init_data(env, line);
 	 	if (quote_syntax_checker(line) == 1) //quote_syntax_checker
 		{
@@ -96,9 +78,7 @@ int	main(int argc, char **argv, char **env)
 		lexer(data);
 		test_lexer(data->words);
 		redirection_syntax_printer(data->words);
-		parser(data); //ici unmute files et cmds
-	//	test_unmute_lexer(data->words);
-
+		parser(data);
 		executer(data);
 		test_parser(data->cmds);
 		global_free(data, END);

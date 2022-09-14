@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 17:31:00 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/10 20:18:24 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/14 10:32:17 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,13 +48,13 @@ static int	open_heredoc(char **heredoc_path)
 	int		i;
 
 	i = 0;
-	fd_heredoc = -2;
+	fd_heredoc = FD_UNDEFINED;
 	while (fd_heredoc < 0 && i < INT_MAX)
 	{
 		heredoc = get_heredoc_name(i);
 		if (!heredoc)
 			return (MALLOC_ERR);
-		fd_heredoc = open(heredoc, O_RDWR | O_TRUNC | O_CREAT, 0644);
+		fd_heredoc = open(heredoc, O_RDWR | O_TRUNC | O_CREAT | O_EXCL, 0644);
 		if (fd_heredoc < 0)
 			free(heredoc);
 		i++;
@@ -63,7 +63,7 @@ static int	open_heredoc(char **heredoc_path)
 	{
 		free(heredoc);
 		ft_printf_fd("minilsshell: heredoc: Permission denied\n", 2);
-	}	
+	}
 	else
 		*heredoc_path = heredoc;
 	return (fd_heredoc);
@@ -93,11 +93,18 @@ int	set_fd_heredoc(t_cmd_node *cmd, char *lim)
 {
 	t_heredoc_tool	*tool;
 	int				ret;
+	t_list			*heredoc_node;
 
 	tool = init_heredoc_tool(lim);
 	if (!tool)
 		return (MALLOC_ERR);
 	cmd->fd_in = open_heredoc(&tool->heredoc_path);
+	if (tool->heredoc_path)
+	{
+		heredoc_node = ft_lstnew(ft_alloc_and_fill(tool->heredoc_path));
+		ft_lstadd_back(&cmd->heredocs, heredoc_node);
+	}
+
 	if (cmd->fd_in == MALLOC_ERR)
 	{
 		free(tool);
@@ -109,7 +116,7 @@ int	set_fd_heredoc(t_cmd_node *cmd, char *lim)
 	{
 		free_heredoc_tool(tool);
 		return (ret);
-	}	
+	}
 	cmd->fd_in = open(tool->heredoc_path, O_RDWR);
 	free_heredoc_tool(tool);
 	return (NO_ERR);

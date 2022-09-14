@@ -3,14 +3,25 @@
 /*                                                        :::      ::::::::   */
 /*   executer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:18:56 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/12 15:14:07 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/14 16:38:43 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	*init_pipe(t_data *data)
+{
+	int	*pipe_fd;
+
+	pipe_fd = malloc(sizeof(int) * 2);
+	if (!pipe_fd)
+		global_free(data, MALLOC_ERR);
+
+	return(pipe_fd);
+}
 
 char	**get_env_tab(t_data *data)
 {

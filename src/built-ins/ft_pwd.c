@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 16:10:38 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/01 11:21:21 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/14 10:27:05 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ char	*get_path(t_data *data)
 	int		i;
 	char	*buf;
 
+	i = 0;
 	buf = malloc(sizeof(char) * (i + 1));
 	if (!buf)
 		global_free(data, MALLOC_ERR);
@@ -38,7 +39,7 @@ void	ft_pwd(t_data *data, char **args)
 {
 	char	*path;
 
-	if (ft_strcmp(args[1], "ft_pwd") != 0)
+	if (ft_strcmp(args[0], "pwd") != 0)
 		return ;
 	path = get_path(data);
 	if (!path)

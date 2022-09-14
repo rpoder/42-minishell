@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/14 16:06:36 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/14 18:45:58 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,10 +21,11 @@
 # include <limits.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/wait.h>
 # include "libft.h"
 # include "utils.h"
 
-enum errors { MALLOC_ERR = -100, OPEN_ERR, PARSING_ERR, ERR_NOT_DEFINED, NO_ERR, END, PIPE_ERR};
+enum errors { MALLOC_ERR = -100, OPEN_ERR, PARSING_ERR, ERR_NOT_DEFINED, NO_ERR, END, PIPE_ERR, DUP_ERR, WAITPID_ERR};
 
 typedef struct s_expand {
 	char	*key;
@@ -45,9 +46,8 @@ typedef struct s_cmd_node {
 	char	**cmd_tab;
 	int		fd_in;
 	int		fd_out;
+	t_list	*heredocs;
 }	t_cmd_node;
-
-extern t_data *data;
 
 // # define PATH_MAX 4096
 
@@ -216,9 +216,18 @@ int		ft_exit(t_data *data, char **args);
 /* executer.c */
 void	executer(t_data *data);
 
+/* handle_redirections.c */
+void	redirect_pipe_out(t_data *data, int *pipe_fd);
+void	chevron_redirection(t_data *data, t_cmd_node *cmd);
+
 /* executer_utils.c */
 char	**get_env_tab(t_data *data);
-int	is_first_cmd(t_data *data, t_list *cmd);
-int	is_last_cmd(t_list *cmd);
+int		is_first_cmd(t_data *data, t_list *cmd);
+int		is_last_cmd(t_list *cmd);
+int		*init_pipe(t_data *data);
+
+/* executer_tool_utils.c */
+t_exec_tool	*init_tool(t_list *cmd);
+
 
 #endif

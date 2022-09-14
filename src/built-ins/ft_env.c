@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 17:45:13 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/30 18:02:50 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/14 10:24:23 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,12 +16,12 @@ void	ft_env(t_data *data, char **args)
 {
 	t_list	*tmp;
 
-	if (ft_strcmp(args[1], "ft_env") != 0)
+	if (ft_strcmp(args[0], "env") != 0)
 		return ;
-	if (args[2])
+	if (args[1])
 	{
 		ft_putstr_fd("env:\'", 2);
-		ft_putstr_fd(args[2], 2);
+		ft_putstr_fd(args[1], 2);
 		ft_putstr_fd("\': not such file or directory\n", 2);
 		set_expand(data, "?", "127");
 		return ;
