@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/14 13:58:40 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/14 16:30:26 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,38 +44,6 @@ void	test_parser(t_list *cmds)
 	}
 }
 
-void	test_unmute_lexer(char **words)
-{
-	int	i;
-	int	j;
-	char c;
-
-	i = 0;
-	while (words[i] != NULL)
-	{
-		j = 0;
-		printf("unmute word[%d] = ", i);
-		while (words[i][j] != '\0')
-		{
-		 	if (words[i][j] > 127)
-			{
-				printf("entre\n");
-				c = words[i][j] - 127;
-			}
-			else if (words[i][j] < 0)
-				c = words[i][j] * -1;
-
-			else
-				c = words[i][j];
-			printf("%c", c);
-			j++;
-		}
-		printf("\n");
-		i++;
-	}
-	printf("\n");
-}
-
 void	test_lexer(char **words)
 {
 	int	i;
@@ -98,7 +66,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		// line = readline("mi_nils_shell j'écoute ? > ");
 		// add_history(line); //pas strlen < 1
-		line = "cat < outfile | wc";
+		line = "cat < infile | wc > outfile";
 		data = init_data(env, line);
 	 	if (quote_syntax_checker(line) == 1) //quote_syntax_checker
 		{
@@ -111,8 +79,6 @@ int	main(int argc, char **argv, char **env)
 	//	test_lexer(data->words);
 		redirection_syntax_printer(data->words);
 		parser(data);
-
-	//	test_unmute_lexer(data->words);
 		executer(data);
 		//test_parser(data->cmds);
 		global_free(data, END);

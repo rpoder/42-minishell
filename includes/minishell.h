@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/14 13:19:56 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/14 16:40:17 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@
 # include <limits.h>
 # include <readline/readline.h>
 # include <readline/history.h>
+# include <sys/wait.h>
 # include "libft.h"
 # include "utils.h"
 
@@ -214,13 +215,17 @@ int		ft_exit(t_data *data, char **args);
 /* executer.c */
 void	executer(t_data *data);
 
+/* handle_redirections.c */
+void	redirect_pipe_out(t_data *data, int *pipe_fd);
+void	chevron_redirection(t_data *data, t_cmd_node *cmd);
+
 /* executer_utils.c */
 char	**get_env_tab(t_data *data);
-int	is_first_cmd(t_data *data, t_list *cmd);
-int	is_last_cmd(t_list *cmd);
+int		is_first_cmd(t_data *data, t_list *cmd);
+int		is_last_cmd(t_list *cmd);
+int		*init_pipe(t_data *data);
 
-/* executer_utils.c */
-
+/* executer_tool_utils.c */
 t_exec_tool	*init_tool(t_list *cmd);
 
 
