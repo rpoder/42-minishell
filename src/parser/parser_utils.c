@@ -6,11 +6,24 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 19:07:59 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/10 20:16:14 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/14 16:03:14 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*unmute_word(char *str)
+{
+	int	i;
+
+	while (str[i])
+	{
+		if (str[i] < 0)
+			str[i] = str[i] * -1;
+		i++;
+	}
+	return (str);
+}
 
 t_cmd_node	*init_cmd_node(void)
 {

@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/12 21:46:43 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/14 16:11:14 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		// line = readline("mi_nils_shell j'écoute ? > ");
 		// add_history(line); //pas strlen < 1
-		line = "$USER $POTH? | $VAR..";
+		line = "'ech\"o' $USER > \"cou\'cou\" | $VAR.. < he'l'o";
 		data = init_data(env, line);
 	 	if (quote_syntax_checker(line) == 1) //quote_syntax_checker
 		{
@@ -96,10 +96,11 @@ int	main(int argc, char **argv, char **env)
 		lexer(data);
 		test_lexer(data->words);
 		redirection_syntax_printer(data->words);
-		parser(data);
-		test_unmute_lexer(data->words);
-	//	executer(data);
-		//test_parser(data->cmds);
+		parser(data); //ici unmute files et cmds
+	//	test_unmute_lexer(data->words);
+
+		executer(data);
+		test_parser(data->cmds);
 		global_free(data, END);
 	}
 }

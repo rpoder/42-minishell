@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/13 22:17:08 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/14 16:06:36 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,9 +153,7 @@ int				set_fd_out(t_cmd_node *cmd, char *outfile, int flag);
 /* parser_utils.c */
 int				cmd_tab_len(char **words, int i);
 t_cmd_node		*init_cmd_node(void);
-t_heredoc_tool	*init_heredoc_tool(char *lim);
-int				check_ret(t_heredoc_tool *tool);
-void			free_heredoc_tool(t_heredoc_tool *tool);
+char			*unmute_word(char *str);
 
 /* heredoc_utils */
 void			free_heredoc_tool(t_heredoc_tool *tool);
