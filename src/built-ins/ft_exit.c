@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 16:17:52 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/12 14:59:02 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/14 10:25:08 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,22 +30,22 @@ void	free_and_exit(t_data *data, char *exit_code)
 
 int	ft_exit(t_data *data, char **args)
 {
-	if (ft_strcmp(args[1], "ft_exit") != 0)
+	if (ft_strcmp(args[0], "exit") != 0)
 		return (-1);
-	if (args[2] && (!ft_str_isdigit(args[2]) || !ft_isint(ft_atoli(args[2]))))
+	if (args[1] && (!ft_str_isdigit(args[1]) || !ft_isint(ft_atoli(args[1]))))
 	{
-		ft_printf_fd("exit:\'%s\': numeric argument required\n", 2, args[2]);
+		ft_printf_fd("exit:\'%s\': numeric argument required\n", 2, args[1]);
 		free_and_exit(data, NULL);
 	}
-	else if (ft_tablen(args) > 3)
+	else if (ft_tablen(args) > 2)
 	{
 		ft_printf_fd("exit\n", 1);
 		ft_printf_fd("exit: too many arguments\n", 2);
 		set_expand(data, "?", "1");
 		return (-1);
 	}
-	else if (args[2])
-		free_and_exit(data, args[2]);
+	else if (args[1])
+		free_and_exit(data, args[1]);
 	else
 		free_and_exit(data, NULL);
 	return (0);

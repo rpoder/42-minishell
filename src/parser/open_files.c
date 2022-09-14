@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 17:31:00 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/13 15:49:04 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/14 10:32:17 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	open_heredoc(char **heredoc_path)
 	int		i;
 
 	i = 0;
-	fd_heredoc = -2;
+	fd_heredoc = FD_UNDEFINED;
 	while (fd_heredoc < 0 && i < INT_MAX)
 	{
 		heredoc = get_heredoc_name(i);

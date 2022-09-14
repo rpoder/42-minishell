@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 08:16:14 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/08/31 16:31:31 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/14 10:25:59 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,9 +44,9 @@ int	ft_export(t_data *data, char **args)
 	int		ret;
 
 	ret = 0;
-	if (ft_strcmp(args[1], "ft_export") != 0)
+	if (ft_strcmp(args[0], "export") != 0)
 		return (-1);
-	i = 2;
+	i = 1;
 	while (args[i])
 	{
 		if (is_valid_expand_key(args[i]) != 0 || args[i][0] == '?')
