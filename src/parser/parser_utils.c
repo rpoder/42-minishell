@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   parser_utils.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 19:07:59 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/13 11:47:16 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/14 20:37:00 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	*unmute_word(char *str)
+{
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (str[i] < 0)
+			str[i] = str[i] * -1;
+		i++;
+	}
+	return (str);
+}
 
 t_cmd_node	*init_cmd_node(void)
 {

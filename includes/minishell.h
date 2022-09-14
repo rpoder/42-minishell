@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/14 16:40:17 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/14 20:37:26 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -153,6 +153,7 @@ t_cmd_node		*init_cmd_node(void);
 t_heredoc_tool	*init_heredoc_tool(char *lim);
 int				check_ret(t_heredoc_tool *tool);
 void			free_heredoc_tool(t_heredoc_tool *tool);
+char			*unmute_word(char *str);
 
 /* heredoc_utils */
 void			free_heredoc_tool(t_heredoc_tool *tool);

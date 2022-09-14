@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_cmd_node.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 17:42:27 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/12 15:01:16 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/14 20:40:59 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,15 +20,15 @@ static int	set_fd(char **words, int i, t_cmd_node *cmd)
 	if (words[i + 1] && !is_redirection_operator(words[i + 1][0]))
 	{
 		if (words[i][0] == '<' && !words[i][1] && words[i + 1])
-			ret = set_fd_in(cmd, words[i + 1]);
+			ret = set_fd_in(cmd, unmute_word(words[i + 1]));
 		else if (words[i][0] == '<' && words[i][1] == '<'
 			&& !words[i][2] && words[i + 1])
-			ret = set_fd_heredoc(cmd, words[i + 1]);
+			ret = set_fd_heredoc(cmd, unmute_word(words[i + 1]));
 		else if (words[i][0] == '>' && !words[i][1] && words[i + 1])
-			set_fd_out(cmd, words[i + 1], O_TRUNC);
+			ret = set_fd_out(cmd, unmute_word(words[i + 1]), O_TRUNC);
 		else if (words[i][0] == '>' && words[i][1] == '>' &&
 			!words[i][2] && words[i + 1])
-			ret = set_fd_out(cmd, words[i + 1], O_APPEND);
+			ret = set_fd_out(cmd, unmute_word(words[i + 1]), O_APPEND);
 		else
 			return (PARSING_ERR);
 		if (ret != NO_ERR)
