@@ -6,7 +6,7 @@
 #    By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/09/12 13:19:53 by ronanpoder       ###   ########.fr        #
+#    Updated: 2022/09/14 13:07:29 by ronanpoder       ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -59,6 +59,7 @@ SRCS				:=	main.c \
 						parser/set_all_cmd_path.c \
 						executer/executer.c \
 						executer/executer_utils.c \
+						executer/executer_tool_utils.c \
 
 CC					:=	cc
 

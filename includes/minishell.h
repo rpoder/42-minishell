@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/13 11:47:08 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/14 13:19:56 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@
 # include "libft.h"
 # include "utils.h"
 
-enum errors { MALLOC_ERR = -100, OPEN_ERR, PARSING_ERR, ERR_NOT_DEFINED, NO_ERR, END, PIPE_ERR};
+enum errors { MALLOC_ERR = -100, OPEN_ERR, PARSING_ERR, ERR_NOT_DEFINED, NO_ERR, END, PIPE_ERR, DUP_ERR, WAITPID_ERR};
 
 typedef struct s_expand {
 	char	*key;
@@ -218,5 +218,10 @@ void	executer(t_data *data);
 char	**get_env_tab(t_data *data);
 int	is_first_cmd(t_data *data, t_list *cmd);
 int	is_last_cmd(t_list *cmd);
+
+/* executer_utils.c */
+
+t_exec_tool	*init_tool(t_list *cmd);
+
 
 #endif
