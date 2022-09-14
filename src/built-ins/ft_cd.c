@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:33:22 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/01 11:21:21 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/14 10:24:05 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,19 +67,19 @@ void	ft_cd(t_data *data, char **args)
 	char	*home_expand;
 	int		ret;
 
-	if (!home_expand && !args[2])
+	if (!home_expand && !args[1])
 	{
 		ft_putstr_fd("cd: HOME is not set\n", 2);
 		return ;
 	}
-	else if (!home_expand && args[2])
+	else if (!home_expand && args[1])
 		return ;
-	if (home_expand && !args[2])
+	if (home_expand && !args[1])
 		ret = chdir(home_expand);
-	if (try_cd(data, args[2]) != 0)
+	if (try_cd(data, args[1]) != 0)
 	{
 		ft_putstr_fd("cd:\'", 2);
-		ft_putstr_fd(args[2], 2);
+		ft_putstr_fd(args[1], 2);
 		ft_putstr_fd("\': no such file or directory\n", 2);
 		set_expand(data, "?", "1");
 	}

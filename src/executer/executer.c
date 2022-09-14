@@ -6,7 +6,7 @@
 /*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:17:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/13 19:39:24 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/14 10:33:06 by ronanpoder       ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,16 +41,13 @@ void	execute_cmds(t_data *data, t_list *cmd)
 	fd_stdin = dup(0);
 	while(cmd)
 	{
-		printf("cmd tab %s\n", ((t_cmd_node *)cmd->content)->cmd_tab[0]);
 		pipe_fd = init_pipe(data);
 		pipe(pipe_fd);
 		fork_ret[i] = fork();
-
 		if (fork_ret[i] == 0)
 		{
 			if (!is_last_cmd(cmd))
 			{
-				printf("dup sortie dans pipe %s\n", ((t_cmd_node *)cmd->content)->cmd_tab[0]);
 				dup2(pipe_fd[1], 1);
 			}
 			close(pipe_fd[0]);
@@ -63,7 +60,6 @@ void	execute_cmds(t_data *data, t_list *cmd)
 
 			if (execve(((t_cmd_node *)cmd->content)->path, ((t_cmd_node *)cmd->content)->cmd_tab, env_tab) != 0)
 			{
-				// global free si execve echoue
 				global_free(data, ERR_NOT_DEFINED);
 			}
 		}
