@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/14 20:37:26 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/15 11:24:43 by margot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include "libft.h"
 # include "utils.h"
 
-enum errors { MALLOC_ERR = -100, OPEN_ERR, PARSING_ERR, ERR_NOT_DEFINED, NO_ERR, END, PIPE_ERR, DUP_ERR, WAITPID_ERR};
+enum errors { MALLOC_ERR = -100, OPEN_ERR, PARSING_ERR, ERR_NOT_DEFINED, NO_ERR, END, PIPE_ERR, DUP_ERR, WAITPID_ERR, CLOSE_ERR};
 
 typedef struct s_expand {
 	char	*key;

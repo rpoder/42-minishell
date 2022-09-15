@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:17:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/14 16:38:45 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/15 11:24:49 by margot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,9 +39,14 @@ int	execute_child(t_data *data, t_list *cmd, int *pipe_fd)
 			global_free(data, DUP_ERR);
 		}
 	}
-	close(pipe_fd[0]);
-	close(pipe_fd[1]);
-	
+	if (close(pipe_fd[0]) != 0)
+	{
+			close(pipe_fd[1]);
+			global_free(data, CLOSE_ERR);
+	}
+	if (close(pipe_fd[1]))
+		global_free(data, CLOSE_ERR);
+
 	chevron_redirection(data, (t_cmd_node *)cmd->content);
 	env_tab = get_env_tab(data);
 	if (!env_tab)
@@ -94,7 +99,12 @@ void	execute_cmds(t_data *data, t_list *cmd)
 	}
 	// recuperer err de l'enfant
 
-	dup2(tool->fd_stdin, 0);
+	if (dup2(tool->fd_stdin, 0) < 0)
+	{
+		free(tool->fork_ret);
+		close(tool->fd_stdin);
+		global_free(data, DUP_ERR);
+	}
 	close(tool->fd_stdin);
 }
 

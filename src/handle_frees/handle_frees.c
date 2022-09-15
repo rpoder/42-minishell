@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_frees.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:18:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/14 13:29:26 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/15 11:47:05 by margot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,8 @@ void	global_free(t_data *data, enum errors err)
 		ft_printf_fd("mi_nils_shell: err not defined\n", 2);
 	else if (err == PIPE_ERR)
 		ft_printf_fd("mi_nils_shell: pipe err\n", 2);
-	else if (err == DUP_ERR)
-		ft_printf_fd("mi_nils_shell: dup err\n", 2);
+	// else if (err == DUP_ERR)
+	// 	ft_printf_fd("mi_nils_shell: dup err\n", 2);
 	else if (err == WAITPID_ERR)
 		ft_printf_fd("mi_nils_shell: waitpid err\n", 2);
 	else if (err == END)

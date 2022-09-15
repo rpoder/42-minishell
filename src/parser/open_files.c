@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 17:31:00 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/14 10:32:17 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/15 11:36:05 by margot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,10 @@ int	set_fd_out(t_cmd_node *cmd, char *outfile, int flag)
 	if (cmd->fd_out < 0)
 		cmd->fd_out = open(outfile, O_RDWR | O_CREAT, 0644);
 	if (cmd->fd_out < 0)
-		ft_printf_fd("minilsshell: %s: Permission denied\n", 2, outfile);
+	{
+		ft_printf_fd("minilsshell: ", 2);
+		perror(outfile);
+	}
 	return (NO_ERR);
 }
 
@@ -37,7 +40,10 @@ int	set_fd_in(t_cmd_node *cmd, char *infile)
 		return (PARSING_ERR);
 	cmd->fd_in = open(infile, O_RDONLY);
 	if (cmd->fd_in < 0)
-		ft_printf_fd("minilsshell: %s: Permission denied\n", 2, infile);
+	{
+		ft_printf_fd("minilsshell: ", 2);
+		perror(infile);
+	}
 	return (NO_ERR);
 }
 

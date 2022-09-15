@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redirections.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 16:37:29 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/14 16:37:56 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/15 11:48:06 by margot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ void	redirect_pipe_out(t_data *data, int *pipe_fd)
 
 void	chevron_redirection(t_data *data, t_cmd_node *cmd)
 {
-	if (cmd->fd_in >= 0)
+	if (cmd->fd_in >= -1)
 	{
 		if (dup2(cmd->fd_in, 0) < 0)
 		{
@@ -41,7 +41,7 @@ void	chevron_redirection(t_data *data, t_cmd_node *cmd)
 		}
 		close(cmd->fd_in);
 	}
-	if (cmd->fd_out >= 0)
+	if (cmd->fd_out >= -1)
 	{
 		if (dup2(cmd->fd_out, 1) < 0)
 		{
@@ -51,4 +51,5 @@ void	chevron_redirection(t_data *data, t_cmd_node *cmd)
 		}
 		close(cmd->fd_out);
 	}
+
 }
