@@ -92,7 +92,7 @@ int	set_and_skip_cmd_node(char **words, t_cmd_node *cmd, int *i)
 	int	ret;
 
 	ret = check_and_set_redirection(words, *i, cmd);
-	if (ret != NO_ERR)
+	if (ret != NO_ERR && ret != OPEN_ERR)
 		return (ret);
 	ret = set_cmd(words, *i, cmd); ////mettre ret a jour
 	if (ret != NO_ERR)

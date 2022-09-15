@@ -28,6 +28,7 @@ int	set_fd_out(t_cmd_node *cmd, char *outfile, int flag)
 	{
 		ft_printf_fd("minilsshell: ", 2);
 		perror(outfile);
+		return (OPEN_ERR);
 	}
 	return (NO_ERR);
 }
@@ -43,6 +44,7 @@ int	set_fd_in(t_cmd_node *cmd, char *infile)
 	{
 		ft_printf_fd("minilsshell: ", 2);
 		perror(infile);
+		return (OPEN_ERR);
 	}
 	return (NO_ERR);
 }
@@ -68,7 +70,9 @@ static int	open_heredoc(char **heredoc_path)
 	if (fd_heredoc < 0)
 	{
 		free(heredoc);
-		ft_printf_fd("minilsshell: heredoc: Permission denied\n", 2);
+		ft_printf_fd("minilsshell: heredoc: ", 2);
+		perror(fd_heredoc);
+		return (OPEN_ERR);
 	}
 	else
 		*heredoc_path = heredoc;
