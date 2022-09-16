@@ -32,19 +32,24 @@ int	set_cmd_path(t_cmd_node *cmd, char **path_tab)
 	char	*tmp;
 
 	i = 0;
-	while (path_tab[i])
+	if (path_tab)
 	{
-		tmp = ft_strsjoin(3, path_tab[i], "/", cmd->cmd_tab[0]);
-		if (!tmp)
-			return (MALLOC_ERR);
-		if (access(tmp, F_OK & X_OK) == 0)
+		while (path_tab[i])
 		{
-			cmd->path = tmp;
-			return (NO_ERR);
+			tmp = ft_strsjoin(3, path_tab[i], "/", cmd->cmd_tab[0]);
+			if (!tmp)
+				return (MALLOC_ERR);
+			if (access(tmp, F_OK & X_OK) == 0)
+			{
+				cmd->path = tmp;
+				return (NO_ERR);
+			}
+			free(tmp);
+			i++;
 		}
-		free(tmp);
-		i++;
 	}
+	else
+		cmd->path = NULL;
 	return (NO_ERR);
 }
 
@@ -64,5 +69,5 @@ void	set_all_cmd_path(t_data *data)
 		}
 		tmp = tmp->next;
 	}
-	free(path_tab);
+	ft_free_tab(&path_tab);
 }

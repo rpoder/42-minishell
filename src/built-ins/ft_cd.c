@@ -37,7 +37,9 @@ static int	try_cd(t_data *data, char *arg)
 	int		ret;
 	char	*old_path;
 	char	*concatened;
+	char	*new_pwd;
 
+	new_pwd = NULL;
 	old_path = get_expand_value(data, "PWD");
 	if (!old_path)
 		return (-1);
@@ -57,7 +59,9 @@ static int	try_cd(t_data *data, char *arg)
 	if (ret == 0)
 	{
 		set_expand(data, "OLDPWD", old_path);
-		set_expand(data, "PWD", get_path(data));
+		if (set_path(data, &new_pwd) == MALLOC_ERR)
+			global_free(data, MALLOC_ERR);
+		set_expand(data, "PWD", new_pwd);
 	}
 	return (ret);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/15 11:24:43 by margot           ###   ########.fr       */
+/*   Updated: 2022/09/16 17:53:00 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@
 # include "libft.h"
 # include "utils.h"
 
-enum errors { MALLOC_ERR = -100, OPEN_ERR, PARSING_ERR, ERR_NOT_DEFINED, NO_ERR, END, PIPE_ERR, DUP_ERR, WAITPID_ERR, CLOSE_ERR};
+enum errors { MALLOC_ERR = -100, OPEN_ERR, PARSING_ERR, ERR_NOT_DEFINED, NO_ERR, END, PIPE_ERR, DUP_ERR, WAITPID_ERR, CLOSE_ERR, PATH_MAX_ERR};
 
 typedef struct s_expand {
 	char	*key;
@@ -51,12 +51,14 @@ typedef struct s_cmd_node {
 
 extern t_data *data;
 
-// # define PATH_MAX 4096
+# define PATH_MAX 4096
+# define ENV_DEFAULT_PATH "/mnt/nfs/homes/rpoder/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
 
 # define FD_UNDEFINED -2
 # define FD_PARSING_ERR -3
 
 # define BUFFER_SIZE_GNL 10
+
 
 /* init.c */
 t_data			*init_data(char **env, char *prompt_line);
@@ -106,6 +108,9 @@ void			clear_expand_tool(t_expand_tool *tool);
 
 /* set_env.c */
 void			set_env(t_data *data, char **env);
+
+/* set_env_utils.c */
+int	add_default_expands_to_env(t_data *data);
 
 /*lexer.c*/
 void			lexer(t_data *data);
@@ -206,7 +211,7 @@ void	ft_cd(t_data *data, char **args);
 
 /* ft_pwd.c */
 void	ft_pwd(t_data *data, char **args);
-char	*get_path(t_data *data);
+int	set_path(t_data *data, char **path);
 
 /* ft_exit */
 int		ft_exit(t_data *data, char **args);
@@ -217,17 +222,17 @@ int		ft_exit(t_data *data, char **args);
 void	executer(t_data *data);
 
 /* handle_redirections.c */
-void	redirect_pipe_out(t_data *data, int *pipe_fd);
-void	chevron_redirection(t_data *data, t_cmd_node *cmd);
+void		redirect_pipe_out(t_data *data, int *pipe_fd);
+void		chevron_redirection(t_data *data, t_cmd_node *cmd);
 
 /* executer_utils.c */
-char	**get_env_tab(t_data *data);
-int		is_first_cmd(t_data *data, t_list *cmd);
-int		is_last_cmd(t_list *cmd);
-int		*init_pipe(t_data *data);
+int			*init_pipe(t_data *data);
+char		**get_env_tab(t_data *data);
+int			is_last_cmd(t_list *cmd);
 
 /* executer_tool_utils.c */
-t_exec_tool	*init_tool(t_list *cmd);
+void		free_exec_tool(t_exec_tool **tool);
+t_exec_tool	*init_exec_tool(t_list *cmd);
 
 
 #endif

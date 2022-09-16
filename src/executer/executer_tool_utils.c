@@ -12,7 +12,19 @@
 
 #include "minishell.h"
 
-int	*init_pipe_fd(void)
+void	free_exec_tool(t_exec_tool **tool)
+{
+	if ((*tool)->pipe_fd)
+		free((*tool)->pipe_fd);
+	if ((*tool)->fork_ret)
+		free((*tool)->fork_ret);
+	if ((*tool)->fd_stdin >= 0)
+		close ((*tool)->fd_stdin);
+	free(*tool);
+	*tool = NULL;
+}
+
+static int	*init_pipe_fd(void)
 {
 	int	*pipe_fd;
 
@@ -24,7 +36,7 @@ int	*init_pipe_fd(void)
 	return (pipe_fd);
 }
 
-pid_t	*init_fork_ret(t_list *cmd)
+static pid_t	*init_fork_ret(t_list *cmd)
 {
 	int		len;
 	pid_t	*fork_ret;
@@ -41,7 +53,7 @@ pid_t	*init_fork_ret(t_list *cmd)
 	return (fork_ret);
 }
 
-t_exec_tool	*init_tool(t_list *cmd)
+t_exec_tool	*init_exec_tool(t_list *cmd)
 {
 	t_exec_tool	*tool;
 
