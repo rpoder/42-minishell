@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/15 11:24:43 by margot           ###   ########.fr       */
+/*   Updated: 2022/09/16 16:54:17 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,14 +85,18 @@ void			mute_in_quotes(t_data *data);
 int				set_expand(t_data *data, char *key, char *value_to_modify);
 void			add_expand(t_data *data, t_list **alst, char *key, char *value);
 
+/*---------------------------------------------- EXPANDER */
 /* expander.c */
 void			expander(t_data *data);
 
 /*expand_getters.c*/
 char			*get_expand_value(t_data *data, char *expand_key);
 char			*get_expand_key(char *str, int i);
+
+/* expand_len.c */
 int				expand_key_len(char *str, int i);
 int				expand_value_len(t_data *data, char *str, int i);
+int				expanded_line_len(t_data *data, char *str, t_expand_tool *tool);
 
 /* expander_utils.c*/
 int				has_expand(char *str);
@@ -100,9 +104,10 @@ int				is_expand_to_interpret(char *str, int i, t_quotes *quotes);
 int				is_expand_separator(char c);
 int				is_expand_suffix(char c, int j);
 
-/* expander_utils_2.c */
+/* expander_tool_utils.c */
 t_expand_tool	*init_expand_tool(void);
 void			clear_expand_tool(t_expand_tool *tool);
+void			free_expand_tool(t_expand_tool *expand_tool);
 
 /* set_env.c */
 void			set_env(t_data *data, char **env);
@@ -142,6 +147,12 @@ int				parser(t_data *data);
 /* set_cmd_node.c */
 int				set_and_skip_cmd_node(char **words, t_cmd_node *cmd, int *i);
 
+/* set_cmd_tab */
+int	set_cmd_tab(char **words, int i, t_cmd_node *cmd);
+
+/* set_redirection */
+int	check_and_set_redirection(char **words, int i, t_cmd_node *cmd);
+
 /* open_files.c */
 int				set_fd_heredoc(t_cmd_node *cmd, char *lim);
 int				set_fd_in(t_cmd_node *cmd, char *infile);
@@ -150,10 +161,8 @@ int				set_fd_out(t_cmd_node *cmd, char *outfile, int flag);
 /* parser_utils.c */
 int				cmd_tab_len(char **words, int i);
 t_cmd_node		*init_cmd_node(void);
-t_heredoc_tool	*init_heredoc_tool(char *lim);
-int				check_ret(t_heredoc_tool *tool);
-void			free_heredoc_tool(t_heredoc_tool *tool);
 char			*unmute_word(char *str);
+void			print_ambiguous_redirection(char *expand);
 
 /* heredoc_utils */
 void			free_heredoc_tool(t_heredoc_tool *tool);
