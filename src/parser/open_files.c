@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_files.c                                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 17:31:00 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/15 11:36:05 by margot           ###   ########.fr       */
+/*   Updated: 2022/09/16 17:55:26 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,7 +71,7 @@ static int	open_heredoc(char **heredoc_path)
 	{
 		free(heredoc);
 		ft_printf_fd("minilsshell: heredoc: ", 2);
-		perror(fd_heredoc);
+		perror(heredoc);
 		return (OPEN_ERR);
 	}
 	else
