@@ -12,22 +12,46 @@
 
 #include "minishell.h"
 
-static t_list	*add_return_value_expand(t_data *data)
+static int	add_error_expand_to_local(t_data *data)
 {
-	char	*expand_key;
-	char	*expand_value;
+	char	*key;
+	char	*value;
 
-	expand_key = ft_alloc_and_fill("?");
-	if (!expand_key)
-		return (NULL);
-	expand_value = ft_alloc_and_fill("0");
-	if (!expand_value)
+	key = ft_alloc_and_fill("?");
+	if (!key)
+		return (MALLOC_ERR);
+	value = ft_alloc_and_fill("0");
+	if (!value)
 	{
-		free(expand_key);
-		return (NULL);
+		free(key);
+		return (MALLOC_ERR);
 	}
-	add_expand(data, &data->local_expands, expand_key, expand_value);
-	return (data->local_expands);
+	add_expand(data, &data->local_expands, key, value);
+	return (NO_ERR);
+}
+
+static int	add_path_to_local(t_data *data, char **env)
+{
+	char	*key;
+	char	*value;
+
+	if (env && !env[0])
+	{
+		if (get_expand_value(data, "PATH") == NULL)
+		{
+			key = ft_alloc_and_fill("PATH");
+			if (!key)
+				return (MALLOC_ERR);
+			value = ft_alloc_and_fill(ENV_DEFAULT_PATH);
+			if (!value)
+			{
+				free(key);
+				return (MALLOC_ERR);
+			}
+			add_expand(data, &data->local_expands, key, value);
+		}
+	}
+	return (NO_ERR);
 }
 
 t_data	*init_data(char **env, char *prompt_line)
@@ -44,8 +68,7 @@ t_data	*init_data(char **env, char *prompt_line)
 	data->expanded_line = NULL;
 	data->words = NULL;
 	data->cmds = NULL;
-	data->local_expands = add_return_value_expand(data);
-	if (!data->local_expands)
+	if (add_error_expand_to_local(data) != NO_ERR || add_path_to_local(data, env) != NO_ERR)
 		global_free(data, MALLOC_ERR);
 	data->prompt_line = ft_alloc_and_fill(prompt_line);
 	if (!data->prompt_line)

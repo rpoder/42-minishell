@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 17:31:00 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/16 17:55:26 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/17 12:37:03 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,11 @@
 
 int	set_fd_out(t_cmd_node *cmd, char *outfile, int flag)
 {
+	if (outfile[0] < 0)
+	{
+		print_ambiguous_redirection(outfile);
+		return (OPEN_ERR);
+	}
 	if (cmd->fd_out >= 0)
 		close(cmd->fd_out);
 	if (is_redirection_operator(outfile[0]))
@@ -35,6 +40,11 @@ int	set_fd_out(t_cmd_node *cmd, char *outfile, int flag)
 
 int	set_fd_in(t_cmd_node *cmd, char *infile)
 {
+	if (infile[0] < 0)
+	{
+		print_ambiguous_redirection(infile);
+		return (OPEN_ERR);
+	}
 	if (cmd->fd_in >= 0)
 		close(cmd->fd_out);
 	if (is_redirection_operator(infile[0]))
@@ -114,7 +124,6 @@ int	set_fd_heredoc(t_cmd_node *cmd, char *lim)
 		heredoc_node = ft_lstnew(ft_alloc_and_fill(tool->heredoc_path));
 		ft_lstadd_back(&cmd->heredocs, heredoc_node);
 	}
-
 	if (cmd->fd_in == MALLOC_ERR)
 	{
 		free(tool);

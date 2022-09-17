@@ -26,24 +26,34 @@ int	*init_pipe(t_data *data)
 char	**get_env_tab(t_data *data)
 {
 	char	**env_tab;
+	t_list	*env;
+	int		i;
+	int		tab_len;
 
-	env_tab = malloc(sizeof(char) * (ft_lstlen(data->env) +1));
+	i = 0;
+	tab_len = ft_lstlen(data->env);
+	env_tab = malloc(sizeof(char *) * (tab_len + 1));
 	if (!env_tab)
-		global_free(data, MALLOC_ERR);
-	
+		global_free(data, MALLOC_ERR); ///////////////////// return NULL
+	ft_clear_tab(&env_tab, tab_len + 1);
+	env = data->env;
+	while (env)
+	{
+		env_tab[i] = ft_strsjoin(3, ((t_expand *)env->content)->key, "=", ((t_expand *)env->content)->value);
+		if (!env_tab[i])
+		{
+			ft_free_tab(&env_tab);
+			return (NULL);
+		}
+		env = env->next;
+		i++;
+	}
 	return (env_tab);
 }
 
 int	is_last_cmd(t_list *cmd)
 {
 	if (cmd->next == NULL)
-		return (1);
-	return (0);
-}
-
-int	is_first_cmd(t_data *data, t_list *cmd)
-{
-	if (data->cmds == cmd)
 		return (1);
 	return (0);
 }

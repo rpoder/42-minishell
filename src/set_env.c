@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 12:24:39 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/01 11:21:21 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/16 17:52:28 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,11 @@ void	set_env(t_data *data, char **env)
 	char	*env_value;
 
 	i = 0;
-	if (!env)
-		data->env = NULL;
+ 	if (env && !env[0])
+	{
+		if (add_default_expands_to_env(data) != NO_ERR)
+			global_free(data, MALLOC_ERR);
+	}
 	else
 	{
 		while (env[i])
