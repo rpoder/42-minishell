@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 16:56:05 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/16 11:54:10 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/17 12:36:53 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,10 +30,21 @@ int	is_expand_separator(char c)
 	return (0);
 }
 
+int	is_limiter(char *str, int i)
+{
+	
+	i--;
+	while (str[i] && is_space(str[i]))
+		i--;
+	if (str[i] && str[i] == '<' && str[i - 1] == '<')
+		return (1);
+	return (0);
+}
+
 int	is_expand_to_interpret(char *str, int i, t_quotes *quotes)
 {
 	if (!str[i + 1] || is_expand_separator(str[i + 1])
-		|| is_expand_suffix(str[i + 1], 0))
+		|| is_expand_suffix(str[i + 1], 0) || is_limiter(str, i))
 		return (0);
 	if (quotes->dbl_quote)
 		return (1);
