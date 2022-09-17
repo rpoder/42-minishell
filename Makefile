@@ -6,7 +6,7 @@
 #    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/09/16 16:54:52 by mpourrey         ###   ########.fr        #
+#    Updated: 2022/09/17 11:56:50 by mpourrey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -26,6 +26,7 @@ SRCS				:=	main.c \
 						utils/gnl_minishell.c \
 						utils/gnl_minishell_utils.c \
 						set_env.c \
+						set_env_utils.c \
 						handle_frees/handle_frees.c \
 						handle_expand.c \
 						syntax_checker/quote_syntax_checker.c \
