@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/16 18:02:27 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/17 11:56:39 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		// line = readline("mi_nils_shell j'écoute ? > ");
 		// add_history(line); //pas strlen < 1
-		line = "echo $SHLVL";
+		line = "echo $YOYO.";
 		data = init_data(env, line);
 	 	if (quote_syntax_checker(line) == 1) //quote_syntax_checker
 		{
