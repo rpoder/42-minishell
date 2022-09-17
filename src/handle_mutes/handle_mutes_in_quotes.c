@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 15:20:35 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/31 11:59:19 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/17 19:46:15 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,14 @@ void	mute_in_quotes(t_data *data)
 	int	i;
 
 	i = 0;
-	while (data->prompt_line[i])
+	if (data->prompt_line)
 	{
-		if (data->prompt_line[i] == '\'' || data->prompt_line[i] == '\"')
-			i = mute_and_skip_inside_quotes(data, i);
-		else
-			i++;
-	}			
+		while (data->prompt_line[i])
+		{
+			if (data->prompt_line[i] == '\'' || data->prompt_line[i] == '\"')
+				i = mute_and_skip_inside_quotes(data, i);
+			else
+				i++;
+		}			
+	}
 }

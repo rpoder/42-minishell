@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 17:31:00 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/17 12:37:03 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/17 17:47:41 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ int	set_fd_out(t_cmd_node *cmd, char *outfile, int flag)
 {
 	if (outfile[0] < 0)
 	{
+		cmd->fd_out = -1;
 		print_ambiguous_redirection(outfile);
 		return (OPEN_ERR);
 	}
@@ -42,6 +43,7 @@ int	set_fd_in(t_cmd_node *cmd, char *infile)
 {
 	if (infile[0] < 0)
 	{
+		cmd->fd_in = -1;
 		print_ambiguous_redirection(infile);
 		return (OPEN_ERR);
 	}

@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/17 11:56:16 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/17 19:36:21 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,6 +35,7 @@ typedef struct s_expand {
 typedef struct s_data {
 	t_list	*env;
 	t_list	*local_expands;
+	t_list	*unfound_expands;
 	char	*prompt_line;
 	char	*expanded_line;
 	char	**words;
@@ -105,6 +106,7 @@ int				has_expand(char *str);
 int				is_expand_to_interpret(char *str, int i, t_quotes *quotes);
 int				is_expand_separator(char c);
 int				is_expand_suffix(char c, int j);
+void			save_unfound_expand(t_data *data, char *str, int start, t_expand_tool *tool);
 
 /* expander_tool_utils.c */
 t_expand_tool	*init_expand_tool(void);
@@ -232,7 +234,7 @@ void	executer(t_data *data);
 
 /* handle_redirections.c */
 void		redirect_pipe_out(t_data *data, int *pipe_fd);
-void		chevron_redirection(t_data *data, t_cmd_node *cmd);
+void		chevron_redirection(t_data *data, t_cmd_node *cmd, t_exec_tool *tool);
 
 /* executer_utils.c */
 int			*init_pipe(t_data *data);

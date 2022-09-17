@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_frees.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:18:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/15 11:47:05 by margot           ###   ########.fr       */
+/*   Updated: 2022/09/17 20:31:06 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ void	del_one_expand(void *content)
 		}
 		//free(casted_arg);
 	}
+}
+
+void	del_unfound_expand(void *expand)
+{
+	if ((char *)expand)
+		free((char *)expand);
 }
 
 void	del_expand(void *expand)
@@ -99,6 +105,8 @@ void	global_free(t_data *data, enum errors err)
 			ft_lstclear(&data->env, &del_expand);
 		if (data->local_expands)
 			ft_lstclear(&data->local_expands, &del_expand);
+//		if (data->unfound_expands)
+//			ft_lstclear(&data->unfound_expands, &del_unfound_expand);
 		if (data->prompt_line)
 			free(data->prompt_line);
 		if (data->expanded_line)

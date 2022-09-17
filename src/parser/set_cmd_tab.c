@@ -6,13 +6,13 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 16:52:44 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/16 17:32:08 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/17 17:18:32 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	alloc_and_fill_unexisting_expand(t_cmd_node *cmd, int j, char *word)
+/* static int	alloc_and_fill_unexisting_expand(t_cmd_node *cmd, int j, char *word)
 {
 	int	i;
 	int	start;
@@ -54,14 +54,59 @@ static int	alloc_and_fill_cmd_tab_word(t_cmd_node *cmd, int j, char *word)
 			return (MALLOC_ERR);
 	}
 	return (NO_ERR);
+} */
+
+static int	cmd_tab_word_len(char *word)
+{
+	int	len;
+	int	i;
+
+	len = 0;
+	i = 0;
+	while (word[i])
+	{
+		if (word[i] > 0 || word[i] * -1 != '*')
+			len++;
+		i++;
+	}
+	return (len);
 }
+
+static int	alloc_and_fill_cmd_tab_word(t_cmd_node *cmd, int j, char *word)
+{
+	int	i;
+	int	k;
+
+	i = 0;
+	k = 0;
+	cmd->cmd_tab[j] = malloc(sizeof(char) * cmd_tab_word_len(word) + 1);
+	if (!cmd->cmd_tab[j])
+		return (MALLOC_ERR);
+	while (word[i])
+	{
+		if (word[i] < 0 && word[i] * -1 == '*')
+			i++;
+		else
+		{
+			if (word[i] < 0)
+				cmd->cmd_tab[j][k] = word[i] * -1;
+			else
+				cmd->cmd_tab[j][k] = word[i];
+			i++;
+			k++;
+		}
+	}
+	cmd->cmd_tab[j][k] = '\0';
+	return (NO_ERR);
+}
+
 
 int	set_cmd_tab(char **words, int i, t_cmd_node *cmd)
 {
 	int	j;
 	int	ret;
 
-	cmd->cmd_tab = malloc(sizeof(char *) * (cmd_tab_len(words, i) + 1));
+	cmd->cmd_tab = malloc(sizeof(char *) * (cmd_tab_len(words, i) + 1)); ///
 	if (!cmd->cmd_tab)
 		return (MALLOC_ERR);
 	ft_clear_tab(&cmd->cmd_tab, cmd_tab_len(words, i) + 1);

@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 18:49:59 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/08 20:35:41 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/17 19:34:51 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,10 +99,13 @@ void	redirection_syntax_printer(char **words)
 	int	i;
 
 	i = 0;
-	if (check_redir_op_error(words) != 0)
-		return ;
-	while (words[i + 1])
-		i++;
-	if (is_redirection_operator(words[i][0]))
-		ft_printf_fd("syntax error near unexpected `newline'\n", 2);
+	if (words)
+	{
+		if (check_redir_op_error(words) != 0)
+			return ;
+		while (words[i + 1])
+			i++;
+		if (is_redirection_operator(words[i][0]))
+			ft_printf_fd("syntax error near unexpected `newline'\n", 2);
+	}
 }

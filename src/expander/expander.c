@@ -6,13 +6,13 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:02:08 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/17 12:37:00 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/17 20:22:46 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	fill_with_muted_key(t_data *data, t_expand_tool *tool)
+/* static void	fill_with_muted_key(t_data *data, t_expand_tool *tool)
 {
 	int		i;
 	int		j;
@@ -31,14 +31,14 @@ static void	fill_with_muted_key(t_data *data, t_expand_tool *tool)
 	}
 	(data->expanded_line)[j] = '*' * -1;
 	j++;
-	while (expand_key[k])
+ 	while (expand_key[k])
 	{
 		(data->expanded_line)[j] = expand_key[k] * -1;
 		j++;
 		k++;
 	}
 	free(expand_key);
-}
+} */
 
 static void	fill_with_expand_value(t_data *data, t_expand_tool *tool)
 {
@@ -72,11 +72,10 @@ static void	fill_and_skip_expand(t_data *data, t_expand_tool *tool)
 {
 	int	exp_value_len;
 
-	exp_value_len = expand_value_len(data, data->prompt_line, tool->i + 1);
+	exp_value_len = expand_value_len(data, data->prompt_line, tool->len + 1);
 	if (exp_value_len < 0)
 	{
-		free(tool->quotes);
-		free(tool);
+		free_expand_tool(tool);
 		global_free(data, MALLOC_ERR);
 	}
 	else if (exp_value_len > 0)
@@ -86,8 +85,9 @@ static void	fill_and_skip_expand(t_data *data, t_expand_tool *tool)
 	}
 	else if (exp_value_len == 0)
 	{
-		fill_with_muted_key(data, tool);
-		tool->i += (expand_key_len(data->prompt_line, tool->len + 1) + 1);
+		(data->expanded_line)[tool->i] = '*' * -1;
+		save_unfound_expand(data, data->prompt_line, tool->len, tool);
+		tool->i += 1;
 	}
 	tool->len += expand_key_len(data->prompt_line, tool->len + 1);
 }
@@ -100,7 +100,7 @@ static void	fill_expanded_line(t_data *data, t_expand_tool *tool)
 		set_quotes(data->prompt_line[tool->len], tool->quotes);
 		if (data->prompt_line[tool->len] == '$' && is_expand_to_interpret
 			(data->prompt_line, tool->len, tool->quotes))
-			fill_and_skip_expand(data, tool);
+				fill_and_skip_expand(data, tool);
 		else
 		{
 			data->expanded_line[tool->i] = data->prompt_line[tool->len];
@@ -126,7 +126,8 @@ void	expander(t_data *data)
 	expand_tool = init_expand_tool();
 	if (!expand_tool)
 		global_free(data, MALLOC_ERR);
-	dst_len = expanded_line_len(data, data->prompt_line, expand_tool); //////////
+	dst_len = expanded_line_len(data, data->prompt_line, expand_tool);
+	printf("dst len = %d\n", dst_len);
 	data->expanded_line = malloc(sizeof(char) * (dst_len + 1));
 	if (!data->expanded_line)
 	{
@@ -135,4 +136,5 @@ void	expander(t_data *data)
 	}
 	fill_expanded_line(data, expand_tool);
 	free_expand_tool(expand_tool);
+	printf("exp line = %s\n", data->expanded_line);
 }

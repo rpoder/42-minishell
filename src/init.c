@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:43:05 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/12 15:01:16 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/17 19:39:55 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ t_data	*init_data(char **env, char *prompt_line)
 	data->env = NULL;
 	set_env(data, env);
 	data->local_expands = NULL;
+	data->unfound_expands = NULL;
 	data->prompt_line = NULL;
 	data->expanded_line = NULL;
 	data->words = NULL;

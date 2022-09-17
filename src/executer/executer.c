@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:17:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/15 11:24:49 by margot           ###   ########.fr       */
+/*   Updated: 2022/09/17 18:49:25 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ int	execute_child(t_data *data, t_list *cmd, t_exec_tool *tool)
 {
 	char **env_tab;
 
+	env_tab = NULL;
 	if (!is_last_cmd(cmd))
 	{
 		if (dup2(tool->pipe_fd[1], 1) < 0)
@@ -47,13 +48,12 @@ int	execute_child(t_data *data, t_list *cmd, t_exec_tool *tool)
 	if (close(tool->pipe_fd[1]))
 		global_free(data, CLOSE_ERR);
 
-	chevron_redirection(data, (t_cmd_node *)cmd->content);
-	env_tab = get_env_tab(data);
-	if (!env_tab)
+	chevron_redirection(data, (t_cmd_node *)cmd->content, tool);
+/* 	if (!env_tab)
 	{
 		free_exec_tool(&tool);
 		global_free(data, MALLOC_ERR);
-	}
+	} */
 	// check if builtins
 	if (execve(((t_cmd_node *)cmd->content)->path, ((t_cmd_node *)cmd->content)->cmd_tab, env_tab) != 0)
 	{
