@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:17:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/15 11:24:49 by margot           ###   ########.fr       */
+/*   Updated: 2022/09/18 15:12:23 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,13 +55,16 @@ int	execute_child(t_data *data, t_list *cmd, t_exec_tool *tool)
 		global_free(data, MALLOC_ERR);
 	}
 	// check if builtins
-	if (execve(((t_cmd_node *)cmd->content)->path, ((t_cmd_node *)cmd->content)->cmd_tab, env_tab) != 0)
+	if (exec_builtins(data, ((t_cmd_node *)cmd->content)->cmd_tab) != 0)
 	{
-		ft_free_tab(&env_tab);
-		free_exec_tool(&tool);
-		global_free(data, ERR_NOT_DEFINED);
+		if (execve(((t_cmd_node *)cmd->content)->path, ((t_cmd_node *)cmd->content)->cmd_tab, env_tab) != 0)
+		{
+			ft_free_tab(&env_tab);
+			free_exec_tool(&tool);
+			global_free(data, ERR_NOT_DEFINED);
+		}
 	}
-	return (0);
+	return (NO_ERR);
 }
 
 void	execute_cmds(t_data *data, t_list *cmd)

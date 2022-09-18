@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/17 11:56:16 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/18 15:10:31 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -243,5 +243,7 @@ int			is_last_cmd(t_list *cmd);
 void		free_exec_tool(t_exec_tool **tool);
 t_exec_tool	*init_exec_tool(t_list *cmd);
 
+/* exec_builtins.c */
+int			exec_builtins(t_data *data, char **cmd_tab);
 
 #endif

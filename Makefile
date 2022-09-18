@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
+#    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/09/17 11:56:50 by mpourrey         ###   ########.fr        #
+#    Updated: 2022/09/18 15:09:50 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -65,6 +65,7 @@ SRCS				:=	main.c \
 						executer/handle_redirections.c \
 						executer/executer_utils.c \
 						executer/executer_tool_utils.c \
+						executer/exec_builtins.c \
 
 CC					:=	cc
 
