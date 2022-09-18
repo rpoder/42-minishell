@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_all_cmd_path.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 17:12:44 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/12 11:21:34 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/18 13:16:49 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,24 +32,19 @@ int	set_cmd_path(t_cmd_node *cmd, char **path_tab)
 	char	*tmp;
 
 	i = 0;
-	if (path_tab)
+	while (path_tab[i])
 	{
-		while (path_tab[i])
+		tmp = ft_strsjoin(3, path_tab[i], "/", cmd->cmd_tab[0]);
+		if (!tmp)
+			return (MALLOC_ERR);
+		else if (access(tmp, F_OK & X_OK) == 0)
 		{
-			tmp = ft_strsjoin(3, path_tab[i], "/", cmd->cmd_tab[0]);
-			if (!tmp)
-				return (MALLOC_ERR);
-			if (access(tmp, F_OK & X_OK) == 0)
-			{
-				cmd->path = tmp;
-				return (NO_ERR);
-			}
-			free(tmp);
-			i++;
+			cmd->path = tmp;
+			return (NO_ERR);
 		}
+		free(tmp);
+		i++;
 	}
-	else
-		cmd->path = NULL;
 	return (NO_ERR);
 }
 
@@ -58,7 +53,7 @@ void	set_all_cmd_path(t_data *data)
 	char		**path_tab;
 	t_list		*tmp;
 
-	path_tab = create_path_tab(data);
+	path_tab = create_path_tab(data);	
 	tmp = data->cmds;
 	while (tmp)
 	{
