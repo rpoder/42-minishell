@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 16:10:38 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/14 10:27:05 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/18 16:05:53 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ void	ft_pwd(t_data *data, char **args)
 	else
 	{
 		ft_putstr_fd(path, 1);
+		ft_putchar_fd('\n', 2);
 		set_expand(data, "?", "0");
 	}
 	free(path);

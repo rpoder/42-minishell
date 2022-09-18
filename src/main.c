@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/18 15:12:56 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/18 16:07:45 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,10 +70,10 @@ void	test_ronan(t_data *data)
 
 	char **args;
 	args = malloc(sizeof(char *) * 2);
-	args[0] = ft_alloc_and_fill("env");
+	args[0] = ft_alloc_and_fill("pwd");
 	args[1] = NULL;
 
-	ft_env(data, args);
+	ft_pwd(data, args);
 
 }
 
@@ -86,14 +86,13 @@ int	main(int argc, char **argv, char **env)
 	{
 		// line = readline("mi_nils_shell j'écoute ? > ");
 		// add_history(line); //pas strlen < 1
-		line = "echo coucou | pwd";
+		line = "cd ./src";
 		data = init_data(env, line);
 	 	if (quote_syntax_checker(line) == 1) //quote_syntax_checker
 		{
 			global_free(data, PARSING_ERR);
 			return (1);
 		}
-		// test_ronan(data);
 
  		mute_in_quotes(data);
 		expander(data);
@@ -102,6 +101,7 @@ int	main(int argc, char **argv, char **env)
 		redirection_syntax_printer(data->words);
 		parser(data);
 		executer(data);
+		test_ronan(data);
 	//	test_parser(data->cmds);
 		global_free(data, END);
 	}

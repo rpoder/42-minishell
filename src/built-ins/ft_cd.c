@@ -3,90 +3,43 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:33:22 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/14 10:24:05 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/18 16:15:08 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*add_point(char *arg)
-{
-	int		i;
-	char	*dst;
-
-	i = 0;
-	dst = malloc(sizeof(char) * (1 + ft_strlen(arg) + 1));
-	if (!dst)
-		return (NULL);
-	dst[i] = '.';
-	i++;
-	while (arg[i - 1])
-	{
-		dst[i] = arg[i - 1];
-		i++;
-	}
-	dst[i] = '\0';
-	return (dst);
-}
-
-static int	try_cd(t_data *data, char *arg)
+int	ft_cd(t_data *data, char **args)
 {
 	int		ret;
-	char	*old_path;
-	char	*concatened;
-	char	*new_pwd;
+	char	*home_expand_value;
+	printf("IN BUILTINS CD\n");
 
-	new_pwd = NULL;
-	old_path = get_expand_value(data, "PWD");
-	if (!old_path)
-		return (-1);
-	if (arg[0] != '.')
+	home_expand_value = get_expand_value(data, "HOME");
+	if (!home_expand_value && !args[1])
+		return (NO_ERR);
+	else if (home_expand_value && !args[1])
 	{
-		concatened = add_point(arg);
-		if (!concatened)
+		ret = chdir(home_expand_value);
+		if (ret != 0)
 		{
-			global_free(data, MALLOC_ERR);
-			return (-1);
+			ft_printf_fd("minilsshell: cd: ", 2);
+			perror(home_expand_value);
 		}
-		ret = chdir(concatened);
-		free(concatened);
 	}
-	else
-		ret = chdir(arg);
-	if (ret == 0)
+	else if (args[1])
 	{
-		set_expand(data, "OLDPWD", old_path);
-		if (set_path(data, &new_pwd) == MALLOC_ERR)
-			global_free(data, MALLOC_ERR);
-		set_expand(data, "PWD", new_pwd);
+		printf("%s\n", args[1]);
+		ret = chdir(args[1]);
+		if (ret != 0)
+		{
+			ft_printf_fd("minilsshell: cd: ", 2);
+			perror(args[1]);
+		}
 	}
-	return (ret);
-}
 
-void	ft_cd(t_data *data, char **args)
-{
-	char	*home_expand;
-	int		ret;
-
-	if (!home_expand && !args[1])
-	{
-		ft_putstr_fd("cd: HOME is not set\n", 2);
-		return ;
-	}
-	else if (!home_expand && args[1])
-		return ;
-	if (home_expand && !args[1])
-		ret = chdir(home_expand);
-	if (try_cd(data, args[1]) != 0)
-	{
-		ft_putstr_fd("cd:\'", 2);
-		ft_putstr_fd(args[1], 2);
-		ft_putstr_fd("\': no such file or directory\n", 2);
-		set_expand(data, "?", "1");
-	}
-	else
-		set_expand(data, "?", "0");
+	return (NO_ERR);
 }

@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/18 15:10:31 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/18 16:04:32 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -216,7 +216,7 @@ int		ft_export(t_data *data, char **args);
 int		ft_unset(t_data *data, char **args);
 
 /* ft_cd.c */
-void	ft_cd(t_data *data, char **args);
+int	ft_cd(t_data *data, char **args);
 
 /* ft_pwd.c */
 void	ft_pwd(t_data *data, char **args);
