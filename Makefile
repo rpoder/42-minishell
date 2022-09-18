@@ -6,7 +6,7 @@
 #    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/09/17 11:56:50 by mpourrey         ###   ########.fr        #
+#    Updated: 2022/09/18 19:34:22 by mpourrey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -38,6 +38,7 @@ SRCS				:=	main.c \
 						expander/expand_lens.c \
 						expander/expander_utils.c \
 						expander/expander_tools_utils.c \
+						expander/ambiguous_redirect_utils.c  \
 						handle_mutes/handle_mutes_in_expand.c \
 						handle_mutes/mutes_in_expand_utils.c \
 						lexer/lexer.c \

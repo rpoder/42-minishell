@@ -6,18 +6,18 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/06 17:31:00 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/18 18:15:36 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/18 22:21:45 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	set_fd_out(t_cmd_node *cmd, char *outfile, int flag, char *amb_redir)
+int	set_fd_out(t_cmd_node *cmd, char *outfile, int flag)
 {
 	if (!outfile[0])
 	{
 		cmd->fd_out = -1;
-		print_ambiguous_redirection(amb_redir);
+		ft_printf_fd("minishell: ambiguous redirect\n", 2);
 		return (OPEN_ERR);
 	}
 	if (cmd->fd_out >= 0)
@@ -39,12 +39,12 @@ int	set_fd_out(t_cmd_node *cmd, char *outfile, int flag, char *amb_redir)
 	return (NO_ERR);
 }
 
-int	set_fd_in(t_cmd_node *cmd, char *infile, char *amb_redir)
+int	set_fd_in(t_cmd_node *cmd, char *infile)
 {
 	if (!infile[0])
 	{
 		cmd->fd_in = -1;
-		print_ambiguous_redirection(amb_redir);
+		ft_printf_fd("minishell: ambiguous redirect\n", 2);
 		return (OPEN_ERR);
 	}
 	if (cmd->fd_in >= 0)

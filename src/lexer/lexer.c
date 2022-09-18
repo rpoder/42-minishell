@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   lexer.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 20:38:43 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/18 01:25:58 by margot           ###   ########.fr       */
+/*   Updated: 2022/09/18 20:15:33 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,11 @@ void	lexer(t_data *data)
 		global_free(data, MALLOC_ERR);
 	}
 	ft_clear_tab(&data->words, count + 1);
+
 	fill_dst(data, data->expanded_line, data->words, split_tool);
+			
 	trim_dst(data, data->words, split_tool);
+
 	free(split_tool);
+
 }

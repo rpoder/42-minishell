@@ -6,13 +6,13 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 16:51:22 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/18 18:21:45 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/18 20:18:06 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	set_fd(char **words, int i, t_cmd_node *cmd, char *amb_redir)
+static int	set_fd(char **words, int i, t_cmd_node *cmd)
 {
 	int		ret;
 	char	*unmute_file;
@@ -24,15 +24,15 @@ static int	set_fd(char **words, int i, t_cmd_node *cmd, char *amb_redir)
 		if (!unmute_file)
 			return (MALLOC_ERR);
 		if (words[i][0] == '<' && !words[i][1] && words[i + 1])
-			ret = set_fd_in(cmd, unmute_file, amb_redir);
+			ret = set_fd_in(cmd, unmute_file);
 		else if (words[i][0] == '<' && words[i][1] == '<'
 			&& !words[i][2] && words[i + 1])
 			ret = set_fd_heredoc(cmd, unmute_file);
 		else if (words[i][0] == '>' && !words[i][1] && words[i + 1])
-			ret = set_fd_out(cmd, unmute_file, O_TRUNC, amb_redir);
+			ret = set_fd_out(cmd, unmute_file, O_TRUNC);
 		else if (words[i][0] == '>' && words[i][1] == '>' &&
 			!words[i][2] && words[i + 1])
-			ret = set_fd_out(cmd, unmute_file, O_APPEND, amb_redir);
+			ret = set_fd_out(cmd, unmute_file, O_APPEND);
 		else
 		{
 			free(unmute_file);
@@ -47,7 +47,7 @@ static int	set_fd(char **words, int i, t_cmd_node *cmd, char *amb_redir)
 	return (NO_ERR);
 }
 
-int	check_and_set_redirection(char **words, int i, t_cmd_node *cmd, char *amb_redir)
+int	check_and_set_redirection(char **words, int i, t_cmd_node *cmd)
 {
 	int	ret;
 
@@ -56,7 +56,7 @@ int	check_and_set_redirection(char **words, int i, t_cmd_node *cmd, char *amb_re
 	{
 		if (words[i][0] == '<' || words[i][0] == '>')
 		{
-			ret = set_fd(words, i, cmd, amb_redir);
+			ret = set_fd(words, i, cmd);
 			if (ret != NO_ERR)
 				return (ret);
 			i += 2;

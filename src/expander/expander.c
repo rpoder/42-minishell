@@ -6,39 +6,11 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:02:08 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/18 16:41:44 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/18 19:54:10 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-/* static void	fill_with_muted_key(t_data *data, t_expand_tool *tool)
-{
-	int		i;
-	int		j;
-	int		k;
-	char	*expand_key;
-
-	i = tool->len;
-	j = tool->i;
-	k = 0;
-	expand_key = get_expand_key(data->prompt_line, i + 1);
-	if (!expand_key)
-	{
-		free(tool->quotes);
-		free(tool);
-		global_free(data, MALLOC_ERR);
-	}
-	(data->expanded_line)[j] = '*' * -1;
-	j++;
- 	while (expand_key[k])
-	{
-		(data->expanded_line)[j] = expand_key[k] * -1;
-		j++;
-		k++;
-	}
-	free(expand_key);
-} */
 
 static void	fill_with_expand_value(t_data *data, t_expand_tool *tool)
 {
@@ -86,7 +58,7 @@ static void	fill_and_skip_expand(t_data *data, t_expand_tool *tool)
 	else if (exp_value_len == 0)
 	{
 		(data->expanded_line)[tool->i] = '*' * -1;
-		save_ambiguous_redirect(data, data->prompt_line, tool->len, tool); /////////////save_ambiguous_redirection
+	//	save_ambiguous_redirect(data, data->prompt_line, tool->len, tool);
 		tool->i += 1;
 	}
 	tool->len += expand_key_len(data->prompt_line, tool->len + 1);

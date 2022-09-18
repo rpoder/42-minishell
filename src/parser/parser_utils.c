@@ -6,44 +6,11 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 19:07:59 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/18 18:22:13 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/18 20:42:35 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	print_ambiguous_redirection(char *amb_redir)
-{
-/* 	char	*unmute_expand;
-	int		i;
-
-	unmute_expand = malloc(sizeof(char *) * (strlen(expand) + 1));
-	i = 0;
-	unmute_expand[i] = '$';
-	i++;
-	while (expand[i])
-	{
-		unmute_expand[i] = expand[i] * -1;
-		i++;
-	} */
-	ft_printf_fd("minishell: %s: ambiguous redirect\n", 2, amb_redir);
-}
-
-/* char	*unmute_word(char *str)
-{
-	int	i;
-
-	i = 0;
-	if (str[i] < 0 && str[i] * -1 == '*')
-		return (str);
-	while (str[i])
-	{
-		if (str[i] < 0)
-			str[i] = str[i] * -1;
-		i++;
-	}
-	return (str);
-} */
 
 int		unmute_word_len(char *str)
 {
@@ -51,6 +18,7 @@ int		unmute_word_len(char *str)
 	int	i;
 
 	len = 0;
+	i = 0;
 	while(str[i])
 	{
 		if (str[i] > 0 || str[i] * -1 != '*')
@@ -104,20 +72,3 @@ t_cmd_node	*init_cmd_node(void)
 	return (cmd_node);
 }
 
-int	cmd_tab_len(char **words, int i)
-{
-	int	count;
-
-	count = 0;
-	while (words[i] && !is_pipe(words[i][0]))
-	{
-		if (words[i][0] == '>' || words[i][0] == '<')
-			i += 2;
-		else
-		{
-			count++;
-			i++;
-		}
-	}
-	return (count);
-}

@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:43:05 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/18 18:18:50 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/18 19:56:02 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ t_data	*init_data(char **env, char *prompt_line)
 	data->env = NULL;
 	set_env(data, env);
 	data->local_expands = NULL;
-	data->ambiguous_redirection = NULL;
 	data->prompt_line = NULL;
 	data->expanded_line = NULL;
 	data->words = NULL;

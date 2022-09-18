@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:17:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/17 18:49:25 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/18 22:21:41 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,7 +78,7 @@ void	execute_cmds(t_data *data, t_list *cmd)
 		free_exec_tool(&tool);
 		global_free(data, DUP_ERR);
 	}
-	while(cmd)
+	while (cmd)
 	{
 		//handle_pipe
 		if (pipe(tool->pipe_fd) != 0)

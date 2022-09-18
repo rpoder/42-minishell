@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/18 18:30:20 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/18 22:22:49 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		// line = readline("mi_nils_shell j'écoute ? > ");
 		// add_history(line); //pas strlen < 1
-		line = "echo yo > $USR$USR";
+		line = "echo yo | echo lala";
 		data = init_data(env, line);
 	 	if (quote_syntax_checker(line) == 1)
 		{
@@ -110,13 +110,16 @@ int	main(int argc, char **argv, char **env)
 		// test_ronan(data);
  		mute_in_quotes(data);
 		expander(data);
+					
 		lexer(data);
+			
 	//	test_lexer(data->words);
 		redirection_syntax_printer(data->words);
+	
 		parser(data);
+	
 		executer(data);
 	//	test_parser(data->cmds);
 		global_free(data, END);
 	}
 }
-

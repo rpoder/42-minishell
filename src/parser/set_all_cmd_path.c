@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 17:12:44 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/18 13:16:49 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/18 22:18:47 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,6 +34,7 @@ int	set_cmd_path(t_cmd_node *cmd, char **path_tab)
 	i = 0;
 	while (path_tab[i])
 	{
+//		printf("set cmd_path pour cmd = %s\n", cmd[0]);
 		tmp = ft_strsjoin(3, path_tab[i], "/", cmd->cmd_tab[0]);
 		if (!tmp)
 			return (MALLOC_ERR);
@@ -53,7 +54,7 @@ void	set_all_cmd_path(t_data *data)
 	char		**path_tab;
 	t_list		*tmp;
 
-	path_tab = create_path_tab(data);	
+	path_tab = create_path_tab(data);
 	tmp = data->cmds;
 	while (tmp)
 	{

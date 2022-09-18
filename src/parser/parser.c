@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 15:40:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/18 18:18:09 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/18 20:29:09 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ static t_cmd_node	*create_and_skip_cmd(t_data *data, char **words, int *i)
 	cmd_node = init_cmd_node();
 	if (!cmd_node)
 		return (NULL);
-	ret = set_and_skip_cmd_node(words, cmd_node, i, data->ambiguous_redirection);
+	ret = set_and_skip_cmd_node(words, cmd_node, i);
 	if (ret != NO_ERR)
 	{
 		free(cmd_node);
