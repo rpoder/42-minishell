@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:17:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/18 15:12:23 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/18 20:30:10 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,7 @@ int	execute_child(t_data *data, t_list *cmd, t_exec_tool *tool)
 		global_free(data, MALLOC_ERR);
 	}
 	// check if builtins
-	if (exec_builtins(data, ((t_cmd_node *)cmd->content)->cmd_tab) != 0)
+	if (exec_builtins(data, ((t_cmd_node *)cmd->content)->cmd_tab) != NO_ERR)
 	{
 		if (execve(((t_cmd_node *)cmd->content)->path, ((t_cmd_node *)cmd->content)->cmd_tab, env_tab) != 0)
 		{

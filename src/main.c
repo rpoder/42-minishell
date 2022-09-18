@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/18 18:25:27 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/18 22:32:57 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,14 +88,14 @@ int	main(int argc, char **argv, char **env)
 	{
 		// line = readline("mi_nils_shell j'écoute ? > ");
 		// add_history(line); //pas strlen < 1
-		line = "cd /src";
+		line = "exit";
 		data = init_data(env, line);
 	 	if (quote_syntax_checker(line) == 1) //quote_syntax_checker
 		{
 			global_free(data, PARSING_ERR);
 			return (1);
 		}
-		test_ronan(data);
+		// test_ronan(data);
 
  		mute_in_quotes(data);
 		expander(data);
@@ -104,7 +104,7 @@ int	main(int argc, char **argv, char **env)
 		redirection_syntax_printer(data->words);
 		parser(data);
 		executer(data);
-	//	test_parser(data->cmds);
+		// test_parser(data->cmds);
 		global_free(data, END);
 	}
 }

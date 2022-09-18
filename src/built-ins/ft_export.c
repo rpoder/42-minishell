@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 08:16:14 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/14 10:25:59 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/18 22:17:32 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ int	ft_export(t_data *data, char **args)
 	i = 1;
 	while (args[i])
 	{
-		if (is_valid_expand_key(args[i]) != 0 || args[i][0] == '?')
+		if (!is_valid_expand_key(args[i]))
 		{
 			ft_printf_fd("export:\'%s\': not a valid identifier\n", 2, args[i]);
 			ret++;

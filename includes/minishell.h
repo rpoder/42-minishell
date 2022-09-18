@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/18 16:04:32 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/18 22:14:08 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -201,13 +201,13 @@ void			del_cmd(void *cmd);
 /*----------------------------------------------BUILT_INS */
 
 /* builtins_utils.c */
-int	is_valid_expand_key(char *key);
+bool	is_valid_expand_key(char *key);
 
 /* ft_echo.c */
 int	ft_echo(t_data *data, char **args);
 
 /* ft_env.c */
-void	ft_env(t_data *data, char **args);
+int	ft_env(t_data *data, char **args);
 
 /* ft_export.c */
 int		ft_export(t_data *data, char **args);
@@ -219,7 +219,7 @@ int		ft_unset(t_data *data, char **args);
 int	ft_cd(t_data *data, char **args);
 
 /* ft_pwd.c */
-void	ft_pwd(t_data *data, char **args);
+int	ft_pwd(t_data *data, char **args);
 int	set_path(t_data *data, char **path);
 
 /* ft_exit */
