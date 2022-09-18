@@ -6,13 +6,13 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 19:07:59 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/17 17:24:43 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/18 18:22:13 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_ambiguous_redirection(char *expand)
+void	print_ambiguous_redirection(char *amb_redir)
 {
 /* 	char	*unmute_expand;
 	int		i;
@@ -26,10 +26,10 @@ void	print_ambiguous_redirection(char *expand)
 		unmute_expand[i] = expand[i] * -1;
 		i++;
 	} */
-	ft_printf_fd("minishell: ambiguous redirect\n", 2);
+	ft_printf_fd("minishell: %s: ambiguous redirect\n", 2, amb_redir);
 }
 
-char	*unmute_word(char *str)
+/* char	*unmute_word(char *str)
 {
 	int	i;
 
@@ -43,6 +43,50 @@ char	*unmute_word(char *str)
 		i++;
 	}
 	return (str);
+} */
+
+int		unmute_word_len(char *str)
+{
+	int	len;
+	int	i;
+
+	len = 0;
+	while(str[i])
+	{
+		if (str[i] > 0 || str[i] * -1 != '*')
+			len++;
+		i++;
+	}
+	return (len);
+}
+
+char	*unmute_word(char *str)
+{
+	int		i;
+	int		j;
+	char	*dst;
+
+	i = 0;
+	j = 0;
+	dst = malloc(sizeof(char) * unmute_word_len(str) + 1);
+	if (dst == NULL)
+		return (NULL);
+	while (str[i])
+	{
+		if (str[i] < 0 && str[i] * -1 == '*')
+			i++;
+		else
+		{
+			if (str[i] < 0)
+				dst[j] = str[i] * -1;
+			else
+				dst[j] = str[i];
+			i++;
+			j++;
+		}
+	}
+	dst[j] = '\0';
+	return (dst);
 }
 
 t_cmd_node	*init_cmd_node(void)

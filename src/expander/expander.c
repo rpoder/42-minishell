@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:02:08 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/18 01:31:11 by margot           ###   ########.fr       */
+/*   Updated: 2022/09/18 16:41:44 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -86,7 +86,7 @@ static void	fill_and_skip_expand(t_data *data, t_expand_tool *tool)
 	else if (exp_value_len == 0)
 	{
 		(data->expanded_line)[tool->i] = '*' * -1;
-		save_unfound_expand(data, data->prompt_line, tool->len, tool);
+		save_ambiguous_redirect(data, data->prompt_line, tool->len, tool); /////////////save_ambiguous_redirection
 		tool->i += 1;
 	}
 	tool->len += expand_key_len(data->prompt_line, tool->len + 1);
@@ -127,7 +127,6 @@ void	expander(t_data *data)
 	if (!expand_tool)
 		global_free(data, MALLOC_ERR);
 	dst_len = expanded_line_len(data, data->prompt_line, expand_tool);
-	printf("dst len = %d\n", dst_len);
 	data->expanded_line = malloc(sizeof(char) * (dst_len + 1));
 	if (!data->expanded_line)
 	{
@@ -136,5 +135,4 @@ void	expander(t_data *data)
 	}
 	fill_expanded_line(data, expand_tool);
 	free_expand_tool(expand_tool);
-	printf("exp line = %s\n", data->expanded_line);
 }

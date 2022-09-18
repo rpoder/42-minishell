@@ -6,40 +6,63 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 16:56:05 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/17 20:27:53 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/18 18:18:50 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	save_unfound_expand(t_data *data, char *str, int start, t_expand_tool *tool)
+int	is_ambiguous_expand(char *str, int start)
 {
-	char	*unexisting_expand_key;
+	int	j;
+
+	j = 0;
+	start++;
+	while(str[start] && (!is_expand_separator(str[start]) || is_expand_suffix(str[start], j)))
+	{
+		if (is_expand_suffix(str[start], j))
+			return (0);
+		start++;
+		j++;
+	}
+	if (is_space(str[start]) || !str[start])
+		return (1);
+	return (0);
+}
+
+int	is_redirect_expand(char *str, int start)
+{
+	int	i;
+
+	i = start;
+	i--;
+	while (str[i] && is_space(str[i]))
+		i--;
+	if (str[i] && (str[i] == '>' || str[i] == '<'))
+		return (1);
+	return (0);
+}
+
+void	save_ambiguous_redirect(t_data *data, char *str, int start, t_expand_tool *tool)
+{
+	char	*unfound_expand_key;
 	char	*to_save;
-	t_list	*lst;
-	
-	unexisting_expand_key = get_expand_key(str + 1, start);
-	if (!unexisting_expand_key)
+
+	if (!data->ambiguous_redirection)
 	{
-		free(tool->quotes);
-		free(tool);
-		global_free(data, MALLOC_ERR);
+		if (is_redirect_expand(str, start) && is_ambiguous_expand(str, start))
+		{
+			unfound_expand_key = get_expand_key(str + 1, start);
+			if (!unfound_expand_key)
+			{
+				free(tool->quotes);
+				free(tool);
+				global_free(data, MALLOC_ERR);
+			}
+			data->ambiguous_redirection = ft_strjoin("$", unfound_expand_key);
+			free(unfound_expand_key);
+		}
 	}
-	to_save = ft_strjoin("$", unexisting_expand_key);
-	free(unexisting_expand_key);
-	printf("to save = %s\n", to_save);
-	lst = ft_lstnew(unexisting_expand_key);
-	if (!lst)
-	{
-		free(unexisting_expand_key);
-		free(tool->quotes);
-		free(tool);
-		global_free(data, MALLOC_ERR);
-	}
-	ft_lstadd_back(&data->unfound_expands, lst);
-	
-//	free(to_save);	
-	
 }
 
 int	is_expand_suffix(char c, int j)

@@ -3,14 +3,28 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/18 01:30:51 by margot           ###   ########.fr       */
+/*   Updated: 2022/09/18 18:30:20 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+void	test_ambiguous_redirection(t_list *expands)
+{
+	int i;
+
+	i = 0;
+	printf("\nSAVED_EXPANDS :\n");
+	while (expands)
+	{
+		printf("[%d] = %s\n", i, (char *)expands->content);
+		expands = expands->next;
+		i++;
+	}
+}
 
 void	test_parser(t_list *cmds)
 {
@@ -86,15 +100,14 @@ int	main(int argc, char **argv, char **env)
 	{
 		// line = readline("mi_nils_shell j'écoute ? > ");
 		// add_history(line); //pas strlen < 1
-		line = "echo $USR";
+		line = "echo yo > $USR$USR";
 		data = init_data(env, line);
-	 	if (quote_syntax_checker(line) == 1) //quote_syntax_checker
+	 	if (quote_syntax_checker(line) == 1)
 		{
 			global_free(data, PARSING_ERR);
 			return (1);
 		}
 		// test_ronan(data);
-
  		mute_in_quotes(data);
 		expander(data);
 		lexer(data);

@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/17 19:36:21 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/18 18:21:17 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ typedef struct s_expand {
 typedef struct s_data {
 	t_list	*env;
 	t_list	*local_expands;
-	t_list	*unfound_expands;
+	char	*ambiguous_redirection;
 	char	*prompt_line;
 	char	*expanded_line;
 	char	**words;
@@ -152,18 +152,18 @@ char			*word_trim(char *src);
 int				parser(t_data *data);
 
 /* set_cmd_node.c */
-int				set_and_skip_cmd_node(char **words, t_cmd_node *cmd, int *i);
+int				set_and_skip_cmd_node(char **words, t_cmd_node *cmd, int *i, char *amb_redir);
 
 /* set_cmd_tab */
-int	set_cmd_tab(char **words, int i, t_cmd_node *cmd);
+int				set_cmd_tab(char **words, int i, t_cmd_node *cmd);
 
 /* set_redirection */
-int	check_and_set_redirection(char **words, int i, t_cmd_node *cmd);
+int				check_and_set_redirection(char **words, int i, t_cmd_node *cmd, char *amb_redir);
 
 /* open_files.c */
 int				set_fd_heredoc(t_cmd_node *cmd, char *lim);
-int				set_fd_in(t_cmd_node *cmd, char *infile);
-int				set_fd_out(t_cmd_node *cmd, char *outfile, int flag);
+int				set_fd_in(t_cmd_node *cmd, char *infile, char *amb_redir);
+int				set_fd_out(t_cmd_node *cmd, char *outfile, int flag, char *amb_redir);
 
 /* parser_utils.c */
 int				cmd_tab_len(char **words, int i);
