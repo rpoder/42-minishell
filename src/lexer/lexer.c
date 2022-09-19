@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 20:38:43 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/18 20:15:33 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/19 19:44:38 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,11 +103,7 @@ void	lexer(t_data *data)
 		global_free(data, MALLOC_ERR);
 	}
 	ft_clear_tab(&data->words, count + 1);
-
 	fill_dst(data, data->expanded_line, data->words, split_tool);
-			
 	trim_dst(data, data->words, split_tool);
-
 	free(split_tool);
-
 }

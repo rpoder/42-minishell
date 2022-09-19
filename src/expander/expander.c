@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:02:08 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/18 19:54:10 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/19 17:11:03 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,6 @@ static void	fill_and_skip_expand(t_data *data, t_expand_tool *tool)
 	else if (exp_value_len == 0)
 	{
 		(data->expanded_line)[tool->i] = '*' * -1;
-	//	save_ambiguous_redirect(data, data->prompt_line, tool->len, tool);
 		tool->i += 1;
 	}
 	tool->len += expand_key_len(data->prompt_line, tool->len + 1);
@@ -72,7 +71,7 @@ static void	fill_expanded_line(t_data *data, t_expand_tool *tool)
 		set_quotes(data->prompt_line[tool->len], tool->quotes);
 		if (data->prompt_line[tool->len] == '$' && is_expand_to_interpret
 			(data->prompt_line, tool->len, tool->quotes))
-				fill_and_skip_expand(data, tool);
+			fill_and_skip_expand(data, tool);
 		else
 		{
 			data->expanded_line[tool->i] = data->prompt_line[tool->len];

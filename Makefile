@@ -6,7 +6,7 @@
 #    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/09/18 19:34:22 by mpourrey         ###   ########.fr        #
+#    Updated: 2022/09/19 15:19:37 by mpourrey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -55,7 +55,6 @@ SRCS				:=	main.c \
 						built-ins/ft_exit.c \
 						built-ins/builtins_utils.c \
 						parser/parser.c \
-						parser/set_cmd_node.c \
 						parser/set_redirection.c \
 						parser/set_cmd_tab.c \
 						parser/open_files.c \

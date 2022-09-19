@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/18 22:22:49 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/19 20:30:22 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,9 +98,10 @@ int	main(int argc, char **argv, char **env)
 
 	while (1)
 	{
-		// line = readline("mi_nils_shell j'écoute ? > ");
-		// add_history(line); //pas strlen < 1
-		line = "echo yo | echo lala";
+		
+	//	line = readline("mi_nils_shell j'écoute ? > ");
+	//	add_history(line); //pas strlen < 1
+		line = "<< lim echo $USER > $USR | echo yo > out";
 		data = init_data(env, line);
 	 	if (quote_syntax_checker(line) == 1)
 		{

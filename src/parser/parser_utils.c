@@ -6,20 +6,40 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 19:07:59 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/18 20:42:35 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/19 19:47:30 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int		unmute_word_len(char *str)
+int	is_path_to_cmd(char *word)
+{
+	if ((word[0] == '.' && word[1] == '/') || word[0] == '/')
+		return (1);
+	return (0);
+}
+
+t_p_tool	*init_p_tool(void)
+{
+	t_p_tool	*tool;
+
+	tool = malloc(sizeof(t_p_tool));
+	if (!tool)
+		return (NULL);
+	tool->i = 0;
+	tool->tab_len = 0;
+	tool->ret = NO_ERR;
+	return (tool);
+}
+
+int	unmute_word_len(char *str)
 {
 	int	len;
 	int	i;
 
 	len = 0;
 	i = 0;
-	while(str[i])
+	while (str[i])
 	{
 		if (str[i] > 0 || str[i] * -1 != '*')
 			len++;
@@ -71,4 +91,3 @@ t_cmd_node	*init_cmd_node(void)
 	cmd_node->heredocs = NULL;
 	return (cmd_node);
 }
-
