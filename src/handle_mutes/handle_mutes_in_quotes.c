@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 15:20:35 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/31 11:59:19 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/18 20:14:05 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,5 +51,5 @@ void	mute_in_quotes(t_data *data)
 			i = mute_and_skip_inside_quotes(data, i);
 		else
 			i++;
-	}			
+	}
 }

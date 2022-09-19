@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_redirections.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 16:37:29 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/15 11:48:06 by margot           ###   ########.fr       */
+/*   Updated: 2022/09/17 17:58:36 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,27 +29,34 @@ void	redirect_pipe_out(t_data *data, int *pipe_fd)
 		global_free(data, DUP_ERR);
 }
 
-void	chevron_redirection(t_data *data, t_cmd_node *cmd)
+void	chevron_redirection(t_data *data, t_cmd_node *cmd, t_exec_tool *tool)
 {
 	if (cmd->fd_in >= -1)
 	{
 		if (dup2(cmd->fd_in, 0) < 0)
 		{
-			close(cmd->fd_in);
-			close(cmd->fd_out);
+			if (cmd->fd_in >= 0)
+				close(cmd->fd_in);
+			if (cmd->fd_out >= 0)
+				close(cmd->fd_out);
+			free_exec_tool(&tool);
 			global_free(data, DUP_ERR);
 		}
-		close(cmd->fd_in);
+		if (cmd->fd_in >= 0)
+			close(cmd->fd_in);
 	}
 	if (cmd->fd_out >= -1)
 	{
 		if (dup2(cmd->fd_out, 1) < 0)
 		{
-			close(cmd->fd_in);
-			close(cmd->fd_out);
+			if (cmd->fd_in >= 0)
+				close(cmd->fd_in);
+			if (cmd->fd_out >= 0)
+				close(cmd->fd_out);
+			free_exec_tool(&tool);
 			global_free(data, DUP_ERR);
 		}
-		close(cmd->fd_out);
+		if (cmd->fd_out >= 0)
+			close(cmd->fd_out);
 	}
-
 }

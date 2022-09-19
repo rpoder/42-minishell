@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_all_cmd_path.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 17:12:44 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/12 11:21:34 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/19 20:27:54 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,24 +32,26 @@ int	set_cmd_path(t_cmd_node *cmd, char **path_tab)
 	char	*tmp;
 
 	i = 0;
-	if (path_tab)
+	if (is_path_to_cmd(cmd->cmd_tab[i]))
 	{
-		while (path_tab[i])
-		{
-			tmp = ft_strsjoin(3, path_tab[i], "/", cmd->cmd_tab[0]);
-			if (!tmp)
-				return (MALLOC_ERR);
-			if (access(tmp, F_OK & X_OK) == 0)
-			{
-				cmd->path = tmp;
-				return (NO_ERR);
-			}
-			free(tmp);
-			i++;
-		}
+		cmd->path = ft_alloc_and_fill(cmd->cmd_tab[i]);
+		if (!cmd->path)
+			return (MALLOC_ERR);
+		return (NO_ERR);
 	}
-	else
-		cmd->path = NULL;
+	while (path_tab[i])
+	{
+		tmp = ft_strsjoin(3, path_tab[i], "/", cmd->cmd_tab[0]);
+		if (!tmp)
+			return (MALLOC_ERR);
+		else if (access(tmp, F_OK & X_OK) == 0)
+		{
+			cmd->path = tmp;
+			return (NO_ERR);
+		}
+		free(tmp);
+		i++;
+	}
 	return (NO_ERR);
 }
 

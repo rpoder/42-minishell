@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 20:38:43 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/08 20:39:03 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/19 19:44:38 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,6 @@ static void	fill_dst(t_data *data, char *src, char **dst, t_split_tool *tool)
 		if (is_word_separator(src[tool->i]))
 		{
 			dst[tool->nb_of_words] = get_and_skip_word(data, src, tool);
-			printf("");
 			set_tool_for_next_word(tool, tool->i);
 		}
 		else if (src[tool->i] == '\'' || src[tool->i] == '\"')

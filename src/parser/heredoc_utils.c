@@ -3,14 +3,35 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 20:15:54 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/13 15:48:56 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/19 14:53:28 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	add_path_to_heredoc_list(t_cmd_node *cmd, char *heredoc_path)
+{
+	t_list	*heredoc_node;
+	char	*path_dup;
+
+	if (heredoc_path)
+	{
+		path_dup = ft_alloc_and_fill(heredoc_path);
+		if (!path_dup)
+			return (MALLOC_ERR);
+		heredoc_node = ft_lstnew(path_dup);
+		if (!heredoc_node)
+		{
+			free(path_dup);
+			return (MALLOC_ERR);
+		}
+		ft_lstadd_back(&cmd->heredocs, heredoc_node);
+	}
+	return (NO_ERR);
+}
 
 char	*get_heredoc_name(int i)
 {
@@ -37,9 +58,12 @@ void	free_heredoc_tool(t_heredoc_tool *tool)
 {
 	if (tool->str)
 		free(tool->str);
-	free(tool->heredoc_path);
-	free(tool->ret);
-	free(tool->lim);
+	if (tool->heredoc_path)
+		free(tool->heredoc_path);
+	if (tool->ret)
+		free(tool->ret);
+	if (tool->lim)
+		free(tool->lim);
 	free(tool);
 }
 

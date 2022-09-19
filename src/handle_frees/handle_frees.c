@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_frees.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:18:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/15 11:47:05 by margot           ###   ########.fr       */
+/*   Updated: 2022/09/18 20:10:53 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,12 @@ void	del_one_expand(void *content)
 		}
 		//free(casted_arg);
 	}
+}
+
+void	del_unfound_expand(void *expand)
+{
+	if ((char *)expand)
+		free((char *)expand);
 }
 
 void	del_expand(void *expand)

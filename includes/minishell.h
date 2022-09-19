@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/18 22:14:08 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/19 21:27:13 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,6 +59,8 @@ extern t_data *data;
 
 # define BUFFER_SIZE_GNL 10
 
+///////////////A SUPP
+void	test_parser(t_list *cmds);
 
 /* init.c */
 t_data			*init_data(char **env, char *prompt_line);
@@ -105,6 +107,7 @@ int				has_expand(char *str);
 int				is_expand_to_interpret(char *str, int i, t_quotes *quotes);
 int				is_expand_separator(char c);
 int				is_expand_suffix(char c, int j);
+void			save_unfound_expand(t_data *data, char *str, int start, t_expand_tool *tool);
 
 /* expander_tool_utils.c */
 t_expand_tool	*init_expand_tool(void);
@@ -149,14 +152,11 @@ char			*word_trim(char *src);
 /* parser.c */
 int				parser(t_data *data);
 
-/* set_cmd_node.c */
-int				set_and_skip_cmd_node(char **words, t_cmd_node *cmd, int *i);
-
 /* set_cmd_tab */
-int	set_cmd_tab(char **words, int i, t_cmd_node *cmd);
+int				set_cmd_tab(char **words, int i, t_cmd_node *cmd, t_p_tool *tool);
 
 /* set_redirection */
-int	check_and_set_redirection(char **words, int i, t_cmd_node *cmd);
+int				set_redirection(char **words, int i, t_cmd_node *cmd, t_p_tool *tool);
 
 /* open_files.c */
 int				set_fd_heredoc(t_cmd_node *cmd, char *lim);
@@ -164,15 +164,17 @@ int				set_fd_in(t_cmd_node *cmd, char *infile);
 int				set_fd_out(t_cmd_node *cmd, char *outfile, int flag);
 
 /* parser_utils.c */
-int				cmd_tab_len(char **words, int i);
 t_cmd_node		*init_cmd_node(void);
 char			*unmute_word(char *str);
 void			print_ambiguous_redirection(char *expand);
+t_p_tool	*init_p_tool(void);
+int				is_path_to_cmd(char *word);
 
 /* heredoc_utils */
 void			free_heredoc_tool(t_heredoc_tool *tool);
 t_heredoc_tool	*init_heredoc_tool(char *lim);
 char			*get_heredoc_name(int i);
+int				add_path_to_heredoc_list(t_cmd_node *cmd, char *heredoc_path);
 
 /* set_all_cmd_path.c */
 void			set_all_cmd_path(t_data *data);
@@ -232,7 +234,7 @@ void	executer(t_data *data);
 
 /* handle_redirections.c */
 void		redirect_pipe_out(t_data *data, int *pipe_fd);
-void		chevron_redirection(t_data *data, t_cmd_node *cmd);
+void		chevron_redirection(t_data *data, t_cmd_node *cmd, t_exec_tool *tool);
 
 /* executer_utils.c */
 int			*init_pipe(t_data *data);
