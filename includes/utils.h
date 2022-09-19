@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:25:35 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/14 13:11:48 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/19 19:47:30 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,5 +53,12 @@ typedef struct s_exec_tool
 	int		fd_stdin;
 	pid_t	*fork_ret;
 }	t_exec_tool;
+
+typedef struct	s_parser_tool
+{
+	int	i;
+	int	tab_len;
+	int	ret;
+}	t_p_tool;
 
 #endif

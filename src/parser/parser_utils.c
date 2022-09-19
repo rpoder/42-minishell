@@ -6,43 +6,75 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 19:07:59 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/17 17:24:43 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/19 19:47:30 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	print_ambiguous_redirection(char *expand)
+int	is_path_to_cmd(char *word)
 {
-/* 	char	*unmute_expand;
-	int		i;
+	if ((word[0] == '.' && word[1] == '/') || word[0] == '/')
+		return (1);
+	return (0);
+}
 
-	unmute_expand = malloc(sizeof(char *) * (strlen(expand) + 1));
+t_p_tool	*init_p_tool(void)
+{
+	t_p_tool	*tool;
+
+	tool = malloc(sizeof(t_p_tool));
+	if (!tool)
+		return (NULL);
+	tool->i = 0;
+	tool->tab_len = 0;
+	tool->ret = NO_ERR;
+	return (tool);
+}
+
+int	unmute_word_len(char *str)
+{
+	int	len;
+	int	i;
+
+	len = 0;
 	i = 0;
-	unmute_expand[i] = '$';
-	i++;
-	while (expand[i])
+	while (str[i])
 	{
-		unmute_expand[i] = expand[i] * -1;
+		if (str[i] > 0 || str[i] * -1 != '*')
+			len++;
 		i++;
-	} */
-	ft_printf_fd("minishell: ambiguous redirect\n", 2);
+	}
+	return (len);
 }
 
 char	*unmute_word(char *str)
 {
-	int	i;
+	int		i;
+	int		j;
+	char	*dst;
 
 	i = 0;
-	if (str[i] < 0 && str[i] * -1 == '*')
-		return (str);
+	j = 0;
+	dst = malloc(sizeof(char) * unmute_word_len(str) + 1);
+	if (dst == NULL)
+		return (NULL);
 	while (str[i])
 	{
-		if (str[i] < 0)
-			str[i] = str[i] * -1;
-		i++;
+		if (str[i] < 0 && str[i] * -1 == '*')
+			i++;
+		else
+		{
+			if (str[i] < 0)
+				dst[j] = str[i] * -1;
+			else
+				dst[j] = str[i];
+			i++;
+			j++;
+		}
 	}
-	return (str);
+	dst[j] = '\0';
+	return (dst);
 }
 
 t_cmd_node	*init_cmd_node(void)
@@ -58,22 +90,4 @@ t_cmd_node	*init_cmd_node(void)
 	cmd_node->fd_out = FD_UNDEFINED;
 	cmd_node->heredocs = NULL;
 	return (cmd_node);
-}
-
-int	cmd_tab_len(char **words, int i)
-{
-	int	count;
-
-	count = 0;
-	while (words[i] && !is_pipe(words[i][0]))
-	{
-		if (words[i][0] == '>' || words[i][0] == '<')
-			i += 2;
-		else
-		{
-			count++;
-			i++;
-		}
-	}
-	return (count);
 }
