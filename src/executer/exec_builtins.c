@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 16:40:53 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/18 22:30:56 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/19 20:29:35 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,14 +27,14 @@ int	exec_builtins(t_data *data, char **cmd_tab)
 	else if (ft_strcmp(cmd_tab[0], "exit") == 0)
 		ret = ft_exit(data, cmd_tab);
 	else if (ft_strcmp(cmd_tab[0], "export") == 0)
-	{
-		ft_export(data, cmd_tab);
-		return (0);
-	}
+		ret = ft_export(data, cmd_tab);
 	else if (ft_strcmp(cmd_tab[0], "unset") == 0)
+		ret = ft_unset(data, cmd_tab);
+	if (ret == MALLOC_ERR)
 	{
-		ft_unset(data, cmd_tab);
-		return (0);
+		ft_printf_fd("child: ", 2);
+		global_free(data, MALLOC_ERR);
 	}
+	// exit
 	return (ret);
 }

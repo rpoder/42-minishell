@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:33:22 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/18 18:27:25 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/19 20:37:03 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,48 +51,67 @@ static void	set_expand_pwd(t_data *data)
 	set_expand(data, "PWD", new_pwd);
 }
 
-int	ft_cd(t_data *data, char **args)
+void	ft_cd_with_arg(t_data *data, char *arg)
 {
 	int		ret;
-	char	*home_expand_value;
-	char	*cdpath_expand_value;
+	char	*cdpath_expand_v;
 	char	*tmp_err;
 
 	tmp_err = NULL;
-	home_expand_value = get_expand_value(data, "HOME");
-	cdpath_expand_value = get_expand_value(data, "CDPATH");
-	if (!home_expand_value && !args[1])
+	cdpath_expand_v = get_expand_value(data, "CDPATH");
+	ret = chdir(arg);
+	if (ret != 0)
 	{
+		ret = try_with_expand_cdpath(arg, cdpath_expand_v, &tmp_err);
+		if (ret != NO_ERR)
+		{
+			set_expand(data, "?", "127");
+			ft_printf_fd("minilsshell: cd: ", 2);
+			perror(tmp_err);
+			set_expand_pwd(data);
+			return ;
+		}
+		else if (ret == MALLOC_ERR)
+			global_free(data, MALLOC_ERR);
+	}
+	set_expand_pwd(data);
+	set_expand(data, "?", "0");
+}
 
+static void	ft_cd_home_no_arg(t_data *data, char *home_expand_v)
+{
+	int		ret;
+
+	ret = chdir(home_expand_v);
+	set_expand(data, "?", "0");
+	if (ret != 0)
+	{
+		set_expand(data, "?", "127");
+		ft_printf_fd("minilsshell: cd: ", 2);
+		perror(home_expand_v);
+	}
+}
+
+int	ft_cd(t_data *data, char **args)
+{
+	int		ret;
+	char	*home_expand_v;
+
+	home_expand_v = get_expand_value(data, "HOME");
+	if (ft_tablen(args) > 2)
+	{
+		set_expand(data, "?", "0");
+		ft_printf_fd("minilsshell: cd: too many arguments\n", 2);
 		return (NO_ERR);
 	}
-	else if (home_expand_value && !args[1])
+	else if (!home_expand_v && !args[1])
 	{
-		ret = chdir(home_expand_value);
-		if (ret != 0)
-		{
-			ft_printf_fd("minilsshell: cd: ", 2);
-			perror(home_expand_value);
-			set_expand_pwd(data);
-			return (NO_ERR);
-		}
+		set_expand(data, "?", "127");
+		return (NO_ERR);
 	}
+	else if (home_expand_v && !args[1])
+		ft_cd_home_no_arg(data, home_expand_v);
 	else if (args[1])
-	{
-		ret = chdir(args[1]);
-		if (ret != 0)
-		{
-			ret = try_with_expand_cdpath(args[1], cdpath_expand_value, &tmp_err);
-			if (ret != 0)
-			{
-				ft_printf_fd("minilsshell: cd: ", 2);
-				perror(tmp_err);
-				set_expand_pwd(data);
-				return (NO_ERR);
-			}
-			else if (ret == MALLOC_ERR)
-				global_free(data, MALLOC_ERR);
-		}
-	}
+		ft_cd_with_arg(data, args[1]);
 	return (NO_ERR);
 }

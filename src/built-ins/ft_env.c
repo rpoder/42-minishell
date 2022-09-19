@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 17:45:13 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/18 19:40:40 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/19 20:42:38 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,13 +18,9 @@ int	ft_env(t_data *data, char **args)
 
 	if (args[1])
 	{
-		ft_printf_fd("minilsshell: env: '%s': not such file or directory\n", 2, args[1]);
+		ft_printf_fd("minilsshell: env: '%s': not such file ordirectory\n",
+			2, args[1]);
 		set_expand(data, "?", "127");
-		return (NO_ERR);
-	}
-	if (!data->env)
-	{
-		set_expand(data, "?", "0");
 		return (NO_ERR);
 	}
 	tmp = data->env;
