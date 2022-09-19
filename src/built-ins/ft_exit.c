@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 16:17:52 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/18 22:32:37 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/19 21:54:14 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,6 +21,7 @@ void	free_and_exit(t_data *data, char *exit_code)
 	else
 		li_exit_code = 0;
 	ft_printf_fd("exit\n", 1);
+	////////////////set_expand(data, "?", "1");
 	global_free(data, NO_ERR);
 	if (ft_isint(li_exit_code))
 		exit(li_exit_code);

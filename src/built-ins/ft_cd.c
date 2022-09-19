@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:33:22 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/19 20:37:03 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/19 22:00:03 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,10 +58,10 @@ void	ft_cd_with_arg(t_data *data, char *arg)
 	char	*tmp_err;
 
 	tmp_err = NULL;
-	cdpath_expand_v = get_expand_value(data, "CDPATH");
 	ret = chdir(arg);
 	if (ret != 0)
 	{
+		cdpath_expand_v = get_expand_value(data, "CDPATH");
 		ret = try_with_expand_cdpath(arg, cdpath_expand_v, &tmp_err);
 		if (ret != NO_ERR)
 		{
@@ -83,13 +83,14 @@ static void	ft_cd_home_no_arg(t_data *data, char *home_expand_v)
 	int		ret;
 
 	ret = chdir(home_expand_v);
-	set_expand(data, "?", "0");
 	if (ret != 0)
 	{
 		set_expand(data, "?", "127");
 		ft_printf_fd("minilsshell: cd: ", 2);
 		perror(home_expand_v);
 	}
+	else
+		set_expand(data, "?", "0");
 }
 
 int	ft_cd(t_data *data, char **args)
@@ -97,13 +98,13 @@ int	ft_cd(t_data *data, char **args)
 	int		ret;
 	char	*home_expand_v;
 
-	home_expand_v = get_expand_value(data, "HOME");
 	if (ft_tablen(args) > 2)
 	{
 		set_expand(data, "?", "0");
 		ft_printf_fd("minilsshell: cd: too many arguments\n", 2);
 		return (NO_ERR);
 	}
+	home_expand_v = get_expand_value(data, "HOME");
 	else if (!home_expand_v && !args[1])
 	{
 		set_expand(data, "?", "127");
