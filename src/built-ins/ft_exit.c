@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 16:17:52 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/14 10:25:08 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/18 22:32:37 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,8 +30,6 @@ void	free_and_exit(t_data *data, char *exit_code)
 
 int	ft_exit(t_data *data, char **args)
 {
-	if (ft_strcmp(args[0], "exit") != 0)
-		return (-1);
 	if (args[1] && (!ft_str_isdigit(args[1]) || !ft_isint(ft_atoli(args[1]))))
 	{
 		ft_printf_fd("exit:\'%s\': numeric argument required\n", 2, args[1]);
@@ -48,5 +46,5 @@ int	ft_exit(t_data *data, char **args)
 		free_and_exit(data, args[1]);
 	else
 		free_and_exit(data, NULL);
-	return (0);
+	return (NO_ERR);
 }

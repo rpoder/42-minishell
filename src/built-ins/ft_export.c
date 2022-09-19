@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 08:16:14 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/14 10:25:59 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/19 20:10:33 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,24 +43,22 @@ int	ft_export(t_data *data, char **args)
 	int		i;
 	int		ret;
 
-	ret = 0;
-	if (ft_strcmp(args[0], "export") != 0)
-		return (-1);
+	ret = NO_ERR;
 	i = 1;
 	while (args[i])
 	{
-		if (is_valid_expand_key(args[i]) != 0 || args[i][0] == '?')
+		if (!is_valid_expand_key(args[i]))
 		{
 			ft_printf_fd("export:\'%s\': not a valid identifier\n", 2, args[i]);
-			ret++;
+			ret = PARSING_ERR;
 		}
 		else
 			move_to_env(data, args[i]);
 		i++;
 	}
-	if (ret != 0)
-		set_expand(data, "?", "1");
-	else
+	if (ret == NO_ERR)
 		set_expand(data, "?", "0");
+	else
+		set_expand(data, "?", "1");
 	return (ret);
 }

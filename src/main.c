@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/19 20:30:22 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/19 21:26:38 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,12 +82,14 @@ void	test_ronan(t_data *data)
 	// 	tmp = tmp->next;
 	// }
 
-	char **args;
-	args = malloc(sizeof(char *) * 2);
-	args[0] = ft_alloc_and_fill("env");
-	args[1] = NULL;
+	add_expand(data, &data->local_expands, ft_alloc_and_fill("CDPATH"), ft_alloc_and_fill("/mnt/nfs/homes/rpoder/tmp"));
 
-	ft_env(data, args);
+	// char **args;
+	// args = malloc(sizeof(char *) * 2);
+	// args[0] = ft_alloc_and_fill("pwd");
+	// args[1] = NULL;
+
+	// ft_pwd(data, args);
 
 }
 
@@ -98,10 +100,16 @@ int	main(int argc, char **argv, char **env)
 
 	while (1)
 	{
-		
+<<<<<<< HEAD
+		// line = readline("mi_nils_shell j'écoute ? > ");
+		// add_history(line); //pas strlen < 1
+		line = "cd ./src";
+=======
+
 	//	line = readline("mi_nils_shell j'écoute ? > ");
 	//	add_history(line); //pas strlen < 1
 		line = "<< lim echo $USER > $USR | echo yo > out";
+>>>>>>> master
 		data = init_data(env, line);
 	 	if (quote_syntax_checker(line) == 1)
 		{
@@ -111,16 +119,20 @@ int	main(int argc, char **argv, char **env)
 		// test_ronan(data);
  		mute_in_quotes(data);
 		expander(data);
-					
+
 		lexer(data);
-			
+<<<<<<< HEAD
+		// test_lexer(data->words);
+=======
+
 	//	test_lexer(data->words);
+>>>>>>> master
 		redirection_syntax_printer(data->words);
-	
+
 		parser(data);
-	
+
 		executer(data);
-	//	test_parser(data->cmds);
+		// test_parser(data->cmds);
 		global_free(data, END);
 	}
 }

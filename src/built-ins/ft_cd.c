@@ -3,90 +3,115 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:33:22 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/14 10:24:05 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/19 20:37:03 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static char	*add_point(char *arg)
+static int	try_with_expand_cdpath(char *cdpath, char *arg, char **tmp)
 {
+	char	**cdpath_tab;
 	int		i;
-	char	*dst;
+	int		ret;
 
+	if (!cdpath)
+		return (NO_ERR);
+	cdpath_tab = ft_split(cdpath, ':');
+	if (!cdpath_tab)
+		return (MALLOC_ERR);
 	i = 0;
-	dst = malloc(sizeof(char) * (1 + ft_strlen(arg) + 1));
-	if (!dst)
-		return (NULL);
-	dst[i] = '.';
-	i++;
-	while (arg[i - 1])
+	while (cdpath_tab[i])
 	{
-		dst[i] = arg[i - 1];
+		*tmp = ft_strsjoin(3, cdpath_tab[i], "/", arg);
+		ret = chdir(cdpath_tab[i]);
+		if (ret == 0)
+		{
+			ft_free_tab(&cdpath_tab);
+			return (NO_ERR);
+		}
 		i++;
 	}
-	dst[i] = '\0';
-	return (dst);
+	ft_free_tab(&cdpath_tab);
+	return (ERR_NOT_DEFINED);
 }
 
-static int	try_cd(t_data *data, char *arg)
+static void	set_expand_pwd(t_data *data)
 {
-	int		ret;
-	char	*old_path;
-	char	*concatened;
+	char	*old_pwd;
 	char	*new_pwd;
 
-	new_pwd = NULL;
-	old_path = get_expand_value(data, "PWD");
-	if (!old_path)
-		return (-1);
-	if (arg[0] != '.')
-	{
-		concatened = add_point(arg);
-		if (!concatened)
-		{
-			global_free(data, MALLOC_ERR);
-			return (-1);
-		}
-		ret = chdir(concatened);
-		free(concatened);
-	}
-	else
-		ret = chdir(arg);
-	if (ret == 0)
-	{
-		set_expand(data, "OLDPWD", old_path);
-		if (set_path(data, &new_pwd) == MALLOC_ERR)
-			global_free(data, MALLOC_ERR);
-		set_expand(data, "PWD", new_pwd);
-	}
-	return (ret);
+	old_pwd = get_expand_value(data, "PWD");
+	set_expand(data, "OLDPWD", old_pwd);
+	if (set_path(data, &new_pwd) == MALLOC_ERR)
+		global_free(data, MALLOC_ERR);
+	set_expand(data, "PWD", new_pwd);
 }
 
-void	ft_cd(t_data *data, char **args)
+void	ft_cd_with_arg(t_data *data, char *arg)
 {
-	char	*home_expand;
+	int		ret;
+	char	*cdpath_expand_v;
+	char	*tmp_err;
+
+	tmp_err = NULL;
+	cdpath_expand_v = get_expand_value(data, "CDPATH");
+	ret = chdir(arg);
+	if (ret != 0)
+	{
+		ret = try_with_expand_cdpath(arg, cdpath_expand_v, &tmp_err);
+		if (ret != NO_ERR)
+		{
+			set_expand(data, "?", "127");
+			ft_printf_fd("minilsshell: cd: ", 2);
+			perror(tmp_err);
+			set_expand_pwd(data);
+			return ;
+		}
+		else if (ret == MALLOC_ERR)
+			global_free(data, MALLOC_ERR);
+	}
+	set_expand_pwd(data);
+	set_expand(data, "?", "0");
+}
+
+static void	ft_cd_home_no_arg(t_data *data, char *home_expand_v)
+{
 	int		ret;
 
-	if (!home_expand && !args[1])
+	ret = chdir(home_expand_v);
+	set_expand(data, "?", "0");
+	if (ret != 0)
 	{
-		ft_putstr_fd("cd: HOME is not set\n", 2);
-		return ;
+		set_expand(data, "?", "127");
+		ft_printf_fd("minilsshell: cd: ", 2);
+		perror(home_expand_v);
 	}
-	else if (!home_expand && args[1])
-		return ;
-	if (home_expand && !args[1])
-		ret = chdir(home_expand);
-	if (try_cd(data, args[1]) != 0)
+}
+
+int	ft_cd(t_data *data, char **args)
+{
+	int		ret;
+	char	*home_expand_v;
+
+	home_expand_v = get_expand_value(data, "HOME");
+	if (ft_tablen(args) > 2)
 	{
-		ft_putstr_fd("cd:\'", 2);
-		ft_putstr_fd(args[1], 2);
-		ft_putstr_fd("\': no such file or directory\n", 2);
-		set_expand(data, "?", "1");
-	}
-	else
 		set_expand(data, "?", "0");
+		ft_printf_fd("minilsshell: cd: too many arguments\n", 2);
+		return (NO_ERR);
+	}
+	else if (!home_expand_v && !args[1])
+	{
+		set_expand(data, "?", "127");
+		return (NO_ERR);
+	}
+	else if (home_expand_v && !args[1])
+		ft_cd_home_no_arg(data, home_expand_v);
+	else if (args[1])
+		ft_cd_with_arg(data, args[1]);
+	return (NO_ERR);
 }

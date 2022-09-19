@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/19 20:19:49 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/19 21:27:13 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -203,13 +203,13 @@ void			del_cmd(void *cmd);
 /*----------------------------------------------BUILT_INS */
 
 /* builtins_utils.c */
-int	is_valid_expand_key(char *key);
+bool	is_valid_expand_key(char *key);
 
 /* ft_echo.c */
 int	ft_echo(t_data *data, char **args);
 
 /* ft_env.c */
-void	ft_env(t_data *data, char **args);
+int	ft_env(t_data *data, char **args);
 
 /* ft_export.c */
 int		ft_export(t_data *data, char **args);
@@ -218,10 +218,10 @@ int		ft_export(t_data *data, char **args);
 int		ft_unset(t_data *data, char **args);
 
 /* ft_cd.c */
-void	ft_cd(t_data *data, char **args);
+int	ft_cd(t_data *data, char **args);
 
 /* ft_pwd.c */
-void	ft_pwd(t_data *data, char **args);
+int	ft_pwd(t_data *data, char **args);
 int	set_path(t_data *data, char **path);
 
 /* ft_exit */
@@ -245,5 +245,7 @@ int			is_last_cmd(t_list *cmd);
 void		free_exec_tool(t_exec_tool **tool);
 t_exec_tool	*init_exec_tool(t_list *cmd);
 
+/* exec_builtins.c */
+int			exec_builtins(t_data *data, char **cmd_tab);
 
 #endif

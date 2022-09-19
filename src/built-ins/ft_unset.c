@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_unset.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 09:31:14 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/14 10:27:43 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/19 20:10:22 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,24 +51,22 @@ int	ft_unset(t_data *data, char **args)
 	int		i;
 	int		ret;
 
-	ret = 0;
-	if (ft_strcmp(args[0], "unset") != 0)
-		return (-1);
+	ret = NO_ERR;
 	i = 1;
 	while (args[i])
 	{
 		if (is_valid_expand_key(args[i]) != 0)
 		{
 			ft_printf_fd("unset:\'%s\': not a valid identifier\n", 2, args[i]);
-			ret++;
+			ret = PARSING_ERR;
 		}
 		else if (unset_from(&data->local_expands, args[i]) == false)
 			unset_from(&data->env, args[i]);
 		i++;
 	}
-	if (ret != 0)
-		set_expand(data, "?", "1");
-	else
+	if (ret == NO_ERR)
 		set_expand(data, "?", "0");
+	else
+		set_expand(data, "?", "1");
 	return (ret);
 }
