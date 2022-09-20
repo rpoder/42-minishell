@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/20 14:57:01 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/20 17:47:47 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include "utils.h"
 
 enum errors { MALLOC_ERR = -100, OPEN_ERR, PARSING_ERR, ERR_NOT_DEFINED, NO_ERR, END, PIPE_ERR, DUP_ERR, WAITPID_ERR, CLOSE_ERR, PATH_MAX_ERR};
+enum builtins { CD = 1, ECHO, ENV, EXIT, EXPORT, PWD, UNSET };
 
 typedef struct s_expand {
 	char	*key;
@@ -252,6 +253,7 @@ void		free_exec_tool(t_exec_tool **tool);
 t_exec_tool	*init_exec_tool(t_list *cmd);
 
 /* exec_builtins.c */
-int			exec_builtins(t_data *data, char **cmd_tab);
+int			exec_builtins(t_data *data, char **cmd_tab, bool exit);
+int			is_builtin(char *arg);
 
 #endif

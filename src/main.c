@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/20 15:18:23 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/20 19:17:11 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,8 +116,8 @@ int	main(int argc, char **argv, char **env)
 	//			test_lexer(data->words);
 				redirection_syntax_printer(data->words);
 				parser(data);
+				// test_parser(data->cmds);
 				executer(data);
-	//			test_parser(data->cmds);
 			}
 		}
 		free_line_datas(data);
