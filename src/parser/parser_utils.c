@@ -6,11 +6,32 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 19:07:59 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/19 19:47:30 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/20 19:29:11 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+char	unmute_char(char c)
+{
+	if (c < 0)
+		c = c * -1;
+	return (c);
+}
+
+int	is_expand_declaration(char *word)
+{
+	int	i;
+
+	i = 0;
+	while (word[i])
+	{
+		if (word[i] == '=')
+			return (1);
+		i++;
+	}
+	return (0);
+}
 
 int	is_path_to_cmd(char *word)
 {
@@ -89,5 +110,6 @@ t_cmd_node	*init_cmd_node(void)
 	cmd_node->fd_in = FD_UNDEFINED;
 	cmd_node->fd_out = FD_UNDEFINED;
 	cmd_node->heredocs = NULL;
+	cmd_node->expand_declarations = NULL;
 	return (cmd_node);
 }

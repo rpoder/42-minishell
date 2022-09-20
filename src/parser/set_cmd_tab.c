@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_cmd_tab.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 16:52:44 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/20 08:13:42 by margot           ###   ########.fr       */
+/*   Updated: 2022/09/20 19:28:25 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,11 @@ static int	cmd_tab_len(char **words, int i)
 	{
 		if (words[i][0] == '>' || words[i][0] == '<')
 			i += 2;
+		else if (i == 0 && is_expand_declaration(words[i]))
+		{
+			while (words[i] && is_expand_declaration(words[i]))
+				i++;
+		}
 		else if (words[i][0] < 0 && words[i][0] * -1 == '*')
 			i++;
 		else
@@ -45,7 +50,7 @@ static int	cmd_tab_len(char **words, int i)
 			i++;
 		}
 	}
-	return (count);
+	return (count + 1);
 }
 
 static int	alloc_and_fill_arg(t_cmd_node *cmd, int j, char *word)
@@ -61,15 +66,12 @@ static int	alloc_and_fill_arg(t_cmd_node *cmd, int j, char *word)
 	if (!cmd->cmd_tab[j])
 		return (MALLOC_ERR);
 	while (word[i])
-	{
+	{		
 		if (word[i] < 0 && word[i] * -1 == '*')
 			i++;
 		else
 		{
-			if (word[i] < 0)
-				cmd->cmd_tab[j][k] = word[i] * -1;
-			else
-				cmd->cmd_tab[j][k] = word[i];
+			cmd->cmd_tab[j][k] = unmute_char(word[i]);
 			i++;
 			k++;
 		}
@@ -88,7 +90,12 @@ int	set_cmd_tab(char **words, int i, t_cmd_node *cmd, t_p_tool *tool)
 	while (words[i] && !is_pipe(words[i][0]))
 	{
 		if (words[i][0] == '>' || words[i][0] == '<')
-				i += 2;
+			i += 2;
+		else if (i == 0 && is_expand_declaration(words[i]))
+		{
+			while (words[i] && is_expand_declaration(words[i]))
+				i++;
+		}
 		else
 		{
 			tool->ret = alloc_and_fill_arg(cmd, tool->tab_len, words[i]);

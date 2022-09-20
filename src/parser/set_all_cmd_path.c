@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_all_cmd_path.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 17:12:44 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/20 08:54:14 by margot           ###   ########.fr       */
+/*   Updated: 2022/09/20 19:17:20 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,11 +63,12 @@ void	set_all_cmd_path(t_data *data, t_p_tool *tool)
 	tmp = data->cmds;
 	while (tmp)
 	{
-		if 	(!((t_cmd_node *)tmp->content)->cmd_tab[0])
+		if (!((t_cmd_node *)tmp->content)->cmd_tab[0])
 			tmp = tmp->next;
 		else
 		{
-			tool->ret = set_cmd_path(((t_cmd_node *)tmp->content), path_tab, tool);
+			tool->ret = set_cmd_path(((t_cmd_node *)tmp->content),
+					path_tab, tool);
 			if (tool->ret != NO_ERR)
 			{
 				ft_free_tab(&path_tab);

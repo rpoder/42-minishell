@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/20 14:57:01 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/20 19:29:32 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,6 +47,7 @@ typedef struct s_cmd_node {
 	int		fd_in;
 	int		fd_out;
 	t_list	*heredocs;
+	t_list	*expand_declarations;
 }	t_cmd_node;
 
 extern t_data *data;
@@ -158,6 +159,9 @@ int				set_cmd_tab(char **words, int i, t_cmd_node *cmd, t_p_tool *tool);
 /* set_redirection */
 int				set_redirection(char **words, int i, t_cmd_node *cmd, t_p_tool *tool);
 
+/* set_expand_declarations */
+int				set_expand_declarations(t_data *data, char **word, int i, t_cmd_node *cmd, t_p_tool *tool);
+
 /* open_files.c */
 int				set_fd_heredoc(t_cmd_node *cmd, char *lim);
 int				set_fd_in(t_cmd_node *cmd, char *infile);
@@ -169,12 +173,14 @@ char			*unmute_word(char *str);
 void			print_ambiguous_redirection(char *expand);
 t_p_tool		*init_p_tool(void);
 int				is_path_to_cmd(char *word);
+char			unmute_char(char c);
 
 /* heredoc_utils */
 void			free_heredoc_tool(t_heredoc_tool *tool);
 t_heredoc_tool	*init_heredoc_tool(char *lim);
 char			*get_heredoc_name(int i);
 int				add_path_to_heredoc_list(t_cmd_node *cmd, char *heredoc_path);
+int				is_expand_declaration(char *word);
 
 /* set_all_cmd_path.c */
 void			set_all_cmd_path(t_data *data, t_p_tool *tool);

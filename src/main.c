@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/20 15:13:53 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/20 17:48:39 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -117,7 +117,7 @@ int	main(int argc, char **argv, char **env)
 				redirection_syntax_printer(data->words);
 				parser(data);
 				executer(data);
-	//			test_parser(data->cmds);
+				test_parser(data->cmds);
 			}
 		}
 		free_line_datas(data);

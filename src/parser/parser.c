@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 15:40:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/20 08:33:15 by margot           ###   ########.fr       */
+/*   Updated: 2022/09/20 18:22:38 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static void	add_node_to_cmd_lst(t_data *d, t_cmd_node *cmd_node, t_p_tool *tool)
 {
 	t_list			*lst;
 
-	lst = ft_lstnew(cmd_node);
+	lst = ft_lstnew((void *)cmd_node);
 	if (!lst)
 	{
 		free(tool);
@@ -26,7 +26,7 @@ static void	add_node_to_cmd_lst(t_data *d, t_cmd_node *cmd_node, t_p_tool *tool)
 	ft_lstadd_back(&d->cmds, lst);
 }
 
-static int	set_and_skip_cmd(char **words, t_cmd_node *cmd, t_p_tool *tool)
+static int	set_and_skip_cmd(t_data *data, char **words, t_cmd_node *cmd, t_p_tool *tool)
 {
 
 	tool->ret = set_redirection(words, tool->i, cmd, tool);
@@ -35,6 +35,9 @@ static int	set_and_skip_cmd(char **words, t_cmd_node *cmd, t_p_tool *tool)
 	tool->ret = set_cmd_tab(words, tool->i, cmd, tool);
 	if (tool->ret != NO_ERR)
 		return (tool->ret);
+	tool->ret = set_expand_declarations(data, words, tool->i, cmd, tool);
+	if (tool->ret != NO_ERR)
+		return (tool->ret); ////////////////////////////////////
 	while (words[tool->i] && words[tool->i][0] != '|')
 		tool->i++;
 	return (NO_ERR);
@@ -47,7 +50,7 @@ static t_cmd_node	*make_and_skip_cmd(t_data *d, char **words, t_p_tool *tool)
 	cmd_node = init_cmd_node();
 	if (!cmd_node)
 		return (NULL);
-	tool->ret = set_and_skip_cmd(words, cmd_node, tool);
+	tool->ret = set_and_skip_cmd(d, words, cmd_node, tool);
 	if (tool->ret != NO_ERR)
 	{
 		free(cmd_node);
