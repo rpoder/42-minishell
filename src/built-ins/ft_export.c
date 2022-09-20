@@ -1,52 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ft_unset.c                                         :+:      :+:    :+:   */
+/*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/08/12 09:31:14 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/20 14:50:31 by rpoder           ###   ########.fr       */
+/*   Created: 2022/08/12 08:16:14 by ronanpoder        #+#    #+#             */
+/*   Updated: 2022/09/19 20:10:33 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void	move_expand_ptr(t_list **alst, t_list *last, t_list *tmp)
-{
-	if (alst != NULL && tmp != NULL)
-	{
-		if (*alst == NULL || last == NULL)
-			*alst = tmp->next;
-		else
-			last->next = tmp->next;
-	}
-	del_one_expand(tmp);
-}
-
-static bool	unset_from(t_list **alst, char *key_to_unset)
+static void	move_to_env(t_data *data, char *key_to_export)
 {
 	t_list	*tmp;
 	t_list	*last;
 
-	tmp = *alst;
+	if (!data->local_expands)
+		return ;
+	tmp = data->local_expands;
 	last = NULL;
 	while (tmp)
 	{
-		if (ft_strcmp(((t_expand *)tmp->content)->key, key_to_unset) == 0)
+		if (ft_strcmp(((t_expand *)tmp->content)->key, key_to_export) == 0)
 			break ;
 		last = tmp;
 		tmp = tmp->next;
 	}
-	if (tmp)
-	{
-		move_expand_ptr(alst, last, tmp);
-		return (true);
-	}
-	return (false);
+	if (!tmp)
+		return ;
+	if (last == NULL)
+		data->local_expands = tmp->next;
+	else
+		last->next = tmp->next;
+	tmp->next = NULL;
+	ft_lstadd_back(&data->env, tmp);
 }
 
-int	ft_unset(t_data *data, char **args)
+int	ft_export(t_data *data, char **args)
 {
 	int		i;
 	int		ret;
@@ -57,11 +49,11 @@ int	ft_unset(t_data *data, char **args)
 	{
 		if (!is_valid_expand_key(args[i]))
 		{
-			ft_printf_fd("unset:\'%s\': not a valid identifier\n", 2, args[i]);
+			ft_printf_fd("export:\'%s\': not a valid identifier\n", 2, args[i]);
 			ret = PARSING_ERR;
 		}
-		else if (unset_from(&data->local_expands, args[i]) == false)
-			unset_from(&data->env, args[i]);
+		else
+			move_to_env(data, args[i]);
 		i++;
 	}
 	if (ret == NO_ERR)
