@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/20 21:20:50 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/20 22:29:06 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,7 @@
 # include <sys/wait.h>
 # include "libft.h"
 # include "utils.h"
+
 
 enum errors { MALLOC_ERR = -100, OPEN_ERR, PARSING_ERR, ERR_NOT_DEFINED, NO_ERR, END, PIPE_ERR, DUP_ERR, WAITPID_ERR, CLOSE_ERR, PATH_MAX_ERR};
 enum builtins { CD = 1, ECHO, ENV, EXIT, EXPORT, PWD, UNSET };
@@ -51,7 +52,7 @@ typedef struct s_cmd_node {
 	t_list	*expand_declarations;
 }	t_cmd_node;
 
-extern t_data *data;
+extern t_data *data_global;
 
 # define PATH_MAX 4096
 # define ENV_DEFAULT_PATH "/mnt/nfs/homes/rpoder/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"

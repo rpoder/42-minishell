@@ -6,11 +6,13 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/20 22:07:26 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/20 22:30:30 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+t_data *data_global = NULL;
 
 void	test_parser(t_list *cmds)
 {
@@ -54,20 +56,33 @@ void	test_parser(t_list *cmds)
 	}
 }
 
+static void	handle_signal(int sig, siginfo_t *info, void *context)
+{
+	(void) context;
+	global_free(data_global, NO_ERR);
+}
+
 int	main(int argc, char **argv, char **env)
 {
 	char 	*line;
 	t_data	*data;
 	int i = 0; ///////////
+	struct sigaction	sa;
+
+	sa.sa_flags = SA_SIGINFO;
+	sa.sa_sigaction = handle_signal;
+	sigemptyset(&sa.sa_mask);
+	sigaction(SIGINT, &sa, NULL);
 
 	data = init_data(env);
-	while ( i < 3)
+	data_global = data;
+	while (1)
 	{
-		line = "user=coucou";
-		// line = readline("mi_nils_shell j'écoute ? > ");
+		// line = "user=coucou";
+		line = readline("mi_nils_shell j'écoute ? > ");
 		if (ft_strlen(line) >= 1)
 		{
-			// add_history(line);
+			add_history(line);
 			data->prompt_line = ft_alloc_and_fill(line);
 			if (!data->prompt_line)
 				global_free(data, MALLOC_ERR);
@@ -79,7 +94,6 @@ int	main(int argc, char **argv, char **env)
 				redirection_syntax_printer(data->words);
 				parser(data);
 				// test_parser(data->cmds);
-				test_parser(data->cmds);
 				executer(data);
 			}
 		}
