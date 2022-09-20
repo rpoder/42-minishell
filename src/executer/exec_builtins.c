@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 16:40:53 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/20 19:27:13 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/20 21:54:29 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	is_builtin(char *arg)
 {
 	int	ret;
 
-	ret = 0;
+	ret = -1;
 	if (!arg)
 		return (ret);
 	if (ft_strcmp(arg, "echo") == 0)
