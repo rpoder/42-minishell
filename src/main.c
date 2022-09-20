@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/20 14:00:01 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/20 14:57:12 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,9 +100,9 @@ int	main(int argc, char **argv, char **env)
 
 	while (1)
 	{
-	//	line = readline("mi_nils_shell j'écoute ? > ");
-	//	add_history(line); //pas strlen < 1
-		line = "echo $USR$USER$USR.";
+		line = ft_alloc_and_fill("unset PATH");
+		// line = readline("mi_nils_shell j'écoute ? > ");
+		// add_history(line); //pas strlen < 1
 		data = init_data(env, line);
 	 	if (quote_syntax_checker(line) == 1)
 		{
