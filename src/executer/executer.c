@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:17:07 by ronanpoder        #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/09/20 19:13:26 by mpourrey         ###   ########.fr       */
+=======
+/*   Updated: 2022/09/20 21:14:27 by rpoder           ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,11 +53,17 @@ int	execute_child(t_data *data, t_list *cmd, t_exec_tool *tool)
 		global_free(data, CLOSE_ERR);
 
 	chevron_redirection(data, (t_cmd_node *)cmd->content, tool);
-	
+
 	if (((t_cmd_node *)cmd->content)->cmd_tab[0])
 	{
 		env_tab = get_env_tab(data);
 		if (!env_tab)
+		free_exec_tool(&tool);
+		global_free(data, MALLOC_ERR);
+	}
+	if (exec_builtins(data, ((t_cmd_node *)cmd->content)->cmd_tab, true) != NO_ERR)
+	{
+		if (execve(((t_cmd_node *)cmd->content)->path, ((t_cmd_node *)cmd->content)->cmd_tab, env_tab) != 0)
 		{
 			free_exec_tool(&tool);
 			global_free(data, MALLOC_ERR);
@@ -71,6 +81,27 @@ int	execute_child(t_data *data, t_list *cmd, t_exec_tool *tool)
 	return (NO_ERR);
 }
 
+void	exec_no_child_builtin(t_data *data, t_list *cmd, t_exec_tool *tool)
+{
+	char **env_tab;
+
+	// ft_printf_fd("only one command\n", 2);
+	env_tab = NULL;
+	env_tab = get_env_tab(data);
+	if (!env_tab)
+	{
+		free_exec_tool(&tool);
+		global_free(data, MALLOC_ERR);
+	}
+	chevron_redirection(data, (t_cmd_node *)cmd->content, tool);
+	if (exec_builtins(data, ((t_cmd_node *)cmd->content)->cmd_tab, false) != NO_ERR)
+	{
+			ft_free_tab(&env_tab);
+			free_exec_tool(&tool);
+			global_free(data, ERR_NOT_DEFINED);
+	}
+}
+
 void	execute_cmds(t_data *data, t_list *cmd)
 {
 	t_exec_tool	*tool;
@@ -85,40 +116,44 @@ void	execute_cmds(t_data *data, t_list *cmd)
 		free_exec_tool(&tool);
 		global_free(data, DUP_ERR);
 	}
-	while (cmd)
-	{
-		//handle_pipe
-		if (pipe(tool->pipe_fd) != 0)
+	if (ft_lstlen(cmd) == 1 && is_builtin(((t_cmd_node *)cmd->content)->cmd_tab[0]) >= 0)
+		exec_no_child_builtin(data, cmd , tool);
+	else{
+		while (cmd)
 		{
-			close(tool->fd_stdin);
-			global_free(data, PIPE_ERR);
-		}
+			//handle_pipe
+			if (pipe(tool->pipe_fd) != 0)
+			{
+				close(tool->fd_stdin);
+				global_free(data, PIPE_ERR);
+			}
 
-		//handle_fork
-		tool->fork_ret[i] = fork();
-		if (tool->fork_ret[i] < 0)
+			//handle_fork
+			tool->fork_ret[i] = fork();
+			if (tool->fork_ret[i] < 0)
+			{
+				close(tool->fd_stdin);
+				global_free(data, PIPE_ERR);
+			}
+
+			if (tool->fork_ret[i] == 0)
+				execute_child(data, cmd, tool);
+			redirect_pipe_out(data, tool->pipe_fd);
+			cmd = cmd->next;
+			i++;
+		}
+		if (wait_all_children(data, tool->fork_ret, i) != 0)
 		{
-			close(tool->fd_stdin);
-			global_free(data, PIPE_ERR);
+			free_exec_tool(&tool);
+			global_free(data, WAITPID_ERR);
 		}
+		// recuperer err de l'enfant
 
-		if (tool->fork_ret[i] == 0)
-			execute_child(data, cmd, tool);
-		redirect_pipe_out(data, tool->pipe_fd);
-		cmd = cmd->next;
-		i++;
-	}
-	if (wait_all_children(data, tool->fork_ret, i) != 0)
-	{
-		free_exec_tool(&tool);
-		global_free(data, WAITPID_ERR);
-	}
-	// recuperer err de l'enfant
-
-	if (dup2(tool->fd_stdin, 0) < 0)
-	{
-		free_exec_tool(&tool);
-		global_free(data, DUP_ERR);
+		if (dup2(tool->fd_stdin, 0) < 0)
+		{
+			free_exec_tool(&tool);
+			global_free(data, DUP_ERR);
+		}
 	}
 	free_exec_tool(&tool);
 }

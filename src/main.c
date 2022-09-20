@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/20 17:48:39 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/20 21:21:22 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -103,7 +103,7 @@ int	main(int argc, char **argv, char **env)
 	{
 		line = readline("mi_nils_shell j'écoute ? > ");
 		if (ft_strlen(line) >= 1)
-		{	
+		{
 			add_history(line);
 			data->prompt_line = ft_alloc_and_fill(line);
 			if (!data->prompt_line)
@@ -116,6 +116,7 @@ int	main(int argc, char **argv, char **env)
 	//			test_lexer(data->words);
 				redirection_syntax_printer(data->words);
 				parser(data);
+				// test_parser(data->cmds);
 				executer(data);
 				test_parser(data->cmds);
 			}
