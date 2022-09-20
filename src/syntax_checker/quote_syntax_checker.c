@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 20:30:12 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/08 20:35:36 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/20 15:11:08 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,7 @@ int	quote_syntax_checker(char *str)
 			if (str[i] == '\0')
 			{
 				ft_putstr_fd("syntax error : missing closed quote\n", 2);
-				return (1);
+				return (-1);
 			}
 		}
 		i++;

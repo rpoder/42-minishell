@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/20 08:43:11 by margot           ###   ########.fr       */
+/*   Updated: 2022/09/20 14:57:01 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,7 +63,7 @@ extern t_data *data;
 void	test_parser(t_list *cmds);
 
 /* init.c */
-t_data			*init_data(char **env, char *prompt_line);
+t_data			*init_data(char **env);
 t_quotes		*init_quotes(void);
 void			clear_quotes(t_quotes *quotes);
 void			set_quotes(char c, t_quotes *quotes);
@@ -179,7 +179,7 @@ int				add_path_to_heredoc_list(t_cmd_node *cmd, char *heredoc_path);
 /* set_all_cmd_path.c */
 void			set_all_cmd_path(t_data *data, t_p_tool *tool);
 
-/*----------------------------------------------UTILS*/
+/*----------------------------------------------UTILS */
 
 /* utils.c */
 int				is_word_separator(char c);
@@ -195,10 +195,16 @@ char			*ft_strjoin_gnl(char *s1, char *s2, int *ret);
 char			*ft_fill_dst(char *s1, char *s2, char *dst);
 char			*ft_strndup_gnl(char *str, int start, int len, int *ret);
 
+/* ---------------------------------------------HANDLE_FREES */
 /* handle_free.c */
 void			global_free(t_data *data, int err);
+void			free_line_datas(t_data *data);
+
+/* handle_dels */
 void			del_one_expand(void *content);
 void			del_cmd(void *cmd);
+void			del_unfound_expand(void *expand);
+void			del_expand(void *expand);
 
 /*----------------------------------------------BUILT_INS */
 

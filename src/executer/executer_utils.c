@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:18:56 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/14 16:38:43 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/20 14:39:48 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,7 +34,7 @@ char	**get_env_tab(t_data *data)
 	tab_len = ft_lstlen(data->env);
 	env_tab = malloc(sizeof(char *) * (tab_len + 1));
 	if (!env_tab)
-		global_free(data, MALLOC_ERR); ///////////////////// return NULL
+		return (NULL);
 	ft_clear_tab(&env_tab, tab_len + 1);
 	env = data->env;
 	while (env)

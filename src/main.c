@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/20 08:58:10 by margot           ###   ########.fr       */
+/*   Updated: 2022/09/20 15:13:53 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,27 +98,29 @@ int	main(int argc, char **argv, char **env)
 	char 	*line;
 	t_data	*data;
 
+	data = init_data(env);
 	while (1)
 	{
-	//	line = readline("mi_nils_shell j'écoute ? > ");
-	//	add_history(line); //pas strlen < 1
-		line = "cat ./includes/minishell.h > file";
-		data = init_data(env, line);
-	 	if (quote_syntax_checker(line) == 1)
-		{
-			global_free(data, PARSING_ERR);
-			return (1);
+		line = readline("mi_nils_shell j'écoute ? > ");
+		if (ft_strlen(line) >= 1)
+		{	
+			add_history(line);
+			data->prompt_line = ft_alloc_and_fill(line);
+			if (!data->prompt_line)
+				global_free(data, MALLOC_ERR);
+	 		if (quote_syntax_checker(line) == 0)
+			{
+ 				mute_in_quotes(data);
+				expander(data);
+				lexer(data);
+	//			test_lexer(data->words);
+				redirection_syntax_printer(data->words);
+				parser(data);
+				executer(data);
+	//			test_parser(data->cmds);
+			}
 		}
-		// test_ronan(data);
- 		mute_in_quotes(data);
-		expander(data);
-		lexer(data);
-	//	test_lexer(data->words);
-		redirection_syntax_printer(data->words);
-
-		parser(data);
-		executer(data);
-	//	test_parser(data->cmds);
-		global_free(data, END);
+		free_line_datas(data);
 	}
+	global_free(data, END);
 }
