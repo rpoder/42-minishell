@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 15:40:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/19 20:28:13 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/20 08:33:15 by margot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,7 @@ static void	add_node_to_cmd_lst(t_data *d, t_cmd_node *cmd_node, t_p_tool *tool)
 
 static int	set_and_skip_cmd(char **words, t_cmd_node *cmd, t_p_tool *tool)
 {
+
 	tool->ret = set_redirection(words, tool->i, cmd, tool);
 	if (tool->ret != NO_ERR && tool->ret != OPEN_ERR)
 		return (tool->ret);
@@ -51,7 +52,7 @@ static t_cmd_node	*make_and_skip_cmd(t_data *d, char **words, t_p_tool *tool)
 	{
 		free(cmd_node);
 		free(tool);
-	}
+	}	
 	if (tool->ret == MALLOC_ERR)
 		global_free(d, MALLOC_ERR);
 	else if (tool->ret == PARSING_ERR)
@@ -83,7 +84,7 @@ int	parser(t_data *data)
 			tool->i++;
 		}
 	}
+	set_all_cmd_path(data, tool);
 	free(tool);
-	set_all_cmd_path(data);
 	return (0);
 }

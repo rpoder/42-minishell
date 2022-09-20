@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 16:10:38 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/19 22:11:45 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/20 07:57:45 by margot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ int	set_path(t_data *data, char **path)
 {
 	char	*buf;
 
-	buf = ft_calloc(sizeof(char) * (PATH_MAX + 1));
+	buf = ft_calloc(sizeof(char), (PATH_MAX + 1));
 	if (!buf)
 		return (MALLOC_ERR);
 	if (getcwd(buf, PATH_MAX) == NULL)

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/19 21:27:13 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/20 08:43:11 by margot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -167,7 +167,7 @@ int				set_fd_out(t_cmd_node *cmd, char *outfile, int flag);
 t_cmd_node		*init_cmd_node(void);
 char			*unmute_word(char *str);
 void			print_ambiguous_redirection(char *expand);
-t_p_tool	*init_p_tool(void);
+t_p_tool		*init_p_tool(void);
 int				is_path_to_cmd(char *word);
 
 /* heredoc_utils */
@@ -177,7 +177,7 @@ char			*get_heredoc_name(int i);
 int				add_path_to_heredoc_list(t_cmd_node *cmd, char *heredoc_path);
 
 /* set_all_cmd_path.c */
-void			set_all_cmd_path(t_data *data);
+void			set_all_cmd_path(t_data *data, t_p_tool *tool);
 
 /*----------------------------------------------UTILS*/
 
