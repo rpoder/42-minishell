@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:17:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/19 21:26:58 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/20 14:39:27 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,12 +49,12 @@ int	execute_child(t_data *data, t_list *cmd, t_exec_tool *tool)
 		global_free(data, CLOSE_ERR);
 
 	chevron_redirection(data, (t_cmd_node *)cmd->content, tool);
-/* 	if (!env_tab)
+	env_tab = get_env_tab(data);
+	if (!env_tab)
 	{
 		free_exec_tool(&tool);
 		global_free(data, MALLOC_ERR);
-	} */
-	// check if builtins
+	}
 	if (exec_builtins(data, ((t_cmd_node *)cmd->content)->cmd_tab) != NO_ERR)
 	{
 		if (execve(((t_cmd_node *)cmd->content)->path, ((t_cmd_node *)cmd->content)->cmd_tab, env_tab) != 0)

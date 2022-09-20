@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
+#    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/09/19 21:32:18 by rpoder           ###   ########.fr        #
+#    Updated: 2022/09/20 14:54:48 by mpourrey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,6 +28,7 @@ SRCS				:=	main.c \
 						set_env.c \
 						set_env_utils.c \
 						handle_frees/handle_frees.c \
+						handle_frees/handle_dels.c \
 						handle_expand.c \
 						syntax_checker/quote_syntax_checker.c \
 						syntax_checker/redirection_syntax_checker.c \
