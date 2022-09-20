@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:33:22 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/19 22:00:03 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/20 07:58:31 by margot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int	ft_cd(t_data *data, char **args)
 		return (NO_ERR);
 	}
 	home_expand_v = get_expand_value(data, "HOME");
-	else if (!home_expand_v && !args[1])
+	if (!home_expand_v && !args[1])
 	{
 		set_expand(data, "?", "127");
 		return (NO_ERR);

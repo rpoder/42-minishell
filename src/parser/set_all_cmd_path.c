@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_all_cmd_path.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 17:12:44 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/19 20:27:54 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/20 08:54:14 by margot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,22 +26,21 @@ char	**create_path_tab(t_data *data)
 	return (path_tab);
 }
 
-int	set_cmd_path(t_cmd_node *cmd, char **path_tab)
+int	set_cmd_path(t_cmd_node *cmd, char **path_tab, t_p_tool *tool)
 {
-	int		i;
 	char	*tmp;
 
-	i = 0;
-	if (is_path_to_cmd(cmd->cmd_tab[i]))
+	if (is_path_to_cmd(cmd->cmd_tab[0]))
 	{
-		cmd->path = ft_alloc_and_fill(cmd->cmd_tab[i]);
+		cmd->path = ft_alloc_and_fill(cmd->cmd_tab[0]);
 		if (!cmd->path)
 			return (MALLOC_ERR);
 		return (NO_ERR);
-	}
-	while (path_tab[i])
+	}	
+	tool->i = 0;
+	while (path_tab[tool->i])
 	{
-		tmp = ft_strsjoin(3, path_tab[i], "/", cmd->cmd_tab[0]);
+		tmp = ft_strsjoin(3, path_tab[tool->i], "/", cmd->cmd_tab[0]);
 		if (!tmp)
 			return (MALLOC_ERR);
 		else if (access(tmp, F_OK & X_OK) == 0)
@@ -50,12 +49,12 @@ int	set_cmd_path(t_cmd_node *cmd, char **path_tab)
 			return (NO_ERR);
 		}
 		free(tmp);
-		i++;
+		tool->i++;
 	}
 	return (NO_ERR);
 }
 
-void	set_all_cmd_path(t_data *data)
+void	set_all_cmd_path(t_data *data, t_p_tool *tool)
 {
 	char		**path_tab;
 	t_list		*tmp;
@@ -64,12 +63,18 @@ void	set_all_cmd_path(t_data *data)
 	tmp = data->cmds;
 	while (tmp)
 	{
-		if (set_cmd_path(((t_cmd_node *)tmp->content), path_tab) == MALLOC_ERR)
+		if 	(!((t_cmd_node *)tmp->content)->cmd_tab[0])
+			tmp = tmp->next;
+		else
 		{
-			ft_free_tab(&path_tab);
-			global_free(data, MALLOC_ERR);
+			tool->ret = set_cmd_path(((t_cmd_node *)tmp->content), path_tab, tool);
+			if (tool->ret != NO_ERR)
+			{
+				ft_free_tab(&path_tab);
+				global_free(data, MALLOC_ERR);
+			}
+			tmp = tmp->next;
 		}
-		tmp = tmp->next;
 	}
 	ft_free_tab(&path_tab);
 }

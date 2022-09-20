@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_cmd_tab.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 16:52:44 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/19 20:27:10 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/20 08:13:42 by margot           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,6 +55,8 @@ static int	alloc_and_fill_arg(t_cmd_node *cmd, int j, char *word)
 
 	i = 0;
 	k = 0;
+	if (arg_len(word) == 0)
+		return (NO_ERR);
 	cmd->cmd_tab[j] = malloc(sizeof(char) * arg_len(word) + 1);
 	if (!cmd->cmd_tab[j])
 		return (MALLOC_ERR);
@@ -89,17 +91,12 @@ int	set_cmd_tab(char **words, int i, t_cmd_node *cmd, t_p_tool *tool)
 				i += 2;
 		else
 		{
-			if (words[i][0] < 0 && words[i][0] * -1 == '*')
-				i++;
-			else
-			{
-				tool->ret = alloc_and_fill_arg(cmd, tool->tab_len, words[i]);
-				if (tool->ret == MALLOC_ERR)
-					return (tool->ret);
-				i++;
-				if (cmd->cmd_tab[tool->tab_len] != NULL)
-					tool->tab_len++;
-			}
+			tool->ret = alloc_and_fill_arg(cmd, tool->tab_len, words[i]);
+			if (tool->ret == MALLOC_ERR)
+				return (tool->ret);
+			i++;
+			if (cmd->cmd_tab[tool->tab_len] != NULL)
+				tool->tab_len++;
 		}
 	}
 	return (tool->ret);
