@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/20 08:58:10 by margot           ###   ########.fr       */
+/*   Updated: 2022/09/20 14:00:01 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,7 +102,7 @@ int	main(int argc, char **argv, char **env)
 	{
 	//	line = readline("mi_nils_shell j'écoute ? > ");
 	//	add_history(line); //pas strlen < 1
-		line = "cat ./includes/minishell.h > file";
+		line = "echo $USR$USER$USR.";
 		data = init_data(env, line);
 	 	if (quote_syntax_checker(line) == 1)
 		{
