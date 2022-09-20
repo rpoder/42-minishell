@@ -6,7 +6,11 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:17:07 by ronanpoder        #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2022/09/20 19:13:26 by mpourrey         ###   ########.fr       */
+=======
 /*   Updated: 2022/09/20 21:14:27 by rpoder           ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,9 +53,11 @@ int	execute_child(t_data *data, t_list *cmd, t_exec_tool *tool)
 		global_free(data, CLOSE_ERR);
 
 	chevron_redirection(data, (t_cmd_node *)cmd->content, tool);
-	env_tab = get_env_tab(data);
-	if (!env_tab)
+
+	if (((t_cmd_node *)cmd->content)->cmd_tab[0])
 	{
+		env_tab = get_env_tab(data);
+		if (!env_tab)
 		free_exec_tool(&tool);
 		global_free(data, MALLOC_ERR);
 	}
@@ -59,9 +65,17 @@ int	execute_child(t_data *data, t_list *cmd, t_exec_tool *tool)
 	{
 		if (execve(((t_cmd_node *)cmd->content)->path, ((t_cmd_node *)cmd->content)->cmd_tab, env_tab) != 0)
 		{
-			ft_free_tab(&env_tab);
 			free_exec_tool(&tool);
-			global_free(data, ERR_NOT_DEFINED);
+			global_free(data, MALLOC_ERR);
+		}
+		if (exec_builtins(data, ((t_cmd_node *)cmd->content)->cmd_tab) != NO_ERR)
+		{
+			if (execve(((t_cmd_node *)cmd->content)->path, ((t_cmd_node *)cmd->content)->cmd_tab, env_tab) != 0)
+			{
+				ft_free_tab(&env_tab);
+				free_exec_tool(&tool);
+				global_free(data, ERR_NOT_DEFINED);
+			}
 		}
 	}
 	return (NO_ERR);

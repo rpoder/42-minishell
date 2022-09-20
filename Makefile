@@ -6,7 +6,7 @@
 #    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/09/20 14:54:48 by mpourrey         ###   ########.fr        #
+#    Updated: 2022/09/20 18:41:35 by mpourrey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,6 +57,7 @@ SRCS				:=	main.c \
 						parser/parser.c \
 						parser/set_redirection.c \
 						parser/set_cmd_tab.c \
+						parser/set_expand_declarations.c \
 						parser/open_files.c \
 						parser/parser_utils.c \
 						parser/heredoc_utils.c \
