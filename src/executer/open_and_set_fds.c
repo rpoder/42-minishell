@@ -6,13 +6,13 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 12:42:26 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/21 16:20:14 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/21 19:55:20 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	set_fd(char **words, int i, t_cmd_node *cmd)
+static int	open_and_set_fd(char **words, int i, t_cmd_node *cmd)
 {
 	char	*unmute_file;
 	int		ret;
@@ -24,15 +24,17 @@ static int	set_fd(char **words, int i, t_cmd_node *cmd)
 		if (!unmute_file)
 			return (MALLOC_ERR);
 		if (words[i][0] == '<' && !words[i][1] && words[i + 1])
-			ret = set_fd_in(cmd, unmute_file);
-	//	else if (words[i][0] == '<' && words[i][1] == '<'
-	//		&& !words[i][2] && words[i + 1])
-		//	ret = set_fd_heredoc(cmd, unmute_file);
+			ret = open_and_set_fd_in(cmd, unmute_file);
+			
+		else if (words[i][0] == '<' && words[i][1] == '<'
+			&& !words[i][2] && words[i + 1])
+			ret = open_and_set_fd_heredoc(cmd);
+			
 		else if (words[i][0] == '>' && !words[i][1] && words[i + 1])
-			ret = set_fd_out(cmd, unmute_file, O_TRUNC);
+			ret = open_and_set_fd_out(cmd, unmute_file, O_TRUNC);
 		else if (words[i][0] == '>' && words[i][1] == '>' &&
 			!words[i][2] && words[i + 1])
-			ret = set_fd_out(cmd, unmute_file, O_APPEND);
+			ret = open_and_set_fd_out(cmd, unmute_file, O_APPEND);
 		else
 			return (free(unmute_file), PARSING_ERR);
 		free(unmute_file);
@@ -51,7 +53,7 @@ int	open_and_set_fds(char **words, int i, t_cmd_node *cmd)
 	{
 		if (words[i][0] == '<' || words[i][0] == '>')
 		{
-			ret = set_fd(words, i, cmd);
+			ret = open_and_set_fd(words, i, cmd);
 			if (ret != NO_ERR)
 				return (ret);
 			i += 2;

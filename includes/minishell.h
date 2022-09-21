@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/21 18:27:00 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/21 20:23:29 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -170,6 +170,9 @@ t_p_tool		*init_p_tool(void);
 int				is_path_to_cmd(char *word);
 char			unmute_char(char c);
 
+/* create_and_fill_heredocs.c */
+int				create_and_fill_heredocs(char **words, int i, t_cmd_node *cmd, t_p_tool *tool);
+
 /* heredoc_utils */
 void			free_heredoc_tool(t_heredoc_tool *tool);
 t_heredoc_tool	*init_heredoc_tool(char *lim);
@@ -248,9 +251,9 @@ void			exec_children(t_data *data, t_list *cmd, t_exec_tool *tool);
 int				open_and_set_fds(char **words, int i, t_cmd_node *cmd);
 
 /* open_one_file.c */
-int				set_fd_heredoc(t_cmd_node *cmd, char *lim);
-int				set_fd_in(t_cmd_node *cmd, char *infile);
-int				set_fd_out(t_cmd_node *cmd, char *outfile, int flag);
+int				open_and_set_fd_heredoc(t_cmd_node *cmd);
+int				open_and_set_fd_in(t_cmd_node *cmd, char *infile);
+int				open_and_set_fd_out(t_cmd_node *cmd, char *outfile, int flag);
 
 /* handle_redirections.c */
 void			redirect_pipe_out(t_data *data, int *pipe_fd);

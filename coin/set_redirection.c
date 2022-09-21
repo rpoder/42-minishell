@@ -6,13 +6,13 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 16:51:22 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/21 15:50:53 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/21 20:05:02 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	set_fd(char **words, int i, t_cmd_node *cmd, t_p_tool *tool)
+/* static int	set_fd(char **words, int i, t_cmd_node *cmd, t_p_tool *tool)
 {
 	char	*unmute_file;
 
@@ -38,7 +38,7 @@ static int	set_fd(char **words, int i, t_cmd_node *cmd, t_p_tool *tool)
 	else
 		tool->ret = PARSING_ERR;
 	return (tool->ret);
-}
+} */
 
 // int	set_redirection(char **words, int i, t_cmd_node *cmd, t_p_tool *tool)
 // {
