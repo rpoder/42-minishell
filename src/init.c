@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   init.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:43:05 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/20 14:23:32 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/21 15:22:24 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,21 +35,18 @@ static int	add_path_to_local(t_data *data, char **env)
 	char	*key;
 	char	*value;
 
-	if (env && !env[0])
+	if (get_expand_value(data, "PATH") == NULL)
 	{
-		if (get_expand_value(data, "PATH") == NULL)
+		key = ft_alloc_and_fill("PATH");
+		if (!key)
+			return (MALLOC_ERR);
+		value = ft_alloc_and_fill(ENV_DEFAULT_PATH);
+		if (!value)
 		{
-			key = ft_alloc_and_fill("PATH");
-			if (!key)
-				return (MALLOC_ERR);
-			value = ft_alloc_and_fill(ENV_DEFAULT_PATH);
-			if (!value)
-			{
-				free(key);
-				return (MALLOC_ERR);
-			}
-			add_expand(data, &data->local_expands, key, value);
+			free(key);
+			return (MALLOC_ERR);
 		}
+		add_expand(data, &data->local_expands, key, value);
 	}
 	return (NO_ERR);
 }

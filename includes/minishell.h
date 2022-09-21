@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/20 22:29:06 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/21 15:58:56 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_cmd_node {
 	t_list	*expand_declarations;
 }	t_cmd_node;
 
-extern t_data *data_global;
+extern t_data *global_data;
 
 # define PATH_MAX 4096
 # define ENV_DEFAULT_PATH "/mnt/nfs/homes/rpoder/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
@@ -262,5 +262,13 @@ t_exec_tool	*init_exec_tool(t_list *cmd);
 /* exec_builtins.c */
 int			exec_builtins(t_data *data, char **cmd_tab, bool exit);
 int			is_builtin(char *arg);
+
+/*----------------------------------------------HANDLE SIGNALS */
+
+/* handle_signals.c */
+void	create_signals(void);
+void	create_child_signals(void);
+void	handle_parent_sigint(int sig, siginfo_t *info, void *context);
+void	handle_child_sigint(int sig, siginfo_t *info, void *context);
 
 #endif
