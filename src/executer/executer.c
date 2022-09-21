@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:17:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/21 16:25:21 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/21 17:50:52 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,10 @@ static void execute_child(t_data *data, t_list *cmd, t_exec_tool *tool)
 {
 	char **env_tab;
 
+	// create_child_signals();
+	signal(SIGINT, handle_child_sigint);
+
+	// ft_printf_fd("IN EXECUTE CHILD\n", 2);
 	env_tab = NULL;
 	if (!is_last_cmd(cmd))
 	{
@@ -53,17 +57,13 @@ static void execute_child(t_data *data, t_list *cmd, t_exec_tool *tool)
 	if (((t_cmd_node *)cmd->content)->cmd_tab[0])
 	{
 		env_tab = get_env_tab(data);
-	/* 	if (!env_tab)
-		{
-			free_exec_tool(&tool);
-			global_free(data, MALLOC_ERR);
-		} */
 		if (exec_builtins(data, ((t_cmd_node *)cmd->content)->cmd_tab, true) != NO_ERR)
 		{
+			// test_parser(data->cmds);
 			if (execve(((t_cmd_node *)cmd->content)->path, ((t_cmd_node *)cmd->content)->cmd_tab, env_tab) != 0)
 			{
+				ft_printf_fd("minilsshell: %s: command not found\n", 2, ((t_cmd_node *)cmd->content)->cmd_tab[0]);
 				ft_free_tab(&env_tab);
-				free_exec_tool(&tool);
 				global_free(data, ERR_NOT_DEFINED);
 			}
 		}
@@ -130,7 +130,7 @@ void	execute_cmds(t_data *data, t_list *cmd)
 		}
 	}
 	else
-	{		
+	{
 		while (cmd)
 		{
 			//set_fds
@@ -146,7 +146,7 @@ void	execute_cmds(t_data *data, t_list *cmd)
 				lexer_len++;
 			if (data->words[lexer_len])
 				lexer_len++;
-			
+
 			//handle_pipe
 			if (pipe(tool->pipe_fd) != 0)
 			{
@@ -163,7 +163,7 @@ void	execute_cmds(t_data *data, t_list *cmd)
 				close(tool->fd_stdin);
 				global_free(data, PIPE_ERR);
 			}
-			
+
 			// redirect et execute child
 			if (tool->fork_ret[i] == 0)
 				execute_child(data, cmd, tool);
@@ -172,7 +172,7 @@ void	execute_cmds(t_data *data, t_list *cmd)
 			cmd = cmd->next;
 			i++;
 		}
-		
+
 		if (wait_all_children(data, tool->fork_ret, i) != 0)
 		{
 			free_exec_tool(&tool);

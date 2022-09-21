@@ -6,13 +6,17 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/09/21 15:11:02 by mpourrey         ###   ########.fr       */
+=======
+/*   Updated: 2022/09/21 16:28:24 by rpoder           ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_data *data_global = NULL;
+t_data *global_data = NULL;
 
 void	test_parser(t_list *cmds)
 {
@@ -56,27 +60,31 @@ void	test_parser(t_list *cmds)
 	}
 }
 
-static void	handle_signal(int sig, siginfo_t *info, void *context)
-{
-	(void) context;
-	global_free(data_global, NO_ERR);
-}
-
 int	main(int argc, char **argv, char **env)
 {
 	char 	*line;
 	t_data	*data;
+<<<<<<< HEAD
 	struct sigaction	sa;
 
 	sa.sa_flags = SA_SIGINFO;
 	sa.sa_sigaction = handle_signal;
 	sigemptyset(&sa.sa_mask);
 	sigaction(SIGINT, &sa, NULL);
+=======
+	int i = 0; ///////////
+>>>>>>> master
 
+	// create_signals();
 	data = init_data(env);
+<<<<<<< HEAD
 	data_global = data;
+=======
+	global_data = data;
+>>>>>>> master
 	while (1)
 	{
+	signal(SIGINT, handle_parent_sigint);
 		// line = "echo coucou > infile";
 		line = readline("mi_nils_shell j'écoute ? > ");
 		if (ft_strlen(line) >= 1)
@@ -92,7 +100,11 @@ int	main(int argc, char **argv, char **env)
 				lexer(data);
 				redirection_syntax_printer(data->words);
 				parser(data);
+<<<<<<< HEAD
 			//	test_parser(data->cmds);
+=======
+				// test_parser(data->cmds);
+>>>>>>> master
 				executer(data);
 			}
 		}

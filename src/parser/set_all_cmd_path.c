@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 17:12:44 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/21 12:12:56 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/21 12:29:44 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,18 +38,21 @@ int	set_cmd_path(t_cmd_node *cmd, char **path_tab, t_p_tool *tool)
 		return (NO_ERR);
 	}
 	tool->i = 0;
-	while (path_tab[tool->i])
+	if (path_tab)
 	{
-		tmp = ft_strsjoin(3, path_tab[tool->i], "/", cmd->cmd_tab[0]);
-		if (!tmp)
-			return (MALLOC_ERR);
-		else if (access(tmp, F_OK & X_OK) == 0)
+		while (path_tab[tool->i])
 		{
-			cmd->path = tmp;
-			return (NO_ERR);
+			tmp = ft_strsjoin(3, path_tab[tool->i], "/", cmd->cmd_tab[0]);
+			if (!tmp)
+				return (MALLOC_ERR);
+			else if (access(tmp, F_OK & X_OK) == 0)
+			{
+				cmd->path = tmp;
+				return (NO_ERR);
+			}
+			free(tmp);
+			tool->i++;
 		}
-		free(tmp);
-		tool->i++;
 	}
 	if (cmd->path == NULL)
 		cmd->path = ft_alloc_and_fill("/");
@@ -62,6 +65,7 @@ void	set_all_cmd_path(t_data *data, t_p_tool *tool)
 	t_list		*tmp;
 
 	path_tab = create_path_tab(data);
+
 	tmp = data->cmds;
 	while (tmp)
 	{

@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
+#    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/09/21 16:31:09 by mpourrey         ###   ########.fr        #
+#    Updated: 2022/09/21 17:54:32 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -68,6 +68,7 @@ SRCS				:=	main.c \
 						executer/executer_utils.c \
 						executer/executer_tool_utils.c \
 						executer/exec_builtins.c \
+						handle_signals/handle_signals.c \
 
 CC					:=	cc
 
@@ -104,6 +105,7 @@ endif
 fclean				:	clean
 	$(RM) -f $(PROGNAME) $(DEBUGNAME)
 
-re					:	fclean $(NAME)
+re					:	fclean
+					make $(NAME)
 
 .PHONY				:	all clean fclean re
