@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/21 17:58:03 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/21 22:01:20 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,15 @@ int	main(int argc, char **argv, char **env)
 	char 	*line;
 	t_data	*data;
 
-	// create_signals();
 	data = init_data(env);
 	global_data = data;
 	while (1)
 	{
-	signal(SIGINT, handle_parent_sigint);
+		create_parent_signals();
 		// line = "echo coucou > infile";
-		line = readline("mi_nils_shell j'écoute ? > ");
+		line = readline("minilsshell> ");
+		if (!line)
+			global_free(data, NO_ERR);
 		if (ft_strlen(line) >= 1)
 		{
 			add_history(line);
