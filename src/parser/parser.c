@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 15:40:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/21 15:10:47 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/21 22:02:24 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,19 +26,17 @@ static void	add_node_to_cmd_lst(t_data *d, t_cmd_node *cmd_node, t_p_tool *tool)
 	ft_lstadd_back(&d->cmds, lst);
 }
 
-static int	set_and_skip_cmd(t_data *data, char **words, t_cmd_node *cmd, t_p_tool *tool)
+static int	set_and_skip_cmd(t_data *d, char **words, t_cmd_node *cmd, t_p_tool *tool)
 {
-//	tool->ret = fill_heredocs();
-	/* tool->ret = set_redirection(words, tool->i, cmd, tool);
+	tool->ret = create_and_fill_heredocs(words, tool->i, cmd, tool);
 	if (tool->ret != NO_ERR && tool->ret != OPEN_ERR)
-		return (tool->ret); */
-					
+		return (tool->ret); 	
 	tool->ret = set_cmd_tab(words, tool->i, cmd, tool);
 	if (tool->ret != NO_ERR)
 		return (tool->ret);
-	tool->ret = set_expand_declarations(data, words, tool->i, cmd, tool);
+	tool->ret = set_expand_declarations(d, words, tool->i, cmd, tool);
 	if (tool->ret != NO_ERR)
-		return (tool->ret); ////////////////////////////////////
+		return (tool->ret);
 	while (words[tool->i] && words[tool->i][0] != '|')
 		tool->i++;
 	return (NO_ERR);
@@ -53,16 +51,22 @@ static t_cmd_node	*make_and_skip_cmd(t_data *d, char **words, t_p_tool *tool)
 		return (NULL);
 	tool->ret = set_and_skip_cmd(d, words, cmd_node, tool);
 	if (tool->ret != NO_ERR)
-	{
 		free(cmd_node);
-		free(tool);
-	}	
 	if (tool->ret == MALLOC_ERR)
+	{
+		free(tool);
 		global_free(d, MALLOC_ERR);
-	else if (tool->ret == PARSING_ERR)
+	}
+	if (tool->ret == PARSING_ERR)
+	{
+		free(tool);
 		global_free(d, PARSING_ERR);
-	else if (tool->ret == ERR_NOT_DEFINED)
+	}
+	if (tool->ret == ERR_NOT_DEFINED)
+	{
+		free(tool);
 		global_free(d, ERR_NOT_DEFINED);
+	}
 	return (cmd_node);
 }
 

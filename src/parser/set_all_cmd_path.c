@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_all_cmd_path.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 17:12:44 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/21 12:29:44 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/21 21:58:41 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,6 @@ int	set_cmd_path(t_cmd_node *cmd, char **path_tab, t_p_tool *tool)
 			return (MALLOC_ERR);
 		return (NO_ERR);
 	}
-	tool->i = 0;
 	if (path_tab)
 	{
 		while (path_tab[tool->i])
@@ -65,7 +64,6 @@ void	set_all_cmd_path(t_data *data, t_p_tool *tool)
 	t_list		*tmp;
 
 	path_tab = create_path_tab(data);
-
 	tmp = data->cmds;
 	while (tmp)
 	{
@@ -73,6 +71,7 @@ void	set_all_cmd_path(t_data *data, t_p_tool *tool)
 			tmp = tmp->next;
 		else
 		{
+			tool->i = 0;
 			tool->ret = set_cmd_path(((t_cmd_node *)tmp->content),
 					path_tab, tool);
 			if (tool->ret != NO_ERR)

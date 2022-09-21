@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/21 22:01:20 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/21 22:11:13 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ int	main(int argc, char **argv, char **env)
 				expander(data);
 				lexer(data);
 				redirection_syntax_printer(data->words);
+
 				parser(data);
 				//	test_parser(data->cmds);
 				executer(data);
