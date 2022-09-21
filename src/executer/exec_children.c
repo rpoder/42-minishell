@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:17:45 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/21 22:11:39 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/22 00:17:27 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ static void handle_fork(t_data *data, t_exec_tool *tool)
 	{
 		free_exec_tool(&tool);
 		close(tool->fd_stdin);
-		global_free(data, PIPE_ERR);
+		global_free(data, FORK_ERR);
 	}
 }
 
@@ -54,12 +54,10 @@ static void exec_child(t_data *data, t_list *cmd, t_exec_tool *tool)
 {
 	char **env_tab;
 
-	// cancel_parent_signals();
-	// signal(SIGINT, handle_child_sigint);
-
 	env_tab = NULL;
 	if (!is_last_cmd(cmd))
 		redirect_to_pipe(data, tool);
+	// set expand_declarations local_vars ici aussi
 	chevron_redirection(data, (t_cmd_node *)cmd->content, tool);
 	if (((t_cmd_node *)cmd->content)->cmd_tab[0])
 	{
@@ -86,6 +84,7 @@ void	exec_children(t_data *data, t_list *cmd, t_exec_tool *tool)
 	lexer_len = 0;
 	while (cmd)
 	{
+		///////////////NORMER
 		//set_fds
 		tool->ret = open_and_set_fds(data->words, lexer_len, (t_cmd_node *)cmd->content);
 		if (tool->ret != NO_ERR && tool->ret != OPEN_ERR) //PROTEGER
@@ -99,6 +98,8 @@ void	exec_children(t_data *data, t_list *cmd, t_exec_tool *tool)
 			lexer_len++;
 		if (data->words[lexer_len])
 			lexer_len++;
+		////////////////////
+
 		handle_pipe(data, tool);
 		cancel_parent_signals();
 		handle_fork(data, tool);

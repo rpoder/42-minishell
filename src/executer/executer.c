@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:17:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/21 19:39:54 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/22 00:16:33 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,6 +71,7 @@ void	execute_cmds(t_data *data, t_list *cmd)
 	tool = init_exec_tool(cmd);
 	if (!tool)
 		global_free(data, MALLOC_ERR);
+	//lstlen data->cmds, si == 1, executer expand_declarations ici, sinon rien
 	if (ft_lstlen(cmd) == 1 && is_builtin(((t_cmd_node *)cmd->content)->cmd_tab[0]) >= 0)
 		exec_no_child_builtin(data, cmd , tool);
 	else

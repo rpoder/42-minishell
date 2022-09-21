@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 15:40:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/21 22:02:24 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/21 22:49:21 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	set_and_skip_cmd(t_data *d, char **words, t_cmd_node *cmd, t_p_tool *
 {
 	tool->ret = create_and_fill_heredocs(words, tool->i, cmd, tool);
 	if (tool->ret != NO_ERR && tool->ret != OPEN_ERR)
-		return (tool->ret); 	
+		return (tool->ret);
 	tool->ret = set_cmd_tab(words, tool->i, cmd, tool);
 	if (tool->ret != NO_ERR)
 		return (tool->ret);
@@ -66,6 +66,11 @@ static t_cmd_node	*make_and_skip_cmd(t_data *d, char **words, t_p_tool *tool)
 	{
 		free(tool);
 		global_free(d, ERR_NOT_DEFINED);
+	}
+	if (tool->ret == FORK_ERR)
+	{
+		free(tool);
+		global_free(d, FORK_ERR);
 	}
 	return (cmd_node);
 }

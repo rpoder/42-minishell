@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:07:16 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/21 21:59:48 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/21 23:32:43 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 
 void	handle_parent_sigint(int signum)
 {
-	// ft_printf_fd("[parent %d]\n", 2, getpid());
+	ft_printf_fd("[parent %d]\n", 2, getpid());
 
-	free_line_datas(global_data);
+	free_line_datas(g_data);
 	ft_putstr_fd("\n\b", 1);
 	rl_on_new_line();
 	rl_redisplay();
@@ -26,15 +26,15 @@ void	handle_parent_sigint(int signum)
 
 void	handle_child_sigint(int signum)
 {
-	// ft_printf_fd("[enfant %d]\n", 2, getpid());
-	global_free(global_data, NO_ERR);
+	ft_printf_fd("[enfant %d]\n", 2, getpid());
+	global_free(g_data, NO_ERR);
 }
 
 ///////////////////////////////////////////////////
 
 void	create_parent_signals(void)
 {
-	// ft_printf_fd("create parent pid %d\n", 2, getpid());
+	ft_printf_fd("create parent pid %d\n", 2, getpid());
 	signal(SIGINT, handle_parent_sigint);
 	signal(SIGQUIT, SIG_IGN);
 	// signal(SIGQUIT, block_parent_sigquit);
@@ -42,7 +42,7 @@ void	create_parent_signals(void)
 
 void	create_child_signals(void)
 {
-	// ft_printf_fd("create enfant pid %d\n", 2, getpid());
+	ft_printf_fd("create enfant pid %d\n", 2, getpid());
 	signal(SIGINT, handle_child_sigint);
 }
 

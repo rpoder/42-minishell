@@ -6,13 +6,13 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/21 22:11:13 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/21 23:04:26 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_data *global_data = NULL;
+t_data *g_data = NULL;
 
 void	test_parser(t_list *cmds)
 {
@@ -62,7 +62,7 @@ int	main(int argc, char **argv, char **env)
 	t_data	*data;
 
 	data = init_data(env);
-	global_data = data;
+	g_data = data;
 	while (1)
 	{
 		create_parent_signals();
