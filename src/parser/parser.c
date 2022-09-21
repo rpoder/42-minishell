@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 15:40:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/20 18:22:38 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/21 15:10:47 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,11 @@ static void	add_node_to_cmd_lst(t_data *d, t_cmd_node *cmd_node, t_p_tool *tool)
 
 static int	set_and_skip_cmd(t_data *data, char **words, t_cmd_node *cmd, t_p_tool *tool)
 {
-
-	tool->ret = set_redirection(words, tool->i, cmd, tool);
+//	tool->ret = fill_heredocs();
+	/* tool->ret = set_redirection(words, tool->i, cmd, tool);
 	if (tool->ret != NO_ERR && tool->ret != OPEN_ERR)
-		return (tool->ret);
+		return (tool->ret); */
+					
 	tool->ret = set_cmd_tab(words, tool->i, cmd, tool);
 	if (tool->ret != NO_ERR)
 		return (tool->ret);

@@ -3,10 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
+<<<<<<< HEAD
+/*   Updated: 2022/09/21 15:11:02 by mpourrey         ###   ########.fr       */
+=======
 /*   Updated: 2022/09/21 16:28:24 by rpoder           ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,11 +64,24 @@ int	main(int argc, char **argv, char **env)
 {
 	char 	*line;
 	t_data	*data;
+<<<<<<< HEAD
+	struct sigaction	sa;
+
+	sa.sa_flags = SA_SIGINFO;
+	sa.sa_sigaction = handle_signal;
+	sigemptyset(&sa.sa_mask);
+	sigaction(SIGINT, &sa, NULL);
+=======
 	int i = 0; ///////////
+>>>>>>> master
 
 	// create_signals();
 	data = init_data(env);
+<<<<<<< HEAD
+	data_global = data;
+=======
 	global_data = data;
+>>>>>>> master
 	while (1)
 	{
 	signal(SIGINT, handle_parent_sigint);
@@ -83,12 +100,15 @@ int	main(int argc, char **argv, char **env)
 				lexer(data);
 				redirection_syntax_printer(data->words);
 				parser(data);
+<<<<<<< HEAD
+			//	test_parser(data->cmds);
+=======
 				// test_parser(data->cmds);
+>>>>>>> master
 				executer(data);
 			}
 		}
 		free_line_datas(data); //
-		i++;
 	}
 	global_free(data, END);
 	rl_clear_history();

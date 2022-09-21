@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/21 15:58:56 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/21 17:55:21 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ extern t_data *global_data;
 
 ///////////////A SUPP
 void	test_parser(t_list *cmds);
+/////////////////////////////
 
 /* init.c */
 t_data			*init_data(char **env);
@@ -121,7 +122,7 @@ void			free_expand_tool(t_expand_tool *expand_tool);
 void			set_env(t_data *data, char **env);
 
 /* set_env_utils.c */
-int	add_default_expands_to_env(t_data *data);
+int				add_default_expands_to_env(t_data *data);
 
 /*lexer.c*/
 void			lexer(t_data *data);
@@ -158,16 +159,8 @@ int				parser(t_data *data);
 /* set_cmd_tab */
 int				set_cmd_tab(char **words, int i, t_cmd_node *cmd, t_p_tool *tool);
 
-/* set_redirection */
-int				set_redirection(char **words, int i, t_cmd_node *cmd, t_p_tool *tool);
-
 /* set_expand_declarations */
 int				set_expand_declarations(t_data *data, char **word, int i, t_cmd_node *cmd, t_p_tool *tool);
-
-/* open_files.c */
-int				set_fd_heredoc(t_cmd_node *cmd, char *lim);
-int				set_fd_in(t_cmd_node *cmd, char *infile);
-int				set_fd_out(t_cmd_node *cmd, char *outfile, int flag);
 
 /* parser_utils.c */
 t_cmd_node		*init_cmd_node(void);
@@ -188,7 +181,6 @@ int				is_expand_declaration(char *word);
 void			set_all_cmd_path(t_data *data, t_p_tool *tool);
 
 /*----------------------------------------------UTILS */
-
 /* utils.c */
 int				is_word_separator(char c);
 int				is_redirection_operator(char c);
@@ -202,6 +194,11 @@ char			*gnl_minishell(int fd, int *ret);
 char			*ft_strjoin_gnl(char *s1, char *s2, int *ret);
 char			*ft_fill_dst(char *s1, char *s2, char *dst);
 char			*ft_strndup_gnl(char *str, int start, int len, int *ret);
+
+/* unmute_utils.c */
+char			unmute_char(char c);
+int				unmute_word_len(char *str);
+char			*unmute_word(char *str);
 
 /* ---------------------------------------------HANDLE_FREES */
 /* handle_free.c */
@@ -217,51 +214,57 @@ void			del_expand(void *expand);
 /*----------------------------------------------BUILT_INS */
 
 /* builtins_utils.c */
-bool	is_valid_expand_key(char *key);
+bool			is_valid_expand_key(char *key);
 
 /* ft_echo.c */
-int	ft_echo(t_data *data, char **args);
+int				ft_echo(t_data *data, char **args);
 
 /* ft_env.c */
-int	ft_env(t_data *data, char **args);
+int				ft_env(t_data *data, char **args);
 
 /* ft_export.c */
-int		ft_export(t_data *data, char **args);
+int				ft_export(t_data *data, char **args);
 
 /* ft_unset.c */
-int		ft_unset(t_data *data, char **args);
 
-/* ft_cd.c */
-int	ft_cd(t_data *data, char **args);
-
+int				ft_cd(t_data *data, char **args);
+int				ft_unset(t_data *data, char **args);/* ft_cd.c */
 /* ft_pwd.c */
-int	ft_pwd(t_data *data, char **args);
-int	set_path(t_data *data, char **path);
+int				ft_pwd(t_data *data, char **args);
+int				set_path(t_data *data, char **path);
 
 /* ft_exit */
-int		ft_exit(t_data *data, char **args);
+int				ft_exit(t_data *data, char **args);
 
 /*----------------------------------------------EXECUTER */
 
 /* executer.c */
-void	executer(t_data *data);
+	void		executer(t_data *data);
+
+/* open_and_set_fds */
+int				open_and_set_fds(char **words, int i, t_cmd_node *cmd);
+
+/* open_one_file.c */
+int				set_fd_heredoc(t_cmd_node *cmd, char *lim);
+int				set_fd_in(t_cmd_node *cmd, char *infile);
+int				set_fd_out(t_cmd_node *cmd, char *outfile, int flag);
 
 /* handle_redirections.c */
-void		redirect_pipe_out(t_data *data, int *pipe_fd);
-void		chevron_redirection(t_data *data, t_cmd_node *cmd, t_exec_tool *tool);
+void			redirect_pipe_out(t_data *data, int *pipe_fd);
+void			chevron_redirection(t_data *data, t_cmd_node *cmd, t_exec_tool *tool);
 
 /* executer_utils.c */
-int			*init_pipe(t_data *data);
-char		**get_env_tab(t_data *data);
-int			is_last_cmd(t_list *cmd);
+int				*init_pipe(t_data *data);
+char			**get_env_tab(t_data *data);
+int				is_last_cmd(t_list *cmd);
 
 /* executer_tool_utils.c */
-void		free_exec_tool(t_exec_tool **tool);
-t_exec_tool	*init_exec_tool(t_list *cmd);
+void			free_exec_tool(t_exec_tool **tool);
+t_exec_tool		*init_exec_tool(t_list *cmd);
 
 /* exec_builtins.c */
-int			exec_builtins(t_data *data, char **cmd_tab, bool exit);
-int			is_builtin(char *arg);
+int				exec_builtins(t_data *data, char **cmd_tab, bool exit);
+int				is_builtin(char *arg);
 
 /*----------------------------------------------HANDLE SIGNALS */
 
