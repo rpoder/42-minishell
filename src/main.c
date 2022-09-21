@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/21 20:34:19 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/21 22:11:13 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,14 +61,15 @@ int	main(int argc, char **argv, char **env)
 	char 	*line;
 	t_data	*data;
 
-	// create_signals();
 	data = init_data(env);
 	global_data = data;
 	while (1)
 	{
-	signal(SIGINT, handle_parent_sigint);
+		create_parent_signals();
 		// line = "echo coucou > infile";
-		line = readline("mi_nils_shell j'écoute ? > ");
+		line = readline("minilsshell> ");
+		if (!line)
+			global_free(data, NO_ERR);
 		if (ft_strlen(line) >= 1)
 		{
 			add_history(line);
@@ -81,7 +82,7 @@ int	main(int argc, char **argv, char **env)
 				expander(data);
 				lexer(data);
 				redirection_syntax_printer(data->words);
-					
+
 				parser(data);
 				//	test_parser(data->cmds);
 				executer(data);

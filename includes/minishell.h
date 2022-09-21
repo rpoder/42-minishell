@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/21 20:23:29 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/21 22:11:04 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,9 +275,10 @@ int				is_builtin(char *arg);
 /*----------------------------------------------HANDLE SIGNALS */
 
 /* handle_signals.c */
-void	create_signals(void);
+void	create_parent_signals(void);
 void	create_child_signals(void);
-void	handle_parent_sigint(int sig, siginfo_t *info, void *context);
-void	handle_child_sigint(int sig, siginfo_t *info, void *context);
+void	handle_parent_sigint(int signum);
+void	handle_child_sigint(int signum);
+void	cancel_parent_signals(void);
 
 #endif
