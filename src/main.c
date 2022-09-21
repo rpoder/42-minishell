@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/21 10:06:49 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/21 10:54:44 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,7 +76,7 @@ int	main(int argc, char **argv, char **env)
 
 	data = init_data(env);
 	data_global = data;
-	while (i < 3)
+	while (i < 2)
 	{
 		// line = "echo coucou > infile";
 		line = readline("mi_nils_shell j'écoute ? > ");

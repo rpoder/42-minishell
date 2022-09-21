@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:17:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/21 10:04:16 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/21 11:14:49 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,7 @@ static void execute_child(t_data *data, t_list *cmd, t_exec_tool *tool)
 {
 	char **env_tab;
 
+	ft_printf_fd("IN EXECUTE CHILD\n", 2);
 	env_tab = NULL;
 	if (!is_last_cmd(cmd))
 	{
@@ -53,13 +54,14 @@ static void execute_child(t_data *data, t_list *cmd, t_exec_tool *tool)
 	if (((t_cmd_node *)cmd->content)->cmd_tab[0])
 	{
 		env_tab = get_env_tab(data);
-		if (!env_tab)
+	/* 	if (!env_tab)
 		{
 			free_exec_tool(&tool);
 			global_free(data, MALLOC_ERR);
-		}
+		} */
 		if (exec_builtins(data, ((t_cmd_node *)cmd->content)->cmd_tab, true) != NO_ERR)
 		{
+			test_parser(data->cmds);
 			if (execve(((t_cmd_node *)cmd->content)->path, ((t_cmd_node *)cmd->content)->cmd_tab, env_tab) != 0)
 			{
 				ft_free_tab(&env_tab);
@@ -76,14 +78,13 @@ void	exec_no_child_builtin(t_data *data, t_list *cmd, t_exec_tool *tool)
 {
 	char **env_tab;
 
-	ft_printf_fd("only one command\n", 2);
-	ft_printf_fd("fd_out %d\n", 2, ((t_cmd_node *)cmd->content)->fd_out);
 	env_tab = get_env_tab(data);
 	if (!env_tab)
 	{
 		free_exec_tool(&tool);
 		global_free(data, MALLOC_ERR);
 	}
+
 	chevron_redirection(data, (t_cmd_node *)cmd->content, tool);
 	if (exec_builtins(data, ((t_cmd_node *)cmd->content)->cmd_tab, false) != NO_ERR)
 	{
@@ -110,8 +111,22 @@ void	execute_cmds(t_data *data, t_list *cmd)
 	}
 
 	if (ft_lstlen(cmd) == 1 && is_builtin(((t_cmd_node *)cmd->content)->cmd_tab[0]) >= 0)
+	{
+		tool->fd_stdout = dup(1);
+		if (tool->fd_stdout < 0)
+		{
+			free_exec_tool(&tool);
+			global_free(data, DUP_ERR);
+		}
 		exec_no_child_builtin(data, cmd , tool);
-	else{
+		if (dup2(tool->fd_stdout, 1) < 0)
+		{
+			free_exec_tool(&tool);
+			global_free(data, DUP_ERR);
+		}
+	}
+	else
+	{
 		while (cmd)
 		{
 			//handle_pipe

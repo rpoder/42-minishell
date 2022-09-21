@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:25:35 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/19 19:47:30 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/21 11:08:20 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,7 @@ typedef struct s_exec_tool
 {
 	int		*pipe_fd;
 	int		fd_stdin;
+	int		fd_stdout;
 	pid_t	*fork_ret;
 }	t_exec_tool;
 

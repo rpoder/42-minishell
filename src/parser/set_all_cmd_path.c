@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_all_cmd_path.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 17:12:44 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/20 19:17:20 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/21 12:12:56 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ int	set_cmd_path(t_cmd_node *cmd, char **path_tab, t_p_tool *tool)
 		if (!cmd->path)
 			return (MALLOC_ERR);
 		return (NO_ERR);
-	}	
+	}
 	tool->i = 0;
 	while (path_tab[tool->i])
 	{
@@ -51,6 +51,8 @@ int	set_cmd_path(t_cmd_node *cmd, char **path_tab, t_p_tool *tool)
 		free(tmp);
 		tool->i++;
 	}
+	if (cmd->path == NULL)
+		cmd->path = ft_alloc_and_fill("/");
 	return (NO_ERR);
 }
 

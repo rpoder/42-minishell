@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_tool_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 13:02:56 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/14 13:34:51 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/21 11:07:51 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,6 +20,8 @@ void	free_exec_tool(t_exec_tool **tool)
 		free((*tool)->fork_ret);
 	if ((*tool)->fd_stdin >= 0)
 		close ((*tool)->fd_stdin);
+	if ((*tool)->fd_stdout >= 0)
+		close ((*tool)->fd_stdout);
 	free(*tool);
 	*tool = NULL;
 }
@@ -61,6 +63,7 @@ t_exec_tool	*init_exec_tool(t_list *cmd)
 	if (!tool)
 		return (NULL);
 	tool->fd_stdin = FD_UNDEFINED;
+	tool->fd_stdout = FD_UNDEFINED;
 	tool->fork_ret = init_fork_ret(cmd);
 	if (!tool->fork_ret)
 	{
