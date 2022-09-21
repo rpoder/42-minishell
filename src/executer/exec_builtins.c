@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 16:40:53 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/20 21:54:29 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/21 10:17:05 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,5 @@ int	exec_builtins(t_data *data, char **cmd_tab, bool exit)
 	}
 	if (exit == true)
 		global_free(data, ERR_NOT_DEFINED);
-	if (ret == NO_ERR || ret == PARSING_ERR)
-		return (NO_ERR);
+	return (NO_ERR);
 }

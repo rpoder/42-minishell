@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:17:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/20 22:04:27 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/21 10:04:16 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,9 +76,8 @@ void	exec_no_child_builtin(t_data *data, t_list *cmd, t_exec_tool *tool)
 {
 	char **env_tab;
 
-	// ft_printf_fd("only one command\n", 2);
-	env_tab = NULL;
-
+	ft_printf_fd("only one command\n", 2);
+	ft_printf_fd("fd_out %d\n", 2, ((t_cmd_node *)cmd->content)->fd_out);
 	env_tab = get_env_tab(data);
 	if (!env_tab)
 	{
@@ -92,6 +91,7 @@ void	exec_no_child_builtin(t_data *data, t_list *cmd, t_exec_tool *tool)
 			free_exec_tool(&tool);
 			global_free(data, ERR_NOT_DEFINED);
 	}
+	ft_free_tab(&env_tab);
 }
 
 void	execute_cmds(t_data *data, t_list *cmd)

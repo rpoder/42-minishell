@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/20 22:30:30 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/21 10:06:49 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -76,14 +76,14 @@ int	main(int argc, char **argv, char **env)
 
 	data = init_data(env);
 	data_global = data;
-	while (1)
+	while (i < 3)
 	{
-		// line = "user=coucou";
+		// line = "echo coucou > infile";
 		line = readline("mi_nils_shell j'écoute ? > ");
 		if (ft_strlen(line) >= 1)
 		{
 			add_history(line);
-			data->prompt_line = ft_alloc_and_fill(line);
+			data->prompt_line = line;
 			if (!data->prompt_line)
 				global_free(data, MALLOC_ERR);
 	 		if (quote_syntax_checker(line) == 0)
@@ -93,12 +93,13 @@ int	main(int argc, char **argv, char **env)
 				lexer(data);
 				redirection_syntax_printer(data->words);
 				parser(data);
-				// test_parser(data->cmds);
+				test_parser(data->cmds);
 				executer(data);
 			}
 		}
-		free_line_datas(data);
+		free_line_datas(data); //
 		i++;
 	}
 	global_free(data, END);
+	rl_clear_history();
 }
