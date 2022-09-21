@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:17:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/21 11:14:49 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/21 16:23:18 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,10 @@ static void execute_child(t_data *data, t_list *cmd, t_exec_tool *tool)
 {
 	char **env_tab;
 
-	ft_printf_fd("IN EXECUTE CHILD\n", 2);
+	// create_child_signals();
+	signal(SIGINT, handle_child_sigint);
+
+	// ft_printf_fd("IN EXECUTE CHILD\n", 2);
 	env_tab = NULL;
 	if (!is_last_cmd(cmd))
 	{
@@ -54,18 +57,13 @@ static void execute_child(t_data *data, t_list *cmd, t_exec_tool *tool)
 	if (((t_cmd_node *)cmd->content)->cmd_tab[0])
 	{
 		env_tab = get_env_tab(data);
-	/* 	if (!env_tab)
-		{
-			free_exec_tool(&tool);
-			global_free(data, MALLOC_ERR);
-		} */
 		if (exec_builtins(data, ((t_cmd_node *)cmd->content)->cmd_tab, true) != NO_ERR)
 		{
-			test_parser(data->cmds);
+			// test_parser(data->cmds);
 			if (execve(((t_cmd_node *)cmd->content)->path, ((t_cmd_node *)cmd->content)->cmd_tab, env_tab) != 0)
 			{
+				ft_printf_fd("minilsshell: %s: command not found\n", 2, ((t_cmd_node *)cmd->content)->cmd_tab[0]);
 				ft_free_tab(&env_tab);
-				free_exec_tool(&tool);
 				global_free(data, ERR_NOT_DEFINED);
 			}
 		}
