@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/21 17:55:21 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/21 18:27:00 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -239,7 +239,10 @@ int				ft_exit(t_data *data, char **args);
 /*----------------------------------------------EXECUTER */
 
 /* executer.c */
-	void		executer(t_data *data);
+void			executer(t_data *data);
+
+/* exec_children.c */
+void			exec_children(t_data *data, t_list *cmd, t_exec_tool *tool);
 
 /* open_and_set_fds */
 int				open_and_set_fds(char **words, int i, t_cmd_node *cmd);

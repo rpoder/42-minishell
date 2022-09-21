@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 13:02:56 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/21 11:07:51 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/21 18:23:47 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,17 +62,26 @@ t_exec_tool	*init_exec_tool(t_list *cmd)
 	tool = malloc(sizeof(t_exec_tool));
 	if (!tool)
 		return (NULL);
-	tool->fd_stdin = FD_UNDEFINED;
+	tool->i = 0;
+	tool->ret = NO_ERR;
+	tool->fd_stdin = dup(0);
+	if (tool->fd_stdin < 0)
+	{
+		free(tool);
+		return (NULL);
+	}
 	tool->fd_stdout = FD_UNDEFINED;
 	tool->fork_ret = init_fork_ret(cmd);
 	if (!tool->fork_ret)
 	{
+		close (tool->fd_stdin);
 		free(tool);
 		return (NULL);
 	}
 	tool->pipe_fd = init_pipe_fd();
 	if (!tool->pipe_fd)
 	{
+		close (tool->fd_stdin);
 		free(tool->fork_ret);
 		free(tool);
 		return (NULL);

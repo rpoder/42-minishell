@@ -6,7 +6,7 @@
 #    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/09/21 17:54:32 by rpoder           ###   ########.fr        #
+#    Updated: 2022/09/21 18:24:38 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -62,12 +62,13 @@ SRCS				:=	main.c \
 						parser/heredoc_utils.c \
 						parser/set_all_cmd_path.c \
 						executer/executer.c \
+						executer/exec_builtins.c \
+						executer/exec_children.c \
 						executer/open_and_set_fds.c \
 						executer/open_one_file.c \
 						executer/handle_redirections.c \
 						executer/executer_utils.c \
 						executer/executer_tool_utils.c \
-						executer/exec_builtins.c \
 						handle_signals/handle_signals.c \
 
 CC					:=	cc
