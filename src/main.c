@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/21 10:54:44 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/21 15:11:02 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,7 +66,6 @@ int	main(int argc, char **argv, char **env)
 {
 	char 	*line;
 	t_data	*data;
-	int i = 0; ///////////
 	struct sigaction	sa;
 
 	sa.sa_flags = SA_SIGINFO;
@@ -76,7 +75,7 @@ int	main(int argc, char **argv, char **env)
 
 	data = init_data(env);
 	data_global = data;
-	while (i < 2)
+	while (1)
 	{
 		// line = "echo coucou > infile";
 		line = readline("mi_nils_shell j'écoute ? > ");
@@ -93,12 +92,11 @@ int	main(int argc, char **argv, char **env)
 				lexer(data);
 				redirection_syntax_printer(data->words);
 				parser(data);
-				test_parser(data->cmds);
+			//	test_parser(data->cmds);
 				executer(data);
 			}
 		}
 		free_line_datas(data); //
-		i++;
 	}
 	global_free(data, END);
 	rl_clear_history();

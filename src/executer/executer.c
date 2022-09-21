@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:17:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/21 11:14:49 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/21 16:25:21 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,6 @@ static void execute_child(t_data *data, t_list *cmd, t_exec_tool *tool)
 {
 	char **env_tab;
 
-	ft_printf_fd("IN EXECUTE CHILD\n", 2);
 	env_tab = NULL;
 	if (!is_last_cmd(cmd))
 	{
@@ -61,7 +60,6 @@ static void execute_child(t_data *data, t_list *cmd, t_exec_tool *tool)
 		} */
 		if (exec_builtins(data, ((t_cmd_node *)cmd->content)->cmd_tab, true) != NO_ERR)
 		{
-			test_parser(data->cmds);
 			if (execve(((t_cmd_node *)cmd->content)->path, ((t_cmd_node *)cmd->content)->cmd_tab, env_tab) != 0)
 			{
 				ft_free_tab(&env_tab);
@@ -100,18 +98,24 @@ void	execute_cmds(t_data *data, t_list *cmd)
 	t_exec_tool	*tool;
 	int			i;
 	int			j;
+	int			ret;
+	int			lexer_len;
 
+	lexer_len = 0;
+	ret = NO_ERR;
 	i = 0;
-	tool = init_exec_tool(cmd);
+	tool = init_exec_tool(cmd); //proteger
+	if (!tool)
+		global_free(data, MALLOC_ERR);
 	tool->fd_stdin = dup(0);
 	if (tool->fd_stdin < 0)
 	{
 		free_exec_tool(&tool);
 		global_free(data, DUP_ERR);
 	}
-
 	if (ft_lstlen(cmd) == 1 && is_builtin(((t_cmd_node *)cmd->content)->cmd_tab[0]) >= 0)
 	{
+		ret = open_and_set_fds(data->words, lexer_len, (t_cmd_node *)cmd->content); //proteger
 		tool->fd_stdout = dup(1);
 		if (tool->fd_stdout < 0)
 		{
@@ -126,12 +130,27 @@ void	execute_cmds(t_data *data, t_list *cmd)
 		}
 	}
 	else
-	{
+	{		
 		while (cmd)
 		{
+			//set_fds
+			ret = open_and_set_fds(data->words, lexer_len, (t_cmd_node *)cmd->content);
+			if (ret != NO_ERR && ret != OPEN_ERR) //PROTEGER
+			{
+				free_exec_tool(&tool);
+				close(tool->fd_stdin);
+				global_free(data, ret);
+			}
+			//avance lexer a next node
+			while (data->words[lexer_len] && data->words[lexer_len][0] != '|')
+				lexer_len++;
+			if (data->words[lexer_len])
+				lexer_len++;
+			
 			//handle_pipe
 			if (pipe(tool->pipe_fd) != 0)
 			{
+				free_exec_tool(&tool);
 				close(tool->fd_stdin);
 				global_free(data, PIPE_ERR);
 			}
@@ -140,16 +159,20 @@ void	execute_cmds(t_data *data, t_list *cmd)
 			tool->fork_ret[i] = fork();
 			if (tool->fork_ret[i] < 0)
 			{
+				free_exec_tool(&tool);
 				close(tool->fd_stdin);
 				global_free(data, PIPE_ERR);
 			}
-
+			
+			// redirect et execute child
 			if (tool->fork_ret[i] == 0)
 				execute_child(data, cmd, tool);
+			//redirect resultat de l'enfant
 			redirect_pipe_out(data, tool->pipe_fd);
 			cmd = cmd->next;
 			i++;
 		}
+		
 		if (wait_all_children(data, tool->fork_ret, i) != 0)
 		{
 			free_exec_tool(&tool);

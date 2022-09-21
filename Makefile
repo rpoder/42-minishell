@@ -6,7 +6,7 @@
 #    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/09/20 18:41:35 by mpourrey         ###   ########.fr        #
+#    Updated: 2022/09/21 16:31:09 by mpourrey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -25,6 +25,7 @@ SRCS				:=	main.c \
 						utils/utils.c\
 						utils/gnl_minishell.c \
 						utils/gnl_minishell_utils.c \
+						utils/unmute_utils.c \
 						set_env.c \
 						set_env_utils.c \
 						handle_frees/handle_frees.c \
@@ -55,14 +56,14 @@ SRCS				:=	main.c \
 						built-ins/ft_exit.c \
 						built-ins/builtins_utils.c \
 						parser/parser.c \
-						parser/set_redirection.c \
 						parser/set_cmd_tab.c \
 						parser/set_expand_declarations.c \
-						parser/open_files.c \
 						parser/parser_utils.c \
 						parser/heredoc_utils.c \
 						parser/set_all_cmd_path.c \
 						executer/executer.c \
+						executer/open_and_set_fds.c \
+						executer/open_one_file.c \
 						executer/handle_redirections.c \
 						executer/executer_utils.c \
 						executer/executer_tool_utils.c \
