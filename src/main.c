@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/21 23:04:26 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/22 02:17:55 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,14 +45,30 @@ void	test_parser(t_list *cmds)
 		printf("\nexpand_declarations = ");
 		while (expands)
 		{
-			printf("%s ", ((t_expand *)expands->content)->key);
+			printf("%s", ((t_expand *)expands->content)->key);
 			printf("=");
 			printf("%s ", ((t_expand *)expands->content)->value);
+			printf(", ");
 			expands= expands->next;
 		}
 		printf("\n\n");
 		i++;
 		cmds = cmds->next;
+	}
+}
+
+void	test_local_expands(t_data *data)
+{
+	t_list	*alst;
+
+	alst = data->local_expands;
+	if (!alst)
+		return;
+	ft_printf_fd("LOCAL_EXPANDS\n", 2);
+	while (alst)
+	{
+		ft_printf_fd("%s=%s\n", 2, ((t_expand *)alst->content)->key, ((t_expand *)alst->content)->value);
+		alst = alst->next;
 	}
 }
 
@@ -82,9 +98,8 @@ int	main(int argc, char **argv, char **env)
 				expander(data);
 				lexer(data);
 				redirection_syntax_printer(data->words);
-
 				parser(data);
-				//	test_parser(data->cmds);
+				// test_parser(data->cmds);
 				executer(data);
 			}
 		}

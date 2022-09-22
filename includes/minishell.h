@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/21 23:04:26 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/22 02:10:43 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,6 +64,7 @@ extern t_data *g_data;
 
 ///////////////A SUPP
 void	test_parser(t_list *cmds);
+void	test_local_expands(t_data *data);
 /////////////////////////////
 
 /* init.c */
@@ -91,6 +92,7 @@ void			mute_in_quotes(t_data *data);
 
 /* handle_expand.c */
 int				set_expand(t_data *data, char *key, char *value_to_modify);
+bool			set_on(t_list **alst, char *key, char *value_to_modify);
 void			add_expand(t_data *data, t_list **alst, char *key, char *value);
 
 /*---------------------------------------------- EXPANDER */
