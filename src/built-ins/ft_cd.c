@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:33:22 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/22 02:02:58 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/22 03:00:52 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,8 +26,10 @@ static int	try_with_expand_cdpath(char *cdpath, char *arg, char **tmp)
 	i = 0;
 	while (cdpath_tab[i])
 	{
-		*tmp = ft_strsjoin(3, cdpath_tab[i], "/", arg);
-		ret = chdir(cdpath_tab[i]);
+		printf("cdpath_tab[i] = %s\n", cdpath_tab[i]);
+		*tmp = ft_strsjoin(3, arg, "/", cdpath_tab[i]);
+		printf("tmp = %s\n", *tmp);
+		ret = chdir(*tmp);
 		if (ret == 0)
 		{
 			ft_free_tab(&cdpath_tab);

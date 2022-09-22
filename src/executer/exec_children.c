@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_children.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:17:45 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/22 02:09:21 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/22 03:00:47 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,23 +50,36 @@ static void	redirect_to_pipe(t_data *data, t_exec_tool *tool)
 		global_free(data, CLOSE_ERR);
 }
 
+static void	set_expand_declarations_to_local(t_data *data, t_list *cmd)
+{
+	t_list	*expand_declaration;
+
+	expand_declaration = ((t_cmd_node *)cmd->content)->expand_declarations;
+	if (expand_declaration)
+	{
+		set_expand(data, ((t_expand *)expand_declaration->content)->key, ((t_expand *)expand_declaration->content)->value);
+		expand_declaration = expand_declaration->next;
+	}
+}
+
 static void exec_child(t_data *data, t_list *cmd, t_exec_tool *tool)
 {
-	char **env_tab;
-
-	// cancel_parent_signals();
-	// signal(SIGINT, handle_child_sigint);
+	char	**env_tab;
 
 	env_tab = NULL;
 	if (!is_last_cmd(cmd))
 		redirect_to_pipe(data, tool);
+
+	// set expand_declarations local_vars ici aussi
+	// test_parser(data->cmds);
+	// set_expand_declarations_to_local(data, cmd);
+	// test_local_expands(data);
 	chevron_redirection(data, (t_cmd_node *)cmd->content, tool);
 	if (((t_cmd_node *)cmd->content)->cmd_tab[0])
 	{
 		env_tab = get_env_tab(data);
 		if (exec_builtins(data, ((t_cmd_node *)cmd->content)->cmd_tab, true) != NO_ERR)
 		{
-			// test_parser(data->cmds);
 			if (execve(((t_cmd_node *)cmd->content)->path, ((t_cmd_node *)cmd->content)->cmd_tab, env_tab) != 0)
 			{
 				ft_printf_fd("minilsshell: %s: command not found\n", 2, ((t_cmd_node *)cmd->content)->cmd_tab[0]);
@@ -86,6 +99,7 @@ void	exec_children(t_data *data, t_list *cmd, t_exec_tool *tool)
 	lexer_len = 0;
 	while (cmd)
 	{
+		///////////////NORMER
 		//set_fds
 		tool->ret = open_and_set_fds(data->words, lexer_len, (t_cmd_node *)cmd->content); /////
 		if (tool->ret != NO_ERR) //PROTEGER
@@ -107,6 +121,8 @@ void	exec_children(t_data *data, t_list *cmd, t_exec_tool *tool)
 			lexer_len++;
 		if (data->words[lexer_len])
 			lexer_len++;
+		////////////////////
+
 		handle_pipe(data, tool);
 		cancel_parent_signals();
 		handle_fork(data, tool);

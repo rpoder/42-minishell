@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_and_set_fds.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 12:42:26 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/22 02:50:34 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/22 03:06:18 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,9 +33,9 @@ static int	open_and_set_fd(char **words, int i, t_cmd_node *cmd)
 		else if (words[i][0] == '>' && words[i][1] == '>' &&
 			!words[i][2] && words[i + 1])
 			ret = open_and_set_fd_out(cmd, unmute_file, O_APPEND);
-		free(unmute_file);
 		else
 			return (free(unmute_file), PARSING_ERR); ///////////////////////
+		free(unmute_file);
 	}
 	else
 		ret = PARSING_ERR; /////////////////////////////

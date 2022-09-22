@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   handle_expand.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: ronanpoder <ronanpoder@student.42.fr>      +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 16:53:13 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/12 15:01:16 by ronanpoder       ###   ########.fr       */
+/*   Updated: 2022/09/22 02:36:22 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static bool	set_on(t_list **alst, char *key, char *value_to_modify)
+bool	set_on(t_list **alst, char *key, char *value_to_modify)
 {
 	t_list	*tmp;
 

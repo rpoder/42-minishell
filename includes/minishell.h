@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/22 02:23:54 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/22 03:00:57 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,7 +52,7 @@ typedef struct s_cmd_node {
 	t_list	*expand_declarations;
 }	t_cmd_node;
 
-extern t_data *global_data;
+extern t_data *g_data;
 
 # define PATH_MAX 4096
 # define ENV_DEFAULT_PATH "/mnt/nfs/homes/rpoder/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
@@ -64,6 +64,7 @@ extern t_data *global_data;
 
 ///////////////A SUPP
 void	test_parser(t_list *cmds);
+void	test_local_expands(t_data *data);
 /////////////////////////////
 
 /* init.c */
@@ -91,6 +92,7 @@ void			mute_in_quotes(t_data *data);
 
 /* handle_expand.c */
 int				set_expand(t_data *data, char *key, char *value_to_modify);
+bool			set_on(t_list **alst, char *key, char *value_to_modify);
 void			add_expand(t_data *data, t_list **alst, char *key, char *value);
 
 /*---------------------------------------------- EXPANDER */

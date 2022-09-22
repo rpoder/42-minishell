@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:18:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/21 21:54:00 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/21 22:50:02 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,8 @@ void	global_free(t_data *data, enum errors err)
 	// 	ft_printf_fd("mi_nils_shell: pipe err\n", 2);
 	// else if (err == WAITPID_ERR)
 	// 	ft_printf_fd("mi_nils_shell: waitpid err\n", 2);
+	// else if (err == FORK_ERR)
+	// ft_printf_fd("mi_nils_shell: fork err\n", 2);
 	// else if (err == END)
 	// 	ft_printf_fd("mi_nils_shell: Bravo :)\n", 2);
 	if (data)

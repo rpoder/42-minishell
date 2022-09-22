@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/22 02:31:32 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/22 03:00:43 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_data *global_data = NULL;
+t_data *g_data = NULL;
 
 void	test_parser(t_list *cmds)
 {
@@ -45,14 +45,30 @@ void	test_parser(t_list *cmds)
 		printf("\nexpand_declarations = ");
 		while (expands)
 		{
-			printf("%s ", ((t_expand *)expands->content)->key);
+			printf("%s", ((t_expand *)expands->content)->key);
 			printf("=");
 			printf("%s ", ((t_expand *)expands->content)->value);
+			printf(", ");
 			expands= expands->next;
 		}
 		printf("\n\n");
 		i++;
 		cmds = cmds->next;
+	}
+}
+
+void	test_local_expands(t_data *data)
+{
+	t_list	*alst;
+
+	alst = data->local_expands;
+	if (!alst)
+		return;
+	ft_printf_fd("LOCAL_EXPANDS\n", 2);
+	while (alst)
+	{
+		ft_printf_fd("%s=%s\n", 2, ((t_expand *)alst->content)->key, ((t_expand *)alst->content)->value);
+		alst = alst->next;
 	}
 }
 
@@ -62,7 +78,7 @@ int	main(int argc, char **argv, char **env)
 	t_data	*data;
 
 	data = init_data(env);
-	global_data = data;
+	g_data = data;
 	while (1)
 	{
 		create_parent_signals();
@@ -82,7 +98,7 @@ int	main(int argc, char **argv, char **env)
 				expander(data);
 				lexer(data);
 				redirection_syntax_printer(data->words);
-				
+
 				if (parser(data) == 0)
 					executer(data);
 			}
