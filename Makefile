@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
+#    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/09/22 14:05:37 by mpourrey         ###   ########.fr        #
+#    Updated: 2022/09/22 15:27:40 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -66,6 +66,7 @@ SRCS				:=	main.c \
 						executer/executer.c \
 						executer/exec_builtins.c \
 						executer/exec_children.c \
+						executer/exec_no_child_builtin.c \
 						executer/open_and_set_fds.c \
 						executer/open_one_file.c \
 						executer/handle_redirections.c \

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/22 14:37:56 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/22 16:31:44 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -194,6 +194,7 @@ int				is_word_separator(char c);
 int				is_redirection_operator(char c);
 int				is_space(char c);
 int				is_pipe(char c);
+int				skip_node(char **words, int len);
 
 /* gnl_minishell.c */
 char			*gnl_minishell(int fd, int *ret);
@@ -251,6 +252,9 @@ void			executer(t_data *data);
 
 /* exec_children.c */
 void			exec_children(t_data *data, t_list *cmd, t_exec_tool *tool);
+
+/* exec_no_child_builtin.c */
+void	exec_no_child_builtin(t_data *data, t_list *cmd, t_exec_tool *tool);
 
 /* open_and_set_fds */
 int				open_and_set_fds(char **words, int i, t_cmd_node *cmd);

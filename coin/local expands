@@ -1,0 +1,11 @@
+static void	set_expand_declarations_to_local(t_data *data, t_list *cmd)
+{
+	t_list	*expand_declaration;
+
+	expand_declaration = ((t_cmd_node *)cmd->content)->expand_declarations;
+	if (expand_declaration)
+	{
+		set_expand(data, ((t_expand *)expand_declaration->content)->key, ((t_expand *)expand_declaration->content)->value);
+		expand_declaration = expand_declaration->next;
+	}
+}
