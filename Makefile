@@ -6,7 +6,7 @@
 #    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/09/22 01:09:08 by mpourrey         ###   ########.fr        #
+#    Updated: 2022/09/22 14:05:37 by mpourrey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -61,6 +61,7 @@ SRCS				:=	main.c \
 						parser/parser_utils.c \
 						parser/create_heredocs.c \
 						parser/heredoc_utils.c \
+						parser/check_redir_op_err.c \
 						parser/set_all_cmd_path.c \
 						executer/executer.c \
 						executer/exec_builtins.c \

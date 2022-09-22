@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_children.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:17:45 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/22 03:00:47 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/22 14:37:48 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,19 +101,13 @@ void	exec_children(t_data *data, t_list *cmd, t_exec_tool *tool)
 	{
 		///////////////NORMER
 		//set_fds
-		tool->ret = open_and_set_fds(data->words, lexer_len, (t_cmd_node *)cmd->content); /////
-		if (tool->ret != NO_ERR) //PROTEGER
+		tool->ret = open_and_set_fds(data->words, lexer_len, (t_cmd_node *)cmd->content);
+		if (tool->ret != NO_ERR)
 		{
 			if (tool->ret == MALLOC_ERR)
 			{
 				free_exec_tool(&tool);
 				global_free(data, tool->ret);
-			}
-			else
-			{
-				free_exec_tool(&tool);
-				free_line_datas(data);
-				//return
 			}
 		}
 		//avance lexer a next node
