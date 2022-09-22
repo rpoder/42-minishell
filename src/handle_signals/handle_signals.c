@@ -6,16 +6,32 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:07:16 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/22 17:37:43 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/22 19:50:57 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
 
-
-void	handle_parent_sigint(int signum)
+void	ignore_all_sigs(void)
 {
-	// ft_printf_fd("[parent %d]\n", 2, getpid());
+	signal(SIGINT, SIG_IGN);
+}
+
+void	handle_default_sigint(int signum)
+{
+	ft_printf_fd("SIG INT IN CHILD CALLED\n", 2);
+	set_expand(g_data, "?", "130");
+	global_free(g_data, NO_ERR);
+}
+
+void	default_all_sigs(void)
+{
+	signal(SIGINT, handle_default_sigint);
+}
+
+void	handle_custom_sigint(int signum)
+{
+	set_expand(g_data, "?", "130");
 
 	free_line_datas(g_data);
 	ft_putstr_fd("\n\b", 1);
@@ -24,22 +40,14 @@ void	handle_parent_sigint(int signum)
 	rl_replace_line("", 0);
 }
 
-void	handle_child_sigint(int signum)
+void	custom_all_sigs(void)
 {
-	ft_printf_fd("[enfant %d]\n", 2, getpid());
-	// set_expand(g_data, "?", "130");
-	// global_free(g_data, NO_ERR);
+	signal(SIGINT, handle_custom_sigint);
+
 }
 
-void	handle_heredoc_sigint(int signum)
-{
-	// ft_printf_fd("[heredoc %d]\n", 2, getpid());
-	// set_expand(g_data, "?", "130");
-	global_free(g_data, NO_ERR);
-}
 
-///////////////////////////////////////////////////
-
+/*
 void	create_parent_signals(void)
 {
 	// ft_printf_fd("///////////////CREATE CHILD SIGNALS///// %d\n", 2, getpid());
@@ -48,21 +56,41 @@ void	create_parent_signals(void)
 	// signal(SIGQUIT, block_parent_sigquit);
 }
 
+void	handle_parent_sigint(int signum)
+{
+	ft_printf_fd("[parent %d]\n", 2, getpid());
+
+	set_expand(g_data, "?", "130");
+
+	free_line_datas(g_data);
+	ft_putstr_fd("\n\b", 1);
+	rl_on_new_line();
+	rl_redisplay();
+	rl_replace_line("", 0);
+}
+
+void	cancel_parent_signals(void)
+{
+	ft_printf_fd("cancel parent sig pid %d\n", 2, getpid());
+	signal(SIGINT, SIG_IGN);
+}
+
+
+
+void	handle_child_sigint(int signum)
+{
+	ft_printf_fd("[enfant %d]\n", 2, getpid());
+	set_expand(g_data, "?", "130");
+	exit(56);
+	// global_free(g_data, NO_ERR);
+}
+
 void	create_child_signals(void)
 {
 	ft_printf_fd("////////CREATE CHILD SIGNALS///// %d\n", 2, getpid());
 	signal(SIGINT, handle_child_sigint);
 }
 
-// void	create_heredoc_signals(void)
-// {
-// 	// ft_printf_fd("create herdoc pid %d\n", 2, getpid());
-// 	signal(SIGINT, handle_heredoc_sigint);
-// }
 
-void	cancel_parent_signals(void)
-{
-	// ft_printf_fd("cancel parent sig pid %d\n", 2, getpid());
-	signal(SIGINT, SIG_IGN);
-}
+ */
 

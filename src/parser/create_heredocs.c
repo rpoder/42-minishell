@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 19:57:39 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/22 13:39:04 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/22 19:43:56 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,13 +45,11 @@ static int	get_and_write_lines(int fd, t_heredoc_tool *tool, t_p_tool *p_tool)
 {
 	int	fork_ret;
 
-	cancel_parent_signals();
 	fork_ret = fork();
 	if (fork_ret < 0)
 		return (FORK_ERR);
 	if (fork_ret == 0)
 	{
-		create_child_signals();
 		write(1, "> ", 2);
 		tool->str = gnl_minishell(0, tool->ret);
 		if (*(tool->ret) != NO_ERR)

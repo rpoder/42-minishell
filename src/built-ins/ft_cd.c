@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:33:22 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/22 03:00:52 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/22 20:26:21 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ void	ft_cd_with_arg(t_data *data, char *arg)
 		ret = try_with_expand_cdpath(arg, cdpath_expand_v, &tmp_err);
 		if (ret != NO_ERR)
 		{
-			set_expand(data, "?", "127");
+			set_expand(data, "?", "1");
 			ft_printf_fd("minilsshell: cd: ", 2);
 			perror(tmp_err);
 			set_expand_pwd(data);
@@ -87,7 +87,7 @@ static void	ft_cd_home_no_arg(t_data *data, char *home_expand_v)
 	ret = chdir(home_expand_v);
 	if (ret != 0)
 	{
-		set_expand(data, "?", "127");
+		set_expand(data, "?", "1");
 		ft_printf_fd("minilsshell: cd: ", 2);
 		perror(home_expand_v);
 	}
@@ -109,7 +109,7 @@ int	ft_cd(t_data *data, char **args)
 	home_expand_v = get_expand_value(data, "HOME");
 	if (!home_expand_v && !args[1])
 	{
-		set_expand(data, "?", "127");
+		set_expand(data, "?", "1");
 		return (NO_ERR);
 	}
 	else if (home_expand_v && !args[1])

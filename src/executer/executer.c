@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:17:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/22 17:34:37 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/22 20:28:35 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	wait_all_children(t_data *data, t_exec_tool *tool)
 {
 	int	j;
 	int	**waitpid_ret;
+	int	*sig;
 
 	waitpid_ret = malloc(sizeof(int *) * tool->i);
 	if (!waitpid_ret)
@@ -29,8 +30,19 @@ void	wait_all_children(t_data *data, t_exec_tool *tool)
 			free_exec_tool(&tool);
 			global_free(data, WAITPID_ERR);
 		}
-		set_expand(data, "?", ft_itoa(WEXITSTATUS(*waitpid_ret[j])));
-		printf("process num %d = %d\n", j , WEXITSTATUS(*waitpid_ret[j]));
+		sig = waitpid_ret[j];
+		if (WIFEXITED(*sig))
+		{
+			// ft_printf_fd("WITH EXIT", 2);
+			// ft_printf_fd("%d\n\n", WEXITSTATUS(*sig));
+			set_expand(data, "?", ft_itoa(WEXITSTATUS(*waitpid_ret[j])));
+		}
+		else if (WIFSIGNALED(*sig))
+		{
+			// ft_printf_fd("WITH SIG", 2);
+			set_expand(data, "?", "130");
+		}
+		// ft_printf_fd("proces[%d] = %d\n", 2, j , get_expand_value(data, "?"));
 		j++;
 	}
 }

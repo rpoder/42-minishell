@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/22 17:41:10 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/22 21:55:10 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -122,6 +122,7 @@ void			free_expand_tool(t_expand_tool *expand_tool);
 
 /* set_env.c */
 void			set_env(t_data *data, char **env);
+int				add_default_shlvl(t_data *data);
 
 /* set_env_utils.c */
 int				add_default_expands_to_env(t_data *data);
@@ -286,11 +287,8 @@ int				is_builtin(char *arg);
 /*----------------------------------------------HANDLE SIGNALS */
 
 /* handle_signals.c */
-void	create_parent_signals(void);
-void	create_child_signals(void);
-void	handle_parent_sigint(int signum);
-void	handle_child_sigint(int signum);
-void	create_heredoc_signals(void);
-void	cancel_parent_signals(void);
+void	custom_all_sigs(void);
+void	default_all_sigs(void);
+void	ignore_all_sigs(void);
 
 #endif
