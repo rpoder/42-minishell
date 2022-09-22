@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_signals.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:07:16 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/22 17:37:43 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/22 17:57:43 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	handle_parent_sigint(int signum)
 
 void	handle_child_sigint(int signum)
 {
-	ft_printf_fd("[enfant %d]\n", 2, getpid());
 	// set_expand(g_data, "?", "130");
 	// global_free(g_data, NO_ERR);
 }
@@ -50,7 +49,6 @@ void	create_parent_signals(void)
 
 void	create_child_signals(void)
 {
-	ft_printf_fd("////////CREATE CHILD SIGNALS///// %d\n", 2, getpid());
 	signal(SIGINT, handle_child_sigint);
 }
 

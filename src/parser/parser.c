@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 15:40:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/22 13:56:31 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/22 20:23:32 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,9 +37,6 @@ static int	set_and_skip_cmd(t_data *data, t_cmd_node *cmd, t_p_tool *tool)
 	tool->ret = set_cmd_tab(data->words, tool->i, cmd, tool);
 	if (tool->ret != NO_ERR)
 		return (tool->ret);
-	tool->ret = set_expand_declarations(data, tool->i, cmd, tool);
-	if (tool->ret != NO_ERR)
-		return (tool->ret);
 	while (data->words[tool->i] && data->words[tool->i][0] != '|')
 		tool->i++;
 	return (NO_ERR);
@@ -68,6 +65,11 @@ int	parser(t_data *data)
 	t_p_tool		*tool;
 	t_cmd_node		*cmd_node;
 
+	if (is_valid_expand_declaration(data->words))
+	{
+		set_expand_declaration(data, data->words[0]);
+		return (-1);
+	}
 	tool = init_p_tool();
 	if (!tool)
 		global_free(data, MALLOC_ERR);

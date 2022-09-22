@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_dels.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:47:06 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/20 21:55:37 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/22 19:52:35 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,8 +79,6 @@ void	del_cmd(void *cmd)
 			}
 			ft_lstclear(&((t_cmd_node *)cmd)->heredocs, &free);
 		}
-		if (((t_cmd_node *)cmd)->expand_declarations)
-			ft_lstclear(&((t_cmd_node *)cmd)->expand_declarations, &del_expand);
 		free((t_cmd_node *)cmd);
 	}
 }

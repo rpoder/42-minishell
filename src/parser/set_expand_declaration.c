@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   set_expand_declarations.c                          :+:      :+:    :+:   */
+/*   set_expand_declaration.c                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 18:41:19 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/22 01:35:32 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/22 19:43:55 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,24 +55,21 @@ static int	set_key_declaration(char *word, char **key)
 	return (NO_ERR);
 }
 
-int	set_expand_declarations(t_data *d, int i, t_cmd_node *cmd, t_p_tool *tool)
+int	set_expand_declaration(t_data *data, char *declaration)
 {
 	char	*key;
 	char	*value;
+	int		ret;
 
-	while (d->words[i] && is_expand_declaration(d->words[i]))
+	ret = set_key_declaration(declaration, &key);
+	if (ret != NO_ERR)
+		global_free(data, MALLOC_ERR);
+	ret = set_value_declaration(declaration, &value);
+	if (ret != NO_ERR)
 	{
-		tool->ret = set_key_declaration(d->words[i], &key);
-		if (tool->ret != NO_ERR)
-			return (tool->ret);
-		tool->ret = set_value_declaration(d->words[i], &value);
-		if (tool->ret != NO_ERR)
-		{
-			free(key);
-			return (tool->ret);
-		}
-		add_expand(d, &cmd->expand_declarations, key, value);
-		i++;
+		free(key);
+		global_free(data, MALLOC_ERR);
 	}
+	add_expand(data, &data->local_expands, key, value);
 	return (NO_ERR);
 }
