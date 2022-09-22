@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/22 03:00:57 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/22 11:53:03 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -281,6 +281,7 @@ void	create_parent_signals(void);
 void	create_child_signals(void);
 void	handle_parent_sigint(int signum);
 void	handle_child_sigint(int signum);
+void	create_heredoc_signals(void);
 void	cancel_parent_signals(void);
 
 #endif

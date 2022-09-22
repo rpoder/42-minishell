@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 19:57:39 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/22 03:05:37 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/22 13:39:04 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,29 +44,31 @@ static int	open_heredoc(char **heredoc_path)
 static int	get_and_write_lines(int fd, t_heredoc_tool *tool, t_p_tool *p_tool)
 {
 	int	fork_ret;
-	char 	*line;
 
 	cancel_parent_signals();
 	fork_ret = fork();
 	if (fork_ret < 0)
 		return (FORK_ERR);
-	line = NULL;
 	if (fork_ret == 0)
 	{
 		create_child_signals();
-		free(p_tool);
-		while (ft_strcmp(line, tool->lim) != 0)
+		write(1, "> ", 2);
+		tool->str = gnl_minishell(0, tool->ret);
+		if (*(tool->ret) != NO_ERR)
+			return (*(tool->ret));
+		while (tool->str != NULL && ft_strcmp(tool->str, tool->lim) != 0)
 		{
-			if (line != NULL)
-				free(line);
-			line = readline("> ");
-			write(fd, line, ft_strlen(line));
-			write(fd, "\n", 1);
+			write(fd, tool->str, ft_strlen(tool->str));
+			free(tool->str);
+			write(1, "> ", 2);
+			tool->str = gnl_minishell(0, tool->ret);
+			if (*(tool->ret) != NO_ERR)
+				global_free(g_data, MALLOC_ERR);
 		}
-		// free_heredoc_tool(&tool);
 		// free(line);
+		// free_heredoc_tool(tool);
+		// free(p_tool);
 		// close(fd);
-		printf("G_DATA = %p\n", g_data);
 		global_free(g_data, NO_ERR);
 		// exit(0);
 	}

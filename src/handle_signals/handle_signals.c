@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:07:16 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/22 02:41:02 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/22 12:00:56 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,6 +30,12 @@ void	handle_child_sigint(int signum)
 	global_free(g_data, NO_ERR);
 }
 
+void	handle_heredoc_sigint(int signum)
+{
+	ft_printf_fd("[heredoc %d]\n", 2, getpid());
+	global_free(g_data, NO_ERR);
+}
+
 ///////////////////////////////////////////////////
 
 void	create_parent_signals(void)
@@ -44,6 +50,12 @@ void	create_child_signals(void)
 {
 	// ft_printf_fd("create enfant pid %d\n", 2, getpid());
 	signal(SIGINT, handle_child_sigint);
+}
+
+void	create_heredoc_signals(void)
+{
+	// ft_printf_fd("create enfant pid %d\n", 2, getpid());
+	signal(SIGINT, handle_heredoc_sigint);
 }
 
 void	cancel_parent_signals(void)
