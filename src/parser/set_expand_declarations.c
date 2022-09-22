@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 18:41:19 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/20 21:46:01 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/22 01:35:32 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ static int	set_value_declaration(char *word, char **value)
 {
 	int		key_len;
 	int		i;
-	
+
 	key_len = 0;
 	while (word[key_len] != '=')
 		key_len++;
@@ -31,14 +31,14 @@ static int	set_value_declaration(char *word, char **value)
 		key_len++;
 		i++;
 	}
-	(*value)[i] = '\0'; 
+	(*value)[i] = '\0';
 	return (NO_ERR);
 }
 
 static int	set_key_declaration(char *word, char **key)
 {
 	int		len;
-	
+
 	len = 0;
 	while (word[len] != '=')
 		len++;
@@ -51,29 +51,28 @@ static int	set_key_declaration(char *word, char **key)
 		(*key)[len] = word[len];
 		len++;
 	}
-	(*key)[len] = '\0'; 
+	(*key)[len] = '\0';
 	return (NO_ERR);
 }
 
-int	set_expand_declarations(t_data *data, char **word, int i, t_cmd_node *cmd, t_p_tool *tool)
+int	set_expand_declarations(t_data *d, int i, t_cmd_node *cmd, t_p_tool *tool)
 {
 	char	*key;
 	char	*value;
 
-	while (word[i] && is_expand_declaration(word[i]))
+	while (d->words[i] && is_expand_declaration(d->words[i]))
 	{
-		tool->ret = set_key_declaration(word[i], &key);
+		tool->ret = set_key_declaration(d->words[i], &key);
 		if (tool->ret != NO_ERR)
 			return (tool->ret);
-		tool->ret = set_value_declaration(word[i], &value);
+		tool->ret = set_value_declaration(d->words[i], &value);
 		if (tool->ret != NO_ERR)
 		{
 			free(key);
 			return (tool->ret);
 		}
-		add_expand(data, &cmd->expand_declarations, key, value);
+		add_expand(d, &cmd->expand_declarations, key, value);
 		i++;
 	}
 	return (NO_ERR);
-	
 }

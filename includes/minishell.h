@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/21 22:11:04 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/22 02:23:54 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@
 # include "utils.h"
 
 
-enum errors { MALLOC_ERR = -100, OPEN_ERR, PARSING_ERR, ERR_NOT_DEFINED, NO_ERR, END, PIPE_ERR, DUP_ERR, WAITPID_ERR, CLOSE_ERR, PATH_MAX_ERR};
+enum errors { MALLOC_ERR = -100, OPEN_ERR, PARSING_ERR, ERR_NOT_DEFINED, NO_ERR, END, PIPE_ERR, DUP_ERR, WAITPID_ERR, CLOSE_ERR, PATH_MAX_ERR, FORK_ERR};
 enum builtins { CD = 1, ECHO, ENV, EXIT, EXPORT, PWD, UNSET };
 
 typedef struct s_expand {
@@ -160,7 +160,7 @@ int				parser(t_data *data);
 int				set_cmd_tab(char **words, int i, t_cmd_node *cmd, t_p_tool *tool);
 
 /* set_expand_declarations */
-int				set_expand_declarations(t_data *data, char **word, int i, t_cmd_node *cmd, t_p_tool *tool);
+int				set_expand_declarations(t_data *data, int i, t_cmd_node *cmd, t_p_tool *tool);
 
 /* parser_utils.c */
 t_cmd_node		*init_cmd_node(void);
@@ -170,8 +170,8 @@ t_p_tool		*init_p_tool(void);
 int				is_path_to_cmd(char *word);
 char			unmute_char(char c);
 
-/* create_and_fill_heredocs.c */
-int				create_and_fill_heredocs(char **words, int i, t_cmd_node *cmd, t_p_tool *tool);
+/* create_heredocs.c */
+int				create_heredocs(char **words, int i, t_cmd_node *cmd, t_p_tool *tool);
 
 /* heredoc_utils */
 void			free_heredoc_tool(t_heredoc_tool *tool);

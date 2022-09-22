@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_and_fill_heredocs.c                         :+:      :+:    :+:   */
+/*   create_heredocs.c                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 19:57:39 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/21 20:41:41 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/22 01:08:29 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ static int	get_and_write_lines(int fd, t_heredoc_tool *tool)
 	return (NO_ERR);
 }
 
-int	create_and_fill_one_heredoc(t_cmd_node *cmd, char *lim)
+int	create_one_heredoc(t_cmd_node *cmd, char *lim)
 {
 	t_heredoc_tool	*tool;
 	int				ret;
@@ -86,25 +86,25 @@ int	create_and_fill_one_heredoc(t_cmd_node *cmd, char *lim)
 	return (NO_ERR);
 }
 
-int	create_and_fill_heredocs(char **words, int i, t_cmd_node *cmd, t_p_tool *tool)
+int	create_heredocs(char **words, int i, t_cmd_node *cmd, t_p_tool *tool)
 {
 	char	*unmute_file;
-						
+
 	while (words[i] && words[i][0] != '|')
 	{
 		if (words[i][0] == '<' && words[i][1] == '<')
 		{
-			if (!words[i][2] && words[i + 1] && !is_redirection_operator(words[i + 1][0]))
+			if (!words[i][2] && words[i + 1] &&
+				!is_redirection_operator(words[i + 1][0]))
 			{
 				unmute_file = unmute_word(words[i + 1]);
 				if (!unmute_file)
 					return (MALLOC_ERR);
-				tool->ret = create_and_fill_one_heredoc(cmd, unmute_file);
-	
+				tool->ret = create_one_heredoc(cmd, unmute_file);
+				free(unmute_file);
 				if (tool->ret != NO_ERR)
 					return (tool->ret);
 				i += 2;
-				//free unmute file ?
 			}
 			else
 				return (PARSING_ERR);

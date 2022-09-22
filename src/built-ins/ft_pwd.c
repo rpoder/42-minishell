@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: margot <margot@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 16:10:38 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/20 07:57:45 by margot           ###   ########.fr       */
+/*   Updated: 2022/09/22 02:03:27 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,7 +23,7 @@ int	set_path(t_data *data, char **path)
 	{
 		free(buf);
 		*path = NULL;
-		return (ERR_NOT_DEFINED);
+		return (ERR_NOT_DEFINED); ///////////////////FREE ?
 	}
 	*path = ft_strdup(buf);
 	free(buf);

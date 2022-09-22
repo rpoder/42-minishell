@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:33:22 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/20 14:01:20 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/22 02:02:58 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ static int	try_with_expand_cdpath(char *cdpath, char *arg, char **tmp)
 		i++;
 	}
 	ft_free_tab(&cdpath_tab);
-	return (ERR_NOT_DEFINED);
+	return (ERR_NOT_DEFINED); ////////////////////////FREE ?
 }
 
 static void	set_expand_pwd(t_data *data)
