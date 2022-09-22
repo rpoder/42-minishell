@@ -6,11 +6,28 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 19:07:59 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/21 16:27:51 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/22 20:23:34 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	is_valid_expand_declaration(char **words)
+{
+	int i;
+
+	i = 0;
+	if (words[0] && !words[1])
+	{
+		while (words[0][i])
+		{
+			if (words[0][i] == '=')
+				return (1);
+			i++;
+		}
+	}
+	return (0);
+}
 
 int	is_expand_declaration(char *word)
 {
@@ -58,6 +75,5 @@ t_cmd_node	*init_cmd_node(void)
 	cmd_node->fd_in = FD_UNDEFINED;
 	cmd_node->fd_out = FD_UNDEFINED;
 	cmd_node->heredocs = NULL;
-	cmd_node->expand_declarations = NULL;
 	return (cmd_node);
 }

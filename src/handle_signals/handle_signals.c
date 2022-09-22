@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:07:16 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/22 19:50:57 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/22 22:09:52 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ void	create_parent_signals(void)
 
 void	handle_parent_sigint(int signum)
 {
-	ft_printf_fd("[parent %d]\n", 2, getpid());
+	signal(SIGINT, handle_child_sigint);
+}
 
 	set_expand(g_data, "?", "130");
 

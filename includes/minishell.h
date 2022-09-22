@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/22 21:55:10 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/22 22:10:13 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ typedef struct s_cmd_node {
 	int		fd_in;
 	int		fd_out;
 	t_list	*heredocs;
-	t_list	*expand_declarations;
 }	t_cmd_node;
 
 extern t_data *g_data;
@@ -155,6 +154,9 @@ char			*get_word_til_space(t_data *d, char *src, t_split_tool *tool);
 char			*word_trim(char *src);
 
 /*----------------------------------------------PARSER*/
+char			unmute_char(char c);
+char			*unmute_word(char *str);
+void			print_ambiguous_redirection(char *expand);
 
 /* parser.c */
 int				parser(t_data *data);
@@ -162,16 +164,15 @@ int				parser(t_data *data);
 /* set_cmd_tab */
 int				set_cmd_tab(char **words, int i, t_cmd_node *cmd, t_p_tool *tool);
 
-/* set_expand_declarations */
-int				set_expand_declarations(t_data *data, int i, t_cmd_node *cmd, t_p_tool *tool);
+/* set_expand_declaration */
+int				set_expand_declaration(t_data *data, char *declaration);
 
 /* parser_utils.c */
 t_cmd_node		*init_cmd_node(void);
-char			*unmute_word(char *str);
-void			print_ambiguous_redirection(char *expand);
 t_p_tool		*init_p_tool(void);
 int				is_path_to_cmd(char *word);
-char			unmute_char(char c);
+int				is_expand_declaration(char *word);
+int				is_valid_expand_declaration(char **words);
 
 /* create_heredocs.c */
 int				create_heredocs(char **words, int i, t_cmd_node *cmd, t_p_tool *tool);
@@ -181,7 +182,6 @@ void			free_heredoc_tool(t_heredoc_tool *tool);
 t_heredoc_tool	*init_heredoc_tool(char *lim);
 char			*get_heredoc_name(int i);
 int				add_path_to_heredoc_list(t_cmd_node *cmd, char *heredoc_path);
-int				is_expand_declaration(char *word);
 
 /* check_redir_op_err.c */
 int 			check_redir_op_err(char **words, int i);

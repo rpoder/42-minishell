@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/22 19:42:20 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/22 22:08:42 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,8 +41,8 @@ void	test_parser(t_list *cmds)
 			printf("%s ",((char *)heredoc->content));
 			heredoc = heredoc->next;
 		}
-		expands = ((t_cmd_node *)cmds->content)->expand_declarations;
-		printf("\nexpand_declarations = ");
+	/* 	expands = ((t_cmd_node *)cmds->content)->expand_declaration;
+		printf("\nexpand_declaration = ");
 		while (expands)
 		{
 			printf("%s", ((t_expand *)expands->content)->key);
@@ -50,7 +50,7 @@ void	test_parser(t_list *cmds)
 			printf("%s ", ((t_expand *)expands->content)->value);
 			printf(", ");
 			expands= expands->next;
-		}
+		} */
 		printf("\n\n");
 		i++;
 		cmds = cmds->next;

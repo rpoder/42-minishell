@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 19:57:39 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/22 19:43:56 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/22 22:10:06 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,7 +43,7 @@ static int	open_heredoc(char **heredoc_path)
 
 static int	get_and_write_lines(int fd, t_heredoc_tool *tool, t_p_tool *p_tool)
 {
-	int	fork_ret;
+	pid_t	fork_ret;
 
 	fork_ret = fork();
 	if (fork_ret < 0)
@@ -63,14 +63,14 @@ static int	get_and_write_lines(int fd, t_heredoc_tool *tool, t_p_tool *p_tool)
 			if (*(tool->ret) != NO_ERR)
 				global_free(g_data, MALLOC_ERR);
 		}
-		// free(line);
-		// free_heredoc_tool(tool);
-		// free(p_tool);
+		free(tool->str);
+		free_heredoc_tool(tool);
+		free(p_tool);
 		// close(fd);
 		global_free(g_data, NO_ERR);
-		// exit(0);
+		exit(0);
 	}
-	waitpid(fork_ret, NULL, 0);
+	wait(&fork_ret);
 	return (NO_ERR);
 }
 
@@ -123,6 +123,8 @@ int	create_heredocs(char **words, int i, t_cmd_node *cmd, t_p_tool *tool)
 				i += 2;
 			}
 			else
+				return (PARSING_ERR);
+			if (i == 2 && !words[i]) //BESOIN DE GARDER CA ? // cas << lim sans rien
 				return (PARSING_ERR);
 		}
 		else

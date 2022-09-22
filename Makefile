@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
+#    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/09/22 15:27:40 by rpoder           ###   ########.fr        #
+#    Updated: 2022/09/22 19:44:09 by mpourrey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -57,7 +57,7 @@ SRCS				:=	main.c \
 						built-ins/builtins_utils.c \
 						parser/parser.c \
 						parser/set_cmd_tab.c \
-						parser/set_expand_declarations.c \
+						parser/set_expand_declaration.c \
 						parser/parser_utils.c \
 						parser/create_heredocs.c \
 						parser/heredoc_utils.c \
