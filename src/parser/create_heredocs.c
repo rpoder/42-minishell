@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   create_and_fill_heredocs.c                         :+:      :+:    :+:   */
+/*   create_heredocs.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 19:57:39 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/22 00:02:24 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/22 03:05:37 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,7 +74,7 @@ static int	get_and_write_lines(int fd, t_heredoc_tool *tool, t_p_tool *p_tool)
 	return (NO_ERR);
 }
 
-int	create_and_fill_one_heredoc(t_cmd_node *cmd, char *lim, t_p_tool *p_tool)
+int	create_one_heredoc(t_cmd_node *cmd, char *lim, t_p_tool *p_tool)
 {
 	t_heredoc_tool	*tool;
 	int				ret;
@@ -103,7 +103,7 @@ int	create_and_fill_one_heredoc(t_cmd_node *cmd, char *lim, t_p_tool *p_tool)
 }
 
 
-int	create_and_fill_heredocs(char **words, int i, t_cmd_node *cmd, t_p_tool *tool)
+int	create_heredocs(char **words, int i, t_cmd_node *cmd, t_p_tool *tool)
 {
 	char	*unmute_file;
 
@@ -116,7 +116,7 @@ int	create_and_fill_heredocs(char **words, int i, t_cmd_node *cmd, t_p_tool *too
 				unmute_file = unmute_word(words[i + 1]);
 				if (!unmute_file)
 					return (MALLOC_ERR);
-				tool->ret = create_and_fill_one_heredoc(cmd, unmute_file, tool);
+				tool->ret = create_one_heredoc(cmd, unmute_file, tool);
 				free(unmute_file);
 				if (tool->ret != NO_ERR)
 					return (tool->ret);

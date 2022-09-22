@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 16:40:53 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/21 10:17:05 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/22 02:04:03 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ int	exec_builtins(t_data *data, char **cmd_tab, bool exit)
 		return (ERR_NOT_DEFINED);
 	builtin = is_builtin(cmd_tab[0]);
 	if (builtin < 0)
-		return (ERR_NOT_DEFINED);
+		return (ERR_NOT_DEFINED); //////////////////FREE ?
 	if (builtin == ENV)
 		ret = ft_env(data, cmd_tab);
 	else if (builtin == PWD)
@@ -64,7 +64,7 @@ int	exec_builtins(t_data *data, char **cmd_tab, bool exit)
 	else if (builtin == UNSET)
 		ret = ft_unset(data, cmd_tab);
 	else
-		ret = ERR_NOT_DEFINED;
+		ret = ERR_NOT_DEFINED; ///////////////////////FREE ?
 	if (ret == MALLOC_ERR)
 	{
 		ft_printf_fd("child: ", 2);

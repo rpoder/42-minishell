@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/22 02:10:43 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/22 03:00:57 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -162,7 +162,7 @@ int				parser(t_data *data);
 int				set_cmd_tab(char **words, int i, t_cmd_node *cmd, t_p_tool *tool);
 
 /* set_expand_declarations */
-int				set_expand_declarations(t_data *data, char **word, int i, t_cmd_node *cmd, t_p_tool *tool);
+int				set_expand_declarations(t_data *data, int i, t_cmd_node *cmd, t_p_tool *tool);
 
 /* parser_utils.c */
 t_cmd_node		*init_cmd_node(void);
@@ -172,8 +172,8 @@ t_p_tool		*init_p_tool(void);
 int				is_path_to_cmd(char *word);
 char			unmute_char(char c);
 
-/* create_and_fill_heredocs.c */
-int				create_and_fill_heredocs(char **words, int i, t_cmd_node *cmd, t_p_tool *tool);
+/* create_heredocs.c */
+int				create_heredocs(char **words, int i, t_cmd_node *cmd, t_p_tool *tool);
 
 /* heredoc_utils */
 void			free_heredoc_tool(t_heredoc_tool *tool);

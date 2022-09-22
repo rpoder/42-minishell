@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:18:56 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/20 14:39:48 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/22 02:09:52 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,6 @@ int	*init_pipe(t_data *data)
 	pipe_fd = malloc(sizeof(int) * 2);
 	if (!pipe_fd)
 		global_free(data, MALLOC_ERR);
-
 	return(pipe_fd);
 }
 
