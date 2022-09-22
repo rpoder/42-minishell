@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:18:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/21 22:50:02 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/22 14:37:31 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@ void	free_line_datas(t_data *data)
 
 void	global_free(t_data *data, enum errors err)
 {
+	int	exit_status;
+
+	exit_status = 0;
 	if (err == MALLOC_ERR)
 		ft_printf_fd("mi_nils_shell: malloc err\n", 2);
 	// else if (err == PARSING_ERR)
@@ -49,6 +52,7 @@ void	global_free(t_data *data, enum errors err)
 	// 	ft_printf_fd("mi_nils_shell: Bravo :)\n", 2);
 	if (data)
 	{
+		exit_status = ft_atoi(get_expand_value(data, "?"));
 		if (data->env)
 			ft_lstclear(&data->env, &del_expand);
 		if (data->local_expands)
@@ -62,6 +66,6 @@ void	global_free(t_data *data, enum errors err)
 		if (data->cmds)
 		 	ft_lstclear(&data->cmds, &del_cmd);
 		free(data);
-		exit(1);
+		exit(exit_status);
 	}
 }

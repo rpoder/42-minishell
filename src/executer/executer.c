@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:17:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/22 03:01:16 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/22 14:38:49 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,23 @@
 void	wait_all_children(t_data *data, t_exec_tool *tool)
 {
 	int	j;
+	int	**waitpid_ret;
 
+	waitpid_ret = malloc(sizeof(int *) * tool->i);
+	if (!waitpid_ret)
+		return ; // proteger
 	j = 0;
 	while (j < tool->i)
 	{
-		if (waitpid(tool->fork_ret[j], NULL, 0) < 0)
+		waitpid_ret[j] = malloc(sizeof(int));
+		// proteger
+		if (waitpid(tool->fork_ret[j], waitpid_ret[j], 0) < 0)
 		{
 			free_exec_tool(&tool);
 			global_free(data, WAITPID_ERR);
 		}
+		set_expand(data, "?", ft_itoa(WEXITSTATUS(*waitpid_ret[j])));
+		// printf("ret %d = %d\n", j, WEXITSTATUS(*waitpid_ret[j]));
 		j++;
 	}
 }
