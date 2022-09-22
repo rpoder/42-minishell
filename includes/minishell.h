@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/22 16:31:44 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/22 17:41:10 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -267,10 +267,12 @@ int				open_and_set_fd_out(t_cmd_node *cmd, char *outfile, int flag);
 /* handle_redirections.c */
 void			redirect_pipe_out(t_data *data, int *pipe_fd);
 void			chevron_redirection(t_data *data, t_cmd_node *cmd, t_exec_tool *tool);
+void	out_chevron_redir(t_data *data, t_cmd_node *cmd, t_exec_tool *tool);
 
 /* executer_utils.c */
 int				*init_pipe(t_data *data);
 char			**get_env_tab(t_data *data);
+int	is_err_redir_or_chevron_err(t_data *data);
 int				is_last_cmd(t_list *cmd);
 
 /* executer_tool_utils.c */

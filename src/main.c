@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/22 03:00:43 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/22 17:20:43 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,6 +88,7 @@ int	main(int argc, char **argv, char **env)
 			global_free(data, NO_ERR);
 		if (ft_strlen(line) >= 1)
 		{
+			set_expand(data, "?", "1");
 			add_history(line);
 			data->prompt_line = line;
 			if (!data->prompt_line)

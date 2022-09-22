@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:07:16 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/22 14:47:56 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/22 17:37:43 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,15 +26,15 @@ void	handle_parent_sigint(int signum)
 
 void	handle_child_sigint(int signum)
 {
-	// ft_printf_fd("[enfant %d]\n", 2, getpid());
-	set_expand(g_data, "?", "130");
-	global_free(g_data, NO_ERR);
+	ft_printf_fd("[enfant %d]\n", 2, getpid());
+	// set_expand(g_data, "?", "130");
+	// global_free(g_data, NO_ERR);
 }
 
 void	handle_heredoc_sigint(int signum)
 {
 	// ft_printf_fd("[heredoc %d]\n", 2, getpid());
-	set_expand(g_data, "?", "130");
+	// set_expand(g_data, "?", "130");
 	global_free(g_data, NO_ERR);
 }
 
@@ -42,7 +42,7 @@ void	handle_heredoc_sigint(int signum)
 
 void	create_parent_signals(void)
 {
-	// ft_printf_fd("create parent pid %d\n", 2, getpid());
+	// ft_printf_fd("///////////////CREATE CHILD SIGNALS///// %d\n", 2, getpid());
 	signal(SIGINT, handle_parent_sigint);
 	signal(SIGQUIT, SIG_IGN);
 	// signal(SIGQUIT, block_parent_sigquit);
@@ -50,15 +50,15 @@ void	create_parent_signals(void)
 
 void	create_child_signals(void)
 {
-	// ft_printf_fd("create enfant pid %d\n", 2, getpid());
+	ft_printf_fd("////////CREATE CHILD SIGNALS///// %d\n", 2, getpid());
 	signal(SIGINT, handle_child_sigint);
 }
 
-void	create_heredoc_signals(void)
-{
-	// ft_printf_fd("create herdoc pid %d\n", 2, getpid());
-	signal(SIGINT, handle_heredoc_sigint);
-}
+// void	create_heredoc_signals(void)
+// {
+// 	// ft_printf_fd("create herdoc pid %d\n", 2, getpid());
+// 	signal(SIGINT, handle_heredoc_sigint);
+// }
 
 void	cancel_parent_signals(void)
 {

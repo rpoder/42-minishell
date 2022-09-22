@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:17:45 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/22 16:33:19 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/22 17:43:53 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,8 +69,11 @@ static void exec_child(t_data *data, t_list *cmd, t_exec_tool *tool)
 				ft_printf_fd("%s: command not found\n", 2, ((t_cmd_node *)cmd->content)->cmd_tab[0]);
 				free_exec_tool(&tool);
 				ft_free_tab(&env_tab);
-				// if ?!=1
+				if (!is_err_redir_or_chevron_err(data))
+				{
+					ft_printf_fd("execve failed ? = %s\n", 2, get_expand_value(data, "?"));
 					set_expand(data, "?", "127");
+				}
 				global_free(data, NO_ERR);
 			}
 		}

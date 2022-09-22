@@ -44,7 +44,7 @@ void	exec_no_child_builtin(t_data *data, t_list *cmd, t_exec_tool *tool)
 	env_tab = get_env_tab(data);
 	if (!env_tab)
 		free_tool_and_g_free(data, tool);
-	chevron_redirection(data, (t_cmd_node *)cmd->content, tool);
+	out_chevron_redir(data, (t_cmd_node *)cmd->content, tool);
 	if (exec_builtins(data, ((t_cmd_node *)cmd->content)->cmd_tab, false) != NO_ERR)
 	{
 		ft_free_tab(&env_tab);

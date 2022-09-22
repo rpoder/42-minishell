@@ -3,14 +3,22 @@
 /*                                                        :::      ::::::::   */
 /*   executer_utils.c                                   :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:18:56 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/22 02:09:52 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/22 17:20:13 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	is_err_redir_or_chevron_err(t_data *data)
+{
+	if (ft_strcmp(get_expand_value(data, "?"), "1") == 0 ||
+		ft_strcmp(get_expand_value(data, "?"), "1") == 0)
+		return (1);
+	return (0);
+}
 
 int	*init_pipe(t_data *data)
 {
