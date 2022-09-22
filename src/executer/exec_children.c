@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_children.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:17:45 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/22 14:37:48 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/22 14:58:06 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,12 +83,17 @@ static void exec_child(t_data *data, t_list *cmd, t_exec_tool *tool)
 			if (execve(((t_cmd_node *)cmd->content)->path, ((t_cmd_node *)cmd->content)->cmd_tab, env_tab) != 0)
 			{
 				ft_printf_fd("minilsshell: %s: command not found\n", 2, ((t_cmd_node *)cmd->content)->cmd_tab[0]);
+				free_exec_tool(&tool);
 				ft_free_tab(&env_tab);
+				set_expand(data, "?", "127");
 				global_free(data, NO_ERR);
 			}
 		}
 	}
+	ft_free_tab(&env_tab);
 	free_exec_tool(&tool);
+	printf("END OF CHILD BEFORE GLOBAL FREE\n");
+	set_expand(data, "?", "127");
 	global_free(data, NO_ERR);
 }
 

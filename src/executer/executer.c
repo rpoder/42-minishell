@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:17:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/22 14:42:21 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/22 14:57:57 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,15 +15,23 @@
 void	wait_all_children(t_data *data, t_exec_tool *tool)
 {
 	int	j;
+	int	**waitpid_ret;
 
+	waitpid_ret = malloc(sizeof(int *) * tool->i);
+	if (!waitpid_ret)
+		return ; // proteger
 	j = 0;
 	while (j < tool->i)
 	{
-		if (waitpid(tool->fork_ret[j], NULL, 0) < 0)
+		waitpid_ret[j] = malloc(sizeof(int));
+		// proteger
+		if (waitpid(tool->fork_ret[j], waitpid_ret[j], 0) < 0)
 		{
 			free_exec_tool(&tool);
 			global_free(data, WAITPID_ERR);
 		}
+		set_expand(data, "?", ft_itoa(WEXITSTATUS(*waitpid_ret[j])));
+		// printf("ret %d = %d\n", j, WEXITSTATUS(*waitpid_ret[j]));
 		j++;
 	}
 }
@@ -88,7 +96,7 @@ void	executer(t_data *data)
 		&& is_builtin(((t_cmd_node *)data->cmds->content)->cmd_tab[0]) >= 0)
 		{
 			if (exec_no_child_builtin(data, data->cmds, tool) != 0)
-				return ;	
+				return ;
 		}
 	else
 	{
