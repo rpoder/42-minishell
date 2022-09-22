@@ -6,7 +6,11 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:17:07 by ronanpoder        #+#    #+#             */
+<<<<<<< HEAD
 /*   Updated: 2022/09/22 20:32:55 by mpourrey         ###   ########.fr       */
+=======
+/*   Updated: 2022/09/22 20:28:35 by rpoder           ###   ########.fr       */
+>>>>>>> master
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +21,7 @@ void	wait_all_children(t_data *data, t_exec_tool *tool)
 	printf("wait all children\n");
 	int	j;
 	int	**waitpid_ret;
+	int	*sig;
 
 	waitpid_ret = malloc(sizeof(int *) * tool->i);
 	if (!waitpid_ret)
@@ -42,7 +47,23 @@ void	wait_all_children(t_data *data, t_exec_tool *tool)
 			free_exec_tool(&tool);
 			global_free(data, WAITPID_ERR);
 		}
+<<<<<<< HEAD
 		set_expand(data, "?", ft_itoa(WEXITSTATUS(*waitpid_ret[j]))); //A FREE
+=======
+		sig = waitpid_ret[j];
+		if (WIFEXITED(*sig))
+		{
+			// ft_printf_fd("WITH EXIT", 2);
+			// ft_printf_fd("%d\n\n", WEXITSTATUS(*sig));
+			set_expand(data, "?", ft_itoa(WEXITSTATUS(*waitpid_ret[j])));
+		}
+		else if (WIFSIGNALED(*sig))
+		{
+			// ft_printf_fd("WITH SIG", 2);
+			set_expand(data, "?", "130");
+		}
+		// ft_printf_fd("proces[%d] = %d\n", 2, j , get_expand_value(data, "?"));
+>>>>>>> master
 		j++;
 	}
 	ft_free_int_tab(&waitpid_ret, tool->i);

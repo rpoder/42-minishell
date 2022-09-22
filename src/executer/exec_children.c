@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:17:45 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/22 17:43:53 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/22 19:55:10 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ static void exec_child(t_data *data, t_list *cmd, t_exec_tool *tool)
 {
 	char	**env_tab;
 
-	create_child_signals();
+	default_all_sigs();
 	env_tab = NULL;
 	if (!is_last_cmd(cmd))
 		redirect_to_pipe(data, tool);
@@ -98,7 +98,7 @@ void	exec_children(t_data *data, t_list *cmd, t_exec_tool *tool)
 		}
 		lexer_len = skip_node(data->words, lexer_len);
 		handle_pipe(data, tool);
-		cancel_parent_signals();
+		ignore_all_sigs();
 		handle_fork(data, tool);
 		if (tool->fork_ret[tool->i] == 0)
 			exec_child(data, cmd, tool);
