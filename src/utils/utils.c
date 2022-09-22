@@ -3,14 +3,23 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 15:19:17 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/10 18:03:23 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/22 16:30:40 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	skip_node(char **words, int len)
+{
+	while (words[len] && words[len][0] != '|')
+		len++;
+	if (words[len])
+		len++;
+	return (len);
+}
 
 int	is_pipe(char c)
 {
