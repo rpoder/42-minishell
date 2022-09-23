@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
+#    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/09/23 21:06:50 by mpourrey         ###   ########.fr        #
+#    Updated: 2022/09/23 21:27:29 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -51,6 +51,7 @@ SRCS				:=	main.c \
 						lexer/word_trimmer.c \
 						built-ins/ft_echo.c \
 						built-ins/ft_export.c \
+						built-ins/ft_export_utils.c \
 						built-ins/ft_unset.c \
 						built-ins/ft_pwd.c \
 						built-ins/ft_cd.c \
@@ -73,6 +74,7 @@ SRCS				:=	main.c \
 						executer/handle_redirections.c \
 						executer/executer_utils.c \
 						executer/executer_tool_utils.c \
+						executer/executer_tool_utils_2.c \
 						handle_signals/handle_signals.c \
 
 CC					:=	cc

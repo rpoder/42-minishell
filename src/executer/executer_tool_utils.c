@@ -6,31 +6,11 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 13:02:56 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/23 04:41:18 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 20:59:57 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-void	free_exec_tool(t_exec_tool **tool)
-{
-	if ((*tool)->pipe_fd)
-	{
-		if ((*tool)->pipe_fd[0] >= 0)
-			close ((*tool)->pipe_fd[0]);
-		if ((*tool)->pipe_fd[1] >= 0)
-			close ((*tool)->pipe_fd[1]);
-		free((*tool)->pipe_fd);
-	}
-	if ((*tool)->fork_ret)
-		free((*tool)->fork_ret);
-	if ((*tool)->fd_stdin >= 0)
-		close ((*tool)->fd_stdin);
-	if ((*tool)->fd_stdout >= 0)
-		close ((*tool)->fd_stdout);
-	free(*tool);
-	*tool = NULL;
-}
 
 static int	*init_pipe_fd(void)
 {
@@ -47,7 +27,7 @@ static int	*init_pipe_fd(void)
 static int	*init_fork_ret(t_list *cmd)
 {
 	int		len;
-	int	*fork_ret;
+	int		*fork_ret;
 
 	len = ft_lstlen(cmd);
 	fork_ret = malloc(sizeof(int) * len);
@@ -61,6 +41,46 @@ static int	*init_fork_ret(t_list *cmd)
 	return (fork_ret);
 }
 
+static int	init_tool_stds(t_exec_tool *tool)
+{
+	tool->fd_stdin = dup(0);
+	if (tool->fd_stdin < 0)
+	{
+		free(tool);
+		return (-1);
+	}
+	tool->fd_stdout = dup(1);
+	if (tool->fd_stdout < 0)
+	{
+		close (tool->fd_stdin);
+		free(tool);
+		return (-1);
+	}
+	return (0);
+}
+
+static int	init_tool_forkret_pipe(t_list *cmd, t_exec_tool *tool)
+{
+	tool->fork_ret = init_fork_ret(cmd);
+	if (!tool->fork_ret)
+	{
+		close (tool->fd_stdin);
+		close (tool->fd_stdout);
+		free(tool);
+		return (-1);
+	}
+	tool->pipe_fd = init_pipe_fd();
+	if (!tool->pipe_fd)
+	{
+		close (tool->fd_stdin);
+		close (tool->fd_stdout);
+		free(tool->fork_ret);
+		free(tool);
+		return (-1);
+	}
+	return (0);
+}
+
 t_exec_tool	*init_exec_tool(t_list *cmd)
 {
 	t_exec_tool	*tool;
@@ -70,35 +90,9 @@ t_exec_tool	*init_exec_tool(t_list *cmd)
 		return (NULL);
 	tool->i = 0;
 	tool->ret = NO_ERR;
-	tool->fd_stdin = dup(0);
-	if (tool->fd_stdin < 0)
-	{
-		free(tool);
+	if (init_tool_stds(tool) != 0)
 		return (NULL);
-	}
-	tool->fd_stdout = dup(1);
-	if (tool->fd_stdout < 0)
-	{
-		close (tool->fd_stdin);
-		free(tool);
+	if (init_tool_forkret_pipe(cmd, tool) != 0)
 		return (NULL);
-	}
-	tool->fork_ret = init_fork_ret(cmd);
-	if (!tool->fork_ret)
-	{
-		close (tool->fd_stdin);
-		close (tool->fd_stdout);
-		free(tool);
-		return (NULL);
-	}
-	tool->pipe_fd = init_pipe_fd();
-	if (!tool->pipe_fd)
-	{
-		close (tool->fd_stdin);
-		close (tool->fd_stdout);
-		free(tool->fork_ret);
-		free(tool);
-		return (NULL);
-	}
 	return (tool);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   minishell.h                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/23 21:05:57 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/23 21:28:06 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -235,6 +235,9 @@ int				ft_env(t_data *data, char **args);
 
 /* ft_export.c */
 int				ft_export(t_data *data, char **args);
+char			*trim_and_alloc_value(char *str);
+char			*trim_and_alloc_key(char *str);
+int				set_trim_alloc_keyvalue(char *arg, char **key, char **value);
 
 /* ft_unset.c */
 
@@ -278,8 +281,11 @@ int	is_redir_err_or_chevron_err(t_data *data);
 int				is_last_cmd(t_list *cmd);
 
 /* executer_tool_utils.c */
-void			free_exec_tool(t_exec_tool **tool);
 t_exec_tool		*init_exec_tool(t_list *cmd);
+
+/* executer_tool_utils2.c */
+void			free_exec_tool(t_exec_tool **tool);
+
 
 /* exec_builtins.c */
 int				exec_builtins(t_data *data, char **cmd_tab, bool is_child, t_exec_tool *tool);
