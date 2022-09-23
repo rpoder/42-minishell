@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:17:45 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/23 03:55:10 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 04:38:55 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,6 +56,7 @@ static void exec_child(t_data *data, t_list *cmd, t_exec_tool *tool)
 	if (!is_last_cmd(cmd))
 		redirect_to_pipe(data, tool);
 	chevron_redirection(data, (t_cmd_node *)cmd->content, tool);
+	free_exec_tool(&tool);
 	if (((t_cmd_node *)cmd->content)->cmd_tab[0])
 	{
 		if (exec_builtins(data, ((t_cmd_node *)cmd->content)->cmd_tab, true) != NO_ERR)
@@ -68,7 +69,6 @@ static void exec_child(t_data *data, t_list *cmd, t_exec_tool *tool)
 			}
 		}
 	}
-	free_exec_tool(&tool);
 	global_free(data, NO_ERR);
 }
 

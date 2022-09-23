@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:17:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/23 03:38:22 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 04:16:13 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,9 +84,7 @@ void	executer(t_data *data)
 		global_free(data, MALLOC_ERR);
 	if (ft_lstlen(data->cmds) == 1
 		&& is_builtin(((t_cmd_node *)data->cmds->content)->cmd_tab[0]) >= 0)
-		{
 			exec_no_child_builtin(data, data->cmds, tool);
-		}
 	else
 	{
 		exec_children(data, data->cmds, tool);
