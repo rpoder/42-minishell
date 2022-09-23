@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:17:45 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/22 19:55:10 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 03:55:10 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,33 +52,22 @@ static void	redirect_to_pipe(t_data *data, t_exec_tool *tool)
 
 static void exec_child(t_data *data, t_list *cmd, t_exec_tool *tool)
 {
-	char	**env_tab;
-
 	default_all_sigs();
-	env_tab = NULL;
 	if (!is_last_cmd(cmd))
 		redirect_to_pipe(data, tool);
 	chevron_redirection(data, (t_cmd_node *)cmd->content, tool);
 	if (((t_cmd_node *)cmd->content)->cmd_tab[0])
 	{
-		env_tab = get_env_tab(data);
 		if (exec_builtins(data, ((t_cmd_node *)cmd->content)->cmd_tab, true) != NO_ERR)
 		{
-			if (execve(((t_cmd_node *)cmd->content)->path, ((t_cmd_node *)cmd->content)->cmd_tab, env_tab) != 0)
+			if (execve(((t_cmd_node *)cmd->content)->path, ((t_cmd_node *)cmd->content)->cmd_tab, data->default_env) != 0)
 			{
 				ft_printf_fd("%s: command not found\n", 2, ((t_cmd_node *)cmd->content)->cmd_tab[0]);
-				free_exec_tool(&tool);
-				ft_free_tab(&env_tab);
 				if (!is_err_redir_or_chevron_err(data))
-				{
-					ft_printf_fd("execve failed ? = %s\n", 2, get_expand_value(data, "?"));
 					set_expand(data, "?", "127");
-				}
-				global_free(data, NO_ERR);
 			}
 		}
 	}
-	ft_free_tab(&env_tab);
 	free_exec_tool(&tool);
 	global_free(data, NO_ERR);
 }

@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/22 22:10:13 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 03:54:02 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,18 @@
 # include <sys/wait.h>
 # include "libft.h"
 # include "utils.h"
+# include <sys/ioctl.h>
 
 
-enum errors { MALLOC_ERR = -100, OPEN_ERR, PARSING_ERR, ERR_NOT_DEFINED, NO_ERR, END, PIPE_ERR, DUP_ERR, WAITPID_ERR, CLOSE_ERR, PATH_MAX_ERR, FORK_ERR};
+# define PATH_MAX 4096
+# define ENV_DEFAULT_PATH "/mnt/nfs/homes/rpoder/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
+
+# define FD_UNDEFINED -2
+# define FD_PARSING_ERR -3
+
+# define BUFFER_SIZE_GNL 10
+
+enum errors { MALLOC_ERR = -100, OPEN_ERR, PARSING_ERR, ERR_NOT_DEFINED, NO_ERR, END, PIPE_ERR, DUP_ERR, WAITPID_ERR, CLOSE_ERR, PATH_MAX_ERR, FORK_ERR, CTRL_C};
 enum builtins { CD = 1, ECHO, ENV, EXIT, EXPORT, PWD, UNSET };
 
 typedef struct s_expand {
@@ -41,6 +50,7 @@ typedef struct s_data {
 	char	*expanded_line;
 	char	**words;
 	t_list	*cmds;
+	char	**default_env;
 }	t_data;
 
 typedef struct s_cmd_node {
@@ -51,15 +61,7 @@ typedef struct s_cmd_node {
 	t_list	*heredocs;
 }	t_cmd_node;
 
-extern t_data *g_data;
-
-# define PATH_MAX 4096
-# define ENV_DEFAULT_PATH "/mnt/nfs/homes/rpoder/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
-
-# define FD_UNDEFINED -2
-# define FD_PARSING_ERR -3
-
-# define BUFFER_SIZE_GNL 10
+extern bool		g_bool;
 
 ///////////////A SUPP
 void	test_parser(t_list *cmds);
@@ -93,6 +95,7 @@ void			mute_in_quotes(t_data *data);
 int				set_expand(t_data *data, char *key, char *value_to_modify);
 bool			set_on(t_list **alst, char *key, char *value_to_modify);
 void			add_expand(t_data *data, t_list **alst, char *key, char *value);
+int				set_malloced_expand(t_data *data, char *key, char *value_to_modify);
 
 /*---------------------------------------------- EXPANDER */
 /* expander.c */
@@ -290,5 +293,6 @@ int				is_builtin(char *arg);
 void	custom_all_sigs(void);
 void	default_all_sigs(void);
 void	ignore_all_sigs(void);
+void	init_heredoc_sig(void);
 
 #endif

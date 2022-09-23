@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_free_int_tab.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 18:06:25 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/22 20:32:20 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/23 02:44:17 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	ft_free_int_tab(int ***tab, int size)
 	i = 0;
 	if (*tab)
 	{
-		while (i >= size)
+		while (i < size)
 		{
 			free((*tab)[i]);
 			(*tab)[i] = NULL;

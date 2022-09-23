@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:43:05 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/21 15:22:24 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 03:54:20 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,13 @@ t_data	*init_data(char **env)
 	if (!data)
 		global_free(data, MALLOC_ERR);
 	data->env = NULL;
-	set_env(data, env);
 	data->local_expands = NULL;
+	set_env(data, env);
 	data->prompt_line = NULL;
 	data->expanded_line = NULL;
 	data->words = NULL;
 	data->cmds = NULL;
+	data->default_env = env;
 	if (add_error_expand_to_local(data) != NO_ERR || add_path_to_local(data, env) != NO_ERR)
 		global_free(data, MALLOC_ERR);
 	return (data);

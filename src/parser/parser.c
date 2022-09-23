@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 15:40:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/22 20:23:32 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/23 01:41:02 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,6 +78,8 @@ int	parser(t_data *data)
 		cmd_node = make_and_skip_cmd(data, data->words, tool);
 		if (tool->ret != NO_ERR)
 		{
+			if (tool->ret == CTRL_C)
+				set_expand(data, "?", "130");
 			free(tool);
 			return (-1);
 		}

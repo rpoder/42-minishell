@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 12:24:39 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/22 21:59:18 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 01:51:51 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,6 +92,6 @@ void	set_env(t_data *data, char **env)
 			i++;
 		}
 		if (add_default_shlvl(data) == MALLOC_ERR)
-			global_free(data, MALLOC_ERR);e
+			global_free(data, MALLOC_ERR);
 	}
 }

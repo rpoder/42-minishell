@@ -6,13 +6,13 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/22 22:08:42 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 02:30:31 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-t_data *g_data = NULL;
+bool	g_bool = false;
 
 void	test_parser(t_list *cmds)
 {
@@ -78,14 +78,16 @@ int	main(int argc, char **argv, char **env)
 	t_data	*data;
 
 	data = init_data(env);
-	g_data = data;
 	while (1)
 	{
 		custom_all_sigs();
 		// line = "echo coucou > infile";
 		line = readline("minilsshell> ");
 		if (!line)
+		{
+			rl_clear_history();
 			global_free(data, NO_ERR);
+		}
 		if (ft_strlen(line) >= 1)
 		{
 			add_history(line);
@@ -98,7 +100,6 @@ int	main(int argc, char **argv, char **env)
 				expander(data);
 				lexer(data);
 				redirection_syntax_printer(data->words);
-
 				if (parser(data) == 0)
 					executer(data);
 			}

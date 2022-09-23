@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 19:57:39 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/22 22:10:06 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 01:41:42 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,36 +41,24 @@ static int	open_heredoc(char **heredoc_path)
 	return (fd_heredoc);
 }
 
-static int	get_and_write_lines(int fd, t_heredoc_tool *tool, t_p_tool *p_tool)
+static int	get_and_write_lines(int fd, t_heredoc_tool *tool)
 {
-	pid_t	fork_ret;
-
-	fork_ret = fork();
-	if (fork_ret < 0)
-		return (FORK_ERR);
-	if (fork_ret == 0)
+	write(1, "heredoc> ", 10);
+	tool->str = gnl_minishell(0, tool->ret);
+	if (*(tool->ret) != NO_ERR)
+		return (*(tool->ret));
+	while (tool->str != NULL && ft_strcmp(tool->str, tool->lim) != 0
+		&& g_bool == false)
 	{
-		write(1, "> ", 2);
+		write(fd, tool->str, ft_strlen(tool->str));
+		free(tool->str);
+		write(1, "heredoc> ", 10);
 		tool->str = gnl_minishell(0, tool->ret);
 		if (*(tool->ret) != NO_ERR)
-			return (*(tool->ret));
-		while (tool->str != NULL && ft_strcmp(tool->str, tool->lim) != 0)
-		{
-			write(fd, tool->str, ft_strlen(tool->str));
-			free(tool->str);
-			write(1, "> ", 2);
-			tool->str = gnl_minishell(0, tool->ret);
-			if (*(tool->ret) != NO_ERR)
-				global_free(g_data, MALLOC_ERR);
-		}
-		free(tool->str);
-		free_heredoc_tool(tool);
-		free(p_tool);
-		// close(fd);
-		global_free(g_data, NO_ERR);
-		exit(0);
+			return (MALLOC_ERR);
 	}
-	wait(&fork_ret);
+	if (g_bool == true)
+		return (CTRL_C);
 	return (NO_ERR);
 }
 
@@ -80,26 +68,29 @@ int	create_one_heredoc(t_cmd_node *cmd, char *lim, t_p_tool *p_tool)
 	int				ret;
 	int				fork_ret;
 
-		// create_child_signals();
-		tool = init_heredoc_tool(lim);
-		if (!tool)
-			return (MALLOC_ERR);
-		cmd->fd_in = open_heredoc(&tool->heredoc_path);
-		if (cmd->fd_in == MALLOC_ERR)
-			return (free_heredoc_tool(tool), MALLOC_ERR);
-		ret = add_path_to_heredoc_list(cmd, tool->heredoc_path);
-		if (ret != NO_ERR)
-		{
-			close(cmd->fd_in);
-			return (free_heredoc_tool(tool), ret);
-		}
-
-		ret = get_and_write_lines(cmd->fd_in, tool, p_tool);
+	tool = init_heredoc_tool(lim);
+	if (!tool)
+		return (MALLOC_ERR);
+	cmd->fd_in = open_heredoc(&tool->heredoc_path);
+	if (cmd->fd_in == MALLOC_ERR)
+		return (free_heredoc_tool(tool), MALLOC_ERR);
+	ret = add_path_to_heredoc_list(cmd, tool->heredoc_path);
+	if (ret != NO_ERR)
+	{
 		close(cmd->fd_in);
-		if (ret != NO_ERR)
-			return (free_heredoc_tool(tool), ret);
-		free_heredoc_tool(tool);
-		return (NO_ERR);
+		return (free_heredoc_tool(tool), ret);
+	}
+	ret = get_and_write_lines(cmd->fd_in, tool);
+	if (ret != NO_ERR)
+	{
+		close(cmd->fd_in);
+		return (free_heredoc_tool(tool), ret);
+	}
+	close(cmd->fd_in);
+	if (ret != NO_ERR)
+		return (free_heredoc_tool(tool), ret);
+	free_heredoc_tool(tool);
+	return (NO_ERR);
 }
 
 

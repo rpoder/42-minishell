@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:18:56 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/22 17:20:13 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 03:55:57 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ int	*init_pipe(t_data *data)
 	return(pipe_fd);
 }
 
-char	**get_env_tab(t_data *data)
+/* char	**get_env_tab(t_data *data)
 {
 	char	**env_tab;
 	t_list	*env;
@@ -56,7 +56,7 @@ char	**get_env_tab(t_data *data)
 		i++;
 	}
 	return (env_tab);
-}
+} */
 
 int	is_last_cmd(t_list *cmd)
 {

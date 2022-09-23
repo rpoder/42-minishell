@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 17:52:08 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/22 21:54:45 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 02:36:15 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,9 +18,10 @@ int	add_default_shlvl(t_data *data)
 	char	*value;
 	char	*shlvl_value;
 	int		shlvl_value_int;
+	char	*tmp;
 
 	shlvl_value = get_expand_value(data, "SHLVL");
-	if (shlvl_value == NULL)
+	if (!shlvl_value)
 	{
 		key = ft_alloc_and_fill("SHLVL");
 		if (!key)
@@ -37,7 +38,10 @@ int	add_default_shlvl(t_data *data)
 	{
 		shlvl_value_int = ft_atoi(shlvl_value);
 		shlvl_value_int++;
-		set_expand(data, "SHLVL", ft_itoa(shlvl_value_int));
+		tmp = ft_itoa(shlvl_value_int);
+		if (!tmp)
+			return (MALLOC_ERR);
+		set_malloced_expand(data, "SHLVL", tmp);
 	}
 	return (NO_ERR);
 }

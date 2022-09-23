@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:18:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/22 20:28:22 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 01:47:21 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,6 +16,7 @@ void	free_line_datas(t_data *data)
 {
 	if (data)
 	{
+		g_bool = false;
 		if (data->prompt_line)
 			free(data->prompt_line);
 		data->prompt_line = NULL;

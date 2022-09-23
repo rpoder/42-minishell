@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:07:16 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/22 22:09:52 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 01:45:51 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,34 +17,51 @@ void	ignore_all_sigs(void)
 	signal(SIGINT, SIG_IGN);
 }
 
-void	handle_default_sigint(int signum)
+/* void	handle_default_sigint(int signum)
 {
-	ft_printf_fd("SIG INT IN CHILD CALLED\n", 2);
 	set_expand(g_data, "?", "130");
 	global_free(g_data, NO_ERR);
-}
+} */
 
 void	default_all_sigs(void)
 {
-	signal(SIGINT, handle_default_sigint);
+	signal(SIGINT, SIG_DFL);
 }
 
 void	handle_custom_sigint(int signum)
 {
-	set_expand(g_data, "?", "130");
+	// set_expand(g_data, "?", "130");
 
-	free_line_datas(g_data);
-	ft_putstr_fd("\n\b", 1);
-	rl_on_new_line();
+	// free_line_datas(g_data);
+	ioctl(0, TIOCSTI, "\n");
+	// ft_putstr_fd("\b\n\n", 0);
+	g_bool = true;
 	rl_redisplay();
+	rl_on_new_line();
 	rl_replace_line("", 0);
 }
 
 void	custom_all_sigs(void)
 {
 	signal(SIGINT, handle_custom_sigint);
-
 }
+
+/////////////////////////herddoc sig
+/*
+void	handle_heredoc_sigint(int signum)
+{
+	g_bool = true;
+	write(2, "\n", 1);
+	// ft_putstr_fd("\b", 1);
+	rl_on_new_line();
+	rl_replace_line("", 0);
+ 	rl_redisplay();
+}
+
+void	init_heredoc_sig(void)
+{
+	signal(SIGINT, handle_heredoc_sigint);
+} */
 
 
 /*
