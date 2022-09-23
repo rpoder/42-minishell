@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:18:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/23 01:47:21 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 15:05:34 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,7 +16,7 @@ void	free_line_datas(t_data *data)
 {
 	if (data)
 	{
-		g_bool = false;
+		g_close_heredoc = false;
 		if (data->prompt_line)
 			free(data->prompt_line);
 		data->prompt_line = NULL;
@@ -32,25 +32,27 @@ void	free_line_datas(t_data *data)
 	}
 }
 
-void	global_free(t_data *data, enum errors err)
+void	print_free_err_message(int err)
+{
+	if (err == MALLOC_ERR)
+		ft_printf_fd("mi_nils_shell: malloc err\n", 2);
+	else if (err == PIPE_ERR)
+		ft_printf_fd("mi_nils_shell: pipe err\n", 2);
+	else if (err == WAITPID_ERR)
+		ft_printf_fd("mi_nils_shell: waitpid err\n", 2);
+	else if (err == FORK_ERR)
+		ft_printf_fd("mi_nils_shell: fork err\n", 2);
+}
+
+void	global_free(t_data *data, int err)
 {
 	int	exit_status;
 
-	exit_status = 0;
-	if (err == MALLOC_ERR)
-		ft_printf_fd("mi_nils_shell: malloc err\n", 2);
-	// else if (err == PARSING_ERR)
-	// 	ft_printf_fd("mi_nils_shell: parsing err\n", 2);
-	// else if (err == ERR_NOT_DEFINED)
-	// 	ft_printf_fd("mi_nils_shell: err not defined\n", 2);
-	// else if (err == PIPE_ERR)
-	// 	ft_printf_fd("mi_nils_shell: pipe err\n", 2);
-	// else if (err == WAITPID_ERR)
-	// 	ft_printf_fd("mi_nils_shell: waitpid err\n", 2);
-	// else if (err == FORK_ERR)
-	// ft_printf_fd("mi_nils_shell: fork err\n", 2);
-	// else if (err == END)
-	// 	ft_printf_fd("mi_nils_shell: Bravo :)\n", 2);
+	if (err == MALLOC_ERR || err == PIPE_ERR || err == WAITPID_ERR || err == FORK_ERR)
+	{
+		set_expand(data, "?", "128");
+		print_free_err_message(err);
+	}
 	if (data)
 	{
 		exit_status = ft_atoi(get_expand_value(data, "?"));

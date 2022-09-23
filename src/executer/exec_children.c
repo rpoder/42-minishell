@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:17:45 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/23 04:38:55 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 15:48:52 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,12 +59,12 @@ static void exec_child(t_data *data, t_list *cmd, t_exec_tool *tool)
 	free_exec_tool(&tool);
 	if (((t_cmd_node *)cmd->content)->cmd_tab[0])
 	{
-		if (exec_builtins(data, ((t_cmd_node *)cmd->content)->cmd_tab, true) != NO_ERR)
+		if (exec_builtins(data, ((t_cmd_node *)cmd->content)->cmd_tab, true, tool) != NO_ERR)
 		{
 			if (execve(((t_cmd_node *)cmd->content)->path, ((t_cmd_node *)cmd->content)->cmd_tab, data->default_env) != 0)
 			{
 				ft_printf_fd("%s: command not found\n", 2, ((t_cmd_node *)cmd->content)->cmd_tab[0]);
-				if (!is_err_redir_or_chevron_err(data))
+				if (!is_redir_err_or_chevron_err(data))
 					set_expand(data, "?", "127");
 			}
 		}
@@ -83,8 +83,10 @@ void	exec_children(t_data *data, t_list *cmd, t_exec_tool *tool)
 		if (tool->ret == MALLOC_ERR)
 		{
 			free_exec_tool(&tool);
-			global_free(data, tool->ret);
+			global_free(data, MALLOC_ERR);
 		}
+		else if (tool->ret == OPEN_ERR)
+			set_expand(data, "?", "1");
 		lexer_len = skip_node(data->words, lexer_len);
 		handle_pipe(data, tool);
 		ignore_all_sigs();

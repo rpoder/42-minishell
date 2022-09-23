@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 15:40:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/23 01:41:02 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 15:04:18 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,10 @@ static int	set_and_skip_cmd(t_data *data, t_cmd_node *cmd, t_p_tool *tool)
 		return (tool->ret);
 	tool->ret = check_redir_op_err(data->words, tool->i);
 	if (tool->ret != NO_ERR)
+	{
+		set_expand(data, "?", "2");
 		return (tool->ret);
+	}
 	tool->ret = set_cmd_tab(data->words, tool->i, cmd, tool);
 	if (tool->ret != NO_ERR)
 		return (tool->ret);
@@ -50,10 +53,9 @@ static t_cmd_node	*make_and_skip_cmd(t_data *d, char **words, t_p_tool *tool)
 	if (!cmd_node)
 		return (NULL);
 	tool->ret = set_and_skip_cmd(d, cmd_node, tool);
-	if (tool->ret != NO_ERR)
-		free(cmd_node);
 	if (tool->ret == MALLOC_ERR)
 	{
+		free(cmd_node);
 		free(tool);
 		global_free(d, MALLOC_ERR);
 	}
@@ -80,14 +82,21 @@ int	parser(t_data *data)
 		{
 			if (tool->ret == CTRL_C)
 				set_expand(data, "?", "130");
+		}
+		add_node_to_cmd_lst(data, cmd_node, tool);
+		if (tool->ret != NO_ERR)
+		{
 			free(tool);
 			return (-1);
 		}
-		add_node_to_cmd_lst(data, cmd_node, tool);
 		if (data->words[tool->i] && data->words[tool->i][0] == '|')
 		{
 			if (data->words[tool->i][1])
-				return (free(tool), -1);
+			{
+				set_expand(data, "?", "2");
+				free(tool);
+				return (-1);
+			}
 			tool->i++;
 		}
 	}

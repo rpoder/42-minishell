@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 19:57:39 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/23 01:41:42 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 14:57:33 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static int	get_and_write_lines(int fd, t_heredoc_tool *tool)
 	if (*(tool->ret) != NO_ERR)
 		return (*(tool->ret));
 	while (tool->str != NULL && ft_strcmp(tool->str, tool->lim) != 0
-		&& g_bool == false)
+		&& g_close_heredoc == false)
 	{
 		write(fd, tool->str, ft_strlen(tool->str));
 		free(tool->str);
@@ -57,7 +57,7 @@ static int	get_and_write_lines(int fd, t_heredoc_tool *tool)
 		if (*(tool->ret) != NO_ERR)
 			return (MALLOC_ERR);
 	}
-	if (g_bool == true)
+	if (g_close_heredoc == true)
 		return (CTRL_C);
 	return (NO_ERR);
 }

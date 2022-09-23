@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 16:40:53 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/22 02:04:03 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/23 16:32:22 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ int	is_builtin(char *arg)
 	return (ret);
 }
 
-int	exec_builtins(t_data *data, char **cmd_tab, bool exit)
+int	exec_builtins(t_data *data, char **cmd_tab, bool is_child, t_exec_tool *tool)
 {
 	int	ret;
 	int	builtin;
@@ -48,7 +48,7 @@ int	exec_builtins(t_data *data, char **cmd_tab, bool exit)
 		return (ERR_NOT_DEFINED);
 	builtin = is_builtin(cmd_tab[0]);
 	if (builtin < 0)
-		return (ERR_NOT_DEFINED); //////////////////FREE ?
+		return (ERR_NOT_DEFINED);
 	if (builtin == ENV)
 		ret = ft_env(data, cmd_tab);
 	else if (builtin == PWD)
@@ -58,19 +58,16 @@ int	exec_builtins(t_data *data, char **cmd_tab, bool exit)
 	else if (builtin == CD)
 		ret = ft_cd(data, cmd_tab);
 	else if (builtin == EXIT)
-		ret = ft_exit(data, cmd_tab);
+		ret = ft_exit(data, cmd_tab, tool);
 	else if (builtin == EXPORT)
 		ret = ft_export(data, cmd_tab);
 	else if (builtin == UNSET)
 		ret = ft_unset(data, cmd_tab);
-	else
-		ret = ERR_NOT_DEFINED; ///////////////////////FREE ?
-	if (ret == MALLOC_ERR)
+	if (ret == MALLOC_ERR || is_child == true)
 	{
-		ft_printf_fd("child: ", 2);
-		global_free(data, MALLOC_ERR);
+		if (tool)
+			free_exec_tool(&tool);
+		global_free(data, ret);
 	}
-	if (exit == true)
-		global_free(data, ERR_NOT_DEFINED);
 	return (NO_ERR);
 }

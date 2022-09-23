@@ -3,33 +3,14 @@
 /*                                                        :::      ::::::::   */
 /*   handle_dels.c                                      :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/20 14:47:06 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/22 19:52:35 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/23 15:34:13 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 # include "minishell.h"
-
-/*ft_lstdelone*/
-void	del_one_expand(void *content)
-{
-	t_list	*casted_arg;
-
-	casted_arg = (t_list *)content;
-	if (casted_arg)
-	{
-		if ((t_expand *)casted_arg->content)
-		{
-			if (((t_expand *)casted_arg->content)->key)
-				free(((t_expand *)casted_arg->content)->key);
-			if (((t_expand *)casted_arg->content)->value)
-				free(((t_expand *)casted_arg->content)->value);
-		}
-		//free(casted_arg);
-	}
-}
 
 void	del_unfound_expand(void *expand)
 {
@@ -48,12 +29,6 @@ void	del_expand(void *expand)
 		free((t_expand *)expand);
 	}
 }
-
-// void	del_cmd_heredoc(void *heredoc)
-// {
-// 	if ((char *)heredoc)
-// 		free(heredoc);
-// }
 
 void	del_cmd(void *cmd)
 {
@@ -74,7 +49,7 @@ void	del_cmd(void *cmd)
 			heredoc = ((t_cmd_node *)cmd)->heredocs;
 			while (heredoc)
 			{
-				unlink(heredoc->content);
+				unlink((char *)heredoc->content);
 				heredoc = heredoc->next;
 			}
 			ft_lstclear(&((t_cmd_node *)cmd)->heredocs, &free);

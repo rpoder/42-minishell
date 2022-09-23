@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 17:45:13 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/19 21:51:44 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 16:33:57 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,6 +15,7 @@
 int	ft_env(t_data *data, char **args)
 {
 	t_list	*tmp;
+	char	*unmuted_value;
 
 	if (args[1])
 	{
@@ -29,7 +30,13 @@ int	ft_env(t_data *data, char **args)
 		ft_putstr_fd(((t_expand *)tmp->content)->key, 1);
 		ft_putchar_fd('=', 1);
 		if (((t_expand *)tmp->content)->value)
-			ft_putstr_fd(unmute_word(((t_expand *)tmp->content)->value), 1);
+		{
+			unmuted_value = unmute_word(((t_expand *)tmp->content)->value);
+			if (!unmuted_value)
+				return (MALLOC_ERR);
+			ft_putstr_fd(unmuted_value, 1);
+			free(unmuted_value);
+		}
 		ft_putchar_fd('\n', 1);
 		tmp = tmp->next;
 	}

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   check_redir_op_err.c                               :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 13:52:52 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/22 14:04:24 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/23 13:43:40 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ int check_redir_op_err(char **words, int i)
 		{
 			if (words[i + 1] && !is_redirection_operator(words[i + 1][0]))
 			{
-				if (!words[i][1] || (words[i][0] == '<' && words[i][1] == '<'
+				if ((!words[i][1]) || (words[i][0] == '<' && words[i][1] == '<'
 					&& !words[i][2]) || (words[i][0] == '>' && words[i][1] == '>'
 					&& !words[i][2]))
 					i += 2;
@@ -31,7 +31,7 @@ int check_redir_op_err(char **words, int i)
 				return (PARSING_ERR);
 		}
 		else
-			i++;	
+			i++;
 	}
 	return (NO_ERR);
 }

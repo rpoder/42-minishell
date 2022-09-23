@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:07:16 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/23 01:45:51 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 13:23:21 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	handle_custom_sigint(int signum)
 	// free_line_datas(g_data);
 	ioctl(0, TIOCSTI, "\n");
 	// ft_putstr_fd("\b\n\n", 0);
-	g_bool = true;
+	g_close_heredoc = true;
 	rl_redisplay();
 	rl_on_new_line();
 	rl_replace_line("", 0);
@@ -50,7 +50,7 @@ void	custom_all_sigs(void)
 /*
 void	handle_heredoc_sigint(int signum)
 {
-	g_bool = true;
+	g_close_heredoc = true;
 	write(2, "\n", 1);
 	// ft_putstr_fd("\b", 1);
 	rl_on_new_line();

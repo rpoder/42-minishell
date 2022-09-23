@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 20:15:54 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/19 14:53:28 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/23 14:50:19 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ char	*get_heredoc_name(int i)
 	nb = ft_itoa(i);
 	if (!nb)
 		return (NULL);
-	if (access("tmp/", F_OK) == 0)
+	if (access("/tmp/", F_OK) == 0)
 		heredoc = ft_strjoin("/tmp/heredoc_", nb);
 	else
 		heredoc = ft_strjoin("heredoc_", nb);
@@ -71,7 +71,8 @@ t_heredoc_tool	*init_heredoc_tool(char *lim)
 {
 	t_heredoc_tool	*tool;
 
-	tool = malloc(sizeof(t_heredoc_tool));
+	// tool = malloc(sizeof(t_heredoc_tool));
+	tool = NULL;
 	if (!tool)
 		return (NULL);
 	tool->lim = ft_strjoin(lim, "\n");

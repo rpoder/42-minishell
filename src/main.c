@@ -6,13 +6,13 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/23 02:30:31 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 14:18:25 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-bool	g_bool = false;
+bool	g_close_heredoc = false;
 
 void	test_parser(t_list *cmds)
 {
@@ -27,10 +27,13 @@ void	test_parser(t_list *cmds)
 		j = 0;
 		printf("CMD %d\n", i);
 		printf("path = %s\n", ((t_cmd_node *)cmds->content)->path);
-		while (((t_cmd_node *)cmds->content)->cmd_tab[j])
+		if (((t_cmd_node *)cmds->content)->cmd_tab)
 		{
-			printf("cmd_tab[%d] = %s\n", j, ((t_cmd_node *)cmds->content)->cmd_tab[j]);
-			j++;
+			while (((t_cmd_node *)cmds->content)->cmd_tab[j])
+			{
+				printf("cmd_tab[%d] = %s\n", j, ((t_cmd_node *)cmds->content)->cmd_tab[j]);
+				j++;
+			}
 		}
 		printf("fd_in = %d\n", ((t_cmd_node *)cmds->content)->fd_in);
 		printf("fd_out = %d\n", ((t_cmd_node *)cmds->content)->fd_out);
@@ -86,7 +89,7 @@ int	main(int argc, char **argv, char **env)
 		if (!line)
 		{
 			rl_clear_history();
-			global_free(data, NO_ERR);
+			global_free(data, END);
 		}
 		if (ft_strlen(line) >= 1)
 		{

@@ -6,13 +6,13 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 13:18:56 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/23 03:58:04 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 13:59:56 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	is_err_redir_or_chevron_err(t_data *data)
+int	is_redir_err_or_chevron_err(t_data *data)
 {
 	if (ft_strcmp(get_expand_value(data, "?"), "1") == 0 ||
 		ft_strcmp(get_expand_value(data, "?"), "1") == 0)

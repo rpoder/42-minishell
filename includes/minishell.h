@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/23 03:54:02 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 16:30:15 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,7 +61,7 @@ typedef struct s_cmd_node {
 	t_list	*heredocs;
 }	t_cmd_node;
 
-extern bool		g_bool;
+extern bool		g_close_heredoc;
 
 ///////////////A SUPP
 void	test_parser(t_list *cmds);
@@ -247,7 +247,7 @@ int				ft_pwd(t_data *data, char **args);
 int				set_path(t_data *data, char **path);
 
 /* ft_exit */
-int				ft_exit(t_data *data, char **args);
+int	ft_exit(t_data *data, char **args, t_exec_tool *tool);
 
 /*----------------------------------------------EXECUTER */
 
@@ -276,7 +276,7 @@ void	out_chevron_redir(t_data *data, t_cmd_node *cmd, t_exec_tool *tool);
 /* executer_utils.c */
 int				*init_pipe(t_data *data);
 char			**get_env_tab(t_data *data);
-int	is_err_redir_or_chevron_err(t_data *data);
+int	is_redir_err_or_chevron_err(t_data *data);
 int				is_last_cmd(t_list *cmd);
 
 /* executer_tool_utils.c */
@@ -284,7 +284,7 @@ void			free_exec_tool(t_exec_tool **tool);
 t_exec_tool		*init_exec_tool(t_list *cmd);
 
 /* exec_builtins.c */
-int				exec_builtins(t_data *data, char **cmd_tab, bool exit);
+int				exec_builtins(t_data *data, char **cmd_tab, bool is_child, t_exec_tool *tool);
 int				is_builtin(char *arg);
 
 /*----------------------------------------------HANDLE SIGNALS */

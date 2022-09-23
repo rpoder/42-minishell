@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_one_file.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 12:42:34 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/22 02:15:53 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/23 13:48:47 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ int	open_and_set_fd_in(t_cmd_node *cmd, char *infile)
 int	open_and_set_fd_heredoc(t_cmd_node *cmd)
 {
 	t_list	*heredoc_node;
-	
+
 	heredoc_node = ft_lstlast(cmd->heredocs);
 	cmd->fd_in = open(((char *)heredoc_node->content), O_RDONLY);
 	if (cmd->fd_in < 0)
