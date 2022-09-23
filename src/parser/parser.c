@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   parser.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 15:40:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/23 15:04:18 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 18:20:48 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,19 +62,10 @@ static t_cmd_node	*make_and_skip_cmd(t_data *d, char **words, t_p_tool *tool)
 	return (cmd_node);
 }
 
-int	parser(t_data *data)
+static int	set_all_cmd_nodes(t_data *data, t_p_tool *tool)
 {
-	t_p_tool		*tool;
 	t_cmd_node		*cmd_node;
 
-	if (is_valid_expand_declaration(data->words))
-	{
-		set_expand_declaration(data, data->words[0]);
-		return (-1);
-	}
-	tool = init_p_tool();
-	if (!tool)
-		global_free(data, MALLOC_ERR);
 	while (data->words[tool->i])
 	{
 		cmd_node = make_and_skip_cmd(data, data->words, tool);
@@ -85,22 +76,38 @@ int	parser(t_data *data)
 		}
 		add_node_to_cmd_lst(data, cmd_node, tool);
 		if (tool->ret != NO_ERR)
-		{
-			free(tool);
 			return (-1);
-		}
 		if (data->words[tool->i] && data->words[tool->i][0] == '|')
 		{
 			if (data->words[tool->i][1])
 			{
 				set_expand(data, "?", "2");
-				free(tool);
 				return (-1);
 			}
 			tool->i++;
 		}
 	}
+	return (0);
+}
+
+int	parser(t_data *data)
+{
+	t_p_tool		*tool;
+
+	if (is_valid_expand_declaration(data->words))
+	{
+		set_expand_declaration(data, data->words[0]);
+		return (-1);
+	}
+	tool = init_p_tool();
+	if (!tool)
+		global_free(data, MALLOC_ERR);
+	if (set_all_cmd_nodes(data, tool) != 0)
+	{
+		free(tool);
+		return (-1);
+	}	
 	set_all_cmd_path(data, tool);
-	free(tool);
+	free (tool);
 	return (0);
 }

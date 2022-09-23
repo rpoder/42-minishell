@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/23 21:14:00 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 21:28:06 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,8 +68,13 @@ void	test_parser(t_list *cmds);
 void	test_local_expands(t_data *data);
 /////////////////////////////
 
-/* init.c */
+/* init_data.c */
 t_data			*init_data(char **env);
+t_quotes		*init_quotes(void);
+void			clear_quotes(t_quotes *quotes);
+void			set_quotes(char c, t_quotes *quotes);
+
+/* init_quotes.c */
 t_quotes		*init_quotes(void);
 void			clear_quotes(t_quotes *quotes);
 void			set_quotes(char c, t_quotes *quotes);
@@ -200,18 +205,11 @@ int				is_space(char c);
 int				is_pipe(char c);
 int				skip_node(char **words, int len);
 
-/* gnl_minishell.c */
-char			*gnl_minishell(int fd, int *ret);
-
-/* gnl_minishell_utils.c */
-char			*ft_strjoin_gnl(char *s1, char *s2, int *ret);
-char			*ft_fill_dst(char *s1, char *s2, char *dst);
-char			*ft_strndup_gnl(char *str, int start, int len, int *ret);
-
 /* unmute_utils.c */
 char			unmute_char(char c);
 int				unmute_word_len(char *str);
 char			*unmute_word(char *str);
+
 
 /* ---------------------------------------------HANDLE_FREES */
 /* handle_free.c */

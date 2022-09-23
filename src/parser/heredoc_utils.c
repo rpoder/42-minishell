@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   heredoc_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 20:15:54 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/23 14:50:19 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 17:17:31 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,8 +60,6 @@ void	free_heredoc_tool(t_heredoc_tool *tool)
 		free(tool->str);
 	if (tool->heredoc_path)
 		free(tool->heredoc_path);
-	if (tool->ret)
-		free(tool->ret);
 	if (tool->lim)
 		free(tool->lim);
 	free(tool);
@@ -71,8 +69,7 @@ t_heredoc_tool	*init_heredoc_tool(char *lim)
 {
 	t_heredoc_tool	*tool;
 
-	// tool = malloc(sizeof(t_heredoc_tool));
-	tool = NULL;
+	tool = malloc(sizeof(t_heredoc_tool));
 	if (!tool)
 		return (NULL);
 	tool->lim = ft_strjoin(lim, "\n");
@@ -83,13 +80,6 @@ t_heredoc_tool	*init_heredoc_tool(char *lim)
 	}
 	tool->str = NULL;
 	tool->heredoc_path = NULL;
-	tool->ret = malloc(sizeof(int));
-	if (!tool->ret)
-	{
-		free(tool->lim);
-		free(tool);
-		return (NULL);
-	}
-	*(tool->ret) = NO_ERR;
+	tool->ret = NO_ERR;
 	return (tool);
 }

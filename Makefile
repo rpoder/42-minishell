@@ -6,7 +6,7 @@
 #    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/09/23 21:15:04 by rpoder           ###   ########.fr        #
+#    Updated: 2022/09/23 21:27:29 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ SRCDIR				:=	./src
 OBJDIR				:=	./obj
 
 SRCS				:=	main.c \
-						init.c \
+						init_data.c \
+						init_quotes.c \
 						utils/utils.c\
 						utils/gnl_minishell.c \
 						utils/gnl_minishell_utils.c \
