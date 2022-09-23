@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 12:24:39 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/23 01:51:51 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 21:08:36 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	set_env(t_data *data, char **env)
 	char	*env_value;
 
 	i = 0;
- 	if (env && !env[0])
+	if (env && !env[0])
 	{
 		if (add_default_expands_to_env(data) != NO_ERR)
 			global_free(data, MALLOC_ERR);

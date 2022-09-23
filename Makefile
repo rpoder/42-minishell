@@ -6,7 +6,7 @@
 #    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/09/22 19:44:09 by mpourrey         ###   ########.fr        #
+#    Updated: 2022/09/23 21:06:50 by mpourrey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,7 +21,8 @@ SRCDIR				:=	./src
 OBJDIR				:=	./obj
 
 SRCS				:=	main.c \
-						init.c \
+						init_data.c \
+						init_quotes.c \
 						utils/utils.c\
 						utils/gnl_minishell.c \
 						utils/gnl_minishell_utils.c \

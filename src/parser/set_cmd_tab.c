@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 16:52:44 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/20 19:28:25 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/23 17:11:00 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -91,11 +91,6 @@ int	set_cmd_tab(char **words, int i, t_cmd_node *cmd, t_p_tool *tool)
 	{
 		if (words[i][0] == '>' || words[i][0] == '<')
 			i += 2;
-		else if (i == 0 && is_expand_declaration(words[i]))
-		{
-			while (words[i] && is_expand_declaration(words[i]))
-				i++;
-		}
 		else
 		{
 			tool->ret = alloc_and_fill_arg(cmd, tool->tab_len, words[i]);

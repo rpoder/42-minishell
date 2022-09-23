@@ -3,14 +3,31 @@
 /*                                                        :::      ::::::::   */
 /*   handle_frees.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:18:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/23 15:05:34 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 18:32:19 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+static void	handle_if_system_error(t_data *data, int err)
+{
+	if (err == MALLOC_ERR || err == PIPE_ERR
+		|| err == WAITPID_ERR || err == FORK_ERR)
+	{
+		set_expand(data, "?", "128");
+		if (err == MALLOC_ERR)
+			ft_printf_fd("mi_nils_shell: malloc err\n", 2);
+		else if (err == PIPE_ERR)
+			ft_printf_fd("mi_nils_shell: pipe err\n", 2);
+		else if (err == WAITPID_ERR)
+			ft_printf_fd("mi_nils_shell: waitpid err\n", 2);
+		else if (err == FORK_ERR)
+			ft_printf_fd("mi_nils_shell: fork err\n", 2);
+	}
+}
 
 void	free_line_datas(t_data *data)
 {
@@ -27,32 +44,16 @@ void	free_line_datas(t_data *data)
 			ft_free_tab(&data->words);
 		data->words = NULL;
 		if (data->cmds)
-		 	ft_lstclear(&data->cmds, &del_cmd);
+			ft_lstclear(&data->cmds, &del_cmd);
 		data->cmds = NULL;
 	}
-}
-
-void	print_free_err_message(int err)
-{
-	if (err == MALLOC_ERR)
-		ft_printf_fd("mi_nils_shell: malloc err\n", 2);
-	else if (err == PIPE_ERR)
-		ft_printf_fd("mi_nils_shell: pipe err\n", 2);
-	else if (err == WAITPID_ERR)
-		ft_printf_fd("mi_nils_shell: waitpid err\n", 2);
-	else if (err == FORK_ERR)
-		ft_printf_fd("mi_nils_shell: fork err\n", 2);
 }
 
 void	global_free(t_data *data, int err)
 {
 	int	exit_status;
 
-	if (err == MALLOC_ERR || err == PIPE_ERR || err == WAITPID_ERR || err == FORK_ERR)
-	{
-		set_expand(data, "?", "128");
-		print_free_err_message(err);
-	}
+	handle_if_system_error(data, err);
 	if (data)
 	{
 		exit_status = ft_atoi(get_expand_value(data, "?"));
@@ -67,7 +68,7 @@ void	global_free(t_data *data, int err)
 		if (data->words != NULL)
 			ft_free_tab(&data->words);
 		if (data->cmds)
-		 	ft_lstclear(&data->cmds, &del_cmd);
+			ft_lstclear(&data->cmds, &del_cmd);
 		free(data);
 		exit(exit_status);
 	}

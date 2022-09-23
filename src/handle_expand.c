@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   handle_expand.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 16:53:13 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/23 02:37:16 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 20:59:08 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,8 @@ int	set_expand(t_data *data, char *key, char *value_to_modify)
 	{
 		if (set_on(&data->local_expands, key, value_to_modify) == false)
 		{
-			add_expand(data, &data->local_expands, ft_alloc_and_fill(key), ft_alloc_and_fill(value_to_modify));
+			add_expand(data, &data->local_expands,
+				ft_alloc_and_fill(key), ft_alloc_and_fill(value_to_modify));
 			return (1);
 		}
 	}
@@ -69,20 +70,22 @@ int	set_malloced_expand(t_data *data, char *key, char *value_to_modify)
 {
 	if (set_malloced_exp_on(&data->env, key, value_to_modify) == false)
 	{
-		if (set_malloced_exp_on(&data->local_expands, key, value_to_modify) == false)
+		if (set_malloced_exp_on(&data->local_expands,
+				key, value_to_modify) == false)
 		{
-			add_expand(data, &data->local_expands, ft_alloc_and_fill(key), ft_alloc_and_fill(value_to_modify));
+			add_expand(data, &data->local_expands,
+				ft_alloc_and_fill(key), ft_alloc_and_fill(value_to_modify));
 			return (1);
 		}
 	}
 	return (0);
 }
 
-//proteger !value
-void	add_expand(t_data *data, t_list **alst, char *key, char *value) //recoit str allouees
+void	add_expand(t_data *data, t_list **alst, char *key, char *value)
 {
 	t_list		*lst;
 	t_expand	*content;
+	char		*muted_value;
 
 	content = malloc(sizeof(t_expand));
 	if (!content)
@@ -92,7 +95,14 @@ void	add_expand(t_data *data, t_list **alst, char *key, char *value) //recoit st
 		global_free(data, MALLOC_ERR);
 	}
 	content->key = key;
-	content->value = get_muted_expand_value(value);
+	muted_value = get_muted_expand_value(value);
+	if (!muted_value)
+	{
+		free(key);
+		free(value);
+		global_free(data, MALLOC_ERR);
+	}
+	content->value = muted_value;
 	free(value);
 	lst = ft_lstnew(content);
 	ft_lstadd_back(alst, lst);

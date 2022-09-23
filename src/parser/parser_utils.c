@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 19:07:59 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/22 20:23:34 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/23 18:15:22 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,7 @@
 
 int	is_valid_expand_declaration(char **words)
 {
-	int i;
+	int	i;
 
 	i = 0;
 	if (words[0] && !words[1])

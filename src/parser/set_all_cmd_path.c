@@ -6,13 +6,13 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/11 17:12:44 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/21 21:58:41 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/23 18:13:27 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-char	**create_path_tab(t_data *data)
+static char	**create_path_tab(t_data *data)
 {
 	char	*env_path;
 	char	**path_tab;
@@ -26,9 +26,29 @@ char	**create_path_tab(t_data *data)
 	return (path_tab);
 }
 
-int	set_cmd_path(t_cmd_node *cmd, char **path_tab, t_p_tool *tool)
+static int	fill_cmd_path(t_cmd_node *cmd, char **path_tab, t_p_tool *tool)
 {
 	char	*tmp;
+
+	while (path_tab[tool->i])
+	{	
+		tmp = ft_strsjoin(3, path_tab[tool->i], "/", cmd->cmd_tab[0]);
+		if (!tmp)
+			return (MALLOC_ERR);
+		else if (access(tmp, F_OK & X_OK) == 0)
+		{
+			cmd->path = tmp;
+			return (NO_ERR);
+		}
+		free(tmp);
+		tool->i++;
+	}
+	return (NO_ERR);
+}
+
+static int	set_cmd_path(t_cmd_node *cmd, char **path_tab, t_p_tool *tool)
+{
+	int	ret;
 
 	if (is_path_to_cmd(cmd->cmd_tab[0]))
 	{
@@ -39,22 +59,13 @@ int	set_cmd_path(t_cmd_node *cmd, char **path_tab, t_p_tool *tool)
 	}
 	if (path_tab)
 	{
-		while (path_tab[tool->i])
-		{
-			tmp = ft_strsjoin(3, path_tab[tool->i], "/", cmd->cmd_tab[0]);
-			if (!tmp)
-				return (MALLOC_ERR);
-			else if (access(tmp, F_OK & X_OK) == 0)
-			{
-				cmd->path = tmp;
-				return (NO_ERR);
-			}
-			free(tmp);
-			tool->i++;
-		}
+		ret = fill_cmd_path(cmd, path_tab, tool);
+		if (ret == MALLOC_ERR)
+			return (MALLOC_ERR);
+		if (cmd->path)
+			return (NO_ERR);
 	}
-	if (cmd->path == NULL)
-		cmd->path = ft_alloc_and_fill("/");
+	cmd->path = ft_alloc_and_fill("/");
 	return (NO_ERR);
 }
 

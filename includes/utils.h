@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   utils.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:25:35 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/23 04:01:05 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 17:13:35 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ typedef struct s_heredoc_tool
 	char		*lim;
 	char		*str;
 	char		*heredoc_path;
-	int			*ret;
+	int			ret;
 }	t_heredoc_tool;
 
 typedef struct s_exec_tool
