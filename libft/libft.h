@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 16:32:48 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/22 20:32:36 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/23 23:19:43 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ int		ft_tolower(int c);
 int		ft_toupper(int c);
 char	*ft_alloc_and_fill(char *str);
 int		ft_isint(long int num);
-
+int		ft_islonglongint(long int num);
 
 ////////////////*LIST*////////////////////
 typedef struct s_list

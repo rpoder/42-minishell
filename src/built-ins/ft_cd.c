@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:33:22 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/23 18:39:06 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 23:45:19 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -100,7 +100,7 @@ int	ft_cd(t_data *data, char **args)
 
 	if (ft_tablen(args) > 2)
 	{
-		set_expand(data, "?", "0");
+		set_expand(data, "?", "1");
 		ft_printf_fd("minilsshell: cd: too many arguments\n", 2);
 		return (NO_ERR);
 	}

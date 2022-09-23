@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 16:17:52 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/23 16:33:06 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 23:22:23 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,16 +44,15 @@ static void	free_and_exit(t_data *data, t_exec_tool *tool, char *exit_code)
 
 int	ft_exit(t_data *data, char **args, t_exec_tool *tool)
 {
-	if (args[1] && (!ft_str_isdigit(args[1]) || !ft_isint(ft_atoli(args[1]))))
+	if ((args[1] && (!ft_str_isdigit(args[1])) || !ft_isint(ft_atoli(args[1]))))
 	{
 		ft_printf_fd("exit:\'%s\': numeric argument required\n", 2, args[1]);
 		free_and_exit(data, tool, "2");
 	}
 	else if (ft_tablen(args) > 2)
 	{
-		ft_printf_fd("exit\n", 1);
 		ft_printf_fd("exit: too many arguments\n", 2);
-		set_expand(data, "?", "2");
+		set_expand(data, "?", "1");
 		return (-1);
 	}
 	else if (args[1])

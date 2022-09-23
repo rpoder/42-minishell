@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
+#    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2021/12/27 17:12:53 by mpourrey          #+#    #+#              #
-#    Updated: 2022/09/22 20:29:27 by mpourrey         ###   ########.fr        #
+#    Updated: 2022/09/23 23:19:58 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,6 +21,7 @@ SRC = ft_atoi.c ft_atoli.c \
 	ft_bzero.c ft_calloc.c \
 	ft_free_tab.c ft_free_int_tab.c \
 	ft_isalnum.c ft_isalpha.c ft_isascii.c ft_isdigit.c ft_isinset.c ft_isprint.c ft_isint.c \
+	ft_islonglongint.c \
 	ft_itoa.c \
 	ft_lintlen.c \
 	ft_memchr.c ft_memcmp.c ft_memcpy.c ft_memmove.c ft_memset.c \
