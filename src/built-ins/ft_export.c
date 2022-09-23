@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 08:16:14 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/22 02:40:03 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 18:36:16 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,53 +38,36 @@ static void	move_to_env(t_data *data, char *key_to_export)
 	ft_lstadd_back(&data->env, tmp);
 }
 
-char	*trim_and_alloc_value(char *str)
+static void	free_export_keyvalue(char *key, char *value)
 {
-	int		i;
-	int		j;
-	int		len;
-	char	*value;
-
-	len = 0;
-	while (str[len] && str[len] != '=')
-		len++;
-	if (str[len] && str[len] == '=')
-		len++;
-	value = malloc(sizeof(char) * (ft_strlen(str + len) + 1));
-	if (!value)
-		return (NULL);
-	j = 0;
-	i = len;
-	while (str[i])
-	{
-		value[j] = str[i];
-		i++;
-		j++;
-	}
-	value[j] = '\0';
-	return (value);
+	if (key != NULL)
+		free(key);
+	if (value != NULL)
+		free(value);
 }
 
-char	*trim_and_alloc_key(char *str)
+int	try_export_one_arg(t_data *data, char *arg, char *key, char *value)
 {
-	int		i;
-	int		len;
-	char	*key;
+	int	ret;
 
-	i = 0;
-	len = 0;
-	while (str[len] && str[len] != '=')
-		len++;
-	key = malloc(sizeof(char) * (len + 1));
-	if (!key)
-		return (NULL);
-	while (i < len)
+	ret = NO_ERR;
+	if (!is_valid_expand_key(key))
 	{
-		key[i] = str[i];
-		i++;
+		ft_printf_fd("export:\'%s\': not a valid identifier\n", 2, key);
+		free_export_keyvalue(key, value);
+		ret = PARSING_ERR;
 	}
-	key[i] = '\0';
-	return (key);
+	else if (value && value[0])
+	{
+		if (set_on(&data->env, key, value) == false)
+			add_expand(data, &data->env, key, value);
+	}
+	else
+	{
+		move_to_env(data, arg);
+		free_export_keyvalue(key, value);
+	}
+	return (ret);
 }
 
 int	ft_export(t_data *data, char **args)
@@ -96,40 +79,16 @@ int	ft_export(t_data *data, char **args)
 
 	ret = NO_ERR;
 	i = 1;
-	key = NULL;
-	value = NULL;
 	while (args[i])
 	{
-		key = trim_and_alloc_key(args[i]);
-		// proteger
-		value = trim_and_alloc_value(args[i]);
-		// proteger
-		if (!is_valid_expand_key(key))
-		{
-			ft_printf_fd("export:\'%s\': not a valid identifier\n", 2, key);
-			ret = PARSING_ERR;
-		}
-		else if (value && value[0])
-		{
-			if (set_on(&data->env, key, value) == false)
-			{
-				printf("key =%s | value =%s\n", key, value);
-				add_expand(data, &data->env, key, value);
-			}
-		}
-		else
-		{
-			move_to_env(data, args[i]);
-			if (key != NULL)
-				free(key);
-			if (value != NULL)
-				free(value);
-		}
+		if (set_trim_alloc_keyvalue(args[i], &key, &value) != NO_ERR)
+			return (MALLOC_ERR);
+		ret = try_export_one_arg(data, args[i], key, value);
 		i++;
 	}
 	if (ret == NO_ERR)
 		set_expand(data, "?", "0");
 	else
 		set_expand(data, "?", "1");
-	return (ret);
+	return (NO_ERR);
 }

@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 16:40:53 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/23 16:32:22 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 21:16:53 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,36 +38,44 @@ int	is_builtin(char *arg)
 	return (ret);
 }
 
-int	exec_builtins(t_data *data, char **cmd_tab, bool is_child, t_exec_tool *tool)
+int	builtins_cases(t_data *d, char **cmd_tab, int builtin, t_exec_tool *tool)
+{
+	int	ret;
+
+	ret = NO_ERR;
+	if (builtin == ENV)
+		ret = ft_env(d, cmd_tab);
+	else if (builtin == PWD)
+		ret = ft_pwd(d, cmd_tab);
+	else if (builtin == ECHO)
+		ret = ft_echo(d, cmd_tab);
+	else if (builtin == CD)
+		ret = ft_cd(d, cmd_tab);
+	else if (builtin == EXIT)
+		ret = ft_exit(d, cmd_tab, tool);
+	else if (builtin == EXPORT)
+		ret = ft_export(d, cmd_tab);
+	else if (builtin == UNSET)
+		ret = ft_unset(d, cmd_tab);
+	return (ret);
+}
+
+int	exec_builtins(t_data *d, char **cmd_tab, bool is_child, t_exec_tool *tool)
 {
 	int	ret;
 	int	builtin;
 
-	ret = NO_ERR;
 	if (!cmd_tab[0])
 		return (ERR_NOT_DEFINED);
 	builtin = is_builtin(cmd_tab[0]);
 	if (builtin < 0)
 		return (ERR_NOT_DEFINED);
-	if (builtin == ENV)
-		ret = ft_env(data, cmd_tab);
-	else if (builtin == PWD)
-		ret = ft_pwd(data, cmd_tab);
-	else if (builtin == ECHO)
-		ret = ft_echo(data, cmd_tab);
-	else if (builtin == CD)
-		ret = ft_cd(data, cmd_tab);
-	else if (builtin == EXIT)
-		ret = ft_exit(data, cmd_tab, tool);
-	else if (builtin == EXPORT)
-		ret = ft_export(data, cmd_tab);
-	else if (builtin == UNSET)
-		ret = ft_unset(data, cmd_tab);
+	ret = builtins_cases(d, cmd_tab, builtin, tool);
 	if (ret == MALLOC_ERR || is_child == true)
 	{
 		if (tool)
 			free_exec_tool(&tool);
-		global_free(data, ret);
+		global_free(d, ret);
 	}
 	return (NO_ERR);
 }

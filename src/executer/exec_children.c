@@ -6,13 +6,13 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:17:45 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/23 15:48:52 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 19:01:47 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static void handle_pipe(t_data *data, t_exec_tool *tool)
+static void	handle_pipe(t_data *data, t_exec_tool *tool)
 {
 	if (pipe(tool->pipe_fd) != 0)
 	{
@@ -22,7 +22,7 @@ static void handle_pipe(t_data *data, t_exec_tool *tool)
 	}
 }
 
-static void handle_fork(t_data *data, t_exec_tool *tool)
+static void	handle_fork(t_data *data, t_exec_tool *tool)
 {
 	tool->fork_ret[tool->i] = fork();
 	if (tool->fork_ret[tool->i] < 0)
@@ -50,20 +50,24 @@ static void	redirect_to_pipe(t_data *data, t_exec_tool *tool)
 		global_free(data, CLOSE_ERR);
 }
 
-static void exec_child(t_data *data, t_list *cmd, t_exec_tool *tool)
+static void	exec_child(t_data *data, t_list *cmd, t_exec_tool *tool)
 {
+	t_cmd_node	*cmd_node;
+
+	cmd_node = ((t_cmd_node *)cmd->content);
 	default_all_sigs();
 	if (!is_last_cmd(cmd))
 		redirect_to_pipe(data, tool);
 	chevron_redirection(data, (t_cmd_node *)cmd->content, tool);
 	free_exec_tool(&tool);
-	if (((t_cmd_node *)cmd->content)->cmd_tab[0])
+	if (cmd_node->cmd_tab[0])
 	{
-		if (exec_builtins(data, ((t_cmd_node *)cmd->content)->cmd_tab, true, tool) != NO_ERR)
+		if (exec_builtins(data, cmd_node->cmd_tab, true, tool) != NO_ERR)
 		{
-			if (execve(((t_cmd_node *)cmd->content)->path, ((t_cmd_node *)cmd->content)->cmd_tab, data->default_env) != 0)
+			if (execve(cmd_node->path, cmd_node->cmd_tab,
+					data->default_env) != 0)
 			{
-				ft_printf_fd("%s: command not found\n", 2, ((t_cmd_node *)cmd->content)->cmd_tab[0]);
+				ft_printf_fd("%s: command not found\n", 2, cmd_node->cmd_tab[0]);
 				if (!is_redir_err_or_chevron_err(data))
 					set_expand(data, "?", "127");
 			}
@@ -79,7 +83,8 @@ void	exec_children(t_data *data, t_list *cmd, t_exec_tool *tool)
 	lexer_len = 0;
 	while (cmd)
 	{
-		tool->ret = open_and_set_fds(data->words, lexer_len, (t_cmd_node *)cmd->content);
+		tool->ret = open_and_set_fds(data->words, lexer_len,
+				(t_cmd_node *)cmd->content);
 		if (tool->ret == MALLOC_ERR)
 		{
 			free_exec_tool(&tool);

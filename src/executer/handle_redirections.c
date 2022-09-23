@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 16:37:29 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/23 04:34:36 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 19:59:41 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -97,22 +97,25 @@ void	out_chevron_redir(t_data *data, t_cmd_node *cmd, t_exec_tool *tool)
 	}
 }
 
+static	void	dup2_0_in_fdin(t_data *data, t_cmd_node *cmd, t_exec_tool *tool)
+{
+	if (dup2(cmd->fd_in, 0) < 0)
+	{
+		if (cmd->fd_in >= 0)
+			close(cmd->fd_in);
+		if (cmd->fd_out >= 0)
+			close(cmd->fd_out);
+		free_exec_tool(&tool);
+		global_free(data, DUP_ERR);
+	}
+	if (cmd->fd_in >= 0)
+		close(cmd->fd_in);
+}
+
 void	chevron_redirection(t_data *data, t_cmd_node *cmd, t_exec_tool *tool)
 {
 	if (cmd->fd_in >= -1)
-	{
-		if (dup2(cmd->fd_in, 0) < 0)
-		{
-			if (cmd->fd_in >= 0)
-				close(cmd->fd_in);
-			if (cmd->fd_out >= 0)
-				close(cmd->fd_out);
-			free_exec_tool(&tool);
-			global_free(data, DUP_ERR);
-		}
-		if (cmd->fd_in >= 0)
-			close(cmd->fd_in);
-	}
+		dup2_0_in_fdin(data, cmd, tool);
 	if (cmd->fd_out >= -1)
 	{
 		if (dup2(cmd->fd_out, 1) < 0)
