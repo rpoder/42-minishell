@@ -6,7 +6,7 @@
 #    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/09/23 21:27:29 by rpoder           ###   ########.fr        #
+#    Updated: 2022/09/23 21:52:47 by rpoder           ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -21,17 +21,15 @@ SRCDIR				:=	./src
 OBJDIR				:=	./obj
 
 SRCS				:=	main.c \
-						init_data.c \
-						init_quotes.c \
+						init/init_data.c \
+						init/set_env.c \
+						init/set_env_utils.c \
+						utils/init_quotes.c \
 						utils/utils.c\
-						utils/gnl_minishell.c \
-						utils/gnl_minishell_utils.c \
 						utils/unmute_utils.c \
-						set_env.c \
-						set_env_utils.c \
+						utils/handle_expand.c \
 						handle_frees/handle_frees.c \
 						handle_frees/handle_dels.c \
-						handle_expand.c \
 						syntax_checker/quote_syntax_checker.c \
 						syntax_checker/redirection_syntax_checker.c \
 						built-ins/ft_env.c \

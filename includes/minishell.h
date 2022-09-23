@@ -6,7 +6,7 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/23 21:28:06 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 21:54:51 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@
 # include "utils.h"
 # include <sys/ioctl.h>
 
+extern bool		g_close_heredoc;
 
 # define PATH_MAX 4096
 # define ENV_DEFAULT_PATH "/mnt/nfs/homes/rpoder/bin:/usr/local/sbin:/usr/local/bin:/usr/sbin:/usr/bin:/sbin:/bin:/usr/games:/usr/local/games:/snap/bin"
@@ -61,12 +62,6 @@ typedef struct s_cmd_node {
 	t_list	*heredocs;
 }	t_cmd_node;
 
-extern bool		g_close_heredoc;
-
-///////////////A SUPP
-void	test_parser(t_list *cmds);
-void	test_local_expands(t_data *data);
-/////////////////////////////
 
 /* init_data.c */
 t_data			*init_data(char **env);
@@ -75,7 +70,7 @@ void			clear_quotes(t_quotes *quotes);
 void			set_quotes(char c, t_quotes *quotes);
 
 /* init_quotes.c */
-t_quotes		*init_quotes(void);
+// t_quotes		*init_quotes(void);
 void			clear_quotes(t_quotes *quotes);
 void			set_quotes(char c, t_quotes *quotes);
 
