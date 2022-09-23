@@ -6,39 +6,38 @@
 /*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:33:22 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/22 20:26:21 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/23 18:39:06 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-static int	try_with_expand_cdpath(char *cdpath, char *arg, char **tmp)
+static int	try_with_expand_cdpath(char *cdpath, char *arg)
 {
 	char	**cdpath_tab;
 	int		i;
 	int		ret;
+	char	*tmp;
 
-	if (!cdpath)
-		return (NO_ERR);
 	cdpath_tab = ft_split(cdpath, ':');
 	if (!cdpath_tab)
 		return (MALLOC_ERR);
 	i = 0;
 	while (cdpath_tab[i])
 	{
-		printf("cdpath_tab[i] = %s\n", cdpath_tab[i]);
-		*tmp = ft_strsjoin(3, arg, "/", cdpath_tab[i]);
-		printf("tmp = %s\n", *tmp);
-		ret = chdir(*tmp);
+		tmp = ft_strsjoin(3, cdpath_tab[i], "/", arg);
+		ret = chdir(tmp);
 		if (ret == 0)
 		{
+			free(tmp);
 			ft_free_tab(&cdpath_tab);
 			return (NO_ERR);
 		}
+		free(tmp);
 		i++;
 	}
 	ft_free_tab(&cdpath_tab);
-	return (ERR_NOT_DEFINED); ////////////////////////FREE ?
+	return (ERR_NOT_DEFINED);
 }
 
 static void	set_expand_pwd(t_data *data)
@@ -50,26 +49,25 @@ static void	set_expand_pwd(t_data *data)
 	set_expand(data, "OLDPWD", old_pwd);
 	if (set_path(data, &new_pwd) == MALLOC_ERR)
 		global_free(data, MALLOC_ERR);
-	set_expand(data, "PWD", new_pwd);
+	set_malloced_expand(data, "PWD", new_pwd);
 }
 
 void	ft_cd_with_arg(t_data *data, char *arg)
 {
 	int		ret;
 	char	*cdpath_expand_v;
-	char	*tmp_err;
 
-	tmp_err = NULL;
 	ret = chdir(arg);
 	if (ret != 0)
 	{
 		cdpath_expand_v = get_expand_value(data, "CDPATH");
-		ret = try_with_expand_cdpath(arg, cdpath_expand_v, &tmp_err);
+		if (cdpath_expand_v)
+			ret = try_with_expand_cdpath(cdpath_expand_v, arg);
 		if (ret != NO_ERR)
 		{
 			set_expand(data, "?", "1");
-			ft_printf_fd("minilsshell: cd: ", 2);
-			perror(tmp_err);
+			ft_printf_fd("minilsshell: cd: %s: No such file or directory\n",
+				2, arg);
 			set_expand_pwd(data);
 			return ;
 		}

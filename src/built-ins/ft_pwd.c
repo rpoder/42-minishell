@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
+/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 16:10:38 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/22 02:03:27 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/23 18:43:59 by rpoder           ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,14 +16,14 @@ int	set_path(t_data *data, char **path)
 {
 	char	*buf;
 
+	*path = NULL;
 	buf = ft_calloc(sizeof(char), (PATH_MAX + 1));
 	if (!buf)
 		return (MALLOC_ERR);
 	if (getcwd(buf, PATH_MAX) == NULL)
 	{
 		free(buf);
-		*path = NULL;
-		return (ERR_NOT_DEFINED); ///////////////////FREE ?
+		return (ERR_NOT_DEFINED);
 	}
 	*path = ft_strdup(buf);
 	free(buf);
@@ -36,7 +36,6 @@ int	ft_pwd(t_data *data, char **args)
 {
 	char	*path;
 	int		ret;
-
 
 	path = NULL;
 	ret = set_path(data, &path);
