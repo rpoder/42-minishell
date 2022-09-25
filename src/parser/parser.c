@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 15:40:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/25 20:29:44 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 23:23:59 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,7 +53,8 @@ static t_cmd_node	*make_and_skip_cmd(t_data *d, t_p_tool *tool)
 	if (!cmd_node)
 		return (NULL);
 	tool->ret = set_and_skip_cmd(d, cmd_node, tool);
-	if (tool->ret == malloc_err)
+	if (tool->ret == malloc_err || tool->ret == dup_err
+		|| tool->ret == close_err)
 	{
 		free(cmd_node);
 		free(tool);

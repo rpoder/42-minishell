@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:18:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/25 15:04:03 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 22:48:02 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,6 @@ void	free_line_datas(t_data *data)
 {
 	if (data)
 	{
-		g_close_heredoc = false;
 		if (data->prompt_line)
 			free(data->prompt_line);
 		data->prompt_line = NULL;

@@ -6,7 +6,7 @@
 #    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/09/25 20:04:57 by mpourrey         ###   ########.fr        #
+#    Updated: 2022/09/25 23:20:55 by mpourrey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -75,7 +75,8 @@ SRCS				:=	main.c \
 						executer/executer_utils.c \
 						executer/executer_tool_utils.c \
 						executer/executer_tool_utils_2.c \
-						handle_signals/handle_signals.c \
+						handle_signals/sig_prototypes.c \
+						handle_signals/sig_handler.c \
 
 CC					:=	cc
 

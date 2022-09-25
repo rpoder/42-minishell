@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 20:15:54 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/25 14:58:30 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 23:16:24 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,8 +56,6 @@ char	*get_heredoc_name(int i)
 
 void	free_heredoc_tool(t_heredoc_tool *tool)
 {
-	if (tool->str)
-		free(tool->str);
 	if (tool->heredoc_path)
 		free(tool->heredoc_path);
 	if (tool->lim)
@@ -78,8 +76,10 @@ t_heredoc_tool	*init_heredoc_tool(char *lim)
 		free(tool);
 		return (NULL);
 	}
-	tool->str = NULL;
 	tool->heredoc_path = NULL;
 	tool->ret = no_err;
+	tool->tmp_stdin = FD_UNDEFINED;
+	tool->heredoc_line = NULL;
+	tool->carriaged_heredoc_line = NULL;
 	return (tool);
 }

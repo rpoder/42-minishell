@@ -6,13 +6,11 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/25 20:00:40 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 22:48:06 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-bool	g_close_heredoc = false;
 
 static void	execute_line(t_data *data, char *line)
 {

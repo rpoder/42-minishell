@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/25 20:24:10 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 23:22:46 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,8 +25,6 @@
 # include "libft.h"
 # include "utils.h"
 # include <sys/ioctl.h>
-
-extern bool		g_close_heredoc;
 
 # define PATH_MAX 4096
 # define ENV_DFL_PATH_1 "/mnt/nfs/homes/rpoder/bin:/usr/local/sbin:"
@@ -285,12 +283,16 @@ int				ft_exit(t_data *data, char **args, t_exec_tool *tool);
 bool			is_valid_expand_key(char *key);
 
 /*----------------------------------------------HANDLE SIGNALS */
-/* handle_signals.c */
+/* sig_prototypes.c */
 void			cancel_sigquit(void);
-void			custom_all_sigs(void);
-void			default_all_sigs(void);
 void			ignore_all_sigs(void);
-void			init_heredoc_sig(void);
+void			default_all_sigs(void);
+void			custom_all_sigs(void);
+void			custom_heredoc_all_sigs(void);
+
+/* sig_handler.c */
+void			handle_custom_sigint(int signum);
+void			handle_heredoc_sigs(int signum);
 
 /*----------------------------------------------UTILS */
 /* utils.c */

@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:25:35 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/25 15:01:42 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 23:11:51 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,9 +42,11 @@ typedef struct s_expand_tool
 typedef struct s_heredoc_tool
 {
 	char		*lim;
-	char		*str;
 	char		*heredoc_path;
 	int			ret;
+	int			tmp_stdin;
+	char		*heredoc_line;
+	char		*carriaged_heredoc_line;
 }	t_heredoc_tool;
 
 typedef struct s_exec_tool

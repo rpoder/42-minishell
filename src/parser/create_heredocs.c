@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 19:57:39 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/25 20:30:48 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 23:16:48 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,32 +41,44 @@ static int	open_heredoc(char **heredoc_path)
 	return (fd_heredoc);
 }
 
+static int	handle_heredoc_interruption(t_heredoc_tool *tool)
+{
+	if (dup2(tool->tmp_stdin, 0) == -1)
+	{
+		close(tool->tmp_stdin);
+		return (dup_err);
+	}
+	if (close(tool->tmp_stdin) != 0)
+		return (close_err);
+	tool->ret = ctrl_c;
+	return (tool->ret);
+}
+
 static int	get_and_write_lines(int fd, t_heredoc_tool *tool)
 {
-	char	*line;
-	char	*n_line;
-
-	line = NULL;
-	n_line = NULL;
-	while (ft_strcmp(n_line, tool->lim) != 0 && g_close_heredoc == false)
+	tool->tmp_stdin = dup(0);
+	if (tool->tmp_stdin == -1)
+		return (dup_err);
+	custom_heredoc_all_sigs();
+	while (ft_strcmp(tool->carriaged_heredoc_line, tool->lim) != 0)
 	{
-		if (n_line)
-			free(n_line);
-		line = readline("heredoc> ");
-		if (!line)
+		if (tool->carriaged_heredoc_line)
+			free(tool->carriaged_heredoc_line);
+		tool->heredoc_line = readline("heredoc> ");
+		if (!tool->heredoc_line)
+			return (handle_heredoc_interruption(tool));
+		tool->carriaged_heredoc_line = ft_strjoin(tool->heredoc_line, "\n");
+		free(tool->heredoc_line);
+		if (!tool->carriaged_heredoc_line)
 		{
-			tool->ret = ctrl_c;
-			return (tool->ret);
-		}
-		n_line = ft_strjoin(line, "\n");
-		free(line);
-		if (!n_line)
+			close(tool->tmp_stdin);
 			return (malloc_err);
-		write(fd, n_line, ft_strlen(n_line));
+		}
+		ft_putstr_fd(tool->carriaged_heredoc_line, fd);
 	}
-	free (n_line);
-	if (g_close_heredoc == true)
-		return (ctrl_c);
+	free (tool->carriaged_heredoc_line);
+	if (close(tool->tmp_stdin) != 0)
+		return (close_err);
 	return (no_err);
 }
 
