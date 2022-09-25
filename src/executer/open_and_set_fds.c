@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 12:42:26 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/25 15:11:05 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 20:31:46 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ static int	open_and_set_fd(char **words, int i, t_cmd_node *cmd)
 	char	*unmute_file;
 	int		ret;
 
+	ret = no_err;
 	unmute_file = unmute_word(words[i + 1]);
 	if (!unmute_file)
 		return (malloc_err);

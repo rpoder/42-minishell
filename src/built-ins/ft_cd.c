@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:33:22 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/25 17:25:20 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 20:24:38 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,7 +48,7 @@ static void	set_expand_pwd(t_data *data)
 	new_pwd = NULL;
 	old_pwd = get_expand_value(data, "PWD");
 	set_expand(data, "OLDPWD", old_pwd);
-	if (set_path(data, &new_pwd) == malloc_err)
+	if (set_path(&new_pwd) == malloc_err)
 		global_free(data, malloc_err);
 	if (set_malloced_value_expand(data, "PWD", new_pwd) == malloc_err)
 	{
@@ -100,7 +100,6 @@ static void	ft_cd_home_no_arg(t_data *data, char *home_expand_v)
 
 int	ft_cd(t_data *data, char **args)
 {
-	int		ret;
 	char	*home_expand_v;
 
 	if (ft_tablen(args) > 2)

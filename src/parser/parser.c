@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 15:40:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/25 16:30:37 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 20:29:44 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,7 @@ static int	set_and_skip_cmd(t_data *data, t_cmd_node *cmd, t_p_tool *tool)
 	return (no_err);
 }
 
-static t_cmd_node	*make_and_skip_cmd(t_data *d, char **words, t_p_tool *tool)
+static t_cmd_node	*make_and_skip_cmd(t_data *d, t_p_tool *tool)
 {
 	t_cmd_node	*cmd_node;
 
@@ -68,7 +68,7 @@ static int	set_all_cmd_nodes(t_data *data, t_p_tool *tool)
 
 	while (data->words[tool->i])
 	{
-		cmd_node = make_and_skip_cmd(data, data->words, tool);
+		cmd_node = make_and_skip_cmd(data, tool);
 		if (tool->ret != no_err)
 		{
 			if (tool->ret == ctrl_c)

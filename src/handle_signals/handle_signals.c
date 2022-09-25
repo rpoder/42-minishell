@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 15:07:16 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/25 15:31:08 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 20:32:09 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,6 +29,7 @@ void	default_all_sigs(void)
 
 void	handle_custom_sigint(int signum)
 {
+	(void) signum;
 	ioctl(0, TIOCSTI, "\n");
 	g_close_heredoc = true;
 	rl_redisplay();

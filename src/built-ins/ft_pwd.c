@@ -6,13 +6,13 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 16:10:38 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/25 15:06:35 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 20:23:56 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	set_path(t_data *data, char **path)
+int	set_path(char **path)
 {
 	char	*buf;
 
@@ -32,13 +32,13 @@ int	set_path(t_data *data, char **path)
 	return (no_err);
 }
 
-int	ft_pwd(t_data *data, char **args)
+int	ft_pwd(t_data *data)
 {
 	char	*path;
 	int		ret;
 
 	path = NULL;
-	ret = set_path(data, &path);
+	ret = set_path(&path);
 	if (ret != no_err)
 	{
 		if (ret == malloc_err)

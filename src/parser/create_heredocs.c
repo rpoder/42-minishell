@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 19:57:39 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/25 15:01:32 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 20:30:48 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ static int	get_and_write_lines(int fd, t_heredoc_tool *tool)
 	return (no_err);
 }
 
-static int	create_one_heredoc(t_cmd_node *cmd, char *lim, t_p_tool *p_tool)
+static int	create_one_heredoc(t_cmd_node *cmd, char *lim)
 {
 	t_heredoc_tool	*tool;
 	int				ret;
@@ -110,7 +110,7 @@ int	create_heredocs(char **words, int i, t_cmd_node *cmd, t_p_tool *tool)
 				unmute_file = unmute_word(words[i + 1]);
 				if (!unmute_file)
 					return (malloc_err);
-				tool->ret = create_one_heredoc(cmd, unmute_file, tool);
+				tool->ret = create_one_heredoc(cmd, unmute_file);
 				free(unmute_file);
 				if (tool->ret != no_err)
 					return (tool->ret);

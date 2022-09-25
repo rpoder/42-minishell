@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:17:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/25 18:29:19 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 20:31:12 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,6 @@ static void	wait_all_children(t_data *data, t_exec_tool *tool)
 void	executer(t_data *data)
 {
 	t_exec_tool	*tool;
-	int			j;
 	int			lexer_len;
 
 	lexer_len = 0;

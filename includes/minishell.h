@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/25 20:12:20 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 20:24:10 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -275,8 +275,8 @@ int				set_trim_alloc_keyvalue(char *arg, char **key, char **value);
 int				ft_unset(t_data *data, char **args);
 
 /* ft_pwd.c */
-int				ft_pwd(t_data *data, char **args);
-int				set_path(t_data *data, char **path);
+int				ft_pwd(t_data *data);
+int				set_path(char **path);
 
 /* ft_exit */
 int				ft_exit(t_data *data, char **args, t_exec_tool *tool);

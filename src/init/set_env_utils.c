@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 17:52:08 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/25 17:24:41 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 20:23:29 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,6 @@ int	add_default_shlvl(t_data *data)
 	char	*key;
 	char	*value;
 	char	*shlvl_value;
-	char	*tmp;
 
 	shlvl_value = get_expand_value(data, "SHLVL");
 	if (!shlvl_value)
@@ -66,7 +65,7 @@ static int	add_default_underscore(t_data *data)
 		key = ft_alloc_and_fill("_");
 		if (!key)
 			return (malloc_err);
-		if (set_path(data, &value) == malloc_err)
+		if (set_path(&value) == malloc_err)
 		{
 			free(key);
 			return (malloc_err);
@@ -86,7 +85,7 @@ static int	add_default_pwd(t_data *data)
 		key = ft_alloc_and_fill("PWD");
 		if (!key)
 			return (malloc_err);
-		if (set_path(data, &value) == malloc_err)
+		if (set_path(&value) == malloc_err)
 		{
 			free(key);
 			return (malloc_err);

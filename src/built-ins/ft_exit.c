@@ -6,18 +6,11 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 16:17:52 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/25 17:40:55 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 20:28:03 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
-
-static int	ft_is8bits(long int num)
-{
-	if (num > 0 || num < 255)
-		return (0);
-	return (1);
-}
 
 static void	free_and_exit(t_data *data, t_exec_tool *tool, char *exit_code)
 {
@@ -50,7 +43,7 @@ static void	free_and_exit(t_data *data, t_exec_tool *tool, char *exit_code)
 
 int	ft_exit(t_data *data, char **args, t_exec_tool *tool)
 {
-	if ((args[1] && (!ft_str_isdigit(args[1])) || !ft_isint(ft_atoli(args[1]))))
+	if (args[1] && ((!ft_str_isdigit(args[1])) || !ft_isint(ft_atoli(args[1]))))
 	{
 		ft_printf_fd("exit:\'%s\': numeric argument required\n", 2, args[1]);
 		free_and_exit(data, tool, "2");

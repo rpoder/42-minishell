@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 12:24:39 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/25 15:02:20 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 20:17:07 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -83,6 +83,8 @@ void	set_env(t_data *data, char **env)
 	char	*env_key;
 	char	*env_value;
 
+	env_key = NULL;
+	env_value = NULL;
 	i = 0;
 	if (env && !env[0])
 	{

@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 13:14:43 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/01 17:16:41 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 20:19:19 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ static char	get_muted_char_inside_quotes(char *src, int i, char quote)
 {
 	char	c;
 
+	c = src[i];
 	if (quote == '\"')
 	{
 		if (src[i] == '\'' || src[i] == '=' || is_expand_separator(src[i]))
@@ -56,7 +57,6 @@ static char	get_muted_char_inside_quotes(char *src, int i, char quote)
 			c = src[i] * -1;
 		else
 			c = src[i];
-		return (c);
 	}
 	return (c);
 }

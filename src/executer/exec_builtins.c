@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 16:40:53 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/25 15:10:37 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 20:24:16 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,7 +47,7 @@ static int	builtins_cases(t_data *d, char **cmd_tab,
 	if (builtin == e_env)
 		ret = ft_env(d, cmd_tab);
 	else if (builtin == e_pwd)
-		ret = ft_pwd(d, cmd_tab);
+		ret = ft_pwd(d);
 	else if (builtin == e_echo)
 		ret = ft_echo(d, cmd_tab);
 	else if (builtin == e_cd)
