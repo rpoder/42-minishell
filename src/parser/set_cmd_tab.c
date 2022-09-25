@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 16:52:44 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/23 17:11:00 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 14:58:30 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,10 @@ static int	alloc_and_fill_arg(t_cmd_node *cmd, int j, char *word)
 	i = 0;
 	k = 0;
 	if (arg_len(word) == 0)
-		return (NO_ERR);
+		return (no_err);
 	cmd->cmd_tab[j] = malloc(sizeof(char) * arg_len(word) + 1);
 	if (!cmd->cmd_tab[j])
-		return (MALLOC_ERR);
+		return (malloc_err);
 	while (word[i])
 	{		
 		if (word[i] < 0 && word[i] * -1 == '*')
@@ -77,7 +77,7 @@ static int	alloc_and_fill_arg(t_cmd_node *cmd, int j, char *word)
 		}
 	}
 	cmd->cmd_tab[j][k] = '\0';
-	return (NO_ERR);
+	return (no_err);
 }
 
 int	set_cmd_tab(char **words, int i, t_cmd_node *cmd, t_p_tool *tool)
@@ -85,7 +85,7 @@ int	set_cmd_tab(char **words, int i, t_cmd_node *cmd, t_p_tool *tool)
 	tool->tab_len = 0;
 	cmd->cmd_tab = malloc(sizeof(char *) * (cmd_tab_len(words, i) + 1));
 	if (!cmd->cmd_tab)
-		return (MALLOC_ERR);
+		return (malloc_err);
 	ft_clear_tab(&cmd->cmd_tab, cmd_tab_len(words, i) + 1);
 	while (words[i] && !is_pipe(words[i][0]))
 	{
@@ -94,7 +94,7 @@ int	set_cmd_tab(char **words, int i, t_cmd_node *cmd, t_p_tool *tool)
 		else
 		{
 			tool->ret = alloc_and_fill_arg(cmd, tool->tab_len, words[i]);
-			if (tool->ret == MALLOC_ERR)
+			if (tool->ret == malloc_err)
 				return (tool->ret);
 			i++;
 			if (cmd->cmd_tab[tool->tab_len] != NULL)

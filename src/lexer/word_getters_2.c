@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 11:42:54 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/06 21:06:19 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 14:57:21 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ char	*get_word(t_data *data, char *src, t_split_tool *tool)
 	if (!word)
 	{
 		free(tool);
-		global_free(data, MALLOC_ERR);
+		global_free(data, malloc_err);
 		return (word);
 	}
 	while (src[tool->word_start] != '\0'
@@ -50,7 +50,7 @@ char	*get_word_til_space(t_data *data, char *src, t_split_tool *tool)
 	if (!word)
 	{
 		free(tool);
-		global_free(data, MALLOC_ERR);
+		global_free(data, malloc_err);
 		return (word);
 	}
 	while (tool->word_start < tool->i)
@@ -77,7 +77,7 @@ char	*get_redir_op_word(t_data *data, char *src, t_split_tool *tool)
 	if (!word)
 	{
 		free(tool);
-		global_free(data, MALLOC_ERR);
+		global_free(data, malloc_err);
 		return (word);
 	}
 	while (j < len)

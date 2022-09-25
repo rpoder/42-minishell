@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_cd.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:33:22 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/23 23:45:19 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/25 15:06:35 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static int	try_with_expand_cdpath(char *cdpath, char *arg)
 
 	cdpath_tab = ft_split(cdpath, ':');
 	if (!cdpath_tab)
-		return (MALLOC_ERR);
+		return (malloc_err);
 	i = 0;
 	while (cdpath_tab[i])
 	{
@@ -31,13 +31,13 @@ static int	try_with_expand_cdpath(char *cdpath, char *arg)
 		{
 			free(tmp);
 			ft_free_tab(&cdpath_tab);
-			return (NO_ERR);
+			return (no_err);
 		}
 		free(tmp);
 		i++;
 	}
 	ft_free_tab(&cdpath_tab);
-	return (ERR_NOT_DEFINED);
+	return (err_not_defined);
 }
 
 static void	set_expand_pwd(t_data *data)
@@ -45,14 +45,14 @@ static void	set_expand_pwd(t_data *data)
 	char	*old_pwd;
 	char	*new_pwd;
 
-	old_pwd = get_expand_value(data, "PWD");
-	set_expand(data, "OLDPWD", old_pwd);
-	if (set_path(data, &new_pwd) == MALLOC_ERR)
-		global_free(data, MALLOC_ERR);
-	set_malloced_expand(data, "PWD", new_pwd);
+	old_pwd = get_expand_value(data, "pwd");
+	set_expand(data, "OLDpwd", old_pwd);
+	if (set_path(data, &new_pwd) == malloc_err)
+		global_free(data, malloc_err);
+	set_malloced_expand(data, "pwd", new_pwd);
 }
 
-void	ft_cd_with_arg(t_data *data, char *arg)
+static void	ft_cd_with_arg(t_data *data, char *arg)
 {
 	int		ret;
 	char	*cdpath_expand_v;
@@ -60,10 +60,10 @@ void	ft_cd_with_arg(t_data *data, char *arg)
 	ret = chdir(arg);
 	if (ret != 0)
 	{
-		cdpath_expand_v = get_expand_value(data, "CDPATH");
+		cdpath_expand_v = get_expand_value(data, "cdPATH");
 		if (cdpath_expand_v)
 			ret = try_with_expand_cdpath(cdpath_expand_v, arg);
-		if (ret != NO_ERR)
+		if (ret != no_err)
 		{
 			set_expand(data, "?", "1");
 			ft_printf_fd("minilsshell: cd: %s: No such file or directory\n",
@@ -71,8 +71,8 @@ void	ft_cd_with_arg(t_data *data, char *arg)
 			set_expand_pwd(data);
 			return ;
 		}
-		else if (ret == MALLOC_ERR)
-			global_free(data, MALLOC_ERR);
+		else if (ret == malloc_err)
+			global_free(data, malloc_err);
 	}
 	set_expand_pwd(data);
 	set_expand(data, "?", "0");
@@ -102,17 +102,17 @@ int	ft_cd(t_data *data, char **args)
 	{
 		set_expand(data, "?", "1");
 		ft_printf_fd("minilsshell: cd: too many arguments\n", 2);
-		return (NO_ERR);
+		return (no_err);
 	}
 	home_expand_v = get_expand_value(data, "HOME");
 	if (!home_expand_v && !args[1])
 	{
 		set_expand(data, "?", "1");
-		return (NO_ERR);
+		return (no_err);
 	}
 	else if (home_expand_v && !args[1])
 		ft_cd_home_no_arg(data, home_expand_v);
 	else if (args[1])
 		ft_cd_with_arg(data, args[1]);
-	return (NO_ERR);
+	return (no_err);
 }

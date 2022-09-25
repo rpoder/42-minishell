@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+         #
+#    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/09/23 21:52:47 by rpoder           ###   ########.fr        #
+#    Updated: 2022/09/25 15:06:35 by mpourrey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ LIBFT				:=	./libft/libft.a
 
 INCLUDEDIR			:=	./includes
 
-SRCDIR				:=	./src
+SRcdIR				:=	./src
 
 OBJDIR				:=	./obj
 
@@ -25,7 +25,7 @@ SRCS				:=	main.c \
 						init/set_env.c \
 						init/set_env_utils.c \
 						utils/init_quotes.c \
-						utils/utils.c\
+						utils/utils.c \
 						utils/unmute_utils.c \
 						utils/handle_expand.c \
 						handle_frees/handle_frees.c \
@@ -85,7 +85,7 @@ NAME				:=	$(PROGNAME)
 
 OUTDIR				:=	$(OBJDIR)
 
-$(OUTDIR)/%.o		:	$(SRCDIR)/%.c | $(OUTDIR)
+$(OUTDIR)/%.o		:	$(SRcdIR)/%.c | $(OUTDIR)
 	@mkdir -p $(dir $@)
 	$(CC) -c $(CCFLAGS) -ggdb3 -I $(INCLUDEDIR) $(addprefix -I ,$(dir $(LIBFT))) $< -o $@
 

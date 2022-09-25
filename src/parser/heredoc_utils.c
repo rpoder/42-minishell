@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 20:15:54 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/23 17:17:31 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 14:58:30 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,16 +21,16 @@ int	add_path_to_heredoc_list(t_cmd_node *cmd, char *heredoc_path)
 	{
 		path_dup = ft_alloc_and_fill(heredoc_path);
 		if (!path_dup)
-			return (MALLOC_ERR);
+			return (malloc_err);
 		heredoc_node = ft_lstnew(path_dup);
 		if (!heredoc_node)
 		{
 			free(path_dup);
-			return (MALLOC_ERR);
+			return (malloc_err);
 		}
 		ft_lstadd_back(&cmd->heredocs, heredoc_node);
 	}
-	return (NO_ERR);
+	return (no_err);
 }
 
 char	*get_heredoc_name(int i)
@@ -80,6 +80,6 @@ t_heredoc_tool	*init_heredoc_tool(char *lim)
 	}
 	tool->str = NULL;
 	tool->heredoc_path = NULL;
-	tool->ret = NO_ERR;
+	tool->ret = no_err;
 	return (tool);
 }

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_one_file.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 12:42:34 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/23 13:48:47 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/25 15:11:05 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,12 @@ int	open_and_set_fd_out(t_cmd_node *cmd, char *outfile, int flag)
 	{
 		cmd->fd_out = -1;
 		ft_printf_fd("minilsshell: ambiguous redirect\n", 2);
-		return (OPEN_ERR);
+		return (open_err);
 	}
 	if (cmd->fd_out >= 0)
 		close(cmd->fd_out);
 	if (is_redirection_operator(outfile[0]))
-		return (PARSING_ERR);
+		return (parsing_err);
 	if (flag == O_APPEND)
 		cmd->fd_out = open(outfile, O_RDWR | O_APPEND);
 	else if (flag == O_TRUNC)
@@ -34,9 +34,9 @@ int	open_and_set_fd_out(t_cmd_node *cmd, char *outfile, int flag)
 	{
 		ft_printf_fd("minilsshell: ", 2);
 		perror(outfile);
-		return (OPEN_ERR);
+		return (open_err);
 	}
-	return (NO_ERR);
+	return (no_err);
 }
 
 int	open_and_set_fd_in(t_cmd_node *cmd, char *infile)
@@ -45,20 +45,20 @@ int	open_and_set_fd_in(t_cmd_node *cmd, char *infile)
 	{
 		cmd->fd_in = -1;
 		ft_printf_fd("minilsshell: ambiguous redirect\n", 2);
-		return (OPEN_ERR);
+		return (open_err);
 	}
 	if (cmd->fd_in >= 0)
 		close(cmd->fd_in);
 	if (is_redirection_operator(infile[0]))
-		return (PARSING_ERR);
+		return (parsing_err);
 	cmd->fd_in = open(infile, O_RDONLY);
 	if (cmd->fd_in < 0)
 	{
 		ft_printf_fd("minilsshell: ", 2);
 		perror(infile);
-		return (OPEN_ERR);
+		return (open_err);
 	}
-	return (NO_ERR);
+	return (no_err);
 }
 
 int	open_and_set_fd_heredoc(t_cmd_node *cmd)
@@ -71,7 +71,7 @@ int	open_and_set_fd_heredoc(t_cmd_node *cmd)
 	{
 		ft_printf_fd("minilsshell: ", 2);
 		perror((char *)heredoc_node->content);
-		return (OPEN_ERR);
+		return (open_err);
 	}
-	return (NO_ERR);
+	return (no_err);
 }

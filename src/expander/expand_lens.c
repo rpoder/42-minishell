@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 11:51:03 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/17 16:40:29 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 14:57:21 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,7 @@ int	expanded_line_len(t_data *data, char *str, t_expand_tool *tool)
 			if (tmp < 0)
 			{
 				free_expand_tool(tool);
-				global_free(data, MALLOC_ERR);
+				global_free(data, malloc_err);
 			}
 			tool->len = tool->len + tmp;
 			tool->i = tool->i + expand_key_len(str, tool->i + 1);

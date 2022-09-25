@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/08 20:38:43 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/19 19:44:38 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 15:01:42 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,7 +24,7 @@ static void	trim_dst(t_data *data, char **dst, t_split_tool *tool)
 		if (!trimed_word)
 		{
 			free(tool);
-			global_free(data, MALLOC_ERR);
+			global_free(data, malloc_err);
 		}
 		free(dst[i]);
 		dst[i] = trimed_word;
@@ -94,13 +94,13 @@ void	lexer(t_data *data)
 
 	split_tool = init_split_tool();
 	if (!split_tool)
-		global_free(data, MALLOC_ERR);
+		global_free(data, malloc_err);
 	count = count_words(data->expanded_line, 0);
 	data->words = malloc(sizeof(char *) * (count + 1));
 	if (!data->words)
 	{
 		free(split_tool);
-		global_free(data, MALLOC_ERR);
+		global_free(data, malloc_err);
 	}
 	ft_clear_tab(&data->words, count + 1);
 	fill_dst(data, data->expanded_line, data->words, split_tool);

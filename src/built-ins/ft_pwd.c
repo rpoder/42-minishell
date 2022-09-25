@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_pwd.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/26 16:10:38 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/23 18:43:59 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/25 15:06:35 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,17 +19,17 @@ int	set_path(t_data *data, char **path)
 	*path = NULL;
 	buf = ft_calloc(sizeof(char), (PATH_MAX + 1));
 	if (!buf)
-		return (MALLOC_ERR);
+		return (malloc_err);
 	if (getcwd(buf, PATH_MAX) == NULL)
 	{
 		free(buf);
-		return (ERR_NOT_DEFINED);
+		return (err_not_defined);
 	}
 	*path = ft_strdup(buf);
 	free(buf);
 	if (!(*path))
-		return (MALLOC_ERR);
-	return (NO_ERR);
+		return (malloc_err);
+	return (no_err);
 }
 
 int	ft_pwd(t_data *data, char **args)
@@ -39,10 +39,10 @@ int	ft_pwd(t_data *data, char **args)
 
 	path = NULL;
 	ret = set_path(data, &path);
-	if (ret != NO_ERR)
+	if (ret != no_err)
 	{
-		if (ret == MALLOC_ERR)
-			global_free(data, MALLOC_ERR);
+		if (ret == malloc_err)
+			global_free(data, malloc_err);
 		ft_printf_fd("minilsshell: pwd: path not found\n", 2);
 		set_expand(data, "?", "1");
 	}
@@ -53,5 +53,5 @@ int	ft_pwd(t_data *data, char **args)
 		set_expand(data, "?", "0");
 	}
 	free(path);
-	return (NO_ERR);
+	return (no_err);
 }

@@ -3,16 +3,16 @@
 /*                                                        :::      ::::::::   */
 /*   ft_clear_tab.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/03 22:17:30 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/05 14:52:31 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/25 14:09:56 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void ft_clear_tab(char ***tab, int size)
+void	ft_clear_tab(char ***tab, int size)
 {
 	int	i;
 

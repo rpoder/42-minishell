@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 15:40:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/23 18:20:48 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 15:01:32 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ static void	add_node_to_cmd_lst(t_data *d, t_cmd_node *cmd_node, t_p_tool *tool)
 	{
 		free(tool);
 		del_cmd(cmd_node);
-		global_free(d, MALLOC_ERR);
+		global_free(d, malloc_err);
 	}
 	ft_lstadd_back(&d->cmds, lst);
 }
@@ -29,20 +29,20 @@ static void	add_node_to_cmd_lst(t_data *d, t_cmd_node *cmd_node, t_p_tool *tool)
 static int	set_and_skip_cmd(t_data *data, t_cmd_node *cmd, t_p_tool *tool)
 {
 	tool->ret = create_heredocs(data->words, tool->i, cmd, tool);
-	if (tool->ret != NO_ERR && tool->ret != OPEN_ERR)
+	if (tool->ret != no_err && tool->ret != open_err)
 		return (tool->ret);
 	tool->ret = check_redir_op_err(data->words, tool->i);
-	if (tool->ret != NO_ERR)
+	if (tool->ret != no_err)
 	{
 		set_expand(data, "?", "2");
 		return (tool->ret);
 	}
 	tool->ret = set_cmd_tab(data->words, tool->i, cmd, tool);
-	if (tool->ret != NO_ERR)
+	if (tool->ret != no_err)
 		return (tool->ret);
 	while (data->words[tool->i] && data->words[tool->i][0] != '|')
 		tool->i++;
-	return (NO_ERR);
+	return (no_err);
 }
 
 static t_cmd_node	*make_and_skip_cmd(t_data *d, char **words, t_p_tool *tool)
@@ -53,11 +53,11 @@ static t_cmd_node	*make_and_skip_cmd(t_data *d, char **words, t_p_tool *tool)
 	if (!cmd_node)
 		return (NULL);
 	tool->ret = set_and_skip_cmd(d, cmd_node, tool);
-	if (tool->ret == MALLOC_ERR)
+	if (tool->ret == malloc_err)
 	{
 		free(cmd_node);
 		free(tool);
-		global_free(d, MALLOC_ERR);
+		global_free(d, malloc_err);
 	}
 	return (cmd_node);
 }
@@ -69,13 +69,13 @@ static int	set_all_cmd_nodes(t_data *data, t_p_tool *tool)
 	while (data->words[tool->i])
 	{
 		cmd_node = make_and_skip_cmd(data, data->words, tool);
-		if (tool->ret != NO_ERR)
+		if (tool->ret != no_err)
 		{
-			if (tool->ret == CTRL_C)
+			if (tool->ret == ctrl_c)
 				set_expand(data, "?", "130");
 		}
 		add_node_to_cmd_lst(data, cmd_node, tool);
-		if (tool->ret != NO_ERR)
+		if (tool->ret != no_err)
 			return (-1);
 		if (data->words[tool->i] && data->words[tool->i][0] == '|')
 		{
@@ -101,7 +101,7 @@ int	parser(t_data *data)
 	}
 	tool = init_p_tool();
 	if (!tool)
-		global_free(data, MALLOC_ERR);
+		global_free(data, malloc_err);
 	if (set_all_cmd_nodes(data, tool) != 0)
 	{
 		free(tool);

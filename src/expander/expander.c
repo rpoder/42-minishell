@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   expander.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:02:08 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/23 14:49:56 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/25 14:57:21 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ static void	fill_with_expand_value(t_data *data, t_expand_tool *tool)
 	{
 		free(tool->quotes);
 		free(tool);
-		global_free(data, MALLOC_ERR);
+		global_free(data, malloc_err);
 	}
 	expand_value = get_expand_value(data, expand_key);
 	while (expand_value[k])
@@ -48,7 +48,7 @@ static void	fill_and_skip_expand(t_data *data, t_expand_tool *tool)
 	if (exp_value_len < 0)
 	{
 		free_expand_tool(tool);
-		global_free(data, MALLOC_ERR);
+		global_free(data, malloc_err);
 	}
 	else if (exp_value_len > 0)
 	{
@@ -91,18 +91,18 @@ void	expander(t_data *data)
 	{
 		data->expanded_line = ft_alloc_and_fill(data->prompt_line);
 		if (!data->expanded_line)
-			global_free(data, MALLOC_ERR);
+			global_free(data, malloc_err);
 		return ;
 	}
 	expand_tool = init_expand_tool();
 	if (!expand_tool)
-		global_free(data, MALLOC_ERR);
+		global_free(data, malloc_err);
 	dst_len = expanded_line_len(data, data->prompt_line, expand_tool);
 	data->expanded_line = malloc(sizeof(char) * (dst_len + 1));
 	if (!data->expanded_line)
 	{
 		free_expand_tool(expand_tool);
-		global_free(data, MALLOC_ERR);
+		global_free(data, malloc_err);
 	}
 	fill_expanded_line(data, expand_tool);
 	free_expand_tool(expand_tool);

@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 16:51:22 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/21 20:05:02 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 15:11:05 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@
 	{
 		unmute_file = unmute_word(words[i + 1]);
 		if (!unmute_file)
-			return (MALLOC_ERR);
+			return (malloc_err);
 		if (words[i][0] == '<' && !words[i][1] && words[i + 1])
 			tool->ret = set_fd_in(cmd, unmute_file);
 		else if (words[i][0] == '<' && words[i][1] == '<'
@@ -32,11 +32,11 @@
 			!words[i][2] && words[i + 1])
 			tool->ret = set_fd_out(cmd, unmute_file, O_APPEND);
 		else
-			return (free(unmute_file), PARSING_ERR);
+			return (free(unmute_file), parsing_err);
 		free(unmute_file);
 	}
 	else
-		tool->ret = PARSING_ERR;
+		tool->ret = parsing_err;
 	return (tool->ret);
 } */
 
@@ -47,7 +47,7 @@
 // 		if (words[i][0] == '<' || words[i][0] == '>')
 // 		{
 // 			tool->ret = set_fd(words, i, cmd, tool);
-// 			if (tool->ret != NO_ERR)
+// 			if (tool->ret != no_err)
 // 				return (tool->ret);
 // 			i += 2;
 // 		}

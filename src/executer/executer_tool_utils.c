@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer_tool_utils.c                              :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/14 13:02:56 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/23 20:59:57 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/25 14:58:30 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ t_exec_tool	*init_exec_tool(t_list *cmd)
 	if (!tool)
 		return (NULL);
 	tool->i = 0;
-	tool->ret = NO_ERR;
+	tool->ret = no_err;
 	if (init_tool_stds(tool) != 0)
 		return (NULL);
 	if (init_tool_forkret_pipe(cmd, tool) != 0)

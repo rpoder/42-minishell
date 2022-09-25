@@ -15,7 +15,7 @@
 --1120656-- Contents of /proc/version:
 --1120656--   Linux version 5.4.0-125-generic (buildd@lcy02-amd64-083) (gcc version 9.4.0 (Ubuntu 9.4.0-1ubuntu1~20.04.1)) #141-Ubuntu SMP Wed Aug 10 13:42:03 UTC 2022
 --1120656-- 
---1120656-- Arch and hwcaps: AMD64, LittleEndian, amd64-cx16-rdtscp-sse3-ssse3-avx
+--1120656-- Arch and hwcaps: AMD64, Littleendian, amd64-cx16-rdtscp-sse3-ssse3-avx
 --1120656-- Page sizes: currently 4096, max supported 4096
 --1120656-- Valgrind library directory: /usr/lib/x86_64-linux-gnu/valgrind
 --1120656-- Reading syms from /mnt/nfs/homes/rpoder/Desktop/minilsshell/minishell

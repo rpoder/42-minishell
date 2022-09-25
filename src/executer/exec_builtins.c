@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   exec_builtins.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/17 16:40:53 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/23 21:16:53 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/25 15:10:37 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,42 +20,43 @@ int	is_builtin(char *arg)
 	if (!arg)
 		return (ret);
 	if (ft_strcmp(arg, "echo") == 0)
-		ret = ECHO;
+		ret = e_echo;
 	else if (ft_strcmp(arg, "env") == 0)
-		ret = ENV;
+		ret = e_env;
 	else if (ft_strcmp(arg, "pwd") == 0)
-		ret = PWD;
+		ret = e_pwd;
 	else if (ft_strcmp(arg, "cd") == 0)
-		ret = CD;
+		ret = e_cd;
 	else if (ft_strcmp(arg, "exit") == 0)
-		ret = EXIT;
+		ret = e_exit;
 	else if (ft_strcmp(arg, "export") == 0)
-		ret = EXPORT;
+		ret = e_export;
 	else if (ft_strcmp(arg, "unset") == 0)
-		ret = UNSET;
+		ret = e_unset;
 	else
 		ret = -1;
 	return (ret);
 }
 
-int	builtins_cases(t_data *d, char **cmd_tab, int builtin, t_exec_tool *tool)
+static int	builtins_cases(t_data *d, char **cmd_tab,
+	int builtin, t_exec_tool *tool)
 {
 	int	ret;
 
-	ret = NO_ERR;
-	if (builtin == ENV)
+	ret = no_err;
+	if (builtin == e_env)
 		ret = ft_env(d, cmd_tab);
-	else if (builtin == PWD)
+	else if (builtin == e_pwd)
 		ret = ft_pwd(d, cmd_tab);
-	else if (builtin == ECHO)
+	else if (builtin == e_echo)
 		ret = ft_echo(d, cmd_tab);
-	else if (builtin == CD)
+	else if (builtin == e_cd)
 		ret = ft_cd(d, cmd_tab);
-	else if (builtin == EXIT)
+	else if (builtin == e_exit)
 		ret = ft_exit(d, cmd_tab, tool);
-	else if (builtin == EXPORT)
+	else if (builtin == e_export)
 		ret = ft_export(d, cmd_tab);
-	else if (builtin == UNSET)
+	else if (builtin == e_unset)
 		ret = ft_unset(d, cmd_tab);
 	return (ret);
 }
@@ -66,16 +67,16 @@ int	exec_builtins(t_data *d, char **cmd_tab, bool is_child, t_exec_tool *tool)
 	int	builtin;
 
 	if (!cmd_tab[0])
-		return (ERR_NOT_DEFINED);
+		return (err_not_defined);
 	builtin = is_builtin(cmd_tab[0]);
 	if (builtin < 0)
-		return (ERR_NOT_DEFINED);
+		return (err_not_defined);
 	ret = builtins_cases(d, cmd_tab, builtin, tool);
-	if (ret == MALLOC_ERR || is_child == true)
+	if (ret == malloc_err || is_child == true)
 	{
 		if (tool)
 			free_exec_tool(&tool);
 		global_free(d, ret);
 	}
-	return (NO_ERR);
+	return (no_err);
 }

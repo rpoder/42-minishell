@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:43:05 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/23 21:06:28 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 15:20:49 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,15 +19,15 @@ static int	add_error_expand_to_local(t_data *data)
 
 	key = ft_alloc_and_fill("?");
 	if (!key)
-		return (MALLOC_ERR);
+		return (malloc_err);
 	value = ft_alloc_and_fill("0");
 	if (!value)
 	{
 		free(key);
-		return (MALLOC_ERR);
+		return (malloc_err);
 	}
 	add_expand(data, &data->local_expands, key, value);
-	return (NO_ERR);
+	return (no_err);
 }
 
 static int	add_path_to_local(t_data *data, char **env)
@@ -39,16 +39,16 @@ static int	add_path_to_local(t_data *data, char **env)
 	{
 		key = ft_alloc_and_fill("PATH");
 		if (!key)
-			return (MALLOC_ERR);
-		value = ft_alloc_and_fill(ENV_DEFAULT_PATH);
+			return (malloc_err);
+		value = ft_strsjoin(3, ENV_DFL_PATH_1, ENV_DFL_PATH_2, ENV_DFL_PATH_3);
 		if (!value)
 		{
 			free(key);
-			return (MALLOC_ERR);
+			return (malloc_err);
 		}
 		add_expand(data, &data->local_expands, key, value);
 	}
-	return (NO_ERR);
+	return (no_err);
 }
 
 t_data	*init_data(char **env)
@@ -57,7 +57,7 @@ t_data	*init_data(char **env)
 
 	data = malloc(sizeof(t_data));
 	if (!data)
-		global_free(data, MALLOC_ERR);
+		global_free(data, malloc_err);
 	data->env = NULL;
 	data->local_expands = NULL;
 	set_env(data, env);
@@ -66,8 +66,8 @@ t_data	*init_data(char **env)
 	data->words = NULL;
 	data->cmds = NULL;
 	data->default_env = env;
-	if (add_error_expand_to_local(data) != NO_ERR
-		|| add_path_to_local(data, env) != NO_ERR)
-		global_free(data, MALLOC_ERR);
+	if (add_error_expand_to_local(data) != no_err
+		|| add_path_to_local(data, env) != no_err)
+		global_free(data, malloc_err);
 	return (data);
 }

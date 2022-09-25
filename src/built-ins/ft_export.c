@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/12 08:16:14 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/23 18:36:16 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/25 15:04:30 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,16 +46,16 @@ static void	free_export_keyvalue(char *key, char *value)
 		free(value);
 }
 
-int	try_export_one_arg(t_data *data, char *arg, char *key, char *value)
+static int	try_export_one_arg(t_data *data, char *arg, char *key, char *value)
 {
 	int	ret;
 
-	ret = NO_ERR;
+	ret = no_err;
 	if (!is_valid_expand_key(key))
 	{
 		ft_printf_fd("export:\'%s\': not a valid identifier\n", 2, key);
 		free_export_keyvalue(key, value);
-		ret = PARSING_ERR;
+		ret = parsing_err;
 	}
 	else if (value && value[0])
 	{
@@ -77,18 +77,18 @@ int	ft_export(t_data *data, char **args)
 	char	*key;
 	char	*value;
 
-	ret = NO_ERR;
+	ret = no_err;
 	i = 1;
 	while (args[i])
 	{
-		if (set_trim_alloc_keyvalue(args[i], &key, &value) != NO_ERR)
-			return (MALLOC_ERR);
+		if (set_trim_alloc_keyvalue(args[i], &key, &value) != no_err)
+			return (malloc_err);
 		ret = try_export_one_arg(data, args[i], key, value);
 		i++;
 	}
-	if (ret == NO_ERR)
+	if (ret == no_err)
 		set_expand(data, "?", "0");
 	else
 		set_expand(data, "?", "1");
-	return (NO_ERR);
+	return (no_err);
 }

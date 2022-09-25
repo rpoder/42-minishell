@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 13:52:52 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/23 18:15:05 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 14:58:30 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,13 +26,13 @@ int	check_redir_op_err(char **words, int i)
 					&& !words[i][2]))
 					i += 2;
 				else
-					return (PARSING_ERR);
+					return (parsing_err);
 			}
 			else
-				return (PARSING_ERR);
+				return (parsing_err);
 		}
 		else
 			i++;
 	}
-	return (NO_ERR);
+	return (no_err);
 }

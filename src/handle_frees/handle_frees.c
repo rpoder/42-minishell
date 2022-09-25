@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/01 17:18:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/23 18:32:19 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 15:04:03 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,17 +14,17 @@
 
 static void	handle_if_system_error(t_data *data, int err)
 {
-	if (err == MALLOC_ERR || err == PIPE_ERR
-		|| err == WAITPID_ERR || err == FORK_ERR)
+	if (err == malloc_err || err == pipe_err
+		|| err == waitpid_err || err == fork_err)
 	{
 		set_expand(data, "?", "128");
-		if (err == MALLOC_ERR)
+		if (err == malloc_err)
 			ft_printf_fd("mi_nils_shell: malloc err\n", 2);
-		else if (err == PIPE_ERR)
+		else if (err == pipe_err)
 			ft_printf_fd("mi_nils_shell: pipe err\n", 2);
-		else if (err == WAITPID_ERR)
+		else if (err == waitpid_err)
 			ft_printf_fd("mi_nils_shell: waitpid err\n", 2);
-		else if (err == FORK_ERR)
+		else if (err == fork_err)
 			ft_printf_fd("mi_nils_shell: fork err\n", 2);
 	}
 }

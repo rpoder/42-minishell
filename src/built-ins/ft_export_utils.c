@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_export_utils.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/23 18:01:38 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/23 18:31:35 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/25 15:04:30 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,9 +65,9 @@ int	set_trim_alloc_keyvalue(char *arg, char **key, char **value)
 {
 	*key = trim_and_alloc_key(arg);
 	if (!(*key))
-		return (MALLOC_ERR);
+		return (malloc_err);
 	*value = trim_and_alloc_value(arg);
 	if (!*(value))
-		return (MALLOC_ERR);
-	return (NO_ERR);
+		return (malloc_err);
+	return (no_err);
 }

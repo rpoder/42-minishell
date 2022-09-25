@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   redirection_syntax_checker.c                       :+:      :+:    :+:   */
+/*   redirection_syntax_printer.c                       :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/07 18:49:59 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/17 19:34:51 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 16:04:34 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -99,12 +99,12 @@ void	redirection_syntax_printer(char **words)
 	int	i;
 
 	i = 0;
-	if (words)
+	if (words && words[i])
 	{
 		if (check_redir_op_error(words) != 0)
 			return ;
 		while (words[i + 1])
-			i++;
+				i++;
 		if (is_redirection_operator(words[i][0]))
 			ft_printf_fd("syntax error near unexpected `newline'\n", 2);
 	}

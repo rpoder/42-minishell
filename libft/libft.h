@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 16:32:48 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/23 23:19:43 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/25 15:01:42 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,7 +28,7 @@ void	*ft_calloc(size_t count, size_t size);
 void	ft_free_tab(char ***ptr);
 void	ft_free_int_tab(int ***tab, int size);
 void	ft_clear_tab(char ***tab, int size);
-void 	ft_clear_int_tab(int ***tab, int size);
+void	ft_clear_int_tab(int ***tab, int size);
 int		ft_isalnum(int c);
 int		ft_isalpha(int c);
 int		ft_isascii(int c);

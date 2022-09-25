@@ -6,13 +6,13 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/22 20:27:37 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/22 20:28:50 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 14:09:29 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "libft.h"
 
-void ft_clear_int_tab(int ***tab, int size)
+void	ft_clear_int_tab(int ***tab, int size)
 {
 	int	i;
 

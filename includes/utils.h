@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/17 17:25:35 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/23 17:13:35 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 15:01:42 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -57,7 +57,7 @@ typedef struct s_exec_tool
 	int		*fork_ret;
 }	t_exec_tool;
 
-typedef struct	s_parser_tool
+typedef struct s_parser_tool
 {
 	int	i;
 	int	tab_len;

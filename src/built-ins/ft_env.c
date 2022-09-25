@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_env.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 17:45:13 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/23 18:43:05 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/25 15:02:20 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,12 +23,12 @@ static int	print_one_env_line(t_list *tmp)
 	{
 		unmuted_value = unmute_word(((t_expand *)tmp->content)->value);
 		if (!unmuted_value)
-			return (MALLOC_ERR);
+			return (malloc_err);
 		ft_putstr_fd(unmuted_value, 1);
 		free(unmuted_value);
 	}
 	ft_putchar_fd('\n', 1);
-	return (NO_ERR);
+	return (no_err);
 }
 
 int	ft_env(t_data *data, char **args)
@@ -40,15 +40,15 @@ int	ft_env(t_data *data, char **args)
 		ft_printf_fd("minilsshell: env: '%s': no such file or directory\n",
 			2, args[1]);
 		set_expand(data, "?", "127");
-		return (NO_ERR);
+		return (no_err);
 	}
 	tmp = data->env;
 	while (tmp)
 	{
-		if (print_one_env_line(tmp) != NO_ERR)
-			return (MALLOC_ERR);
+		if (print_one_env_line(tmp) != no_err)
+			return (malloc_err);
 		tmp = tmp->next;
 	}
 	set_expand(data, "?", "0");
-	return (NO_ERR);
+	return (no_err);
 }

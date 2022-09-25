@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   executer.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:17:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/23 19:56:38 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/25 15:11:54 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,13 @@ static void	wait_one_child(t_data *d, int **wait_ret, int j, t_exec_tool *tool)
 	{
 		ft_free_int_tab(&wait_ret, tool->i);
 		free_exec_tool(&tool);
-		global_free(d, MALLOC_ERR);
+		global_free(d, malloc_err);
 	}
 	if (waitpid(tool->fork_ret[j], wait_ret[j], 0) < 0)
 	{
 		ft_free_int_tab(&wait_ret, tool->i);
 		free_exec_tool(&tool);
-		global_free(d, WAITPID_ERR);
+		global_free(d, waitpid_err);
 	}
 }
 
@@ -43,7 +43,7 @@ static void	set_last_exit_status(t_data *d, int **wait_ret, int j,
 		{
 			ft_free_int_tab(&wait_ret, tool->i);
 			free_exec_tool(&tool);
-			global_free(d, MALLOC_ERR);
+			global_free(d, malloc_err);
 		}
 		set_malloced_expand(d, "?", tmp);
 	}
@@ -51,7 +51,7 @@ static void	set_last_exit_status(t_data *d, int **wait_ret, int j,
 		set_expand(d, "?", "130");
 }
 
-void	wait_all_children(t_data *data, t_exec_tool *tool)
+static void	wait_all_children(t_data *data, t_exec_tool *tool)
 {
 	int		j;
 	int		**wait_ret;
@@ -60,7 +60,7 @@ void	wait_all_children(t_data *data, t_exec_tool *tool)
 	if (!wait_ret)
 	{
 		free_exec_tool(&tool);
-		global_free(data, MALLOC_ERR);
+		global_free(data, malloc_err);
 	}
 	ft_clear_int_tab(&wait_ret, tool->i);
 	j = 0;
@@ -82,7 +82,7 @@ void	executer(t_data *data)
 	lexer_len = 0;
 	tool = init_exec_tool(data->cmds);
 	if (!tool)
-		global_free(data, MALLOC_ERR);
+		global_free(data, malloc_err);
 	if (ft_lstlen(data->cmds) == 1
 		&& is_builtin(((t_cmd_node *)data->cmds->content)->cmd_tab[0]) >= 0)
 		exec_no_child_builtin(data, data->cmds, tool);
@@ -93,7 +93,7 @@ void	executer(t_data *data)
 		if (dup2(tool->fd_stdin, 0) < 0)
 		{
 			free_exec_tool(&tool);
-			global_free(data, DUP_ERR);
+			global_free(data, dup_err);
 		}
 	}
 	free_exec_tool(&tool);

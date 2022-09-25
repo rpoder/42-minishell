@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_exit.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 16:17:52 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/23 23:22:23 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/25 15:04:03 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,13 +33,13 @@ static void	free_and_exit(t_data *data, t_exec_tool *tool, char *exit_code)
 	{
 		if (tool)
 			free_exec_tool(&tool);
-		global_free(data, MALLOC_ERR);
+		global_free(data, malloc_err);
 	}
 	ft_printf_fd("exit\n", 1);
 	set_malloced_expand(data, "?", tmp);
 	if (tool)
 		free_exec_tool(&tool);
-	global_free(data, NO_ERR);
+	global_free(data, no_err);
 }
 
 int	ft_exit(t_data *data, char **args, t_exec_tool *tool)
@@ -59,5 +59,5 @@ int	ft_exit(t_data *data, char **args, t_exec_tool *tool)
 		free_and_exit(data, tool, args[1]);
 	else
 		free_and_exit(data, tool, NULL);
-	return (NO_ERR);
+	return (no_err);
 }

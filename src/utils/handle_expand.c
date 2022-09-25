@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/18 16:53:13 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/23 20:59:08 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 15:02:20 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,7 @@ void	add_expand(t_data *data, t_list **alst, char *key, char *value)
 	{
 		free(key);
 		free(value);
-		global_free(data, MALLOC_ERR);
+		global_free(data, malloc_err);
 	}
 	content->key = key;
 	muted_value = get_muted_expand_value(value);
@@ -100,7 +100,7 @@ void	add_expand(t_data *data, t_list **alst, char *key, char *value)
 	{
 		free(key);
 		free(value);
-		global_free(data, MALLOC_ERR);
+		global_free(data, malloc_err);
 	}
 	content->value = muted_value;
 	free(value);

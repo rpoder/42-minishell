@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/29 12:24:39 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/23 21:27:25 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/25 15:02:20 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,12 +67,12 @@ static void	set_one_env_line(t_data *data, char *arg, char *key, char *value)
 {
 	key = get_env_key(arg);
 	if (!key)
-		global_free(data, MALLOC_ERR);
+		global_free(data, malloc_err);
 	value = get_env_value(arg);
 	if (!value)
 	{
 		free(key);
-		global_free(data, MALLOC_ERR);
+		global_free(data, malloc_err);
 	}
 	add_expand(data, &data->env, key, value);
 }
@@ -86,8 +86,8 @@ void	set_env(t_data *data, char **env)
 	i = 0;
 	if (env && !env[0])
 	{
-		if (add_default_expands_to_env(data) != NO_ERR)
-			global_free(data, MALLOC_ERR);
+		if (add_default_expands_to_env(data) != no_err)
+			global_free(data, malloc_err);
 	}
 	else
 	{
@@ -96,7 +96,7 @@ void	set_env(t_data *data, char **env)
 			set_one_env_line(data, env[i], env_key, env_value);
 			i++;
 		}
-		if (add_default_shlvl(data) == MALLOC_ERR)
-			global_free(data, MALLOC_ERR);
+		if (add_default_shlvl(data) == malloc_err)
+			global_free(data, malloc_err);
 	}
 }

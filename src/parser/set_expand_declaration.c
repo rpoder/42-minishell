@@ -22,7 +22,7 @@ static int	set_value_declaration(char *word, char **value)
 		key_len++;
 	*value = malloc(sizeof(char) * (ft_strlen(word) - key_len + 1));
 	if (!(*value))
-		return (MALLOC_ERR);
+		return (malloc_err);
 	i = 0;
 	key_len++;
 	while (word[key_len])
@@ -32,7 +32,7 @@ static int	set_value_declaration(char *word, char **value)
 		i++;
 	}
 	(*value)[i] = '\0';
-	return (NO_ERR);
+	return (no_err);
 }
 
 static int	set_key_declaration(char *word, char **key)
@@ -44,7 +44,7 @@ static int	set_key_declaration(char *word, char **key)
 		len++;
 	*key = malloc(sizeof(char) * (len + 1));
 	if (!(*key))
-		return (MALLOC_ERR);
+		return (malloc_err);
 	len = 0;
 	while (word[len] != '=')
 	{
@@ -52,7 +52,7 @@ static int	set_key_declaration(char *word, char **key)
 		len++;
 	}
 	(*key)[len] = '\0';
-	return (NO_ERR);
+	return (no_err);
 }
 
 int	set_expand_declaration(t_data *data, char *declaration)
@@ -62,14 +62,14 @@ int	set_expand_declaration(t_data *data, char *declaration)
 	int		ret;
 
 	ret = set_key_declaration(declaration, &key);
-	if (ret != NO_ERR)
-		global_free(data, MALLOC_ERR);
+	if (ret != no_err)
+		global_free(data, malloc_err);
 	ret = set_value_declaration(declaration, &value);
-	if (ret != NO_ERR)
+	if (ret != no_err)
 	{
 		free(key);
-		global_free(data, MALLOC_ERR);
+		global_free(data, malloc_err);
 	}
 	add_expand(data, &data->local_expands, key, value);
-	return (NO_ERR);
+	return (no_err);
 }

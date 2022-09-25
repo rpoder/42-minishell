@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/10 19:07:59 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/23 18:15:22 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 14:58:30 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,7 +59,7 @@ t_p_tool	*init_p_tool(void)
 		return (NULL);
 	tool->i = 0;
 	tool->tab_len = 0;
-	tool->ret = NO_ERR;
+	tool->ret = no_err;
 	return (tool);
 }
 

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_putchar_fd.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/12/02 21:29:29 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/08/31 13:27:57 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/25 14:10:07 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,4 +19,3 @@ int	ft_putchar_fd(char c, int fd)
 	j = write(fd, &c, 1);
 	return (j);
 }
-

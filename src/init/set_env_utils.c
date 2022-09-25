@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   set_env_utils.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 17:52:08 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/23 21:46:48 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/25 15:06:35 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,9 @@ static int	increment_shlvl(t_data *data, char *shlvl_value)
 	shlvl_value_int++;
 	tmp = ft_itoa(shlvl_value_int);
 	if (!tmp)
-		return (MALLOC_ERR);
+		return (malloc_err);
 	set_malloced_expand(data, "SHLVL", tmp);
-	return (NO_ERR);
+	return (no_err);
 }
 
 int	add_default_shlvl(t_data *data)
@@ -38,18 +38,18 @@ int	add_default_shlvl(t_data *data)
 	{
 		key = ft_alloc_and_fill("SHLVL");
 		if (!key)
-			return (MALLOC_ERR);
+			return (malloc_err);
 		value = ft_alloc_and_fill("1");
 		if (!value)
-			return (free(key), MALLOC_ERR);
+			return (free(key), malloc_err);
 		add_expand(data, &data->env, key, value);
 	}
 	else
 	{
-		if (increment_shlvl(data, shlvl_value) != NO_ERR)
-			return (MALLOC_ERR);
+		if (increment_shlvl(data, shlvl_value) != no_err)
+			return (malloc_err);
 	}
-	return (NO_ERR);
+	return (no_err);
 }
 
 static int	add_default_underscore(t_data *data)
@@ -61,15 +61,15 @@ static int	add_default_underscore(t_data *data)
 	{
 		key = ft_alloc_and_fill("_");
 		if (!key)
-			return (MALLOC_ERR);
-		if (set_path(data, &value) == MALLOC_ERR)
+			return (malloc_err);
+		if (set_path(data, &value) == malloc_err)
 		{
 			free(key);
-			return (MALLOC_ERR);
+			return (malloc_err);
 		}
 		add_expand(data, &data->env, key, value);
 	}
-	return (NO_ERR);
+	return (no_err);
 }
 
 static int	add_default_pwd(t_data *data)
@@ -77,19 +77,19 @@ static int	add_default_pwd(t_data *data)
 	char	*key;
 	char	*value;
 
-	if (get_expand_value(data, "PWD") == NULL)
+	if (get_expand_value(data, "pwd") == NULL)
 	{
-		key = ft_alloc_and_fill("PWD");
+		key = ft_alloc_and_fill("pwd");
 		if (!key)
-			return (MALLOC_ERR);
-		if (set_path(data, &value) == MALLOC_ERR)
+			return (malloc_err);
+		if (set_path(data, &value) == malloc_err)
 		{
 			free(key);
-			return (MALLOC_ERR);
+			return (malloc_err);
 		}
 		add_expand(data, &data->env, key, value);
 	}
-	return (NO_ERR);
+	return (no_err);
 }
 
 int	add_default_expands_to_env(t_data *data)

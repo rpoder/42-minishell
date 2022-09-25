@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   open_and_set_fds.c                                 :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 12:42:26 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/23 14:48:18 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/25 15:11:05 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ static int	open_and_set_fd(char **words, int i, t_cmd_node *cmd)
 
 	unmute_file = unmute_word(words[i + 1]);
 	if (!unmute_file)
-		return (MALLOC_ERR);
+		return (malloc_err);
 	if (words[i][0] == '<' && !words[i][1] && words[i + 1])
 		ret = open_and_set_fd_in(cmd, unmute_file);
 	else if (words[i][0] == '<' && words[i][1] == '<'
@@ -38,13 +38,13 @@ int	open_and_set_fds(char **words, int i, t_cmd_node *cmd)
 {
 	int	ret;
 
-	ret = NO_ERR;
+	ret = no_err;
 	while (words[i] && words[i][0] != '|')
 	{
 		if (words[i][0] == '<' || words[i][0] == '>')
 		{
 			ret = open_and_set_fd(words, i, cmd);
-			if (ret != NO_ERR)
+			if (ret != no_err)
 				return (ret);
 			i += 2;
 		}

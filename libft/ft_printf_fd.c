@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_printf_fd.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/31 13:17:46 by rpoder            #+#    #+#             */
-/*   Updated: 2022/08/31 13:50:43 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/25 15:02:00 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,7 @@ static int	ft_parse_arg_printf_fd(int fd, char c, va_list ap)
 	if (c == 'x')
 		j = (ft_putunint_fd(va_arg(ap, unsigned int), "0123456789abcdef", fd));
 	if (c == 'X')
-		j = (ft_putunint_fd(va_arg(ap, unsigned int), "0123456789ABCDEF", fd));
+		j = (ft_putunint_fd(va_arg(ap, unsigned int), "0123456789ABcdEF", fd));
 	if (c == 's')
 		j = (ft_putstr_fd(va_arg(ap, char *), fd));
 	if (c == 'p')
