@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/26 16:43:05 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/25 15:20:49 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 20:12:14 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ static int	add_error_expand_to_local(t_data *data)
 	return (no_err);
 }
 
-static int	add_path_to_local(t_data *data, char **env)
+static int	add_path_to_local(t_data *data)
 {
 	char	*key;
 	char	*value;
@@ -65,9 +65,8 @@ t_data	*init_data(char **env)
 	data->expanded_line = NULL;
 	data->words = NULL;
 	data->cmds = NULL;
-	data->default_env = env;
 	if (add_error_expand_to_local(data) != no_err
-		|| add_path_to_local(data, env) != no_err)
+		|| add_path_to_local(data) != no_err)
 		global_free(data, malloc_err);
 	return (data);
 }

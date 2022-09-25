@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/25 20:03:30 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 20:12:20 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,7 +72,6 @@ typedef struct s_data {
 	char	*expanded_line;
 	char	**words;
 	t_list	*cmds;
-	char	**default_env;
 }	t_data;
 
 typedef struct s_cmd_node {
