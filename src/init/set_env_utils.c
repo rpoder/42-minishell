@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 17:52:08 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/25 15:06:35 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 17:24:41 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,11 @@ static int	increment_shlvl(t_data *data, char *shlvl_value)
 	tmp = ft_itoa(shlvl_value_int);
 	if (!tmp)
 		return (malloc_err);
-	set_malloced_expand(data, "SHLVL", tmp);
+	if (set_malloced_value_expand(data, "SHLVL", tmp) == malloc_err)
+	{
+		free(tmp);
+		return (malloc_err);
+	}
 	return (no_err);
 }
 
@@ -77,9 +81,9 @@ static int	add_default_pwd(t_data *data)
 	char	*key;
 	char	*value;
 
-	if (get_expand_value(data, "pwd") == NULL)
+	if (get_expand_value(data, "PWD") == NULL)
 	{
-		key = ft_alloc_and_fill("pwd");
+		key = ft_alloc_and_fill("PWD");
 		if (!key)
 			return (malloc_err);
 		if (set_path(data, &value) == malloc_err)

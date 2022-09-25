@@ -3,22 +3,27 @@
 /*                                                        :::      ::::::::   */
 /*   utils.c                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: rpoder <rpoder@student.42.fr>              +#+  +:+       +#+        */
+/*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/29 15:19:17 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/22 16:30:40 by rpoder           ###   ########.fr       */
+/*   Updated: 2022/09/25 16:23:26 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-int	skip_node(char **words, int len)
+int	is_valid_line(char *str)
 {
-	while (words[len] && words[len][0] != '|')
-		len++;
-	if (words[len])
-		len++;
-	return (len);
+	int	i;
+
+	i = 0;
+	while (str[i])
+	{
+		if (!ft_isascii(str[i]))
+			return (0);
+		i++;
+	}
+	return (1);
 }
 
 int	is_pipe(char c)

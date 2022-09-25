@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/25 16:01:06 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 16:12:28 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,10 @@ int	main(int argc, char **argv, char **env)
 		line = readline("minilsshell> ");
 		if (!line)
 		{
-			set_expand(data, "?", "0");
 			rl_clear_history();
 			global_free(data, end);
 		}
-		if (ft_strlen(line) >= 1)
+		if (ft_strlen(line) >= 1 && is_valid_line(line))
 			execute_line(data, line);
 		free_line_datas(data);
 	}

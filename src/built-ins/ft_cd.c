@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/19 10:33:22 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/25 15:06:35 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 17:25:20 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,11 +45,16 @@ static void	set_expand_pwd(t_data *data)
 	char	*old_pwd;
 	char	*new_pwd;
 
-	old_pwd = get_expand_value(data, "pwd");
-	set_expand(data, "OLDpwd", old_pwd);
+	new_pwd = NULL;
+	old_pwd = get_expand_value(data, "PWD");
+	set_expand(data, "OLDPWD", old_pwd);
 	if (set_path(data, &new_pwd) == malloc_err)
 		global_free(data, malloc_err);
-	set_malloced_expand(data, "pwd", new_pwd);
+	if (set_malloced_value_expand(data, "PWD", new_pwd) == malloc_err)
+	{
+		free(new_pwd);
+		global_free(data, malloc_err);
+	}
 }
 
 static void	ft_cd_with_arg(t_data *data, char *arg)
@@ -60,7 +65,7 @@ static void	ft_cd_with_arg(t_data *data, char *arg)
 	ret = chdir(arg);
 	if (ret != 0)
 	{
-		cdpath_expand_v = get_expand_value(data, "cdPATH");
+		cdpath_expand_v = get_expand_value(data, "CDPATH");
 		if (cdpath_expand_v)
 			ret = try_with_expand_cdpath(cdpath_expand_v, arg);
 		if (ret != no_err)

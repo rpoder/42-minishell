@@ -6,7 +6,7 @@
 #    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/09/25 15:06:35 by mpourrey         ###   ########.fr        #
+#    Updated: 2022/09/25 17:26:27 by mpourrey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -28,10 +28,11 @@ SRCS				:=	main.c \
 						utils/utils.c \
 						utils/unmute_utils.c \
 						utils/handle_expand.c \
+						utils/handle_malloced_expand.c \
 						handle_frees/handle_frees.c \
 						handle_frees/handle_dels.c \
 						syntax_checker/quote_syntax_checker.c \
-						syntax_checker/redirection_syntax_checker.c \
+						syntax_checker/redirection_syntax_printer.c \
 						built-ins/ft_env.c \
 						handle_mutes/handle_mutes_in_quotes.c \
 						expander/expander.c \

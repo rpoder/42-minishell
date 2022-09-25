@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/30 16:17:52 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/25 15:04:03 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 17:40:55 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,13 @@ static void	free_and_exit(t_data *data, t_exec_tool *tool, char *exit_code)
 		global_free(data, malloc_err);
 	}
 	ft_printf_fd("exit\n", 1);
-	set_malloced_expand(data, "?", tmp);
+	if (set_malloced_value_expand(data, "?", tmp) == malloc_err)
+	{
+		if (tool)
+			free_exec_tool(&tool);
+		free(tmp);
+		global_free(data, malloc_err);
+	}
 	if (tool)
 		free_exec_tool(&tool);
 	global_free(data, no_err);

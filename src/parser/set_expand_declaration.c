@@ -70,6 +70,6 @@ int	set_expand_declaration(t_data *data, char *declaration)
 		free(key);
 		global_free(data, malloc_err);
 	}
-	add_expand(data, &data->local_expands, key, value);
+	set_malloced_expand(data, key, value);
 	return (no_err);
 }

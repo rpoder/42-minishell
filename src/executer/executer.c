@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/12 11:17:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/25 15:11:54 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 17:23:53 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,7 +45,13 @@ static void	set_last_exit_status(t_data *d, int **wait_ret, int j,
 			free_exec_tool(&tool);
 			global_free(d, malloc_err);
 		}
-		set_malloced_expand(d, "?", tmp);
+		if (set_malloced_value_expand(d, "?", tmp) == malloc_err)
+		{
+			free(tmp);
+			ft_free_int_tab(&wait_ret, tool->i);
+			free_exec_tool(&tool);
+			global_free(d, malloc_err);
+		}
 	}
 	else if (WIFSIGNALED(*sig))
 		set_expand(d, "?", "130");

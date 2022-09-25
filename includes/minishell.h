@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/25 15:39:11 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 17:12:15 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -151,6 +151,7 @@ void			lexer(t_data *data);
 t_split_tool	*init_split_tool(void);
 void			set_tool_for_next_word(t_split_tool *split_tool, int i);
 int				redirection_word_len(char *str, int i);
+int				skip_node(char **words, int len);
 
 /*word_skippers */
 int				skip_space(char *str, int i);
@@ -292,7 +293,12 @@ int				is_word_separator(char c);
 int				is_redirection_operator(char c);
 int				is_space(char c);
 int				is_pipe(char c);
-int				skip_node(char **words, int len);
+int				is_valid_line(char *str);
+
+/* init_quotes */
+void			set_quotes(char c, t_quotes *quotes);
+void			clear_quotes(t_quotes *quotes);
+t_quotes		*init_quotes(void);
 
 /* unmute_utils.c */
 char			unmute_char(char c);
@@ -301,10 +307,14 @@ char			*unmute_word(char *str);
 
 /* handle_expand.c */
 void			add_expand(t_data *data, t_list **alst, char *key, char *value);
+int				set_expand(t_data *data, char *key, char *new_value);
+bool			set_on(t_list **alst, char *key, char *new_value);
+
+/* handle_malloced_expand.c */
 int				set_malloced_expand(t_data *data, char *key,
-					char *value_to_modify);
-int				set_expand(t_data *data, char *key, char *value_to_modify);
-bool			set_on(t_list **alst, char *key, char *value_to_modify);
+					char *new_value);
+int				set_malloced_value_expand(t_data *data, char *key,
+					char *new_value);
 
 /* ---------------------------------------------HANDLE_FREES */
 /* handle_free.c */

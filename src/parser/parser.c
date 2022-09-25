@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/02 15:40:03 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/25 15:01:32 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 16:30:37 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -79,7 +79,7 @@ static int	set_all_cmd_nodes(t_data *data, t_p_tool *tool)
 			return (-1);
 		if (data->words[tool->i] && data->words[tool->i][0] == '|')
 		{
-			if (data->words[tool->i][1])
+			if (data->words[tool->i][1] || !data->words[tool->i + 1])
 			{
 				set_expand(data, "?", "2");
 				return (-1);

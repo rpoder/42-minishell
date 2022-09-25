@@ -6,11 +6,20 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 14:21:42 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/25 14:21:46 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 16:10:52 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
+
+int	skip_node(char **words, int len)
+{
+	while (words[len] && words[len][0] != '|')
+		len++;
+	if (words[len])
+		len++;
+	return (len);
+}
 
 t_split_tool	*init_split_tool(void)
 {

@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/08/11 16:25:27 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/25 15:29:09 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 17:34:48 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ int	ft_echo(t_data *data, char **args)
 
 	i = 1;
 	n_option = false;
-	while (is_valid_flag(args[i]))
+	while (args[i] && is_valid_flag(args[i]))
 	{
 		n_option = true;
 		i++;
