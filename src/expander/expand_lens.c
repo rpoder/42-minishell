@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/16 11:51:03 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/25 14:57:21 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 19:44:52 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,11 +17,16 @@ int	expand_key_len(char *str, int i)
 	int	len;
 
 	len = 0;
-	while (str[i] && !is_expand_separator(str[i])
-		&& !is_expand_suffix(str[i], len))
+	if (str[i] == '?')
+		len = 1;
+	else
 	{
-		len++;
-		i++;
+		while (str[i] && !is_expand_separator(str[i])
+			&& !is_expand_suffix(str[i], len))
+		{
+			len++;
+			i++;
+		}
 	}
 	return (len);
 }

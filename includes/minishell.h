@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/25 17:12:15 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 19:50:22 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -213,6 +213,11 @@ void			executer(t_data *data);
 /* exec_children.c */
 void			exec_children(t_data *data, t_list *cmd, t_exec_tool *tool);
 
+/* exec_children_utils.c */
+void			handle_pipe(t_data *data, t_exec_tool *tool);
+void			handle_fork(t_data *data, t_exec_tool *tool);
+void			redirect_to_pipe(t_data *data, t_exec_tool *tool);
+
 /* exec_builtins.c */
 int				exec_builtins(t_data *data, char **cmd_tab, bool is_child,
 					t_exec_tool *tool);
@@ -241,6 +246,9 @@ void			redirect_pipe_out(t_data *data, int *pipe_fd);
 int				*init_pipe(t_data *data);
 int				is_redir_err_or_chevron_err(t_data *data);
 int				is_last_cmd(t_list *cmd);
+char			**get_env_tab(t_data *data);
+void			free_exec_children(t_data *data, t_exec_tool *tool,
+					char **env_tab);
 
 /* executer_tool_utils.c */
 t_exec_tool		*init_exec_tool(t_list *cmd);

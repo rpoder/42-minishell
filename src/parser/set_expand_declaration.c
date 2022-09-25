@@ -62,6 +62,12 @@ int	set_expand_declaration(t_data *data, char *declaration)
 	int		ret;
 
 	ret = set_key_declaration(declaration, &key);
+	if (!is_valid_expand_key(key))
+	{
+		ft_printf_fd("declare:\'%s\': not a valid identifier\n", 2, key);
+		free(key);
+		return (no_err);
+	}
 	if (ret != no_err)
 		global_free(data, malloc_err);
 	ret = set_value_declaration(declaration, &value);
