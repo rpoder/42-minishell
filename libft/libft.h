@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/05/19 16:32:48 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/25 15:01:42 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 20:03:10 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,7 @@ char	*ft_alloc_and_fill(char *str);
 int		ft_isint(long int num);
 int		ft_islonglongint(long int num);
 
-////////////////*LIST*////////////////////
+/* LIST */
 typedef struct s_list
 {
 	void			*content;
@@ -94,7 +94,7 @@ int		ft_lstlen(t_list *lst);
 t_list	*ft_lstmap(t_list *lst, void *(*f)(void *), void (*del)(void *));
 t_list	*ft_lstnew(void *content);
 
-/////////////*PRINTF*//////////////
+/* PRINTF */
 int		ft_printf(const char *s, ...);
 int		ft_putchar(char c);
 int		ft_putstr(char *str);
@@ -107,7 +107,7 @@ int		ft_itoabase_uli(unsigned long int n, char *base);
 int		ft_itoabase_ui(unsigned int n, char *base);
 int		ft_reslen_ui(unsigned int n, int base_len);
 
-/////////////*PRINTF_FD*//////////////
+/* PRINTF_FD */
 int		ft_printf_fd(const char *s, int fd, ...);
 int		ft_putaddress_fd(unsigned long int n, int fd);
 int		ft_putint_fd(int n, int fd);

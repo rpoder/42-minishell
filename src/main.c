@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 15:24:00 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/25 16:12:28 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 20:00:40 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,6 +37,8 @@ int	main(int argc, char **argv, char **env)
 	char	*line;
 	t_data	*data;
 
+	(void) argc;
+	(void) argv;
 	cancel_sigquit();
 	data = init_data(env);
 	while (1)

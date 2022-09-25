@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/25 19:50:22 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/25 20:03:30 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,8 +34,6 @@ extern bool		g_close_heredoc;
 # define ENV_DFL_PATH_3 "/usr/games:/usr/local/games:/snap/bin"
 
 # define FD_UNDEFINED -2
-
-# define BUFFER_SIZE_GNL 10
 
 enum	e_errors {
 	malloc_err = -100,

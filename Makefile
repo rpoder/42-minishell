@@ -6,7 +6,7 @@
 #    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/09/25 19:51:17 by mpourrey         ###   ########.fr        #
+#    Updated: 2022/09/25 20:04:57 by mpourrey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -81,7 +81,7 @@ CC					:=	cc
 
 RM					:=	rm
 
-#CCFLAGS				:=	-Wall -Wextra -Werror
+CCFLAGS				:=	-Wall -Wextra -Werror
 
 NAME				:=	$(PROGNAME)
 
@@ -89,10 +89,10 @@ OUTDIR				:=	$(OBJDIR)
 
 $(OUTDIR)/%.o		:	$(SRcdIR)/%.c | $(OUTDIR)
 	@mkdir -p $(dir $@)
-	$(CC) -c $(CCFLAGS) -ggdb3 -I $(INCLUDEDIR) $(addprefix -I ,$(dir $(LIBFT))) $< -o $@
+	$(CC) -c $(CCFLAGS) -I $(INCLUDEDIR) $(addprefix -I ,$(dir $(LIBFT))) $< -o $@
 
 $(NAME)				:	$(addprefix $(OUTDIR)/,$(SRCS:.c=.o)) $(LIBFT) $(MLX)
-	$(CC) $(CCFLAGS) $(addprefix $(OUTDIR)/,$(SRCS:.c=.o)) $(LIBFT) -ggdb3 -lreadline -o $(NAME)
+	$(CC) $(CCFLAGS) $(addprefix $(OUTDIR)/,$(SRCS:.c=.o)) $(LIBFT) -lreadline -o $(NAME)
 
 all					:	$(NAME)
 
