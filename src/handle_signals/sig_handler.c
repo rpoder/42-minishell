@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/25 23:19:15 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/25 23:19:39 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/26 00:18:03 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -16,9 +16,9 @@ void	handle_custom_sigint(int signum)
 {
 	(void) signum;
 	printf("\n");
+	rl_replace_line("", 0);
 	rl_on_new_line();
 	rl_redisplay();
-	rl_replace_line("", 0);
 }
 
 void	handle_heredoc_sigs(int signum)

@@ -1,28 +1,28 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   sig_prototypes.c                                   :+:      :+:    :+:   */
+/*   sig_prototypes2.c                                  :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2022/09/21 15:07:16 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/26 01:07:58 by mpourrey         ###   ########.fr       */
+/*   Created: 2022/09/26 01:07:39 by mpourrey          #+#    #+#             */
+/*   Updated: 2022/09/26 01:07:55 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "minishell.h"
 
-void	cancel_sigquit(void)
+void	default_all_sigs(void)
 {
-	signal(SIGQUIT, SIG_IGN);
+	signal(SIGINT, SIG_DFL);
 }
 
-void	custom_sigquit(void)
+void	custom_all_sigs(void)
 {
-	signal(SIGQUIT, SIG_DFL);
+	signal(SIGINT, handle_custom_sigint);
 }
 
-void	ignore_all_sigs(void)
+void	custom_heredoc_all_sigs(void)
 {
-	signal(SIGINT, SIG_IGN);
+	signal(SIGINT, handle_heredoc_sigs);
 }

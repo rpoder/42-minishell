@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/07/22 14:01:07 by ronanpoder        #+#    #+#             */
-/*   Updated: 2022/09/25 23:22:46 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/26 01:08:23 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -287,8 +287,11 @@ bool			is_valid_expand_key(char *key);
 void			cancel_sigquit(void);
 void			ignore_all_sigs(void);
 void			default_all_sigs(void);
+
+/* sig_prototypes2.c */
 void			custom_all_sigs(void);
 void			custom_heredoc_all_sigs(void);
+void			custom_sigquit(void);
 
 /* sig_handler.c */
 void			handle_custom_sigint(int signum);

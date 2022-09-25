@@ -6,7 +6,7 @@
 #    By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2022/02/16 17:38:32 by rpoder            #+#    #+#              #
-#    Updated: 2022/09/25 23:20:55 by mpourrey         ###   ########.fr        #
+#    Updated: 2022/09/26 01:08:09 by mpourrey         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ LIBFT				:=	./libft/libft.a
 
 INCLUDEDIR			:=	./includes
 
-SRcdIR				:=	./src
+SRCDIR				:=	./src
 
 OBJDIR				:=	./obj
 
@@ -76,6 +76,7 @@ SRCS				:=	main.c \
 						executer/executer_tool_utils.c \
 						executer/executer_tool_utils_2.c \
 						handle_signals/sig_prototypes.c \
+						handle_signals/sig_prototypes2.c \
 						handle_signals/sig_handler.c \
 
 CC					:=	cc
@@ -88,7 +89,7 @@ NAME				:=	$(PROGNAME)
 
 OUTDIR				:=	$(OBJDIR)
 
-$(OUTDIR)/%.o		:	$(SRcdIR)/%.c | $(OUTDIR)
+$(OUTDIR)/%.o		:	$(SRCDIR)/%.c | $(OUTDIR)
 	@mkdir -p $(dir $@)
 	$(CC) -c $(CCFLAGS) -I $(INCLUDEDIR) $(addprefix -I ,$(dir $(LIBFT))) $< -o $@
 
@@ -109,9 +110,10 @@ clean				:
 ifdef LIBFT
 	$(MAKE) -C $(dir $(LIBFT)) fclean
 endif
+	$(RM) -rf $(OBJDIR)
 
 fclean				:	clean
-	$(RM) -f $(PROGNAME) $(DEBUGNAME)
+	$(RM) -f $(PROGNAME)
 
 re					:	fclean
 					make $(NAME)

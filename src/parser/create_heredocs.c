@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 19:57:39 by mpourrey          #+#    #+#             */
-/*   Updated: 2022/09/25 23:16:48 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/26 00:52:22 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,6 +62,8 @@ static int	get_and_write_lines(int fd, t_heredoc_tool *tool)
 	custom_heredoc_all_sigs();
 	while (ft_strcmp(tool->carriaged_heredoc_line, tool->lim) != 0)
 	{
+		if (tool->carriaged_heredoc_line != NULL)
+			ft_putstr_fd(tool->carriaged_heredoc_line, fd);
 		if (tool->carriaged_heredoc_line)
 			free(tool->carriaged_heredoc_line);
 		tool->heredoc_line = readline("heredoc> ");
@@ -74,7 +76,6 @@ static int	get_and_write_lines(int fd, t_heredoc_tool *tool)
 			close(tool->tmp_stdin);
 			return (malloc_err);
 		}
-		ft_putstr_fd(tool->carriaged_heredoc_line, fd);
 	}
 	free (tool->carriaged_heredoc_line);
 	if (close(tool->tmp_stdin) != 0)

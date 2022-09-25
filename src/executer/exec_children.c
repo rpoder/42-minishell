@@ -6,7 +6,7 @@
 /*   By: mpourrey <mpourrey@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2022/09/21 18:17:45 by rpoder            #+#    #+#             */
-/*   Updated: 2022/09/25 19:49:15 by mpourrey         ###   ########.fr       */
+/*   Updated: 2022/09/26 00:06:51 by mpourrey         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,7 @@ static void	exec_child(t_data *data, t_list *cmd,
 
 	cmd_node = ((t_cmd_node *)cmd->content);
 	default_all_sigs();
+	custom_sigquit();
 	if (!is_last_cmd(cmd))
 		redirect_to_pipe(data, tool);
 	chevron_redirection(data, (t_cmd_node *)cmd->content, tool);
